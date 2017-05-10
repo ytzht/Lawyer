@@ -1,1 +1,1 @@
-include ':app', 'LawyerPushSDK', 'Lawfirm', 'LawfirmPushSDK'
+include ':Client', 'LawyerPushSDK', 'Lawfirm', 'LawfirmPushSDK'

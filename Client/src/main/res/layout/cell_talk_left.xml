@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_time_conversation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="@dimen/x20"
+        tools:text="2017-03-03 08:58:16"
+        android:textColor="#999999"
+        android:textSize="12sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/x20"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x30"
+        android:layout_marginRight="@dimen/x30">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_talking_avatar"
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/x80"
+            android:src="@drawable/ic_member_avatar" />
+
+        <TextView
+            android:id="@+id/tv_talking_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/civ_talking_avatar"
+            android:text="姓名"
+            android:textColor="@color/blackModule"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_talking_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_talking_name"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="@dimen/x110"
+            android:layout_toRightOf="@id/civ_talking_avatar"
+            android:background="@drawable/chat_g"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/x28"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            tools:text="新华社13日播发长篇通讯《千年大计、国家大事——以习近平同志为核心的党中央决策河北雄安新区规划建设纪实》，文章翔实记录了决策规划建设雄安新区的全过程。此外，对于雄安新区建设，国家发改委新闻发言人昨日表示，正在指导河北省和有关方面，组织编制雄安新区总体规划以及系列规划。" />
+
+
+
+        <LinearLayout
+            android:layout_marginLeft="6dp"
+            android:id="@+id/ll_iv_msg"
+            android:visibility="gone"
+            android:layout_toRightOf="@id/civ_talking_avatar"
+            android:layout_below="@id/tv_talking_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/chat_g"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
+
+                <com.onekeyask.lawyer.utils.photo.PhotoView
+                    android:id="@+id/iv_talking_msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_member_avatar"
+                    tools:text="新华社13日播发长篇通讯《千年大计、国家大事——以习近平同志为核心的党中央决策河北雄安新区规划建设纪实》，文章翔实记录了决策规划建设雄安新区的全过程。此外，对于雄安新区建设，国家发改委新闻发言人昨日表示，正在指导河北省和有关方面，组织编制雄安新区总体规划以及系列规划。" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

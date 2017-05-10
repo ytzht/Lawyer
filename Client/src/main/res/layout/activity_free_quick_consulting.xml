@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.onekeyask.lawyer.ui.act.consulting.ConsultingDetailActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="1"
+        android:paddingBottom="0dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/x30"
+                    android:paddingTop="@dimen/x24"
+                    android:text="请输入您想要咨询的问题"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/et_con_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    android:enabled="true"
+                    android:gravity="top"
+                    android:hint="请详细描述您的申请需求、证据、相应的数据，便于律师更准确的分析，法宝律师保证您的隐私。(问题描述不得少于10个字，最多输入200字，而且图片最多上传9张)"
+                    android:inputType="textMultiLine"
+                    android:maxLength="200"
+                    android:maxLines="10"
+                    android:minLines="6"
+                    android:textColorHint="#aeaeae"
+                    android:lineSpacingExtra="@dimen/x14"
+                    android:paddingLeft="@dimen/x30"
+                    android:paddingRight="@dimen/x30"
+                    android:paddingTop="@dimen/x24"
+                    android:paddingBottom="@dimen/x24"
+                    android:scrollbars="vertical"
+                    android:textSize="@dimen/x26" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rlv_photos_free"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/viewDivider"
+                    android:minHeight="10dp">
+
+                </android.support.v7.widget.RecyclerView>
+
+
+                <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="10dp"-->
+                <!--android:background="@color/divider" />-->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/x30"
+                    android:paddingLeft="@dimen/x30"
+                    android:paddingBottom="@dimen/x26"
+                    android:text="请选择问题类别"
+                    android:textColor="@color/blackTopic" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rlv_con_tag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x16"
+                    android:layout_marginRight="@dimen/x16">
+
+                </android.support.v7.widget.RecyclerView>
+
+
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x100">
+
+
+        <LinearLayout
+            android:id="@+id/ll_bottom_menu"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x98"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_input_bottom"
+                android:layout_width="@dimen/x48"
+                android:layout_height="@dimen/x48"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:src="@drawable/keyboard_c" />
+
+            <ImageView
+                android:id="@+id/iv_voice_bottom"
+                android:layout_width="@dimen/x48"
+                android:layout_height="@dimen/x48"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:src="@drawable/voice" />
+
+            <ImageView
+                android:id="@+id/iv_photo_bottom"
+                android:layout_width="@dimen/x48"
+                android:layout_height="@dimen/x48"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:src="@drawable/pic" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x2"
+            android:layout_above="@id/ll_bottom_menu"
+            android:background="@drawable/bottom_bar_top_shadow" />
+    </RelativeLayout>
+</LinearLayout>

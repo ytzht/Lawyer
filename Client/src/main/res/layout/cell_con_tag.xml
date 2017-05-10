@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/x14">
+
+    <TextView
+        android:id="@+id/tv_tag_text"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x54"
+        android:background="@drawable/tag_unselect"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="确定"
+        android:textSize="@dimen/x26"
+
+        android:textColor="@color/blackModule" />
+
+</LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3492EA</color>
+    <color name="colorPrimaryDark">#3492EA</color>
+    <color name="colorAccent">#3492EA</color>
+    <color name="burro_primary_ext">#3492EA</color>
+
+    <color name="baseColor">#56d177</color>
+    <color name="baseOrange">#f79f0a</color>
+    
+    <color name="blackTopic">#343434</color>
+    <color name="blackModule">#6f6f6f</color>
+    <color name="blackSec">#8e8e8e</color>
+    <color name="blackSec_">#8a8a8a</color>
+    <color name="blackHint">#aeaeae</color>
+
+    <color name="divider">#dddddd</color>
+    <color name="divider_">#e6e6e6</color>
+    <color name="viewDivider">#f0f0f0</color>
+    <color name="input_bg">#fbfbfb</color>
+
+    <color name="now_service_name">#333333</color>
+    <color name="now_service_no_name">#8e8e8e</color>
+
+    <color name="base_text_color">#343434</color>
+    <color name="transparentBlack">#96000000</color>
+
+
+    <color name="white">#ffffffff</color>
+    <color name="black">#ff000000</color>
+    <color name="black_">#424242</color>
+    <color name="grey">#5A5A5A</color>
+    <color name="grey_">#5A5A5A</color>
+    <color name="ser_grey">#8a8a8a</color>
+
+
+    <color name="red">#ff2d4b</color>
+    <color name="org">#f79f0a</color>
+    <color name="black_light">#363636</color>
+
+</resources>
