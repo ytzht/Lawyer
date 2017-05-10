@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray"
+    tools:context="com.onekeyask.lawfirm.ui.act.index.PayConsultActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x98"
+            android:layout_marginTop="@dimen/x20"
+            android:background="@color/white"
+            android:textSize="@dimen/x32">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="私人律师开关"
+                android:layout_marginLeft="@dimen/x30"
+                android:textColor="@color/blackTopic"
+                android:textSize="@dimen/x32" />
+
+            <com.kyleduo.switchbutton.SwitchButton
+                android:id="@+id/sb_phone"
+                style="@style/SwitchButtonStyle"
+                app:kswTintColor="@color/switchButton"
+                android:layout_width="@dimen/x80"
+                android:layout_height="@dimen/x50"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                app:kswAnimationDuration="300"
+                app:kswThumbDrawable="@drawable/switch_circle"
+                app:kswBackDrawable="@drawable/ios_back_drawable"  />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x84"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginRight="@dimen/x30"
+            android:textSize="@dimen/x28"
+            android:textColor="@color/blackSec"
+            android:hint="关闭此项服务将不能收到用户信息，正常使用不可关闭" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x98"
+            android:gravity="center_vertical"
+            android:paddingRight="@dimen/x30"
+            android:paddingLeft="@dimen/x30"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blackTopic"
+                android:textSize="@dimen/x32"
+                android:text="费用(周)" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/x28"
+                android:textColor="@color/blackSec"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="100元/周" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x98"
+            android:gravity="center_vertical"
+            android:paddingRight="@dimen/x30"
+            android:paddingLeft="@dimen/x30"
+            android:layout_marginTop="1dp"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blackTopic"
+                android:textSize="@dimen/x32"
+                android:text="费用(月)" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/x28"
+                android:textColor="@color/blackSec"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="1000元/月" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x98"
+            android:gravity="center_vertical"
+            android:paddingRight="@dimen/x30"
+            android:paddingLeft="@dimen/x30"
+            android:layout_marginTop="1dp"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blackTopic"
+                android:textSize="@dimen/x32"
+                android:text="费用(年)" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/x28"
+                android:textColor="@color/blackSec"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="10000元/年" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginTop="@dimen/x40"
+            android:text="温馨提示"
+            android:textColor="#6f6f6f"
+            android:textSize="@dimen/x28"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginTop="@dimen/x22"
+            android:text="费用使用说明"
+            android:textSize="@dimen/x28"
+            android:textColor="#8e8e8e"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginTop="@dimen/x24"
+            android:textSize="@dimen/x24"
+            android:text="1、婚姻关系存续期间，以夫妻双方的名义，为夫妻共同生活所负的债务; \n   2、婚姻关系存续期间夫妻一方以个人名义所负债务，一般是按夫妻共同债务处理，但夫妻一方能够证明债权人与债务人明确约定为个人债务，或者能够证明夫妻对婚姻关系存续期间所得的财产约定归各自所有，且债权人知道该约定的，为夫妻一方的个人债务;  \n   3、一方婚前所负个人债务，一般为个人债务，但是债权人能够证明一方婚前所负债务用于婚后家庭共同生活的，为夫妻共同债务。"
+            android:lineSpacingExtra="@dimen/x12"
+            android:textColor="#8e8e8e"
+
+            />
+    </LinearLayout>
+
+
+</RelativeLayout>

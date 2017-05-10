@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarSize"
+        android:background="@color/burro_primary_ext">
+
+        <ImageView
+            android:id="@+id/iv_top_msg"
+            android:layout_width="@dimen/x60"
+            android:layout_height="@dimen/x60"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x38"
+            android:layout_marginRight="@dimen/x30"
+            android:padding="2dp"
+            android:src="@drawable/tips_n" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_height="@dimen/x60"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv_top_msg"
+            android:background="@drawable/index_search_bg" />
+
+        <ImageView
+            android:id="@+id/search_iv"
+            android:layout_width="@dimen/x30"
+            android:layout_height="@dimen/x30"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x50"
+            android:src="@drawable/search" />
+
+        <EditText
+            android:id="@+id/search_et"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="22dp"
+            android:layout_toLeftOf="@id/iv_top_msg"
+            android:layout_toRightOf="@id/search_iv"
+            android:background="@null"
+            android:cursorVisible="false"
+            android:hint="@string/Search_for_related_legal_content"
+            android:singleLine="true"
+            android:textSize="@dimen/x28" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.0"
+        android:background="#fefefe">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/rl_quick_consulting"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="?listChoiceBackgroundIndicator">
+
+                    <ImageView
+                        android:id="@+id/iv_quick_consulting"
+                        android:layout_width="@dimen/x98"
+                        android:layout_height="@dimen/x98"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x30"
+                        android:layout_marginRight="12dp"
+                        android:src="@drawable/wechart" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/iv_quick_consulting"
+                        android:layout_marginTop="@dimen/x10"
+                        android:layout_toRightOf="@id/iv_quick_consulting"
+                        android:text="@string/quick_consulting"
+                        android:textSize="@dimen/x36" />
+
+                    <TextView
+                        android:textSize="@dimen/x28"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/iv_quick_consulting"
+                        android:layout_marginBottom="0dp"
+                        android:layout_toRightOf="@id/iv_quick_consulting"
+                        android:maxLines="1"
+                        android:text="@string/quick_consulting_intro"
+                        android:textColor="@color/blackModule" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_look_lawyer"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="?listChoiceBackgroundIndicator">
+
+                    <ImageView
+                        android:id="@+id/iv_look_lawyer"
+                        android:layout_width="@dimen/x98"
+                        android:layout_height="@dimen/x98"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x30"
+                        android:layout_marginRight="12dp"
+                        android:src="@drawable/find_lawyer" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/iv_look_lawyer"
+                        android:layout_marginTop="@dimen/x10"
+                        android:layout_toRightOf="@id/iv_look_lawyer"
+                        android:text="@string/look_lawyer"
+                        android:textSize="@dimen/x36" />
+
+                    <TextView
+                        android:textSize="@dimen/x28"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/iv_look_lawyer"
+                        android:layout_marginBottom="0dp"
+                        android:layout_toRightOf="@id/iv_look_lawyer"
+                        android:maxLines="1"
+                        android:text="律师秒回任你选，专业对号入座"
+                        android:textColor="@color/blackModule" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginRight="@dimen/x30"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_project_one"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?listChoiceBackgroundIndicator">
+
+                        <ImageView
+                            android:id="@+id/iv_sub1"
+                            android:layout_width="@dimen/x50"
+                            android:layout_height="@dimen/x50"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/x40"
+                            android:src="@drawable/subject_1" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_below="@id/iv_sub1"
+                            android:layout_marginBottom="@dimen/x40"
+                            android:layout_marginTop="@dimen/x14"
+                            android:gravity="center"
+                            android:text="@string/project_1"
+                            android:textColor="@color/blackModule"
+                            android:textSize="@dimen/x26" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_project_two"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?listChoiceBackgroundIndicator">
+
+                        <ImageView
+                            android:id="@+id/iv_sub2"
+                            android:layout_width="@dimen/x50"
+                            android:layout_height="@dimen/x50"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/x40"
+                            android:src="@drawable/subject_2" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="@dimen/x40"
+                            android:gravity="center"
+                            android:text="@string/project_2"
+                            android:textColor="@color/blackModule"
+                            android:textSize="@dimen/x26" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_project_three"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?listChoiceBackgroundIndicator">
+
+                        <ImageView
+                            android:id="@+id/iv_sub3"
+                            android:layout_width="@dimen/x50"
+                            android:layout_height="@dimen/x50"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/x40"
+                            android:src="@drawable/subject_3" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="@dimen/x40"
+                            android:gravity="center"
+                            android:text="@string/project_3"
+                            android:textColor="@color/blackModule"
+                            android:textSize="@dimen/x26" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_project_four"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?listChoiceBackgroundIndicator">
+
+                        <ImageView
+                            android:id="@+id/iv_sub4"
+                            android:layout_width="@dimen/x50"
+                            android:layout_height="@dimen/x50"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/x40"
+                            android:src="@drawable/subject_4" />
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="@dimen/x40"
+                            android:gravity="center"
+                            android:text="@string/project_4"
+                            android:textColor="@color/blackModule"
+                            android:textSize="@dimen/x26" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider_" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x108"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="@dimen/x30"
+                        android:layout_marginRight="@dimen/x32"
+                        android:layout_marginTop="10dp"
+                        android:paddingRight="2dp"
+                        android:text="@string/little_knowledge_of_law"
+                        android:textColor="@color/burro_primary_ext"
+                        android:textSize="@dimen/x30"
+                        android:textStyle="italic|bold" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="@dimen/x72"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/divider_" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/x18"
+                        android:gravity="center_vertical"
+                        android:text="法定继承人有哪些？"
+                        android:textSize="@dimen/x26"
+                        android:textColor="@color/blackTopic" />
+                </LinearLayout>
+
+
+                <com.youth.banner.Banner
+                    android:id="@+id/banner_index"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x180"
+                    app:image_scale_type="fit_xy"
+                    app:indicator_drawable_selected="@drawable/banner_select"
+                    app:indicator_drawable_unselected="@drawable/banner_unselect"
+                    app:indicator_height="@dimen/x14"
+                    app:indicator_width="@dimen/x14" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x20"
+                    android:background="@color/viewDivider" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x90">
+
+                    <ImageView
+                        android:layout_width="@dimen/x50"
+                        android:layout_height="@dimen/x50"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x30"
+                        android:layout_marginRight="@dimen/x14"
+
+                        android:src="@drawable/answer" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x94"
+                        android:text="@string/high_quality_solutions"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/x32" />
+
+                    <TextView
+                        android:id="@+id/tv_more_solutions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:text="@string/more"
+                        android:textColor="@color/burro_primary_ext"
+                        android:textSize="@dimen/x24" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider_" />
+
+
+                <include layout="@layout/cell_index" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rlv_index"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+</LinearLayout>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.onekeyask.lawfirm.ui.act.talk.AskDetailActivity">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/talk_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:navigationIcon="@drawable/arrow_l_w"
+        android:theme="@style/ToolbarPopupTheme"
+        app:navigationIcon="@drawable/arrow_l_w">
+
+        <TextView
+            android:id="@+id/talk_toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            tools:text="标题" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/talk_toolbar"
+        android:orientation="vertical">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical">
+
+
+            <include layout="@layout/cell_talk_left" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rlv_ask_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/tv_notice_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:hint="想要回答用户的问题应该先抢单，当您确认抢单之后，请在3分钟内对客户问题进行回答。谢谢合作！" />
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/btn_order_detail"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/btn_full_four"
+                android:text="确认抢单"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+
+    </ScrollView>
+    <include layout="@layout/cell_photo_view" />
+</RelativeLayout>

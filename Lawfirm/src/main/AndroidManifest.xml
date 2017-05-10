@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.onekeyask.lawfirm">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+
+    <application
+        android:name=".app.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="58ff00b4734be461f00003d8 " />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="default" />
+
+
+        <!--for wechat share-->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!--for sina share-->
+        <activity
+            android:name=".WBShareActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.umeng.socialize.editorpage.ShareActivity"
+            android:theme="@style/Theme.UMDefault"
+            android:excludeFromRecents="true"
+            />
+
+
+        <activity
+            android:name=".ui.act.AppLauncherActivity"
+            android:theme="@style/BaseTheme.Volunteer.Launcher">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.act.MainActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/MainTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/customTheme" />
+        <activity
+            android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".ui.act.index.PayConsultActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.index.GraphicConsultActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.index.PhoneConsultActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.index.PersonConsultActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.service.TalkingActivity"
+            android:label=""
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.talk.AskDetailActivity"
+            android:label=""
+            android:launchMode="singleTask" />
+    </application>
+
+</manifest>

@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarSize"
+        android:background="@color/burro_primary_ext">
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_height="@dimen/x60"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/index_search_bg" />
+
+        <ImageView
+            android:id="@+id/search_iv"
+            android:layout_width="@dimen/x30"
+            android:layout_height="@dimen/x30"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x50"
+            android:src="@drawable/search" />
+
+        <EditText
+            android:id="@+id/search_et"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="22dp"
+            android:layout_toRightOf="@id/search_iv"
+            android:background="@null"
+            android:cursorVisible="false"
+            android:hint="@string/Search_for_related_legal_content"
+            android:singleLine="true"
+            android:textSize="@dimen/x28" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.0"
+        android:background="#fefefe">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.youth.banner.Banner
+                    android:id="@+id/banner_index"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x248"
+                    app:image_scale_type="fit_xy"
+                    app:indicator_drawable_selected="@drawable/banner_select"
+                    app:indicator_drawable_unselected="@drawable/banner_unselect"
+                    app:indicator_height="3dp"
+                    app:indicator_width="10dp"
+                    tools:indicator_height="10dp"
+                    tools:indicator_margin="5dp"
+                    tools:indicator_width="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/x10"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_project_one"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?listChoiceBackgroundIndicator">
+
+                        <ImageView
+                            android:id="@+id/iv_index_1"
+                            android:layout_width="@dimen/x78"
+                            android:layout_height="@dimen/x78"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/x34"
+                            android:src="@drawable/consult_reward" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/iv_index_1"
+                            android:layout_marginBottom="@dimen/x34"
+                            android:layout_marginTop="@dimen/x22"
+                            android:gravity="center"
+                            android:text="@string/project_1"
+                            android:textColor="#333333"
+                            android:textSize="@dimen/x26" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_project_two"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?listChoiceBackgroundIndicator">
+
+                        <ImageView
+                            android:id="@+id/iv_index_2"
+                            android:layout_width="@dimen/x78"
+                            android:layout_height="@dimen/x78"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/x34"
+                            android:src="@drawable/consult_pic" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/iv_index_2"
+                            android:layout_marginBottom="@dimen/x34"
+                            android:layout_marginTop="@dimen/x22"
+                            android:gravity="center"
+                            android:text="@string/project_2"
+                            android:textColor="#333333"
+                            android:textSize="@dimen/x26"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_project_three"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?listChoiceBackgroundIndicator">
+
+                        <ImageView
+                            android:id="@+id/iv_index_3"
+                            android:layout_width="@dimen/x78"
+                            android:layout_height="@dimen/x78"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/x34"
+                            android:src="@drawable/contult_tel" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/x22"
+                            android:gravity="center"
+                            android:text="@string/project_3"
+                            android:textColor="#333333"
+                            android:textSize="@dimen/x26"
+                            android:layout_below="@+id/iv_index_3"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_project_four"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?listChoiceBackgroundIndicator">
+
+                        <ImageView
+                            android:id="@+id/iv_index_4"
+                            android:layout_width="@dimen/x78"
+                            android:layout_height="@dimen/x78"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/x34"
+                            android:src="@drawable/contult_private" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/iv_index_4"
+                            android:layout_marginBottom="@dimen/x34"
+                            android:layout_marginTop="@dimen/x22"
+                            android:gravity="center"
+                            android:text="@string/project_4"
+                            android:textColor="#333333"
+                            android:textSize="@dimen/x26"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="@dimen/x54"
+                    android:layout_width="match_parent"
+                    android:layout_marginRight="@dimen/x30"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_height="wrap_content">
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider_" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/divider_" />
+
+                    <ImageView
+                        android:id="@+id/iv_tv_a"
+                        android:layout_width="@dimen/x88"
+                        android:layout_height="@dimen/x88"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="@dimen/x20"
+                        android:layout_marginTop="@dimen/x20"
+                        android:src="@drawable/income" />
+
+                    <TextView
+                        android:id="@+id/tv_monthIncome_index"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/iv_tv_a"
+                        android:layout_marginLeft="@dimen/x30"
+                        android:textSize="@dimen/x34"
+                        tools:text="本月收入：￥134元" />
+
+                    <ImageView
+                        android:id="@+id/iv_arrow_index1"
+                        android:layout_width="22dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:padding="4dp"
+                        android:src="@drawable/arrow_r_g" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/iv_arrow_index1"
+                        android:text="收入详情"
+                        android:textColor="@color/burro_primary_ext"
+                        android:textSize="@dimen/x34" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/x82"
+                    android:layout_marginRight="@dimen/x30"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider_" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/divider_" />
+
+
+                    <ImageView
+                        android:id="@+id/iv_input_index"
+                        android:layout_width="@dimen/x88"
+                        android:layout_height="@dimen/x88"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/x20"
+                        android:layout_marginBottom="@dimen/x20"
+                        android:src="@drawable/wallet" />
+
+                    <TextView
+                        android:id="@+id/tv_balance_index"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/iv_input_index"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x30"
+                        android:textSize="@dimen/x34"
+                        tools:text="我的钱包：￥2066元" />
+
+
+                    <ImageView
+                        android:id="@+id/iv_arrow_index2"
+                        android:layout_width="22dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:padding="4dp"
+                        android:src="@drawable/arrow_r_g" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/iv_arrow_index2"
+                        android:text="提现"
+                        android:textColor="@color/burro_primary_ext"
+                        android:textSize="@dimen/x34" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginRight="@dimen/x30"
+                    android:layout_marginTop="@dimen/x34"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginBottom="@dimen/x80"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="@dimen/x34"
+                        android:layout_height="@dimen/x34"
+                        android:layout_marginTop="@dimen/x4"
+                        android:src="@drawable/tips" />
+
+                    <TextView
+                        android:textSize="@dimen/x28"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x16"
+                        android:layout_marginTop="@dimen/x4"
+                        android:hint="当月总金额低于50元将自动累计到下月，待总金额满50元才可以提现。" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+    </FrameLayout>
+</LinearLayout>

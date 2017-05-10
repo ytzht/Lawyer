@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.onekeyask.lawfirm.ui.act.service.TalkingActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/talk_toolbar"
+        app:navigationIcon="@drawable/arrow_l_w"
+        android:navigationIcon="@drawable/arrow_l_w"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ToolbarPopupTheme" >
+
+        <TextView
+            android:id="@+id/talk_toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:singleLine="true"
+            tools:text="标题"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:layout_below="@id/talk_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rlv_talking"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <!--<com.bm.library.PhotoView-->
+    <!--android:id="@+id/photo_view_img"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:scaleType="centerInside" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_input_send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/bottom_bar_top_shadow" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/viewDivider">
+
+                <EditText
+                    android:id="@+id/et_send_msg"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null" />
+
+                <TextView
+                    android:id="@+id/tv_send_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="6dp"
+                    android:background="@drawable/talking_send"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="发送"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/bottom_bar_top_shadow" />
+
+        <LinearLayout
+            android:id="@+id/ll_bottom_menu"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_input_bottom"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:src="@drawable/keyboard_c" />
+
+            <ImageView
+                android:id="@+id/iv_voice_bottom"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:src="@drawable/voice" />
+
+            <ImageView
+                android:id="@+id/iv_photo_bottom"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:src="@drawable/pic" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_no_eva"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/viewDivider"
+            android:gravity="center"
+            android:text="尚未评价"
+            android:textColor="@color/blackModule"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/ll_eva"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/viewDivider"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/x20"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="@dimen/x30"
+                    android:text="用户评价："
+                    android:textColor="@color/base_text_color"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_satisfied"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/x30"
+                    android:text="很满意"
+                    android:textColor="@color/baseOrange"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/tag_flow"
+                app:max_select="0"
+                android:paddingLeft="@dimen/x14"
+                android:paddingRight="@dimen/x14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/x4"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/x36"
+                    android:layout_marginLeft="12dp"
+                    android:textColor="@color/blackModule"
+                    android:text="用户留言："/>
+                <TextView
+                    android:id="@+id/tv_speak_eva"
+                    android:layout_marginTop="@dimen/x4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/blackModule"
+                    android:text="很满意"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+    <FrameLayout
+        android:id="@+id/parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ff000000" />
+
+        <com.onekeyask.lawfirm.utils.photo.PhotoView
+            android:id="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+</RelativeLayout>
