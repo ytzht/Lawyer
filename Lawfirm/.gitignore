@@ -1,1 +1,13 @@
 /build
+*.iml
+.gradle
+/oldapk
+/gradle
+/local.properties
+/.idea
+.DS_Store
+/captures
+.externalNativeBuild
+*.apk
+*.log
+*.jks
