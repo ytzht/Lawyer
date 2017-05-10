@@ -1,7 +1,6 @@
 /build
 *.iml
 .gradle
-/oldapk
 /gradle
 /local.properties
 /.idea
