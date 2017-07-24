@@ -71,13 +71,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/x92"
+                    android:layout_height="46dp"
                     android:background="@color/input_bg">
 
                     <EditText
                         android:id="@+id/et_send_msg"
                         android:layout_width="0dp"
-                        android:textSize="@dimen/x30"
+                        android:textSize="15dp"
                         android:textColor="@color/blackTopic"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
@@ -86,13 +86,13 @@
 
                     <TextView
                         android:id="@+id/tv_send_msg"
-                        android:layout_width="@dimen/x110"
-                        android:layout_height="@dimen/x60"
+                        android:layout_width="55dp"
+                        android:layout_height="30dp"
                         android:layout_margin="6dp"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/talking_send"
                         android:gravity="center"
-                        android:textSize="@dimen/x30"
+                        android:textSize="15dp"
                         android:text="发送"
                         android:textColor="@color/white" />
 
@@ -124,19 +124,19 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/x48"
-                        android:layout_marginTop="@dimen/x28"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="14dp"
                         android:src="@drawable/keyboard_c" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/x20"
-                        android:layout_marginBottom="@dimen/x30"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="15dp"
                         android:textColor="@color/blackModule"
                         android:gravity="center"
                         android:text="书写"
-                        android:textSize="@dimen/x24" />
+                        android:textSize="12dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -149,20 +149,20 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/x48"
+                        android:layout_height="24dp"
                         android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/x28"
+                        android:layout_marginTop="14dp"
                         android:src="@drawable/voice" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/x20"
-                        android:layout_marginBottom="@dimen/x30"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="15dp"
                         android:textColor="@color/blackModule"
                         android:gravity="center"
                         android:text="语音"
-                        android:textSize="@dimen/x24" />
+                        android:textSize="12dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -175,20 +175,20 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/x48"
+                        android:layout_height="24dp"
                         android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/x28"
+                        android:layout_marginTop="14dp"
                         android:src="@drawable/pic" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/x20"
-                        android:layout_marginBottom="@dimen/x30"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="15dp"
                         android:textColor="@color/blackModule"
                         android:gravity="center"
                         android:text="图片"
-                        android:textSize="@dimen/x24" />
+                        android:textSize="12dp" />
 
                 </LinearLayout>
 
@@ -202,20 +202,20 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/x48"
+                        android:layout_height="24dp"
                         android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/x28"
+                        android:layout_marginTop="14dp"
                         android:src="@drawable/heart_b" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/x20"
-                        android:layout_marginBottom="@dimen/x30"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="15dp"
                         android:textColor="@color/blackModule"
                         android:gravity="center"
                         android:text="送心意"
-                        android:textSize="@dimen/x24" />
+                        android:textSize="12dp" />
 
                 </LinearLayout>
 
@@ -229,20 +229,20 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/x48"
+                        android:layout_height="24dp"
                         android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/x28"
+                        android:layout_marginTop="14dp"
                         android:src="@drawable/forward" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/x20"
-                        android:layout_marginBottom="@dimen/x30"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="15dp"
                         android:textColor="@color/blackModule"
                         android:gravity="center"
                         android:text="转发"
-                        android:textSize="@dimen/x24" />
+                        android:textSize="12dp" />
 
                 </LinearLayout>
             </LinearLayout>

@@ -18,12 +18,12 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/civ_eva_lawyer"
-                android:layout_width="@dimen/x88"
-                android:layout_height="@dimen/x88"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/x30"
-                android:layout_marginTop="@dimen/x38"
-                android:layout_marginBottom="@dimen/x36"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="18dp"
                 android:src="@drawable/ic_member_avatar"
                 app:civ_border_color="#FFFFFF"
                 app:civ_border_width="0.1dp" />
@@ -33,15 +33,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/civ_eva_lawyer"
-                android:layout_marginLeft="@dimen/x24"
-                android:layout_marginTop="@dimen/x40"
-                android:textSize="@dimen/x32"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="20dp"
+                android:textSize="16sp"
                 android:textColor="@color/black"
                 android:text="张晓" />
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_marginLeft="@dimen/x24"
-                android:textSize="@dimen/x28"
+                android:layout_marginLeft="12dp"
+                android:textSize="14sp"
                 android:textColor="@color/blackSec_"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/tv_name_eva"
@@ -53,9 +53,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/civ_eva_lawyer"
-                android:layout_marginLeft="@dimen/x24"
+                android:layout_marginLeft="12dp"
                 android:layout_below="@id/tv_name_eva"
-                android:layout_marginTop="@dimen/x14"
+                android:layout_marginTop="8dp"
                 android:text="专业领域：交通事故、合同纠纷、劳动纠纷"
                 android:textColor="@color/grey"
                 android:textSize="12sp" />
@@ -71,9 +71,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/x40"
-            android:layout_marginLeft="@dimen/x30"
-            android:textSize="@dimen/x28"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="16dp"
+            android:textSize="14dp"
             android:textColor="@color/blackTopic"
             android:text="您对律师的服务满意吗？" />
 
@@ -81,7 +81,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/x24"
+            android:layout_marginTop="12dp"
             android:orientation="horizontal">
 
             <RelativeLayout
@@ -91,8 +91,8 @@
 
                 <LinearLayout
                     android:id="@+id/ll_eva_1"
-                    android:layout_width="@dimen/x200"
-                    android:layout_height="@dimen/x64"
+                    android:layout_width="100dp"
+                    android:layout_height="32dp"
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/tag_select"
                     android:gravity="center"
@@ -100,8 +100,8 @@
 
                     <ImageView
                         android:id="@+id/iv_eva_1"
-                        android:layout_width="@dimen/x34"
-                        android:layout_height="@dimen/x34"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
                         android:layout_marginBottom="4dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="4dp"
@@ -126,8 +126,8 @@
 
                 <LinearLayout
                     android:id="@+id/ll_eva_2"
-                    android:layout_width="@dimen/x200"
-                    android:layout_height="@dimen/x64"
+                    android:layout_width="100dp"
+                    android:layout_height="32dp"
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/gray_un_four"
                     android:gravity="center"
@@ -135,8 +135,8 @@
 
                     <ImageView
                         android:id="@+id/iv_eva_2"
-                        android:layout_width="@dimen/x34"
-                        android:layout_height="@dimen/x34"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
                         android:layout_marginBottom="4dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="4dp"
@@ -161,8 +161,8 @@
 
                 <LinearLayout
                     android:id="@+id/ll_eva_3"
-                    android:layout_width="@dimen/x200"
-                    android:layout_height="@dimen/x64"
+                    android:layout_width="100dp"
+                    android:layout_height="32dp"
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/gray_un_four"
                     android:gravity="center"
@@ -170,8 +170,8 @@
 
                     <ImageView
                         android:id="@+id/iv_eva_3"
-                        android:layout_width="@dimen/x34"
-                        android:layout_height="@dimen/x34"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
                         android:layout_marginBottom="4dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="4dp"
@@ -195,18 +195,18 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/x60"
-            android:layout_marginLeft="@dimen/x30"
-            android:textSize="@dimen/x28"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="16dp"
+            android:textSize="14dp"
             android:textColor="@color/blackTopic"
-            android:layout_marginRight="@dimen/x30"
-            android:layout_marginBottom="@dimen/x26"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="14dp"
             android:text="选择合适的标签(多个标签用空格分隔)" />
 
         <EditText
             android:id="@+id/et_tag_eva"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/x66"
+            android:layout_height="34dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:background="@drawable/gray_un_four"
@@ -223,18 +223,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/x24">
+            android:layout_margin="12dp">
 
             <ImageView
-                android:layout_width="@dimen/x30"
-                android:layout_height="@dimen/x30"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/often_label" />
 
             <TextView
                 android:layout_marginLeft="4dp"
                 android:layout_width="match_parent"
-                android:textSize="@dimen/x24"
+                android:textSize="12dp"
                 android:textColor="@color/blackModule"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -258,9 +258,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/x30"
-            android:layout_marginLeft="@dimen/x30"
-            android:layout_marginTop="@dimen/x30"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
             android:text="给律师一些评价吧！" />
 
         <EditText
@@ -268,28 +268,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/x30"
-            android:layout_marginLeft="@dimen/x30"
-            android:layout_marginTop="@dimen/x24"
-            android:layout_marginBottom="@dimen/x50"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/gray_un_four"
             android:enabled="true"
             android:gravity="top"
             android:hint="欢迎提出更多意见或建议"
             android:inputType="textMultiLine"
             android:maxLines="10"
-            android:minHeight="@dimen/x146"
+            android:minHeight="74dp"
             android:padding="12dp"
             android:scrollbars="vertical"
-            android:textSize="@dimen/x24" />
+            android:textSize="12dp" />
 
         <TextView
             android:gravity="center"
             android:id="@+id/btn_mind_submit"
-            android:layout_width="@dimen/x690"
-            android:layout_height="@dimen/x100"
-            android:layout_marginLeft="@dimen/x30"
-            android:layout_marginRight="@dimen/x30"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:background="@drawable/full_green_ten"
             android:text="提交"
             android:layout_marginBottom="20dp"

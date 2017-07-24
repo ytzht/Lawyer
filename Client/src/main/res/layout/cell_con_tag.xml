@@ -3,17 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="@dimen/x14">
+    android:padding="7dp">
 
     <TextView
         android:id="@+id/tv_tag_text"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x54"
+        android:layout_height="27dp"
         android:background="@drawable/tag_unselect"
         android:gravity="center"
         android:layout_gravity="center"
         android:text="确定"
-        android:textSize="@dimen/x26"
+        android:textSize="13dp"
 
         android:textColor="@color/blackModule" />
 

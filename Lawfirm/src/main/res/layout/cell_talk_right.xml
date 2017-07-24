@@ -11,21 +11,21 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         tools:text="2017-03-03 08:58:16"
-        android:layout_margin="@dimen/x20"
+        android:layout_margin="10dp"
         android:textColor="#999999"
         android:textSize="12sp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/x20"
-        android:layout_marginLeft="@dimen/x30"
-        android:layout_marginRight="@dimen/x30">
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civ_talking_avatar"
-            android:layout_width="@dimen/x80"
-            android:layout_height="@dimen/x80"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_member_avatar" />
 
@@ -33,13 +33,13 @@
             android:id="@+id/tv_talking_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/x110"
+            android:layout_marginLeft="55dp"
             android:layout_marginRight="4dp"
             android:layout_toLeftOf="@id/civ_talking_avatar"
             android:background="@drawable/chat"
             android:gravity="center_vertical"
             android:paddingBottom="10dp"
-            android:textSize="@dimen/x28"
+            android:textSize="14dp"
             android:paddingTop="10dp"
             android:textColor="@color/white"
             tools:text="早啊！新闻来了〔2017.04.14〕" />

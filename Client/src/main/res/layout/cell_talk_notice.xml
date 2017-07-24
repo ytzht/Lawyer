@@ -7,10 +7,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/x10"
-        android:layout_marginBottom="@dimen/x50"
-        android:layout_marginLeft="@dimen/x30"
-        android:layout_marginRight="@dimen/x30"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:text="请您耐心等待律师的回答，现在问题已经跑到问题池中，等待律师来抢答！"
         android:textColor="#aeaeae"/>
 

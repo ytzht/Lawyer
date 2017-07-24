@@ -10,22 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_margin="@dimen/x20"
+        android:layout_margin="10dp"
         tools:text="2017-03-03 08:58:16"
         android:textColor="#999999"
         android:textSize="12sp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginBottom="@dimen/x20"
+        android:layout_marginBottom="10dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x30"
-        android:layout_marginRight="@dimen/x30">
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civ_talking_avatar"
-            android:layout_width="@dimen/x80"
-            android:layout_height="@dimen/x80"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/ic_member_avatar" />
 
         <TextView
@@ -46,11 +46,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_talking_name"
             android:layout_marginLeft="4dp"
-            android:layout_marginRight="@dimen/x110"
+            android:layout_marginRight="55dp"
             android:layout_toRightOf="@id/civ_talking_avatar"
             android:background="@drawable/chat_g"
             android:gravity="center_vertical"
-            android:textSize="@dimen/x28"
+            android:textSize="14dp"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
             tools:text="新华社13日播发长篇通讯《千年大计、国家大事——以习近平同志为核心的党中央决策河北雄安新区规划建设纪实》，文章翔实记录了决策规划建设雄安新区的全过程。此外，对于雄安新区建设，国家发改委新闻发言人昨日表示，正在指导河北省和有关方面，组织编制雄安新区总体规划以及系列规划。" />

@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/x600"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/x46"
+        android:layout_marginTop="23dp"
         android:text="提示"
-        android:layout_marginLeft="@dimen/x36"
+        android:layout_marginLeft="18dp"
         android:textColor="@color/black"
-        android:textSize="@dimen/x36"
-        android:layout_marginBottom="@dimen/x28"/>
+        android:textSize="18dp"
+        android:layout_marginBottom="14dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="恭喜您分享成功，您成功获得30积分"
-        android:layout_marginLeft="@dimen/x36"
+        android:layout_marginLeft="18dp"
         android:textColor="#6f6f6f"
-        android:textSize="@dimen/x30"/>
+        android:textSize="15dp"/>
 
     <TextView
         android:id="@+id/tv_share_con"
-        android:layout_width="@dimen/x230"
-        android:layout_marginTop="@dimen/x80"
-        android:layout_marginBottom="@dimen/x36"
+        android:layout_width="115dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="18dp"
         android:layout_gravity="center"
         android:textColor="@color/white"
         android:text="确定"
-        android:textSize="@dimen/x32"
+        android:textSize="16dp"
         android:gravity="center"
         android:background="@drawable/banner_select"
-        android:layout_height="@dimen/x78" />
+        android:layout_height="39dp" />
 
 
 </LinearLayout>

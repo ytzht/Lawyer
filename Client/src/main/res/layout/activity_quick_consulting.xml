@@ -11,10 +11,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/x28"
-        android:padding="@dimen/x30"
+        android:padding="15dp"
         android:text="@string/input_your_question"
-        android:textColor="@color/blackModule" />
+        android:textColor="@color/blackModule"
+        android:textSize="14dp" />
 
     <View
         android:layout_width="match_parent"
@@ -24,46 +24,46 @@
     <RelativeLayout
         android:id="@+id/rl_free_con"
         android:layout_width="match_parent"
-        android:background="?listChoiceBackgroundIndicator"
-        android:layout_height="@dimen/x188">
+        android:layout_height="94dp"
+        android:background="?listChoiceBackgroundIndicator">
 
         <ImageView
             android:id="@+id/iv_free_con"
-            android:layout_width="@dimen/x120"
-            android:layout_height="@dimen/x120"
-            android:layout_margin="@dimen/x34"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="17dp"
             android:src="@drawable/tel_24" />
 
         <ImageView
             android:id="@+id/iv_arrow_con"
-            android:layout_width="@dimen/x70"
+            android:layout_width="35dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:padding="@dimen/x20"
+            android:padding="10dp"
             android:src="@drawable/arrow_r_g" />
 
         <TextView
             android:id="@+id/tv_free_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/x40"
+            android:layout_marginTop="20dp"
             android:layout_toLeftOf="@id/iv_arrow_con"
             android:layout_toRightOf="@id/iv_free_con"
             android:text="免费咨询律师"
             android:textColor="@color/black"
-            android:textSize="@dimen/x36" />
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/tv_points"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/x10"
             android:layout_below="@id/tv_free_title"
+            android:layout_marginTop="5dp"
             android:layout_toLeftOf="@id/iv_arrow_con"
             android:layout_toRightOf="@id/iv_free_con"
-            tools:text="年限两年以上的律师限20次对话小号200金币（现有340）"
             android:textColor="@color/blackSec_"
-            android:textSize="@dimen/x24" />
+            android:textSize="12dp"
+            tools:text="年限两年以上的律师限20次对话小号200金币（现有340）" />
     </RelativeLayout>
 
     <View
@@ -74,45 +74,45 @@
     <RelativeLayout
         android:id="@+id/rl_pay_con"
         android:layout_width="match_parent"
-        android:background="?listChoiceBackgroundIndicator"
-        android:layout_height="@dimen/x188">
+        android:layout_height="94dp"
+        android:background="?listChoiceBackgroundIndicator">
 
         <ImageView
             android:id="@+id/iv_pay_con"
-            android:layout_width="@dimen/x120"
-            android:layout_height="@dimen/x120"
-            android:layout_margin="@dimen/x34"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="17dp"
             android:src="@drawable/reward" />
 
         <ImageView
             android:id="@+id/iv_arrow_con2"
-            android:layout_width="@dimen/x70"
+            android:layout_width="35dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:padding="@dimen/x20"
+            android:padding="10dp"
             android:src="@drawable/arrow_r_g" />
 
         <TextView
             android:id="@+id/tv_pay_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/x40"
+            android:layout_marginTop="20dp"
             android:layout_toLeftOf="@id/iv_arrow_con2"
             android:layout_toRightOf="@id/iv_pay_con"
             android:text="打赏咨询律师"
             android:textColor="@color/black"
-            android:textSize="@dimen/x36" />
+            android:textSize="18dp" />
 
         <TextView
-            android:layout_below="@id/tv_pay_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/x10"
+            android:layout_below="@id/tv_pay_title"
+            android:layout_marginTop="5dp"
             android:layout_toLeftOf="@id/iv_arrow_con2"
             android:layout_toRightOf="@id/iv_pay_con"
             android:text="选择一定金额，然后有20次对话并在24小时内结束"
             android:textColor="@color/blackSec_"
-            android:textSize="@dimen/x24" />
+            android:textSize="12dp" />
     </RelativeLayout>
 
     <View

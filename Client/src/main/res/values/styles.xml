@@ -67,7 +67,7 @@
         <item name="colorPrimaryDark">@color/burro_primary_ext</item>
     </style>
 
-    <dimen name="actionBarSize">@dimen/x88</dimen>
+    <dimen name="actionBarSize">44dp</dimen>
 
     <style name="Inttus.TextAppearance" parent="Base.TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/burro_text_default</item>

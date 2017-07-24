@@ -162,9 +162,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/x20"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="12dp"
-                    android:layout_marginTop="@dimen/x30"
+                    android:layout_marginTop="15dp"
                     android:text="用户评价："
                     android:textColor="@color/base_text_color"
                     android:textSize="16sp" />
@@ -173,7 +173,7 @@
                     android:id="@+id/tv_satisfied"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/x30"
+                    android:layout_marginTop="15dp"
                     android:text="很满意"
                     android:textColor="@color/baseOrange"
                     android:textSize="16sp" />
@@ -182,8 +182,8 @@
             <com.zhy.view.flowlayout.TagFlowLayout
                 android:id="@+id/tag_flow"
                 app:max_select="0"
-                android:paddingLeft="@dimen/x14"
-                android:paddingRight="@dimen/x14"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -194,15 +194,15 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_marginTop="@dimen/x4"
+                    android:layout_marginTop="2dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/x36"
+                    android:layout_marginBottom="18dp"
                     android:layout_marginLeft="12dp"
                     android:textColor="@color/blackModule"
                     android:text="用户留言："/>
                 <TextView
                     android:id="@+id/tv_speak_eva"
-                    android:layout_marginTop="@dimen/x4"
+                    android:layout_marginTop="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/blackModule"

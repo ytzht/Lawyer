@@ -7,12 +7,12 @@
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="@dimen/x184"
-        android:textSize="@dimen/x28"
+        android:layout_width="92dp"
+        android:textSize="14dp"
         android:text="全部"
         android:background="@color/white"
         android:textColor="#6f6f6f"
         android:paddingLeft="10dp"
         android:gravity="center_vertical"
-        android:layout_height="@dimen/x70" />
+        android:layout_height="35dp" />
 </LinearLayout>

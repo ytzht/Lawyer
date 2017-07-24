@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/ytzht/Android/Lawyer/LawfirmPushSDK/assets"/><source path="/Users/ytzht/Android/Lawyer/LawfirmPushSDK/build/generated/assets/shaders/release"/></dataSet><dataSet config="release"><source path="/Users/ytzht/Android/Lawyer/LawfirmPushSDK/build-types/release/assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/ytzht/Android/GitHub/Lawyer/LawfirmPushSDK/assets"/><source path="/Users/ytzht/Android/GitHub/Lawyer/LawfirmPushSDK/build/generated/assets/shaders/release"/></dataSet><dataSet config="release"><source path="/Users/ytzht/Android/GitHub/Lawyer/LawfirmPushSDK/build-types/release/assets"/></dataSet></merger>

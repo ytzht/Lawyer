@@ -19,19 +19,19 @@
 
             <TextView
                 android:id="@+id/tv_name_give"
-                android:textSize="@dimen/x32"
+                android:textSize="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/x32"
+                android:layout_margin="16dp"
                 tools:text="张晓律师-送心意" />
 
             <TextView
                 android:id="@+id/tv_money_give"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/x32"
+                android:layout_margin="16dp"
                 android:layout_alignParentRight="true"
-                android:textSize="@dimen/x32"
+                android:textSize="16dp"
                 android:textColor="@color/org"
                 tools:text="2元" />
 
