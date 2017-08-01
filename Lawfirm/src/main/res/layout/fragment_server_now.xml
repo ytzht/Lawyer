@@ -18,13 +18,13 @@
         cube_ptr:ptr_resistance="1.7">
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rlv_now_ser"
-        android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rlv_now_ser"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
-    </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>
 
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 </LinearLayout>
