@@ -22,8 +22,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="58feecefaed179145300072d" />
@@ -31,7 +29,7 @@
             android:name="UMENG_CHANNEL"
             android:value="default" />
 
-        <!--for wechat pay-->
+        <!-- for wechat pay -->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|keyboard|navigation"
@@ -39,21 +37,19 @@
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <!--for alipay sdk-->
+        <!-- for alipay sdk -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind" >
-        </activity>
+            android:screenOrientation="behind" />
         <activity
             android:name="com.alipay.sdk.auth.AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind" >
-        </activity>
+            android:screenOrientation="behind" />
 
-        <!--for wechat share-->
+        <!-- for wechat share -->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -61,24 +57,21 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <!--for sina share-->
+        <!-- for sina share -->
         <activity
             android:name=".WBShareActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.umeng.socialize.editorpage.ShareActivity"
-            android:theme="@style/Theme.UMDefault"
             android:excludeFromRecents="true"
-            />
-
-
-
+            android:theme="@style/Theme.UMDefault" />
         <activity
             android:name=".ui.act.AppLauncherActivity"
             android:theme="@style/BaseTheme.Volunteer.Launcher">
@@ -115,8 +108,8 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".ui.act.consulting.EvaluateCompleteActivity"
-            android:theme="@style/PopupTheme"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:theme="@style/PopupTheme" />
         <activity
             android:name=".ui.act.consulting.PayLawyerActivity"
             android:launchMode="singleTask" />
@@ -126,8 +119,66 @@
         <activity
             android:name=".ui.act.consulting.TalkingActivity"
             android:label=""
-            android:theme="@style/PopupTheme"
+            android:launchMode="singleTask"
+            android:theme="@style/PopupTheme" />
+        <activity
+            android:name=".ui.act.me.MyIntegralActivity"
             android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.me.EarnPointsActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.me.MyWalletActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.me.BillingDetailsActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.me.RechargeActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.me.WithdrawalActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.me.PwdAuthActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.me.BalanceWithActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.me.CardManageActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.me.AddCardActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.me.WithStateActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.me.OpinionActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.me.SubmitOpinionActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.me.SettingActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.user.ResetPasswordActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.me.StatementActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.user.LoginActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.user.RegisterActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.user.MissPasswordActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".ui.act.user.MyInfoActivity"></activity>
     </application>
 
 </manifest>

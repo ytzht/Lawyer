@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/viewDivider"
+    tools:context="com.onekeyask.lawyer.ui.act.me.CardManageActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:paddingRight="16dp"
+        android:background="@color/white"
+        android:paddingLeft="16dp"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/bottom_01"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="16dp"
+            android:text="建设银行"
+            android:textSize="18sp"
+
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/blackModule"
+            android:text="储蓄卡（****9876）"/>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="16dp"
+            android:src="@drawable/arrow_r_g"/>
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/add_card"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:text="添加银行卡"
+        android:gravity="center"
+        android:background="@drawable/full_green_four"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="30dp"
+        />
+</LinearLayout>

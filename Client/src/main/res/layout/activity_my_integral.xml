@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/viewDivider"
+    tools:context="com.onekeyask.lawyer.ui.act.me.MyIntegralActivity">
+
+    <RelativeLayout
+        android:background="@color/burro_primary_ext"
+        android:layout_width="match_parent"
+        android:layout_height="140dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:text="积分"
+            android:gravity="center"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:id="@+id/integral"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            tools:text="4000"
+            android:layout_marginTop="66dp"
+            android:textColor="@color/white"
+            android:textSize="30sp"/>
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="账目明细"
+        android:textColor="@color/blackModule"
+        android:padding="10dp"/>
+
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/burro_primary_ext"
+            android:textSize="20sp"
+            android:text="+300"/>
+        <TextView
+            android:id="@+id/title_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="新用户注册"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blackHint"
+            android:layout_below="@id/title_in"
+            android:layout_marginTop="4dp"
+            android:text="2017-08-01 20:18"/>
+
+
+    </RelativeLayout>
+</LinearLayout>

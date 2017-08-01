@@ -2,9 +2,11 @@
 .gradle
 /local.properties
 /.idea
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-*.class
+/build/
 *.jks
+*.apk
+Client/Lawfirm-release.apk
+Client/build/
+Lawfirm/build/
+LawfirmPushSDK/build/
+LawyerPushSDK/build/

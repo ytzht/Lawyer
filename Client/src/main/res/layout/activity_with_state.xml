@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/viewDivider"
+    android:orientation="vertical"
+    tools:context="com.onekeyask.lawyer.ui.act.me.WithStateActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/bottom_01" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="中国建设银行"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="600.00"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="已完成"
+            android:textColor="@color/blackModule" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/progress_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textSize="14sp"
+            android:text="处理进度"
+            android:textColor="@color/blackModule" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_toRightOf="@id/progress_tv"
+            android:layout_marginTop="36dp"
+            android:layout_marginLeft="26dp"
+            android:layout_height="50dp"
+            android:background="@color/burro_primary_ext"
+            />
+        <View
+            android:layout_width="1dp"
+            android:layout_toRightOf="@id/progress_tv"
+            android:layout_marginTop="106dp"
+            android:layout_marginLeft="26dp"
+            android:layout_height="50dp"
+            android:background="@color/burro_primary_ext"
+            />
+        <LinearLayout
+            android:layout_toRightOf="@id/progress_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@color/base_text_color" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:text="提现提交"
+                        android:textColor="@color/burro_primary_ext"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="03-15 09：30"
+                        android:textColor="@color/blackSec" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="40dp"
+                    android:paddingTop="4dp"
+                    android:text="法宝律师已收到您的提现申请"
+                    android:textColor="@color/blackSec" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@color/base_text_color" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:text="提现提交"
+                        android:textColor="@color/burro_primary_ext"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="03-15 09：30"
+                        android:textColor="@color/blackSec" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="40dp"
+                    android:paddingTop="4dp"
+                    android:text="法宝律师正在处理您的提现申请，预计2小时内到账，请耐心等待"
+                    android:textColor="@color/blackSec" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@color/base_text_color" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="提现成功"
+                    android:textColor="@color/burro_primary_ext"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="03-15 09：30"
+                    android:textColor="@color/blackSec" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="体现到"
+            android:textColor="@color/blackModule"
+            android:layout_width="wrap_content"
+            android:layout_margin="16dp"
+            android:textSize="14sp"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="中国建设银行（7654）张华"
+            android:layout_margin="16dp"
+            android:textColor="@color/blackModule" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="创建时间"
+            android:textColor="@color/blackModule"
+            android:layout_width="wrap_content"
+            android:layout_margin="16dp"
+            android:textSize="14sp"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="2017-03-15 11：30"
+            android:layout_margin="16dp"
+            android:textColor="@color/blackModule" />
+    </RelativeLayout>
+
+</LinearLayout>

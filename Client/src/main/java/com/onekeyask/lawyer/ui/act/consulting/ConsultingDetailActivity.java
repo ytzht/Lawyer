@@ -170,10 +170,6 @@ public class ConsultingDetailActivity extends BaseToolBarActivity {
                     }
                 });
 
-
-
-
-
                 break;
             case R.id.iv_photo_bottom:
                 if (photos.size() < maxPicNum) {

@@ -14,25 +14,45 @@
         android:textSize="18dp"
         android:layout_marginBottom="14dp"/>
     <TextView
+        android:id="@+id/tv_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="恭喜您分享成功，您成功获得30积分"
         android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
         android:textColor="#6f6f6f"
         android:textSize="15dp"/>
 
-    <TextView
-        android:id="@+id/tv_share_con"
-        android:layout_width="115dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="18dp"
-        android:layout_gravity="center"
-        android:textColor="@color/white"
-        android:text="确定"
-        android:textSize="16dp"
         android:gravity="center"
-        android:background="@drawable/banner_select"
-        android:layout_height="39dp" />
+        android:layout_marginBottom="18dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="100dp"
+            android:layout_gravity="center"
+            android:text="取消"
+            android:visibility="gone"
+            android:textSize="16dp"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:background="@drawable/gray_un_four"
+            android:layout_height="39dp" />
+        <TextView
+            android:id="@+id/tv_share_con"
+            android:layout_width="100dp"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:text="确定"
+            android:layout_marginLeft="8dp"
+            android:textSize="16dp"
+            android:gravity="center"
+            android:background="@drawable/full_green_four"
+            android:layout_height="39dp" />
+    </LinearLayout>
+
 
 
 </LinearLayout>

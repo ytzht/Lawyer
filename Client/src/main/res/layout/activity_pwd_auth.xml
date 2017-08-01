@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/viewDivider"
+    tools:context="com.onekeyask.lawyer.ui.act.me.PwdAuthActivity"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"
+
+        android:textColor="@color/blackModule"
+        android:text="请输入您的法宝律师登录密码"
+        android:padding="16dp"/>
+
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="50dp">
+
+        <TextView
+            android:textSize="18sp"
+            android:layout_marginLeft="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="密码"/>
+
+        <EditText
+            android:id="@+id/et_pwd_auth"
+            android:layout_width="match_parent"
+            android:background="@null"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/pwd_auth_next"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:text="下一步"
+        android:gravity="center"
+        android:background="@drawable/full_green_four"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="30dp"
+        />
+</LinearLayout>

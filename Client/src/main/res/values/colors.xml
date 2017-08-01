@@ -35,7 +35,9 @@
 
 
     <color name="red">#ff2d4b</color>
+    <color name="red_btn">#ff2d4b</color>
     <color name="org">#f79f0a</color>
     <color name="black_light">#363636</color>
+    <color name="switchButton">#4ACB63</color>
 
 </resources>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.onekeyask.lawyer.ui.act.user.MyInfoActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+
+
+    <LinearLayout
+        android:id="@+id/ll_image"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="80dp">
+
+        <TextView
+            android:text="头像"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="60dp"
+            app:civ_border_color="#dcd9d9"
+            app:civ_border_width="2dp"
+            android:src="@drawable/ic_member_avatar"
+            android:layout_height="50dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/viewDivider"/>
+
+    <LinearLayout
+        android:id="@+id/ll_name"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="昵称"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jack"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/viewDivider"/>
+
+    <LinearLayout
+        android:id="@+id/ll_phone"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="电话号码"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="13280933117"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/viewDivider"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/viewDivider"
+        android:layout_height="match_parent">
+
+    </LinearLayout>
+</LinearLayout>
