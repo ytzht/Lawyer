@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.AskResult;
+import com.onekeyask.lawyer.entity.FreeaskBean;
 import com.onekeyask.lawyer.entity.PointsInfo;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.global.L;
@@ -160,10 +161,10 @@ public class QuickConsultingActivity extends BaseToolBarActivity implements View
 
         photoMap.put("type", RequestBody.create(null, "1"));
 
-        getResultOnNext = new SubscriberOnNextListener<AskResult>() {
+        getResultOnNext = new SubscriberOnNextListener<FreeaskBean>() {
             @Override
-            public void onNext(AskResult askResult) {
-                startActivity(TalkingActivity.class, "fid", askResult.getFreeaskId(), "cid", "0");
+            public void onNext(FreeaskBean askResult) {
+                startActivity(TalkingActivity.class, "fid", askResult.getFreeaskId()+"", "cid", askResult.getChatId()+"");
                 finish();
             }
 
