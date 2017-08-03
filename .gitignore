@@ -10,3 +10,8 @@ Client/build/
 Lawfirm/build/
 LawfirmPushSDK/build/
 LawyerPushSDK/build/
+/Client/src/androidTest/
+/Client/proguard-rules.pro
+/gradle.properties
+/gradlew
+/gradlew.bat
