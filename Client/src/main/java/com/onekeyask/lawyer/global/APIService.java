@@ -7,6 +7,7 @@ import com.onekeyask.lawyer.entity.ChatList;
 import com.onekeyask.lawyer.entity.CommonTagList;
 import com.onekeyask.lawyer.entity.ConversationList;
 import com.onekeyask.lawyer.entity.FreeAskCategory;
+import com.onekeyask.lawyer.entity.FreeaskBean;
 import com.onekeyask.lawyer.entity.FreeaskDetail;
 import com.onekeyask.lawyer.entity.GiveMoneyOrderAndGetPayInfo;
 import com.onekeyask.lawyer.entity.HomePage;
@@ -45,7 +46,7 @@ public interface APIService {
     //1.2免费咨询提交
     @Multipart
     @POST("c/freeask")
-    Observable<HttpResult<AskResult>> freeUpload(@PartMap Map<String, RequestBody> params);
+    Observable<HttpResult<FreeaskBean>> freeUpload(@PartMap Map<String, RequestBody> params);
 
     //1.3打赏咨询提交
     @Multipart
@@ -69,6 +70,7 @@ public interface APIService {
     @GET("c/conversation/getList")
     Observable<HttpResult<ConversationList>> getConversationList(@Query("userId") String userId,
                                                                  @Query("chatId") String chatId,
+                                                                 @Query("orderId") long orderId,
                                                                  @Query("freeaskId") String freeaskId,
                                                                  @Query("conversationId") long conversationId,
                                                                  @Query("direction") String direction,

@@ -87,7 +87,7 @@ public class TalkingActivity extends BaseActivity {
     private RelativeLayout rl_give_money, rl_again;
     private int LEFT = 1;
     private int size = 10;
-    private int orderId = 0;
+    private long orderId = 0;
     private TextView tv_send_msg, talk_toolbar_title;
     private EditText et_send_msg;
     private Handler mHandler = new Handler();
@@ -533,15 +533,14 @@ public class TalkingActivity extends BaseActivity {
 
                 rlv_talking.setVisibility(View.VISIBLE);
                 cid = String.valueOf(getList.getChatId());
-                orderId = getList.getOrder().getOrderId();
                 switch (getList.getStatus()) {
                     case "1"://进行中
-                        L.d("进行中 订单信息 " + getList.getOrder().getOrderId());
+                        L.d("进行中 订单信息 0");
                         isUpdateInfo = true;
                         showMenu();
                         break;
                     case "2"://已结束
-                        L.d("已结束 订单信息 " + getList.getOrder().getOrderId());
+                        L.d("已结束 订单信息 0");
                         isUpdateInfo = false;
                         hideMenu();
                         //出现略表心意、和再次咨询按钮布局，隐藏输入框
@@ -645,7 +644,8 @@ public class TalkingActivity extends BaseActivity {
             conversationId = firstConversationId;//向上查数据
         }
 
-        retrofitUtil.getConversationList("2", cid, fid, conversationId, direction, size, new ProgressSubscriber<ConversationList>(getResultOnNext, TalkingActivity.this, false));
+        L.d("orderId "+ orderId);
+        retrofitUtil.getConversationList("2", cid, orderId, fid, conversationId, direction, size, new ProgressSubscriber<ConversationList>(getResultOnNext, TalkingActivity.this, false));
 
     }
 

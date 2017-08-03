@@ -8,7 +8,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.onekeyask.lawyer.R;
-import com.onekeyask.lawyer.entity.AskResult;
 import com.onekeyask.lawyer.entity.FreeaskBean;
 import com.onekeyask.lawyer.entity.PointsInfo;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
@@ -174,8 +173,7 @@ public class QuickConsultingActivity extends BaseToolBarActivity implements View
             }
         };
 
-        retrofitUtil.freeUpload(photoMap, new ProgressSubscriber<AskResult>(getResultOnNext, QuickConsultingActivity.this, true));
-
+        retrofitUtil.freeUpload(photoMap, new ProgressSubscriber<FreeaskBean>(getResultOnNext, QuickConsultingActivity.this, true));
 
     }
 

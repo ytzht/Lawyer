@@ -7,6 +7,7 @@ import com.onekeyask.lawyer.entity.ChatList;
 import com.onekeyask.lawyer.entity.CommonTagList;
 import com.onekeyask.lawyer.entity.ConversationList;
 import com.onekeyask.lawyer.entity.FreeAskCategory;
+import com.onekeyask.lawyer.entity.FreeaskBean;
 import com.onekeyask.lawyer.entity.FreeaskDetail;
 import com.onekeyask.lawyer.entity.GiveMoneyOrderAndGetPayInfo;
 import com.onekeyask.lawyer.entity.HomePage;
@@ -39,9 +40,9 @@ public class APIFactory extends RetrofitHttpUtil {
         toSubscribe(observable, subscriber);
     }
 
-    public void freeUpload(Map<String, RequestBody> map, Subscriber<AskResult> subscriber) {
-        Observable<AskResult> observable = getService().freeUpload(map)
-                .map(new HttpResultFunc<AskResult>());
+    public void freeUpload(Map<String, RequestBody> map, Subscriber<FreeaskBean> subscriber) {
+        Observable<FreeaskBean> observable = getService().freeUpload(map)
+                .map(new HttpResultFunc<FreeaskBean>());
         toSubscribe(observable, subscriber);
     }
 
@@ -68,8 +69,8 @@ public class APIFactory extends RetrofitHttpUtil {
         toSubscribe(observable, subscriber);
     }
 
-    public void getConversationList(String userId, String chatId, String freeaskId, long conversationId, String direction, int size, Subscriber<ConversationList> subscriber) {
-        Observable<ConversationList> observable = getService().getConversationList(userId, chatId, freeaskId, conversationId, direction, size)
+    public void getConversationList(String userId, String chatId, long orderId, String freeaskId, long conversationId, String direction, int size, Subscriber<ConversationList> subscriber) {
+        Observable<ConversationList> observable = getService().getConversationList(userId, chatId, orderId, freeaskId, conversationId, direction, size)
                 .map(new HttpResultFunc<ConversationList>());
         toSubscribe(observable, subscriber);
     }

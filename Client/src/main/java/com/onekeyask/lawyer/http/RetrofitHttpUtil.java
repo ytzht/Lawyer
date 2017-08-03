@@ -3,6 +3,7 @@ package com.onekeyask.lawyer.http;
 import android.content.Context;
 
 import com.onekeyask.lawyer.global.APIService;
+import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BuildConfig;
 
 import java.io.File;
@@ -32,7 +33,7 @@ public class RetrofitHttpUtil {
     /**
      * 服务器地址
      */
-    private static final String BASE_URL = "http://139.198.11.78:8080/mylawyer/";
+    private static final String BASE_URL = Apis.Base;
 
     public APIService apiService;
     private static Retrofit retrofit = null;
