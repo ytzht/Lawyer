@@ -35,7 +35,7 @@ public interface APIService {
     Observable<HttpResult<HomePage>> getHomePage(@Query("lawyerId") String lawyerId);//律师ID
 
     //1.15消息（对话）列表
-    @GET("l/conversation/chatList")
+    @GET("l/conversation/userServiceList")
     Observable<HttpResult<ConversationChatList>> getConversationChatList(@Query("lawyerId") long lawyerId,//律师ID
                                                                          @Query("page") int page,//页数
                                                                          @Query("size") int size,//行数

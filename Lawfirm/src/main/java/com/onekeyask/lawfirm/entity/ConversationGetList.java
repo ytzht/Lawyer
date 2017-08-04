@@ -8,28 +8,27 @@ import java.util.List;
 
 public class ConversationGetList {
 
+
     /**
-     * chatId : 149
+     * chatId : 368
+     * userServiceId : 45
      * status : 2
+     * fromType : 7
      * rounds : 5
-     * conversationList : [{"conversationId":592,"from":0,"userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543","name":"用户之家","content":"家里考虑考虑来来来。陌陌","isPicture":false,"time":"2017-04-21 14:06:50"},{"conversationId":616,"from":0,"userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543","name":"用户之家","content":"http://139.198.11.78:8080/mylawyer/pic/1837","isPicture":true,"time":"2017-04-21 14:30:28"},{"conversationId":617,"from":0,"userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543","name":"用户之家","content":"http://139.198.11.78:8080/mylawyer/pic/1838","isPicture":true,"time":"2017-04-21 14:30:37"},{"conversationId":618,"from":0,"userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543","name":"用户之家","content":"http://139.198.11.78:8080/mylawyer/pic/1839","isPicture":true,"time":"2017-04-21 14:30:49"},{"conversationId":659,"from":1,"lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543","name":"律师之家","content":"http://139.198.11.78:8080/mylawyer/pic/1865","isPicture":true,"time":"2017-04-21 15:48:38"},{"conversationId":660,"from":1,"lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543","name":"律师之家","content":"。？？","isPicture":false,"time":"2017-04-21 15:48:53"},{"conversationId":661,"from":1,"lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543","name":"律师之家","content":"？？？？","isPicture":false,"time":"2017-04-21 15:48:58"},{"conversationId":668,"from":1,"lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543","name":"律师之家","content":"http://139.198.11.78:8080/mylawyer/pic/1869","isPicture":true,"time":"2017-04-21 15:54:34"},{"conversationId":669,"from":1,"lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543","name":"律师之家","content":"？？？","isPicture":false,"time":"2017-04-21 15:54:40"}]
-     * evaStatus : true
-     * evaluation : {"comment":"评价一下","score":"非常满意","tagList":[{"tag":"非常敬业"},{"tag":"666"},{"tag":"大牛人啊"},{"tag":"输入的"}]}
+     * conversationList : [{"conversationId":1854,"from":1,"lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1539","name":"律师之家","content":"111","isPicture":false,"time":"2017-08-04 13:23:16"},{"conversationId":1855,"from":0,"userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1540","name":"用户之家","content":"111","isPicture":false,"time":"2017-08-04 13:23:28"},{"conversationId":1856,"from":1,"lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1539","name":"律师之家","content":"111","isPicture":false,"time":"2017-08-04 13:23:33"}]
      * hasMore : false
-     * fromType : 3
-     * order : {"orderId":389,"status":2}
-     * freeask : {"freeaskId":985,"content":"家里考虑考虑来来来。陌陌","status":2}
+     * evaStatus : true
+     * evaluation : {"comment":"输入的评价","score":"非常满意","tagList":[{"tag":"态度非常好"},{"tag":"666"},{"tag":"测试"},{"tag":"输入的标签"}]}
      */
 
     private int chatId;
+    private int userServiceId;
     private String status;
+    private int fromType;
     private int rounds;
+    private boolean hasMore;
     private boolean evaStatus;
     private EvaluationBean evaluation;
-    private boolean hasMore;
-    private int fromType;
-    private OrderBean order;
-    private FreeaskBean freeask;
     private List<ConversationListBean> conversationList;
 
     public int getChatId() {
@@ -40,6 +39,14 @@ public class ConversationGetList {
         this.chatId = chatId;
     }
 
+    public int getUserServiceId() {
+        return userServiceId;
+    }
+
+    public void setUserServiceId(int userServiceId) {
+        this.userServiceId = userServiceId;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -48,12 +55,28 @@ public class ConversationGetList {
         this.status = status;
     }
 
+    public int getFromType() {
+        return fromType;
+    }
+
+    public void setFromType(int fromType) {
+        this.fromType = fromType;
+    }
+
     public int getRounds() {
         return rounds;
     }
 
     public void setRounds(int rounds) {
         this.rounds = rounds;
+    }
+
+    public boolean isHasMore() {
+        return hasMore;
+    }
+
+    public void setHasMore(boolean hasMore) {
+        this.hasMore = hasMore;
     }
 
     public boolean isEvaStatus() {
@@ -72,38 +95,6 @@ public class ConversationGetList {
         this.evaluation = evaluation;
     }
 
-    public boolean isHasMore() {
-        return hasMore;
-    }
-
-    public void setHasMore(boolean hasMore) {
-        this.hasMore = hasMore;
-    }
-
-    public int getFromType() {
-        return fromType;
-    }
-
-    public void setFromType(int fromType) {
-        this.fromType = fromType;
-    }
-
-    public OrderBean getOrder() {
-        return order;
-    }
-
-    public void setOrder(OrderBean order) {
-        this.order = order;
-    }
-
-    public FreeaskBean getFreeask() {
-        return freeask;
-    }
-
-    public void setFreeask(FreeaskBean freeask) {
-        this.freeask = freeask;
-    }
-
     public List<ConversationListBean> getConversationList() {
         return conversationList;
     }
@@ -114,9 +105,9 @@ public class ConversationGetList {
 
     public static class EvaluationBean {
         /**
-         * comment : 评价一下
+         * comment : 输入的评价
          * score : 非常满意
-         * tagList : [{"tag":"非常敬业"},{"tag":"666"},{"tag":"大牛人啊"},{"tag":"输入的"}]
+         * tagList : [{"tag":"态度非常好"},{"tag":"666"},{"tag":"测试"},{"tag":"输入的标签"}]
          */
 
         private String comment;
@@ -149,7 +140,7 @@ public class ConversationGetList {
 
         public static class TagListBean {
             /**
-             * tag : 非常敬业
+             * tag : 态度非常好
              */
 
             private String tag;
@@ -164,102 +155,41 @@ public class ConversationGetList {
         }
     }
 
-    public static class OrderBean {
-        /**
-         * orderId : 389
-         * status : 2
-         */
-
-        private int orderId;
-        private int status;
-
-        public int getOrderId() {
-            return orderId;
-        }
-
-        public void setOrderId(int orderId) {
-            this.orderId = orderId;
-        }
-
-        public int getStatus() {
-            return status;
-        }
-
-        public void setStatus(int status) {
-            this.status = status;
-        }
-    }
-
-    public static class FreeaskBean {
-        /**
-         * freeaskId : 985
-         * content : 家里考虑考虑来来来。陌陌
-         * status : 2
-         */
-
-        private int freeaskId;
-        private String content;
-        private int status;
-
-        public int getFreeaskId() {
-            return freeaskId;
-        }
-
-        public void setFreeaskId(int freeaskId) {
-            this.freeaskId = freeaskId;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
-
-        public int getStatus() {
-            return status;
-        }
-
-        public void setStatus(int status) {
-            this.status = status;
-        }
-    }
-
     public static class ConversationListBean {
-        public ConversationListBean(int conversationId, int from, int userId, String headURL, String name, String content, boolean isPicture, String time, int lawyerId) {
+        public ConversationListBean(int conversationId, int from, int lawyerId, String headURL, String name, String content, boolean isPicture, String time, int userId) {
             this.conversationId = conversationId;
             this.from = from;
-            this.userId = userId;
+            this.lawyerId = lawyerId;
             this.headURL = headURL;
             this.name = name;
             this.content = content;
             this.isPicture = isPicture;
             this.time = time;
-            this.lawyerId = lawyerId;
+            this.userId = userId;
         }
 
         /**
-         * conversationId : 592
-         * from : 0
-         * userId : 2
-         * headURL : http://139.198.11.78:8080/mylawyer/pic/1543
-         * name : 用户之家
-         * content : 家里考虑考虑来来来。陌陌
-         * isPicture : false
-         * time : 2017-04-21 14:06:50
+
+         * conversationId : 1854
+         * from : 1
          * lawyerId : 3
+         * headURL : http://139.198.11.78:8080/mylawyer/pic/1539
+         * name : 律师之家
+         * content : 111
+         * isPicture : false
+         * time : 2017-08-04 13:23:16
+         * userId : 2
          */
 
         private int conversationId;
         private int from;
-        private int userId;
+        private int lawyerId;
         private String headURL;
         private String name;
         private String content;
         private boolean isPicture;
         private String time;
-        private int lawyerId;
+        private int userId;
 
         public int getConversationId() {
             return conversationId;
@@ -277,12 +207,12 @@ public class ConversationGetList {
             this.from = from;
         }
 
-        public int getUserId() {
-            return userId;
+        public int getLawyerId() {
+            return lawyerId;
         }
 
-        public void setUserId(int userId) {
-            this.userId = userId;
+        public void setLawyerId(int lawyerId) {
+            this.lawyerId = lawyerId;
         }
 
         public String getHeadURL() {
@@ -325,12 +255,12 @@ public class ConversationGetList {
             this.time = time;
         }
 
-        public int getLawyerId() {
-            return lawyerId;
+        public int getUserId() {
+            return userId;
         }
 
-        public void setLawyerId(int lawyerId) {
-            this.lawyerId = lawyerId;
+        public void setUserId(int userId) {
+            this.userId = userId;
         }
     }
 }

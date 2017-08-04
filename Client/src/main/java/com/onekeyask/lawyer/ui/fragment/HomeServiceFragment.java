@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.ui.act.service.CompleteServiceFragment;
+import com.onekeyask.lawyer.ui.act.service.MyLawyerFragment;
 import com.onekeyask.lawyer.ui.act.service.NowServerFragment;
 
 /**
@@ -55,7 +56,7 @@ public class HomeServiceFragment extends Fragment {
                 case 0:
                     return new NowServerFragment();
                 case 1:
-                    return new NowServerFragment();
+                    return new MyLawyerFragment();
                 case 2:
                     return new CompleteServiceFragment();
                 default:

@@ -69,8 +69,8 @@ public class APIFactory extends RetrofitHttpUtil {
         toSubscribe(observable, subscriber);
     }
 
-    public void getConversationList(String userId, String chatId, long orderId, String freeaskId, long conversationId, String direction, int size, Subscriber<ConversationList> subscriber) {
-        Observable<ConversationList> observable = getService().getConversationList(userId, chatId, orderId, freeaskId, conversationId, direction, size)
+    public void getConversationList(String userId, String chatId, String orderId, long conversationId, String direction, int size, Subscriber<ConversationList> subscriber) {
+        Observable<ConversationList> observable = getService().getConversationList(userId, chatId, orderId, conversationId, direction, size)
                 .map(new HttpResultFunc<ConversationList>());
         toSubscribe(observable, subscriber);
     }
@@ -115,6 +115,16 @@ public class APIFactory extends RetrofitHttpUtil {
         Observable<ChatList> observable = getService().getChatList(userId, page, size, status, type)
                 .map(new HttpResultFunc<ChatList>());
         toSubscribe(observable, subscriber);
+        //type
+        // 对话类型 0-全部 1-图文订单 2-免费提问 3,打赏咨询
+//        0-全部
+//        1-快速咨询(包括免费和打赏)
+//        2-图文咨询
+//        3电话咨询，
+//        4私人律师
+        //status
+//        默认“0”:全部，“1”：进行中，”2”：已完成
+
     }
 
     public void getSendMsg(String userId, String chatId, String content, Subscriber<SendMsg> subscriber) {

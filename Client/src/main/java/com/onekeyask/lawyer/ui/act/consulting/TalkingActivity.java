@@ -79,7 +79,7 @@ public class TalkingActivity extends BaseActivity {
     private LinearLayout iv_input_bottom, iv_voice_bottom, iv_photo_bottom, iv_money_bottom, iv_share_bottom;
     private TalkingAdapter talkingAdapter;
     private AskDetailAdapter detailAdapter;
-    private String fid;
+    private String fid, userServiceId = "0";
     private long firstConversationId, lastConversationId, conversationId;
     private String cid = "0";
     private ConversationList getList;
@@ -87,7 +87,7 @@ public class TalkingActivity extends BaseActivity {
     private RelativeLayout rl_give_money, rl_again;
     private int LEFT = 1;
     private int size = 10;
-    private long orderId = 0;
+    private String orderId = "";
     private TextView tv_send_msg, talk_toolbar_title;
     private EditText et_send_msg;
     private Handler mHandler = new Handler();
@@ -239,6 +239,7 @@ public class TalkingActivity extends BaseActivity {
 
     private void initView() {
         HideUtil.init(this);
+        orderId = getIntent().getStringExtra("oid");
         talk_toolbar_title = (TextView) findViewById(R.id.talk_toolbar_title);
         talk_toolbar_title.setText("聊天页面");
         talk_toolbar = (Toolbar) findViewById(R.id.talk_toolbar);
@@ -415,8 +416,7 @@ public class TalkingActivity extends BaseActivity {
                             "name", "张三",
                             "money", selectMoney + "",
                             "summary", et_desc_popup.getText().toString(),
-                            "fid", fid,
-                            "oid", String.valueOf(orderId));
+                            "userServiceId", userServiceId);
 
                 }
             }
@@ -533,14 +533,21 @@ public class TalkingActivity extends BaseActivity {
 
                 rlv_talking.setVisibility(View.VISIBLE);
                 cid = String.valueOf(getList.getChatId());
-                switch (getList.getStatus()) {
+                userServiceId = String.valueOf(getList.getUserServiceId());
+                switch (getList.getStatus()) {// TODO: 2017/8/4  未接单的ui CASE "0"
+                    case "0"://未接单
+                        L.d("未接单");
+                        isUpdateInfo = true;
+                        hideMenu();
+                        getAskDetail();
+                        break;
                     case "1"://进行中
-                        L.d("进行中 订单信息 0");
+                        L.d("进行中");
                         isUpdateInfo = true;
                         showMenu();
                         break;
                     case "2"://已结束
-                        L.d("已结束 订单信息 0");
+                        L.d("已结束");
                         isUpdateInfo = false;
                         hideMenu();
                         //出现略表心意、和再次咨询按钮布局，隐藏输入框
@@ -645,7 +652,7 @@ public class TalkingActivity extends BaseActivity {
         }
 
         L.d("orderId "+ orderId);
-        retrofitUtil.getConversationList("2", cid, orderId, fid, conversationId, direction, size, new ProgressSubscriber<ConversationList>(getResultOnNext, TalkingActivity.this, false));
+        retrofitUtil.getConversationList("2", cid, orderId, conversationId, direction, size, new ProgressSubscriber<ConversationList>(getResultOnNext, TalkingActivity.this, false));
 
     }
 
@@ -707,7 +714,7 @@ public class TalkingActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.evaluate) {
-            startActivity(EvaluateLawyerActivity.class, "fid", fid, "oid", String.valueOf(orderId));
+            startActivity(EvaluateLawyerActivity.class, "fid", fid, "oid", String.valueOf(orderId), "userServiceId", userServiceId);
             return true;
         }
         if (item.getItemId() == android.R.id.home) {

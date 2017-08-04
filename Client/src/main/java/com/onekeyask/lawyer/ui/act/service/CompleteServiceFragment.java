@@ -44,7 +44,7 @@ public class CompleteServiceFragment extends BaseFragment {
     private NowServerAdapter adapter;
     private RelativeLayout rl_ser_list;
     private boolean hasMore = true;
-    private List<ChatList.ChatListBean> listBeen = new ArrayList<>();
+    private List<ChatList.ServiceListBean> listBeen = new ArrayList<>();
     private int index = 1;
     private int size = 10;
     private int type = 0;
@@ -213,10 +213,10 @@ public class CompleteServiceFragment extends BaseFragment {
 
                 if (index == 1) {
                     listBeen.clear();
-                    listBeen.addAll(chatList.getChatList());
+                    listBeen.addAll(chatList.getServiceList());
                     rlv_now_ser.setAdapter(adapter);
                 } else {
-                    listBeen.addAll(chatList.getChatList());
+                    listBeen.addAll(chatList.getServiceList());
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -258,18 +258,21 @@ public class CompleteServiceFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             if (position + 1 != getItemCount()) {
-                ((ViewHolder) holder).tv_content_now.setText(listBeen.get(position).getLastWord());
+                ((ViewHolder) holder).tv_content_now.setText(listBeen.get(position).getServiceContent());
                 ((ViewHolder) holder).tv_name_now.setText(listBeen.get(position).getLawyer().getName());
-                ((ViewHolder) holder).tv_time_now.setText(listBeen.get(position).getLastWordTime());
+                ((ViewHolder) holder).tv_time_now.setText(listBeen.get(position).getLastServiceTime());
                 switch (listBeen.get(position).getType()) {
-                    case 1:
-                        ((ViewHolder) holder).tv_tag_now.setText("图文订单");
+                    case "1":
+                        ((ViewHolder) holder).tv_tag_now.setText("快速咨询");
                         break;
-                    case 2:
-                        ((ViewHolder) holder).tv_tag_now.setText("免费提问");
+                    case "2":
+                        ((ViewHolder) holder).tv_tag_now.setText("图文咨询");
                         break;
-                    case 3:
-                        ((ViewHolder) holder).tv_tag_now.setText("打赏咨询");
+                    case "3":
+                        ((ViewHolder) holder).tv_tag_now.setText("电话咨询");
+                        break;
+                    case "4":
+                        ((ViewHolder) holder).tv_tag_now.setText("私人律师");
                         break;
                     default:
                         ((ViewHolder) holder).tv_tag_now.setText("咨询");
@@ -281,7 +284,7 @@ public class CompleteServiceFragment extends BaseFragment {
                 ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(TalkingActivity.class, "fid", "0", "cid", String.valueOf(listBeen.get(position).getChatId()));
+                        startActivity(TalkingActivity.class, "fid", "0", "cid", String.valueOf(listBeen.get(position).getTargetId()));
                     }
                 });
             } else {

@@ -74,7 +74,6 @@ public class TalkingActivity extends BaseActivity {
     private Toolbar talk_toolbar;
     private int LEFT = 0;
     private int size = 10;
-    private int orderId = 0;
     private String cid;
     private TagFlowLayout tag_flow;
     private LinearLayout ll_eva, ll_input_send, ll_bottom_menu;
@@ -277,6 +276,7 @@ public class TalkingActivity extends BaseActivity {
             }
         };
 
+        L.d("send cid " + cid);
         retrofitUtil.getSendCon(3, cid, et_send_msg.getText().toString(), new ProgressSubscriber<SendCon>(listener, TalkingActivity.this, false));
     }
 
@@ -313,21 +313,19 @@ public class TalkingActivity extends BaseActivity {
                 getList = o;
 
                 cid = String.valueOf(getList.getChatId());
-                orderId = getList.getOrder().getOrderId();
                 switch (getList.getStatus()) {
                     case "1"://进行中
                         isUpdateInfo = true;
-                        L.d("进行中 订单信息 " + getList.getOrder().getOrderId());
+                        L.d("进行中");
                         break;
                     case "2"://已结束
                         isUpdateInfo = false;
-                        L.d("已结束 订单信息 " + getList.getOrder().getOrderId());
+                        L.d("已结束");
                         if (getList.isEvaStatus()) {
                             //已评价
                             ll_eva.setVisibility(View.VISIBLE);
                             ll_input_send.setVisibility(View.GONE);
                             ll_bottom_menu.setVisibility(View.GONE);
-
                             tv_satisfied.setText(getList.getEvaluation().getScore());
                             tv_speak_eva.setText(getList.getEvaluation().getComment());
 

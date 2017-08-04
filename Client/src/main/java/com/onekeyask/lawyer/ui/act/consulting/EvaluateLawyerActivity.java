@@ -74,6 +74,7 @@ public class EvaluateLawyerActivity extends BaseToolBarActivity {
     private String Score = "5";
     private String fid = "";
     private String oid = "";
+    private String userServiceId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,7 @@ public class EvaluateLawyerActivity extends BaseToolBarActivity {
         setToolbarText("评价律师");
         fid = getIntent().getStringExtra("fid");
         oid = getIntent().getStringExtra("oid");
+        userServiceId = getIntent().getStringExtra("userServiceId");
 
 
         initTags();
@@ -242,11 +244,12 @@ public class EvaluateLawyerActivity extends BaseToolBarActivity {
                     map.put("customTag", etTagEva.getText().toString());
                 }
 
-                L.d("oid fid Score " + oid + " " + fid + " " + Score);
+                L.d("oid fid Score userServiceId " + oid + " " + fid + " " + Score + " " + userServiceId);
                 map.put("userId", "2");
                 map.put("lawyerId", "3");
-                map.put("orderId", oid);
-                map.put("freeaskId", fid);
+                map.put("userServiceId", userServiceId);
+//                map.put("orderId", oid);
+//                map.put("freeaskId", fid);
                 map.put("Score", Score);
 
                 SubscriberOnNextListener<BaseResult> listener = new SubscriberOnNextListener<BaseResult>() {
@@ -257,6 +260,7 @@ public class EvaluateLawyerActivity extends BaseToolBarActivity {
                             intent.putExtra("giveMoney", true);
                             intent.putExtra("fid", fid);
                             intent.putExtra("oid", oid);
+                            intent.putExtra("userServiceId", userServiceId);
 
                             startActivity(intent);
                             finish();

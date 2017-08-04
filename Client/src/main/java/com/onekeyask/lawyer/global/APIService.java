@@ -70,8 +70,7 @@ public interface APIService {
     @GET("c/conversation/getList")
     Observable<HttpResult<ConversationList>> getConversationList(@Query("userId") String userId,
                                                                  @Query("chatId") String chatId,
-                                                                 @Query("orderId") long orderId,
-                                                                 @Query("freeaskId") String freeaskId,
+                                                                 @Query("orderId") String orderId,
                                                                  @Query("conversationId") long conversationId,
                                                                  @Query("direction") String direction,
                                                                  @Query("size") int size);
@@ -107,7 +106,7 @@ public interface APIService {
                                                          @Query("favorite") boolean favorite);
 
     //1.14 服务列表
-    @GET("c/conversation/chatList")
+    @GET("c/conversation/userServiceList")
     Observable<HttpResult<ChatList>> getChatList(@Query("userId") long userId,
                                                  @Query("page") int page,//页数
                                                  @Query("size") int size,//行数
@@ -120,6 +119,8 @@ public interface APIService {
     Observable<HttpResult<SendMsg>> getSendMsg(@Field("userId") String userId,
                                                @Field("chatId") String chatId,//订单ID
                                                @Field("content") String content);
+
+    //1.15 发送图片
     @Multipart
     @POST("c/conversation/send")
     Observable<HttpResult<SendMsg>> getSendPic(@PartMap Map<String, RequestBody> params);
@@ -127,9 +128,11 @@ public interface APIService {
     @GET("pub/payForTest")
     Observable<BaseResult> payForeTest(@Query("orderId") String orderId);
 
+    //1.16 用户余额
     @GET("c/my/balanceInfo")
     Observable<HttpResult<PriceList>> getPriceList(@Query("userId") long userId);
 
+    //1.17 律师基本信息
     @GET("c/lawyerbasic")
     Observable<HttpResult<LawyerBasic>> getLawyerBasic(@Query("lawyerId") long lawyerId);
 }

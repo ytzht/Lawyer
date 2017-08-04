@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.Utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -68,6 +69,8 @@ public class MyApplication extends MultiDexApplication {
         initShare();
 
         initOkGo(this);
+
+        Utils.init(this);
     }
 
     private void initShare() {

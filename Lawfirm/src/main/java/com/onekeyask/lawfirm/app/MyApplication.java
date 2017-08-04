@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.blankj.utilcode.util.Utils;
 import com.onekeyask.lawfirm.global.BuildConfig;
 import com.onekeyask.lawfirm.global.L;
 import com.onekeyask.lawfirm.http.APIFactory;
@@ -44,6 +45,7 @@ public class MyApplication extends Application {
 
         initShare();
 
+        Utils.init(this);
     }
 
     private void initShare() {

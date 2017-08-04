@@ -12,10 +12,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alipay.sdk.app.EnvUtils;
 import com.alipay.sdk.app.PayTask;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.AskResult;
-import com.onekeyask.lawyer.entity.BaseResult;
 import com.onekeyask.lawyer.entity.PayResult;
 import com.onekeyask.lawyer.entity.PriceList;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
@@ -76,8 +76,10 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
     private int category = -1;
     private double balance = 0;
 
+    private int oid, fid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_quick_consulting);
         ButterKnife.bind(this);
@@ -139,7 +141,11 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
                 progressDialog.show();
                 showShort("确认支付" + selectMoney + "支付方式" + payType);
                 if (payType == 1) {
-                    goPay(selectMoney, PayWay.ALiPay);
+                    //PayWay.ALiPay
+
+                    upLoadInfo();
+
+
                 } else if (payType == 2) {
                     goPay(selectMoney, PayWay.WechatPay);
                 } else {
@@ -224,6 +230,7 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
     private ProgressDialog progressDialog;
     private Map<String, RequestBody> photoMap = new HashMap<>();
 
+    //判断是否有图处理，下一步进行压缩图或提交
     private void upLoadInfo() {
 
         if (photos.size() > 0) {
@@ -241,6 +248,7 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
     private int i = 0;
     private int k = 0;
 
+    //压缩图并下一步准备提交
     private void goLuban() {
         i += 1;
         File file = new File(photos.get(i - 1));
@@ -276,6 +284,7 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
                 }).launch();    //启动压缩
     }
 
+    //提交问题信息，可能有图
     private void goSubmit() {
         photoMap.put("userId", RequestBody.create(null, "2"));
         photoMap.put("content", RequestBody.create(null, content));
@@ -284,21 +293,31 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
 
         photoMap.put("type", RequestBody.create(null, "2"));
         photoMap.put("payType", RequestBody.create(null, "1"));//payType
-        photoMap.put("money", RequestBody.create(null, selectMoney + ""));
+        photoMap.put("money", RequestBody.create(null, selectMoney/100 + ""));
         L.d(payType + " " + selectMoney);
 
         getResultOnNext = new SubscriberOnNextListener<AskResult>() {
             @Override
             public void onNext(AskResult askResult) {
                 if (progressDialog.isShowing()) progressDialog.dismiss();
-                L.d(askResult.getFreeaskId()+"");
+                L.d(askResult.getFreeaskId() + "");
+                oid = askResult.getOrderId();
+                fid = askResult.getFreeaskId();
                 //上传成功后的跳转
-                goNext(askResult.getOrderId()+"", askResult.getFreeaskId()+"");
+                if (payType == 1) {
+                    ZfbPay(askResult.getZfbNew().getOrderPayInfoString());
+                } else if (payType == 2) {
+
+                } else {
+                    goNext(oid + "", fid + "");
+                }
+
 
             }
 
             @Override
             public void onError(int code, String message) {
+                if (progressDialog.isShowing()) progressDialog.dismiss();
                 showShort(message);
             }
         };
@@ -308,23 +327,69 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
 
     }
 
-    private void goNext(String orderId, final String fid) {
-        SubscriberOnNextListener<BaseResult> listener = new SubscriberOnNextListener<BaseResult>() {
-            @Override
-            public void onNext(BaseResult result) {
-                startActivity(TalkingActivity.class, "fid", fid, "cid", "0");
-                finish();
-
-            }
+    //进行支付宝调起支付
+    private void ZfbPay(final String orderInfo) {
+        //支付宝支付
+        L.d("开始支付宝支付 ", orderInfo);
+        Runnable payRunnable = new Runnable() {
 
             @Override
-            public void onError(int code, String message) {
+            public void run() {
+                PayTask alipay = new PayTask(PayQuickConsultingActivity.this);
+                Map<String, String> result = alipay.payV2(orderInfo, true);
 
-                showShort(message);
+                L.d("=====ali");
+                Message msg = new Message();
+                msg.what = 123;
+                msg.obj = result;
+                zfbHandler.sendMessage(msg);
             }
         };
+        // 必须异步调用
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
 
-        retrofitUtil.payForeTest(orderId, new ProgressSubscriber<BaseResult>(listener, PayQuickConsultingActivity.this, true));
+    }
+
+    //支付宝支付结果回调
+    private Handler zfbHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            PayResult payResult = new PayResult((Map<String, String>) msg.obj);
+            String resultInfo = payResult.getResult();// 同步返回需要验证的信息
+            String resultStatus = payResult.getResultStatus();
+            L.d(resultInfo);
+            // 判断resultStatus 为9000则代表支付成功
+            if (TextUtils.equals(resultStatus, "9000")) {
+                // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
+                showShort("支付成功");
+                goNext(oid + "", fid + "");
+            } else {
+                // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
+                showShort("支付失败");
+            }
+        }
+    };
+
+
+    private void goNext(String orderId, final String fid) {
+        startActivity(TalkingActivity.class, "fid", fid, "cid", "0", "oid", orderId);
+        finish();
+//        SubscriberOnNextListener<BaseResult> listener = new SubscriberOnNextListener<BaseResult>() {
+//            @Override
+//            public void onNext(BaseResult result) {
+//                startActivity(TalkingActivity.class, "fid", fid, "cid", "0");
+//                finish();
+//
+//            }
+//
+//            @Override
+//            public void onError(int code, String message) {
+//
+//                showShort(message);
+//            }
+//        };
+//
+//        retrofitUtil.payForeTest(orderId, new ProgressSubscriber<BaseResult>(listener, PayQuickConsultingActivity.this, true));
     }
 
 
@@ -416,6 +481,7 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
             }
         }
     };
+
     private void sel8() {
         tvSel8.setText(String.valueOf(selectMoney / 100 + "元"));
         tvSel8.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.tag_select));

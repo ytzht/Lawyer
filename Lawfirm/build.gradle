@@ -67,6 +67,7 @@ dependencies {
     compile 'top.zibin:Luban:1.0.9'
     compile 'in.srain.cube:clog:1.0.2'
     compile 'io.reactivex:rxjava:1.1.0'
+    compile 'com.blankj:utilcode:1.8.1'
     compile 'com.zhy:flowlayout-lib:1.0.3'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.google.code.gson:gson:2.7'

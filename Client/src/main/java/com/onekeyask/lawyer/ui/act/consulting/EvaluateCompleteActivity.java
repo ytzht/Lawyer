@@ -62,8 +62,7 @@ public class EvaluateCompleteActivity extends BaseToolBarActivity {
     private EditText et_money_popup, et_desc_popup;
     private View popupView;
     private String selectMoney = "2.00";
-    private String fid = "";
-    private String oid = "";
+    private String userServiceId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +78,7 @@ public class EvaluateCompleteActivity extends BaseToolBarActivity {
 
     private void initView() {
 
-        fid = getIntent().getStringExtra("fid");
-        oid = getIntent().getStringExtra("oid");
+        userServiceId = getIntent().getStringExtra("userServiceId");
 
 
         initIsFavorite();
@@ -282,8 +280,7 @@ public class EvaluateCompleteActivity extends BaseToolBarActivity {
                             "name", "张三",
                             "money", selectMoney + "",
                             "summary", et_desc_popup.getText().toString(),
-                            "fid", fid,
-                            "oid", oid);
+                            "userServiceId", userServiceId);
                 }
             }
         });

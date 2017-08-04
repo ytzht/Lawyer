@@ -12,7 +12,6 @@ import com.onekeyask.lawyer.entity.GiveMoneyOrderAndGetPayInfo;
 import com.onekeyask.lawyer.entity.LawyerBasic;
 import com.onekeyask.lawyer.entity.PriceList;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
-import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 
@@ -48,8 +47,7 @@ public class PayLawyerActivity extends BaseToolBarActivity {
     private String name, summary;
     private double money;
     private int payType = 1;
-    private String fid = "";
-    private String oid = "";
+    private String userServiceId = "";
     private double balance = 0;
 
     @Override
@@ -61,8 +59,7 @@ public class PayLawyerActivity extends BaseToolBarActivity {
         name = getIntent().getStringExtra("name");
         summary = getIntent().getStringExtra("summary");
         money = Double.parseDouble(getIntent().getStringExtra("money"));
-        fid = getIntent().getStringExtra("fid");
-        oid = getIntent().getStringExtra("oid");
+        userServiceId = getIntent().getStringExtra("userServiceId");
 
         initName();
         tvMoneyGive.setText(String.valueOf(money + "元"));
@@ -142,15 +139,16 @@ public class PayLawyerActivity extends BaseToolBarActivity {
                     map.put("payType", String.valueOf(payType));
                     map.put("type", "2");//1:普通心意（律师主页赠送）， 2，订单心意
                     map.put("summary", summary);
+                    map.put("userServiceId", userServiceId);
 
-                    map.put("orderId", oid);
-                    map.put("freeaskId", fid);
+//                    map.put("orderId", oid);
+//                    map.put("freeaskId", fid);
 
                     getResultOnNext = new SubscriberOnNextListener<GiveMoneyOrderAndGetPayInfo>() {
                         @Override
                         public void onNext(GiveMoneyOrderAndGetPayInfo payInfo) {
-                            L.d("fid " + payInfo.getFreeaskId());
-                            L.d("oid " + payInfo.getOrderId());
+//                            L.d("fid " + payInfo.getFreeaskId());
+//                            L.d("oid " + payInfo.getOrderId());
 
                             Intent intent = new Intent(PayLawyerActivity.this, EvaluateCompleteActivity.class);
                             intent.putExtra("giveMoney", false);

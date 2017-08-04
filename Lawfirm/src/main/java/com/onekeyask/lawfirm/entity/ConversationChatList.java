@@ -8,23 +8,14 @@ import java.util.List;
 
 public class ConversationChatList {
 
+
     /**
-     * err : {"code":0,"msg":"正常","eventid":""}
-     * chatList : [{"type":3,"chatId":76,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":1,"lastWord":"[图片]","lastWordIsPic":true,"lastWordTime":"2017-04-19 11:07:31"},{"type":3,"chatId":75,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":1,"lastWord":"[图片]","lastWordIsPic":true,"lastWordTime":"2017-04-19 11:04:52"},{"type":3,"chatId":74,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":1,"lastWord":"扣扣号码了吧唧吧唧吧唧吧唧","lastWordIsPic":false,"lastWordTime":"2017-04-19 11:04:06"},{"type":3,"chatId":45,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":1,"lastWord":"for test only04-18-0","lastWordIsPic":false,"lastWordTime":"2017-04-18 17:27:19"},{"type":3,"chatId":38,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":1,"lastWord":"[图片]","lastWordIsPic":true,"lastWordTime":"2017-04-18 17:11:00"},{"type":3,"chatId":36,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":1,"lastWord":"累哭了","lastWordIsPic":false,"lastWordTime":"2017-04-18 17:04:58"},{"type":3,"chatId":25,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":3,"lastWord":"[图片]","lastWordIsPic":true,"lastWordTime":"2017-04-18 16:06:58"},{"type":3,"chatId":24,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":1,"lastWord":"[图片]","lastWordIsPic":true,"lastWordTime":"2017-04-18 16:01:45"},{"type":3,"chatId":23,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":1,"lastWord":"[图片]","lastWordIsPic":true,"lastWordTime":"2017-04-18 15:57:15"},{"type":3,"chatId":22,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":1,"lastWord":"[图片]","lastWordIsPic":true,"lastWordTime":"2017-04-18 15:34:10"},{"type":3,"chatId":21,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":1,"lastWord":"[图片]","lastWordIsPic":true,"lastWordTime":"2017-04-18 14:13:30"},{"type":3,"chatId":20,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":1,"lastWord":"for test only04-18-1401","lastWordIsPic":false,"lastWordTime":"2017-04-18 14:05:01"},{"type":3,"chatId":19,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":1,"lastWord":"","lastWordIsPic":false,"lastWordTime":"2017-04-18 14:04:50"},{"type":3,"chatId":18,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":1,"lastWord":"","lastWordIsPic":false,"lastWordTime":"2017-04-18 14:03:14"},{"type":3,"chatId":17,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":1,"lastWord":"","lastWordIsPic":false,"lastWordTime":"2017-04-18 14:01:37"},{"type":3,"chatId":16,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":1,"lastWord":"","lastWordIsPic":false,"lastWordTime":"2017-04-18 13:59:46"},{"type":3,"chatId":15,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":1,"lastWord":"","lastWordIsPic":false,"lastWordTime":"2017-04-18 13:57:24"},{"type":3,"chatId":14,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":1,"lastWord":"","lastWordIsPic":false,"lastWordTime":"2017-04-18 13:56:18"},{"type":3,"chatId":13,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":1,"lastWord":"","lastWordIsPic":false,"lastWordTime":"2017-04-18 13:47:53"},{"type":3,"chatId":11,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":1,"lastWord":"","lastWordIsPic":false,"lastWordTime":"2017-04-17 18:08:50"},{"type":3,"chatId":10,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":2,"lastWord":"","lastWordIsPic":false,"lastWordTime":"2017-04-16 11:42:02"},{"type":3,"chatId":9,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":2,"lastWord":"","lastWordIsPic":false,"lastWordTime":"2017-04-16 11:36:37"},{"type":3,"chatId":8,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":2,"lastWord":"","lastWordIsPic":false,"lastWordTime":"2017-04-16 11:34:44"},{"type":3,"chatId":7,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":2,"lastWord":"","lastWordIsPic":false,"lastWordTime":"2017-04-16 11:34:40"},{"type":3,"chatId":6,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":2,"lastWord":"","lastWordIsPic":false,"lastWordTime":"2017-04-16 11:27:27"},{"type":3,"chatId":5,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":2,"lastWord":"","lastWordIsPic":false,"lastWordTime":"2017-04-16 11:20:49"},{"type":3,"chatId":4,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":2,"lastWord":"","lastWordIsPic":false,"lastWordTime":"2017-04-15 20:38:36"},{"type":3,"chatId":3,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":2,"lastWord":"","lastWordIsPic":false,"lastWordTime":"2017-04-13 15:58:37"},{"orderId":5,"orderNo":"20170310161801466","type":1,"chatId":2,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":3,"lastWord":"","lastWordIsPic":false,"lastWordTime":"2017-03-10 16:18:01"},{"orderId":2,"orderNo":"20170303085805806","type":1,"chatId":1,"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"user":{"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"},"status":3,"lastWord":"yhgf","lastWordIsPic":false,"lastWordTime":"2017-03-03 10:47:43"}]
+     * serviceList : [{"serviceId":"46","type":"1","targetId":"369","lawyer":{"name":"律师之家","lawyerId":"3","headURL":"http://139.198.11.78:8080/mylawyer/pic/1539"},"user":{"name":"用户之家","userId":"2","headURL":"http://139.198.11.78:8080/mylawyer/pic/1540"},"status":"未评价","serviceContent":"[图片]","lastServiceTime":"2017-08-03 21:41:45"},{"serviceId":"45","type":"1","targetId":"368","lawyer":{"name":"律师之家","lawyerId":"3","headURL":"http://139.198.11.78:8080/mylawyer/pic/1539"},"user":{"name":"用户之家","userId":"2","headURL":"http://139.198.11.78:8080/mylawyer/pic/1540"},"status":"未评价","serviceContent":"吧","lastServiceTime":"2017-08-04 10:48:12"},{"serviceId":"27","type":"1","targetId":"350","lawyer":{"name":"律师之家","lawyerId":"3","headURL":"http://139.198.11.78:8080/mylawyer/pic/1539"},"user":{"name":"用户之家","userId":"2","headURL":"http://139.198.11.78:8080/mylawyer/pic/1540"},"status":"未评价","serviceContent":"新的测试08-01","lastServiceTime":"2017-08-01 15:40:14"},{"serviceId":"26","type":"1","targetId":"349","lawyer":{"name":"律师之家","lawyerId":"3","headURL":"http://139.198.11.78:8080/mylawyer/pic/1539"},"user":{"name":"用户之家","userId":"2","headURL":"http://139.198.11.78:8080/mylawyer/pic/1540"},"status":"未评价","serviceContent":"我们等你的的111","lastServiceTime":"2017-08-01 16:46:14"},{"serviceId":"25","type":"1","targetId":"348","lawyer":{"name":"律师之家","lawyerId":"3","headURL":"http://139.198.11.78:8080/mylawyer/pic/1539"},"user":{"name":"用户之家","userId":"2","headURL":"http://139.198.11.78:8080/mylawyer/pic/1540"},"status":"未评价","serviceContent":"新的测试","lastServiceTime":"2017-08-01 10:08:26"},{"serviceId":"24","type":"1","targetId":"347","lawyer":{"name":"律师之家","lawyerId":"3","headURL":"http://139.198.11.78:8080/mylawyer/pic/1539"},"user":{"name":"用户之家","userId":"2","headURL":"http://139.198.11.78:8080/mylawyer/pic/1540"},"status":"未评价","serviceContent":"新的测试","lastServiceTime":"2017-08-01 09:45:34"},{"serviceId":"23","type":"1","targetId":"346","lawyer":{"name":"律师之家","lawyerId":"3","headURL":"http://139.198.11.78:8080/mylawyer/pic/1539"},"user":{"name":"用户之家","userId":"2","headURL":"http://139.198.11.78:8080/mylawyer/pic/1540"},"status":"未评价","serviceContent":"新的测试","lastServiceTime":"2017-08-01 09:34:53"},{"serviceId":"21","type":"1","targetId":"344","lawyer":{"name":"律师之家","lawyerId":"3","headURL":"http://139.198.11.78:8080/mylawyer/pic/1539"},"user":{"name":"用户之家","userId":"2","headURL":"http://139.198.11.78:8080/mylawyer/pic/1540"},"status":"未评价","serviceContent":"新的测试","lastServiceTime":"2017-08-01 09:32:11"},{"serviceId":"20","type":"1","targetId":"343","lawyer":{"name":"律师之家","lawyerId":"3","headURL":"http://139.198.11.78:8080/mylawyer/pic/1539"},"user":{"name":"用户之家","userId":"2","headURL":"http://139.198.11.78:8080/mylawyer/pic/1540"},"status":"未评价","serviceContent":"for test only-08-01","lastServiceTime":"2017-08-01 09:12:14"},{"serviceId":"19","type":"1","targetId":"342","lawyer":{"name":"律师之家","lawyerId":"3","headURL":"http://139.198.11.78:8080/mylawyer/pic/1539"},"user":{"name":"用户之家","userId":"2","headURL":"http://139.198.11.78:8080/mylawyer/pic/1540"},"status":"未评价","serviceContent":"for test only-08-01","lastServiceTime":"2017-08-01 09:01:21"},{"serviceId":"18","type":"1","targetId":"341","lawyer":{"name":"律师之家","lawyerId":"3","headURL":"http://139.198.11.78:8080/mylawyer/pic/1539"},"user":{"name":"用户之家","userId":"2","headURL":"http://139.198.11.78:8080/mylawyer/pic/1540"},"status":"未评价","serviceContent":"for test only-08-01","lastServiceTime":"2017-08-01 09:00:13"},{"serviceId":"17","type":"1","targetId":"340","lawyer":{"name":"律师之家","lawyerId":"3","headURL":"http://139.198.11.78:8080/mylawyer/pic/1539"},"user":{"name":"用户之家","userId":"2","headURL":"http://139.198.11.78:8080/mylawyer/pic/1540"},"status":"未评价","serviceContent":"for test only-08-01","lastServiceTime":"2017-08-01 08:58:32"},{"serviceId":"16","type":"1","targetId":"339","lawyer":{"name":"律师之家","lawyerId":"3","headURL":"http://139.198.11.78:8080/mylawyer/pic/1539"},"user":{"name":"用户之家","userId":"2","headURL":"http://139.198.11.78:8080/mylawyer/pic/1540"},"status":"未评价","serviceContent":"for test only-08-01","lastServiceTime":"2017-08-01 08:41:34"},{"serviceId":"15","type":"1","targetId":"338","lawyer":{"name":"律师之家","lawyerId":"3","headURL":"http://139.198.11.78:8080/mylawyer/pic/1539"},"user":{"name":"用户之家","userId":"2","headURL":"http://139.198.11.78:8080/mylawyer/pic/1540"},"status":"未评价","serviceContent":"for test only-07-31","lastServiceTime":"2017-07-31 16:57:51"}]
      * hasMore : false
      */
 
-    private ErrBean err;
     private boolean hasMore;
-    private List<ChatListBean> chatList;
-
-    public ErrBean getErr() {
-        return err;
-    }
-
-    public void setErr(ErrBean err) {
-        this.err = err;
-    }
+    private List<ServiceListBean> serviceList;
 
     public boolean isHasMore() {
         return hasMore;
@@ -34,89 +25,57 @@ public class ConversationChatList {
         this.hasMore = hasMore;
     }
 
-    public List<ChatListBean> getChatList() {
-        return chatList;
+    public List<ServiceListBean> getServiceList() {
+        return serviceList;
     }
 
-    public void setChatList(List<ChatListBean> chatList) {
-        this.chatList = chatList;
+    public void setServiceList(List<ServiceListBean> serviceList) {
+        this.serviceList = serviceList;
     }
 
-    public static class ErrBean {
+    public static class ServiceListBean {
         /**
-         * code : 0
-         * msg : 正常
-         * eventid :
+         * serviceId : 46
+         * type : 1
+         * targetId : 369
+         * lawyer : {"name":"律师之家","lawyerId":"3","headURL":"http://139.198.11.78:8080/mylawyer/pic/1539"}
+         * user : {"name":"用户之家","userId":"2","headURL":"http://139.198.11.78:8080/mylawyer/pic/1540"}
+         * status : 未评价
+         * serviceContent : [图片]
+         * lastServiceTime : 2017-08-03 21:41:45
          */
 
-        private int code;
-        private String msg;
-        private String eventid;
-
-        public int getCode() {
-            return code;
-        }
-
-        public void setCode(int code) {
-            this.code = code;
-        }
-
-        public String getMsg() {
-            return msg;
-        }
-
-        public void setMsg(String msg) {
-            this.msg = msg;
-        }
-
-        public String getEventid() {
-            return eventid;
-        }
-
-        public void setEventid(String eventid) {
-            this.eventid = eventid;
-        }
-    }
-
-    public static class ChatListBean {
-        /**
-         * type : 3
-         * chatId : 76
-         * lawyer : {"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"}
-         * user : {"name":"用户之家","userId":2,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543"}
-         * status : 1
-         * lastWord : [图片]
-         * lastWordIsPic : true
-         * lastWordTime : 2017-04-19 11:07:31
-         * orderId : 5
-         * orderNo : 20170310161801466
-         */
-
-        private int type;
-        private int chatId;
+        private String serviceId;
+        private String type;
+        private String targetId;
         private LawyerBean lawyer;
         private UserBean user;
-        private int status;
-        private String lastWord;
-        private boolean lastWordIsPic;
-        private String lastWordTime;
-        private int orderId;
-        private String orderNo;
+        private String status;
+        private String serviceContent;
+        private String lastServiceTime;
 
-        public int getType() {
+        public String getServiceId() {
+            return serviceId;
+        }
+
+        public void setServiceId(String serviceId) {
+            this.serviceId = serviceId;
+        }
+
+        public String getType() {
             return type;
         }
 
-        public void setType(int type) {
+        public void setType(String type) {
             this.type = type;
         }
 
-        public int getChatId() {
-            return chatId;
+        public String getTargetId() {
+            return targetId;
         }
 
-        public void setChatId(int chatId) {
-            this.chatId = chatId;
+        public void setTargetId(String targetId) {
+            this.targetId = targetId;
         }
 
         public LawyerBean getLawyer() {
@@ -135,63 +94,39 @@ public class ConversationChatList {
             this.user = user;
         }
 
-        public int getStatus() {
+        public String getStatus() {
             return status;
         }
 
-        public void setStatus(int status) {
+        public void setStatus(String status) {
             this.status = status;
         }
 
-        public String getLastWord() {
-            return lastWord;
+        public String getServiceContent() {
+            return serviceContent;
         }
 
-        public void setLastWord(String lastWord) {
-            this.lastWord = lastWord;
+        public void setServiceContent(String serviceContent) {
+            this.serviceContent = serviceContent;
         }
 
-        public boolean isLastWordIsPic() {
-            return lastWordIsPic;
+        public String getLastServiceTime() {
+            return lastServiceTime;
         }
 
-        public void setLastWordIsPic(boolean lastWordIsPic) {
-            this.lastWordIsPic = lastWordIsPic;
-        }
-
-        public String getLastWordTime() {
-            return lastWordTime;
-        }
-
-        public void setLastWordTime(String lastWordTime) {
-            this.lastWordTime = lastWordTime;
-        }
-
-        public int getOrderId() {
-            return orderId;
-        }
-
-        public void setOrderId(int orderId) {
-            this.orderId = orderId;
-        }
-
-        public String getOrderNo() {
-            return orderNo;
-        }
-
-        public void setOrderNo(String orderNo) {
-            this.orderNo = orderNo;
+        public void setLastServiceTime(String lastServiceTime) {
+            this.lastServiceTime = lastServiceTime;
         }
 
         public static class LawyerBean {
             /**
              * name : 律师之家
              * lawyerId : 3
-             * headURL : http://139.198.11.78:8080/mylawyer/pic/1543
+             * headURL : http://139.198.11.78:8080/mylawyer/pic/1539
              */
 
             private String name;
-            private int lawyerId;
+            private String lawyerId;
             private String headURL;
 
             public String getName() {
@@ -202,11 +137,11 @@ public class ConversationChatList {
                 this.name = name;
             }
 
-            public int getLawyerId() {
+            public String getLawyerId() {
                 return lawyerId;
             }
 
-            public void setLawyerId(int lawyerId) {
+            public void setLawyerId(String lawyerId) {
                 this.lawyerId = lawyerId;
             }
 
@@ -223,11 +158,11 @@ public class ConversationChatList {
             /**
              * name : 用户之家
              * userId : 2
-             * headURL : http://139.198.11.78:8080/mylawyer/pic/1543
+             * headURL : http://139.198.11.78:8080/mylawyer/pic/1540
              */
 
             private String name;
-            private int userId;
+            private String userId;
             private String headURL;
 
             public String getName() {
@@ -238,11 +173,11 @@ public class ConversationChatList {
                 this.name = name;
             }
 
-            public int getUserId() {
+            public String getUserId() {
                 return userId;
             }
 
-            public void setUserId(int userId) {
+            public void setUserId(String userId) {
                 this.userId = userId;
             }
 

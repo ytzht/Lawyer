@@ -50,7 +50,7 @@ public class CompleteServiceFragment extends BaseFragment {
     private int type = 0;
     private RelativeLayout rl_ser_list;
     private TextView tv_spinner_type, tv_1, tv_2, tv_3, tv_4;
-    private List<ConversationChatList.ChatListBean> list = new ArrayList<>();
+    private List<ConversationChatList.ServiceListBean> list = new ArrayList<>();
     private PopupWindow popupWindow = null;
     private View contentView;
     @Override
@@ -81,10 +81,10 @@ public class CompleteServiceFragment extends BaseFragment {
 
                 if (index == 1) {
                     list.clear();
-                    list.addAll(chatList.getChatList());
+                    list.addAll(chatList.getServiceList());
                     rlv_now_ser.setAdapter(adapter);
                 } else {
-                    list.addAll(chatList.getChatList());
+                    list.addAll(chatList.getServiceList());
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -255,21 +255,24 @@ public class CompleteServiceFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             if (position + 1 != getItemCount()) {
-                ((ViewHolder) holder).tv_content_now.setText(list.get(position).getLastWord());
+                ((ViewHolder) holder).tv_content_now.setText(list.get(position).getServiceContent());
                 ((ViewHolder) holder).tv_name_now.setText(list.get(position).getUser().getName());
-                ((ViewHolder) holder).tv_time_now.setText(list.get(position).getLastWordTime());
+                ((ViewHolder) holder).tv_time_now.setText(list.get(position).getLastServiceTime());
                 switch (list.get(position).getType()) {
-                    case 0:
-                        ((ViewHolder) holder).tv_tag_now.setText("0");
+                    case "1":
+                        ((ViewHolder) holder).tv_tag_now.setText("快速咨询");
                         break;
-                    case 1:
-                        ((ViewHolder) holder).tv_tag_now.setText("图文订单");
+                    case "2":
+                        ((ViewHolder) holder).tv_tag_now.setText("图文咨询");
                         break;
-                    case 2:
-                        ((ViewHolder) holder).tv_tag_now.setText("免费提问");
+                    case "3":
+                        ((ViewHolder) holder).tv_tag_now.setText("电话咨询");
                         break;
-                    case 3:
-                        ((ViewHolder) holder).tv_tag_now.setText("打赏咨询");
+                    case "4":
+                        ((ViewHolder) holder).tv_tag_now.setText("私人律师");
+                        break;
+                    default:
+                        ((ViewHolder) holder).tv_tag_now.setText(list.get(position).getType());
                         break;
                 }
                 Glide.with(getActivity()).load(Uri.parse(list.get(position).getUser().getHeadURL()))
@@ -279,7 +282,7 @@ public class CompleteServiceFragment extends BaseFragment {
                 ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(TalkingActivity.class, "chatId", String.valueOf(list.get(position).getChatId()));
+                        startActivity(TalkingActivity.class, "chatId", String.valueOf(list.get(position).getTargetId()));
                     }
                 });
             } else {

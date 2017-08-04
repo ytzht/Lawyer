@@ -8,5 +8,8 @@ public interface Apis {
 
     String Base = "http://139.198.11.78:8080/mylawyer/";
 
-    String GetList = "c/conversation/getList";//1.7获取单个会话列表
+    String LawyerInfo = Apis.Base + "c/lawyer";//1.18 律师详情页
+
+    String MyLawyerList = Apis.Base + "c/myLawyerList";//1.24 我的律师
+
 }
