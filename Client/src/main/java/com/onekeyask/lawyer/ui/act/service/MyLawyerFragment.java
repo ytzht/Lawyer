@@ -1,5 +1,6 @@
 package com.onekeyask.lawyer.ui.act.service;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.MyLawyer;
 import com.onekeyask.lawyer.global.BaseFragment;
+import com.onekeyask.lawyer.ui.act.LawyerDetailActivity;
 import com.onekeyask.lawyer.utils.MyDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -157,11 +159,14 @@ public class MyLawyerFragment extends BaseFragment {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder holder, final int position) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showShort("v");
+                    Intent intent = new Intent(getActivity(), LawyerDetailActivity.class);
+                    intent.putExtra("lawyerId", data.get(position).getLawyerId());
+
+                    startActivity(intent);
                 }
             });
 

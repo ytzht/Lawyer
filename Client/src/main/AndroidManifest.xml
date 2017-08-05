@@ -43,15 +43,13 @@
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
         <!-- for wechat share -->
         <activity
             android:name=".wxapi.WXEntryActivity"
@@ -181,7 +179,8 @@
         <activity
             android:name=".ui.act.user.MissPasswordActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.act.user.MyInfoActivity"></activity>
+        <activity android:name=".ui.act.user.MyInfoActivity" />
+        <activity android:name=".ui.act.LawyerDetailActivity"></activity>
     </application>
 
 </manifest>

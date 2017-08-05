@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_lawyer_header"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@color/burro_primary_ext">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/lawyer_header"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="9dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_member_avatar" />
+
+    <TextView
+        android:id="@+id/lawyer_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/lawyer_header"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@id/lawyer_header"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:text="张晓平" />
+
+    <TextView
+        android:id="@+id/lawyer_office"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lawyer_name"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/lawyer_header"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        tools:text="北京大成律师事务所" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="17dp"
+        android:layout_below="@id/lawyer_office"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@id/lawyer_header">
+
+        <TextView
+            android:id="@+id/tv_tag1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/full_white_ten"
+            android:gravity="center"
+            android:paddingLeft="6dp"
+            android:visibility="gone"
+            android:paddingRight="6dp"
+            android:text="及时回复"
+            android:textColor="@color/burro_primary_ext"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_tag2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/full_white_ten"
+            android:gravity="center"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:visibility="gone"
+            android:text="耐心解答"
+            android:textColor="@color/burro_primary_ext"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_tag3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/full_white_ten"
+            android:gravity="center"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:visibility="gone"
+            android:text="知识渊博"
+            android:textColor="@color/burro_primary_ext"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
