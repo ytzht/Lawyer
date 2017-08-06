@@ -102,15 +102,17 @@ public class LawyerDetail {
             private String city;
             private int giveMoneyCount;
             private List<String> tags;
-            private List<Boolean> tagIsSelected;
 
-            public List<Boolean> getTagIsSelected() {
-                return tagIsSelected;
+            public int getPosition() {
+                return position;
             }
 
-            public void setTagIsSelected(List<Boolean> tagIsSelected) {
-                this.tagIsSelected = tagIsSelected;
+            public void setPosition(int position) {
+                this.position = position;
             }
+
+            private int position;
+
 
             private List<String> special;
             private List<ServiceListBean> serviceList;
@@ -271,6 +273,15 @@ public class LawyerDetail {
                 private boolean inService;
                 private List<PriceListBean> priceList;
 
+                public boolean isCheck() {
+                    return isCheck;
+                }
+
+                public void setCheck(boolean check) {
+                    isCheck = check;
+                }
+
+                private boolean isCheck;
                 public String getServiceName() {
                     return serviceName;
                 }

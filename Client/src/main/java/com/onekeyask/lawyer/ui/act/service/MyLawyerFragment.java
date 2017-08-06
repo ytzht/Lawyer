@@ -30,9 +30,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.onekeyask.lawyer.global.Apis.MyLawyerList;
@@ -45,7 +43,6 @@ public class MyLawyerFragment extends BaseFragment {
 
     RecyclerView myLawyerList;
     SmartRefreshLayout refreshLayout;
-    Unbinder unbinder;
     private View view;
     private MyLawyerAdapter adapter;
     private int index = 1;
@@ -58,8 +55,6 @@ public class MyLawyerFragment extends BaseFragment {
         view = inflater.inflate(R.layout.my_lawyer_fragment, container, false);
 
         initView(view);
-
-        unbinder = ButterKnife.bind(this, view);
 
         return view;
     }
@@ -93,9 +88,6 @@ public class MyLawyerFragment extends BaseFragment {
         myLawyerList.addItemDecoration(new MyDecoration(getActivity(), MyDecoration.VERTICAL_LIST));
         adapter = new MyLawyerAdapter();
         myLawyerList.setAdapter(adapter);
-
-        initData();
-
         initData();
     }
 
@@ -126,13 +118,6 @@ public class MyLawyerFragment extends BaseFragment {
                         }
                     }
                 });
-    }
-
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 
     @OnClick(R.id.search_lawyer_ll)

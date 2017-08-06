@@ -88,5 +88,14 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/header_more"
+        android:layout_width="40dp"
+        android:padding="12dp"
+        android:layout_height="40dp"
+        android:src="@drawable/arrow_r_w"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        />
 
 </RelativeLayout>
