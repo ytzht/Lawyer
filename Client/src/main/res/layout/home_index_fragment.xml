@@ -25,6 +25,7 @@
             android:src="@drawable/tips_n" />
 
         <ImageView
+            android:id="@+id/search_main"
             android:layout_width="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="15dp"
@@ -41,7 +42,8 @@
             android:layout_marginLeft="25dp"
             android:src="@drawable/search" />
 
-        <EditText
+        <TextView
+            android:gravity="center_vertical"
             android:id="@+id/search_et"
             android:layout_width="match_parent"
             android:layout_height="40dp"

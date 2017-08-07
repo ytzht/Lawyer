@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,10 +16,10 @@ import com.bumptech.glide.Glide;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.HomePage;
 import com.onekeyask.lawyer.global.BaseFragment;
-import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.ui.act.consulting.ConsultingDetailActivity;
+import com.onekeyask.lawyer.ui.act.lawyer.SearchLawActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -38,7 +37,7 @@ import java.util.List;
 public class HomeIndexFragment extends BaseFragment implements View.OnClickListener {
 
     private View view;
-    private EditText search_et;
+    private TextView search_et;
     private ImageView iv_top_msg;
     private RelativeLayout rl_quick_consulting, rl_look_lawyer, rl_project_one, rl_project_two, rl_project_three, rl_project_four;
     private Banner banner;
@@ -59,17 +58,8 @@ public class HomeIndexFragment extends BaseFragment implements View.OnClickListe
 
     private void initView(View view) {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        search_et = (EditText) view.findViewById(R.id.search_et);
+        search_et = (TextView) view.findViewById(R.id.search_et);
         iv_top_msg = (ImageView) view.findViewById(R.id.iv_top_msg);
-
-
-        search_et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                L.d("onFocusChange: " + b);
-//                search_et.setCursorVisible(b);
-            }
-        });
 
         rl_quick_consulting = (RelativeLayout) view.findViewById(R.id.rl_quick_consulting);
         rl_quick_consulting.setOnClickListener(this);
@@ -112,59 +102,60 @@ public class HomeIndexFragment extends BaseFragment implements View.OnClickListe
                 .setDelayTime(3000)
                 .setImageLoader(new GlideImageLoader());
         banner.setImages(banner_img);
-        switch ((int) (Math.random() * (17))) {
-            case 0:
-                banner.setBannerAnimation(Transformer.Default);
-                break;
-            case 1:
-                banner.setBannerAnimation(Transformer.Accordion);
-                break;
-            case 2:
-                banner.setBannerAnimation(Transformer.BackgroundToForeground);
-                break;
-            case 3:
-                banner.setBannerAnimation(Transformer.ForegroundToBackground);
-                break;
-            case 4:
-                banner.setBannerAnimation(Transformer.CubeIn);
-                break;
-            case 5:
-                banner.setBannerAnimation(Transformer.CubeOut);
-                break;
-            case 6:
-                banner.setBannerAnimation(Transformer.DepthPage);
-                break;
-            case 7:
-                banner.setBannerAnimation(Transformer.FlipHorizontal);
-                break;
-            case 8:
-                banner.setBannerAnimation(Transformer.FlipVertical);
-                break;
-            case 9:
-                banner.setBannerAnimation(Transformer.RotateDown);
-                break;
-            case 10:
-                banner.setBannerAnimation(Transformer.RotateUp);
-                break;
-            case 11:
-                banner.setBannerAnimation(Transformer.ScaleInOut);
-                break;
-            case 12:
-                banner.setBannerAnimation(Transformer.Stack);
-                break;
-            case 13:
-                banner.setBannerAnimation(Transformer.Tablet);
-                break;
-            case 14:
-                banner.setBannerAnimation(Transformer.ZoomIn);
-                break;
-            case 15:
-                banner.setBannerAnimation(Transformer.ZoomOut);
-                break;
-            case 16:
-                banner.setBannerAnimation(Transformer.ZoomOutSlide);
-                break;
-        }
+        banner.setBannerAnimation(Transformer.Default);
+//        switch ((int) (Math.random() * (17))) {
+//            case 0:
+//                banner.setBannerAnimation(Transformer.Default);
+//                break;
+//            case 1:
+//                banner.setBannerAnimation(Transformer.Accordion);
+//                break;
+//            case 2:
+//                banner.setBannerAnimation(Transformer.BackgroundToForeground);
+//                break;
+//            case 3:
+//                banner.setBannerAnimation(Transformer.ForegroundToBackground);
+//                break;
+//            case 4:
+//                banner.setBannerAnimation(Transformer.CubeIn);
+//                break;
+//            case 5:
+//                banner.setBannerAnimation(Transformer.CubeOut);
+//                break;
+//            case 6:
+//                banner.setBannerAnimation(Transformer.DepthPage);
+//                break;
+//            case 7:
+//                banner.setBannerAnimation(Transformer.FlipHorizontal);
+//                break;
+//            case 8:
+//                banner.setBannerAnimation(Transformer.FlipVertical);
+//                break;
+//            case 9:
+//                banner.setBannerAnimation(Transformer.RotateDown);
+//                break;
+//            case 10:
+//                banner.setBannerAnimation(Transformer.RotateUp);
+//                break;
+//            case 11:
+//                banner.setBannerAnimation(Transformer.ScaleInOut);
+//                break;
+//            case 12:
+//                banner.setBannerAnimation(Transformer.Stack);
+//                break;
+//            case 13:
+//                banner.setBannerAnimation(Transformer.Tablet);
+//                break;
+//            case 14:
+//                banner.setBannerAnimation(Transformer.ZoomIn);
+//                break;
+//            case 15:
+//                banner.setBannerAnimation(Transformer.ZoomOut);
+//                break;
+//            case 16:
+//                banner.setBannerAnimation(Transformer.ZoomOutSlide);
+//                break;
+//        }
 
         SubscriberOnNextListener<HomePage> listener = new SubscriberOnNextListener<HomePage>() {
             @Override
@@ -208,7 +199,7 @@ public class HomeIndexFragment extends BaseFragment implements View.OnClickListe
                 startActivity(ConsultingDetailActivity.class);
                 break;
             case R.id.rl_look_lawyer:
-                showShort("找律师 模块尚未上线");
+                startActivity(SearchLawActivity.class);
                 break;
             case R.id.rl_project_one:
                 showShort("专题待一 模块尚未上线");
