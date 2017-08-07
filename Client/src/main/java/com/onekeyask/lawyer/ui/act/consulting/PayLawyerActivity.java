@@ -81,7 +81,7 @@ public class PayLawyerActivity extends BaseToolBarActivity {
                 showShort(message);
             }
         };
-        retrofitUtil.getLawyerBasic(2, new ProgressSubscriber<LawyerBasic>(listener, PayLawyerActivity.this, true));
+        retrofitUtil.getLawyerBasic(3, new ProgressSubscriber<LawyerBasic>(listener, PayLawyerActivity.this, true));
     }
 
 
@@ -139,6 +139,7 @@ public class PayLawyerActivity extends BaseToolBarActivity {
                     map.put("payType", String.valueOf(payType));
                     map.put("type", "2");//1:普通心意（律师主页赠送）， 2，订单心意
                     map.put("summary", summary);
+                    if (!userServiceId.equals("-1"))
                     map.put("userServiceId", userServiceId);
 
 //                    map.put("orderId", oid);

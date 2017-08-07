@@ -1,16 +1,24 @@
-package com.onekeyask.lawyer.ui.act;
+package com.onekeyask.lawyer.ui.act.lawyer;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -27,9 +35,7 @@ import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
-import com.onekeyask.lawyer.ui.act.lawyer.LawyerIntroActivity;
-import com.onekeyask.lawyer.ui.act.lawyer.PersonLawyerActivity;
-import com.onekeyask.lawyer.ui.act.lawyer.TxtPicAskActivity;
+import com.onekeyask.lawyer.ui.act.consulting.PayLawyerActivity;
 import com.onekeyask.lawyer.utils.MyDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -99,8 +105,20 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
     private CommentTagAdapter commentTagAdapter;
     private ServiceTypeAdapter serviceTypeAdapter;
     private List<MyLawyer.DataBean.LawyerListBean> comData = new ArrayList<>();
-
+    private IsFavorite isFavorite = new IsFavorite();
     private int type = 1;//图文咨询、电话咨询、私人律师
+    private int price;
+    private String cycle;
+    private PopupWindow popupWindow = null;
+    private View popupView;
+    private TextView tv_sel_2;
+    private TextView tv_sel_4;
+    private TextView tv_sel_6;
+    private TextView tv_sel_8;
+    private TextView tv_cancel_popup;
+    private TextView tv_yes_popup;
+    private EditText et_money_popup, et_desc_popup;
+    private String selectMoney = "2.00";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,35 +153,97 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
 
         initData();
 
-        initClick();
+        initPop();
+
     }
 
-    private void initClick() {
+    private void initPop() {
+        popupView = LayoutInflater.from(this).inflate(R.layout.popup_select_money, null);
+        tv_sel_2 = (TextView) popupView.findViewById(R.id.tv_sel_2);
+        tv_sel_4 = (TextView) popupView.findViewById(R.id.tv_sel_4);
+        tv_sel_6 = (TextView) popupView.findViewById(R.id.tv_sel_6);
+        tv_sel_8 = (TextView) popupView.findViewById(R.id.tv_sel_8);
+        tv_cancel_popup = (TextView) popupView.findViewById(R.id.tv_cancel_popup);
+        tv_yes_popup = (TextView) popupView.findViewById(R.id.tv_yes_popup);
+        initPopupClick();
 
-        consulting.setOnClickListener(new View.OnClickListener() {
+
+        et_money_popup = (EditText) popupView.findViewById(R.id.et_money_popup);
+        et_desc_popup = (EditText) popupView.findViewById(R.id.et_desc_popup);
+        et_money_popup.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
+        et_money_popup.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                if (type == 1){
-                    startActivity(PersonLawyerActivity.class);
-                }else if (type == 2){
-                    startActivity(TxtPicAskActivity.class);
-                }else {
-                     showShort("电话咨询");
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!et_money_popup.getText().toString().equals("") && !et_money_popup.getText().toString().equals(".")) {
+                    int money = (int) (((Double.parseDouble(et_money_popup.getText().toString()))));
+                    if (money != 0) {
+                        selectMoney = String.valueOf(money);
+                    } else {
+                        selectMoney = "";
+                    }
                 }
+                tv_sel_2.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
+                tv_sel_4.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
+                tv_sel_6.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
+                tv_sel_8.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
+                tv_sel_2.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackTopic));
+                tv_sel_4.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackTopic));
+                tv_sel_6.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackTopic));
+                tv_sel_8.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackTopic));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
-
-        headerMore.setOnClickListener(new View.OnClickListener() {
+        llSendMoney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LawyerDetailActivity.this, LawyerIntroActivity.class);
-                intent.putExtra("lawyerId", lawyerId);
-                intent.putExtra("notes", data.getLawyer().getNotes());
-                startActivity(intent);
+                popupWindow = getPopwindow(popupView);
             }
         });
+
+
+
     }
 
+
+    //跳出选项框
+    public PopupWindow getPopwindow(View view) {
+        PopupWindow popupWindow = new PopupWindow(view,
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(true);
+        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+        layoutParams.alpha = 0.6f;
+        getWindow().setAttributes(layoutParams);
+        popupWindow.setBackgroundDrawable(new ColorDrawable());
+        popupWindow.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
+        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        popupWindow.showAtLocation(llSendMoney, Gravity.BOTTOM, 0, 0);
+//        popupWindow.showAsDropDown(rlGiveMoney);
+//        popupWindow.setAnimationStyle(R.style.anim_menu_bottombar);
+        popupWindow.setAnimationStyle(android.R.style.Animation_InputMethod);
+        popupWindow.update();
+        popupWindow.setTouchable(true);
+
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+                layoutParams.alpha = 1f;
+                getWindow().setAttributes(layoutParams);
+            }
+        });
+        return popupWindow;
+    }
     private void initCListData() {
         OkGo.<String>get(Apis.CommentList)
                 .params("score", "0") //满意度评分，0 全部5 很满意3 满意1 不满意
@@ -272,16 +352,42 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         h_service_type.setLayoutManager(linearLayoutManager);
         serviceTypeAdapter = new ServiceTypeAdapter();
         h_service_type.setAdapter(serviceTypeAdapter);
+        price = data.getLawyer().getServiceList().get(0).getPriceList().get(0).getPrice();
+        cycle = data.getLawyer().getServiceList().get(0).getPriceList().get(0).getCycle();
+        consulting.setText(data.getLawyer().getServiceList().get(0).getServiceName() + price + "元/" + cycle);
 
+        consulting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (type == 1){
+                    startActivity(PersonLawyerActivity.class, "lawyerId", lawyerId+"");
+                }else if (type == 2){
+                    Intent intent = new Intent(LawyerDetailActivity.this, TxtPicAskActivity.class);
+                    intent.putExtra("lawyerId", lawyerId);
+                    startActivity(intent);
+                }else {
+                    showShort("电话咨询");
+                }
+            }
+        });
 
         serviceList.setLayoutManager(new LinearLayoutManager(this));
         serviceList.addItemDecoration(new MyDecoration(this, MyDecoration.VERTICAL_LIST));
         commentListAdapter = new CommentListAdapter();
         serviceList.setAdapter(commentListAdapter);
+
+
+        headerMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LawyerDetailActivity.this, LawyerIntroActivity.class);
+                intent.putExtra("lawyerId", lawyerId);
+                intent.putExtra("office", data.getLawyer().getLawyerOfficeName());
+                intent.putExtra("notes", data.getLawyer().getNotes());
+                startActivity(intent);
+            }
+        });
     }
-
-
-    private IsFavorite isFavorite = new IsFavorite();
 
     private void toFavorite() {
 
@@ -325,7 +431,6 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         retrofitUtil.getIsFavorite("2", "3", new ProgressSubscriber<IsFavorite>(getResultOnNext, LawyerDetailActivity.this, false));
 
     }
-
 
     private class SpecialAdapter extends RecyclerView.Adapter<SpecialAdapter.ViewHolder> {
 
@@ -403,7 +508,6 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         }
     }
 
-
     private class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.ViewHolder> {
 
         @Override
@@ -441,7 +545,6 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         }
 
     }
-
 
     private class ServiceTypeAdapter extends RecyclerView.Adapter<ServiceTypeAdapter.ViewHolder> {
 
@@ -505,4 +608,91 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
             }
         }
     }
+
+    private void initPopupClick() {
+
+        tv_cancel_popup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+        tv_yes_popup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectMoney.equals("")) {
+                    showShort("请选择金额");
+                } else {
+                    popupWindow.dismiss();
+                    showShort("选择" + selectMoney + "元 并说" + et_desc_popup.getText().toString());
+                    startActivity(PayLawyerActivity.class,
+                            "name", "张三",
+                            "money", selectMoney + "",
+                            "summary", et_desc_popup.getText().toString(),
+                            "userServiceId", "-1");
+                }
+            }
+        });
+        tv_sel_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectMoney = "2.00";
+                et_money_popup.setText(selectMoney);
+                tv_sel_2.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.tag_select));
+                tv_sel_4.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
+                tv_sel_6.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
+                tv_sel_8.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
+                tv_sel_2.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.white));
+                tv_sel_4.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackTopic));
+                tv_sel_6.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackTopic));
+                tv_sel_8.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackTopic));
+            }
+        });
+        tv_sel_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectMoney = "4.00";
+                et_money_popup.setText(selectMoney);
+                tv_sel_4.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.tag_select));
+                tv_sel_2.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
+                tv_sel_6.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
+                tv_sel_8.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
+                tv_sel_4.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.white));
+                tv_sel_2.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackTopic));
+                tv_sel_6.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackTopic));
+                tv_sel_8.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackTopic));
+            }
+        });
+        tv_sel_6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectMoney = "6.00";
+                et_money_popup.setText(selectMoney);
+                tv_sel_6.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.tag_select));
+                tv_sel_4.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
+                tv_sel_2.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
+                tv_sel_8.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
+                tv_sel_6.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.white));
+                tv_sel_4.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackTopic));
+                tv_sel_2.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackTopic));
+                tv_sel_8.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackTopic));
+            }
+        });
+        tv_sel_8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectMoney = "8.00";
+                et_money_popup.setText(selectMoney);
+                tv_sel_8.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.tag_select));
+                tv_sel_4.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
+                tv_sel_6.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
+                tv_sel_2.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
+                tv_sel_8.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.white));
+                tv_sel_4.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackTopic));
+                tv_sel_6.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackTopic));
+                tv_sel_2.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackTopic));
+            }
+        });
+    }
+
 }

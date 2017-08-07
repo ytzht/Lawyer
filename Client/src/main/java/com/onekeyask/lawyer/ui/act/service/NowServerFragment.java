@@ -188,7 +188,7 @@ public class NowServerFragment extends BaseFragment {
                 Glide.with(getActivity()).load(Uri.parse(listBeen.get(position).getLawyer().getHeadURL()))
                         .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
                         .into(((ViewHolder) holder).civ_avatar_now);
-
+                ((ViewHolder) holder).status.setText(listBeen.get(position).getStatus());
                 ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -213,7 +213,7 @@ public class NowServerFragment extends BaseFragment {
 
         class ViewHolder extends RecyclerView.ViewHolder{
 
-            private TextView tv_content_now, tv_tag_now, tv_time_now, tv_name_now;
+            private TextView tv_content_now, tv_tag_now, tv_time_now, tv_name_now, status;
             private CircleImageView civ_avatar_now;
             private ViewHolder(View itemView) {
                 super(itemView);
@@ -221,6 +221,7 @@ public class NowServerFragment extends BaseFragment {
                 tv_tag_now = (TextView) itemView.findViewById(R.id.tv_tag_now);
                 tv_time_now = (TextView) itemView.findViewById(R.id.tv_time_now);
                 tv_name_now = (TextView) itemView.findViewById(R.id.tv_name_now);
+                status = (TextView) itemView.findViewById(R.id.status);
                 civ_avatar_now = (CircleImageView) itemView.findViewById(R.id.civ_avatar_now);
 
 

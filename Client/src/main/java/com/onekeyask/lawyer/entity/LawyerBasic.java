@@ -10,7 +10,7 @@ public class LawyerBasic {
 
 
     /**
-     * lawyer : {"name":"用户之家","headURL":"http://139.198.11.78:8080/mylawyer/pic/1540","special":[]}
+     * lawyer : {"name":"律师之家","headURL":"http://139.198.11.78:8080/mylawyer/pic/1539","special":["合同纠纷","房产纠纷","婚姻继承","债权债务","侵权纠纷"]}
      */
 
     private LawyerBean lawyer;
@@ -25,14 +25,14 @@ public class LawyerBasic {
 
     public static class LawyerBean {
         /**
-         * name : 用户之家
-         * headURL : http://139.198.11.78:8080/mylawyer/pic/1540
-         * special : []
+         * name : 律师之家
+         * headURL : http://139.198.11.78:8080/mylawyer/pic/1539
+         * special : ["合同纠纷","房产纠纷","婚姻继承","债权债务","侵权纠纷"]
          */
 
         private String name;
         private String headURL;
-        private List<?> special;
+        private List<String> special;
 
         public String getName() {
             return name;
@@ -50,11 +50,11 @@ public class LawyerBasic {
             this.headURL = headURL;
         }
 
-        public List<?> getSpecial() {
+        public List<String> getSpecial() {
             return special;
         }
 
-        public void setSpecial(List<?> special) {
+        public void setSpecial(List<String> special) {
             this.special = special;
         }
     }

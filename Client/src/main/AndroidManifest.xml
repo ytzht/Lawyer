@@ -180,10 +180,11 @@
             android:name=".ui.act.user.MissPasswordActivity"
             android:launchMode="singleTask" />
         <activity android:name=".ui.act.user.MyInfoActivity" />
-        <activity android:name=".ui.act.LawyerDetailActivity" />
+        <activity android:name=".ui.act.lawyer.LawyerDetailActivity"
+            android:theme="@style/PopupTheme" />
         <activity android:name=".ui.act.lawyer.LawyerIntroActivity" />
         <activity android:name=".ui.act.lawyer.PersonLawyerActivity" />
-        <activity android:name=".ui.act.lawyer.TxtPicAskActivity"></activity>
+        <activity android:name=".ui.act.lawyer.TxtPicAskActivity"/>
     </application>
 
 </manifest>

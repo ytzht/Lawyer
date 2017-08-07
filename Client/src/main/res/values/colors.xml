@@ -30,6 +30,7 @@
     <color name="black">#ff000000</color>
     <color name="black_">#424242</color>
     <color name="grey">#5A5A5A</color>
+    <color name="type_gray">#6f6f6f</color>
     <color name="grey_">#5A5A5A</color>
     <color name="ser_grey">#8a8a8a</color>
 

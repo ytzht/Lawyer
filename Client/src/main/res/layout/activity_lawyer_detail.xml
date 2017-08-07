@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/viewDivider"
     android:orientation="vertical"
-    tools:context="com.onekeyask.lawyer.ui.act.LawyerDetailActivity">
+    tools:context="com.onekeyask.lawyer.ui.act.lawyer.LawyerDetailActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -116,7 +116,7 @@
                     android:id="@+id/service_notes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="通过文字、图片、语音进行咨询"
+                    tools:text="通过文字、图片、语音进行咨询"
                     android:textColor="#6f6f6f"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -256,7 +256,7 @@
             android:layout_height="match_parent"
             android:background="#56d177"
             android:gravity="center"
-            android:text="图文咨询2元/次"
+            tools:text="图文咨询2元/次"
             android:textColor="@color/white"
             android:textSize="18sp" />
 

@@ -18,7 +18,7 @@ import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.MyLawyer;
 import com.onekeyask.lawyer.global.BaseFragment;
-import com.onekeyask.lawyer.ui.act.LawyerDetailActivity;
+import com.onekeyask.lawyer.ui.act.lawyer.LawyerDetailActivity;
 import com.onekeyask.lawyer.utils.MyDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;

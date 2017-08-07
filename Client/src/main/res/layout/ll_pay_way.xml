@@ -15,7 +15,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
-
             android:text="请选择支付方式" />
 
 
@@ -54,10 +53,10 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_marginTop="35dp"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/textView3"
                 android:layout_alignStart="@+id/textView3"
+                android:layout_marginTop="35dp"
                 android:text="推荐支付宝账号使用"
                 android:textColor="@color/blackSec_"
                 android:textSize="12dp" />
@@ -135,9 +134,9 @@
             <ImageView
                 android:layout_width="34dp"
                 android:layout_height="34dp"
-                android:src="@drawable/balance"
+                android:layout_centerVertical="true"
                 android:layout_margin="15dp"
-                android:layout_centerVertical="true" />
+                android:src="@drawable/balance" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -177,20 +176,40 @@
             android:layout_height="match_parent"
             android:background="@color/viewDivider">
 
-            <TextView
-                android:gravity="center"
-                android:id="@+id/btn_pay"
+            <LinearLayout
+                android:id="@+id/notice_ll"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
-                android:textSize="18sp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="买前必读：\n1、您可根据案件类型复杂程度购买图文咨询，如果时间或次数超时，只能再次购买进行图文咨询；\n2.当订单产生，根据您消费的金额赠送50积分；\n3.如有什么疑问您可以拨打客服电话，号码是01082668266。"
+                    android:textSize="12sp" />
+                <!--String s = "恭喜您获得 <font color='#dc5145'><big><big>" + taskIntegral + "</big></big></font> 积分";-->
+                <!--sign_get.setText(Html.fromHtml(s));-->
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btn_pay"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/notice_ll"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="100dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
                 android:background="@drawable/full_orange_ten"
+                android:gravity="center"
                 android:text="确认支付"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="18sp" />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
