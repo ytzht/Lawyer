@@ -240,7 +240,7 @@ public class CompleteServiceFragment extends BaseFragment {
             if (getItemCount() == position + 1) {
                 return R.layout.cell_load_more;
             } else {
-                return R.layout.cell_now_server;
+                return R.layout.cell_complete_server;
             }
 
         }
@@ -248,7 +248,7 @@ public class CompleteServiceFragment extends BaseFragment {
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getActivity()).inflate(viewType, parent, false);
-            if (viewType == R.layout.cell_now_server) {
+            if (viewType == R.layout.cell_complete_server) {
                 return new ViewHolder(view);
             } else {
                 return new ViewHolderMore(view);
