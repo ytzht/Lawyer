@@ -11,7 +11,7 @@ public class LawyerDetail {
     /**
      * code : 0
      * msg : 正常
-     * data : {"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1539","lawyerOfficeName":"不知道","tags":["回复很及时","非常敬业","回答很专业","态度非常好","666"],"special":["合同纠纷","房产纠纷","婚姻继承","债权债务","侵权纠纷"],"serviceScore":63.3,"serviceCount":206,"favorite":false,"favoriteNum":0,"notes":"我该说点啥好","sex":1,"district":"北京市市辖区","city":"北京市","serviceList":[{"serviceName":"私人律师","serviceType":1,"isOn":true,"notes":"服务周期内，专业律师为客户提供个人法律顾问服务，解决法律需求。","imgURL":"http://139.198.11.78:8080/mylawyer/pic/1","inService":false,"priceList":[{"priceId":1,"isOpen":true,"cycle":"周","price":500},{"priceId":2,"isOpen":false,"cycle":"月","price":0},{"priceId":3,"isOpen":false,"cycle":"年","price":0}]},{"serviceName":"图文咨询","serviceType":2,"isOn":true,"notes":"以图文方式按次解答客户的法律咨询问题。","imgURL":"http://139.198.11.78:8080/mylawyer/pic/2","inService":false,"priceList":[{"priceId":4,"isOpen":true,"cycle":"次","price":1}]},{"serviceName":"电话咨询","serviceType":3,"isOn":true,"notes":"以电话方式按次解答客户的法律咨询问题。","imgURL":"http://139.198.11.78:8080/mylawyer/pic/3","inService":false,"priceList":[{"priceId":5,"isOpen":true,"cycle":"分钟","price":1}]}],"scoreCounts":[{"score":0,"scoreShowName":"全部","scount":246},{"score":5,"scoreShowName":"很满意","scount":209},{"score":3,"scoreShowName":"满意","scount":32},{"score":1,"scoreShowName":"不满意","scount":5}],"giveMoneyCount":5},"customerReply":[{"commentId":310,"phoneNo":"1521086***6","content":"新的测试","notes":"[]","serviceScore":3,"headURL":"http://127.0.0.1:8080/mylawyer/pic/1540","commentDate":"2017-08-01 16:12:49"},{"commentId":309,"phoneNo":"1521086***6","content":"我们等你的的111","notes":"[]","serviceScore":3,"headURL":"http://127.0.0.1:8080/mylawyer/pic/1540","commentDate":"2017-08-01 13:31:44"}]}
+     * data : {"lawyer":{"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1539","lawyerOfficeName":"不知道","tags":["回复很及时","非常敬业","回答很专业","态度非常好","666"],"special":["合同纠纷","房产纠纷","婚姻继承","债权债务","侵权纠纷"],"serviceScore":63.2,"serviceCount":207,"favorite":true,"favoriteNum":1,"notes":"我该说点啥好","sex":1,"district":"北京市市辖区","city":"北京市","serviceList":[{"serviceName":"私人律师","serviceType":1,"isOn":true,"notes":"服务周期内，专业律师为客户提供个人法律顾问服务，解决法律需求。","imgURL":"http://139.198.11.78:8080/mylawyer/pic/1","inService":true,"priceList":[{"priceId":1,"isOpen":true,"cycle":"周","price":500},{"priceId":2,"isOpen":false,"cycle":"月","price":0},{"priceId":3,"isOpen":false,"cycle":"年","price":0}]},{"serviceName":"图文咨询","serviceType":2,"isOn":true,"notes":"以图文方式按次解答客户的法律咨询问题。","imgURL":"http://139.198.11.78:8080/mylawyer/pic/2","inService":true,"priceList":[{"priceId":4,"isOpen":true,"cycle":"次","price":20}]},{"serviceName":"电话咨询","serviceType":3,"isOn":true,"notes":"以电话方式按次解答客户的法律咨询问题。","imgURL":"http://139.198.11.78:8080/mylawyer/pic/3","inService":true,"priceList":[{"priceId":5,"isOpen":true,"cycle":"分钟","price":5}]}],"scoreCounts":[{"score":0,"scoreShowName":"全部","scount":247},{"score":5,"scoreShowName":"很满意","scount":210},{"score":3,"scoreShowName":"满意","scount":32},{"score":1,"scoreShowName":"不满意","scount":5}],"giveMoneyCount":5},"customerReply":[{"commentId":314,"phoneNo":"1521086***6","content":"85","notes":"[]","serviceScore":5,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1540","commentDate":"2017-08-07 16:06:49"},{"commentId":313,"phoneNo":"1521086***6","content":"？？","notes":"[]","serviceScore":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1540","commentDate":"2017-08-04 23:45:40"},{"commentId":312,"phoneNo":"1521086***6","content":"111","notes":"输入的评价","serviceScore":5,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1540","commentDate":"2017-08-04 13:24:13"},{"commentId":311,"phoneNo":"1521086***6","content":"我们等你的的111","notes":"[]","serviceScore":5,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1540","commentDate":"2017-08-04 13:06:04"},{"commentId":310,"phoneNo":"1521086***6","content":"新的测试","notes":"[]","serviceScore":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1540","commentDate":"2017-08-01 16:12:49"}]}
      */
 
     private int code;
@@ -44,8 +44,8 @@ public class LawyerDetail {
 
     public static class DataBean {
         /**
-         * lawyer : {"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1539","lawyerOfficeName":"不知道","tags":["回复很及时","非常敬业","回答很专业","态度非常好","666"],"special":["合同纠纷","房产纠纷","婚姻继承","债权债务","侵权纠纷"],"serviceScore":63.3,"serviceCount":206,"favorite":false,"favoriteNum":0,"notes":"我该说点啥好","sex":1,"district":"北京市市辖区","city":"北京市","serviceList":[{"serviceName":"私人律师","serviceType":1,"isOn":true,"notes":"服务周期内，专业律师为客户提供个人法律顾问服务，解决法律需求。","imgURL":"http://139.198.11.78:8080/mylawyer/pic/1","inService":false,"priceList":[{"priceId":1,"isOpen":true,"cycle":"周","price":500},{"priceId":2,"isOpen":false,"cycle":"月","price":0},{"priceId":3,"isOpen":false,"cycle":"年","price":0}]},{"serviceName":"图文咨询","serviceType":2,"isOn":true,"notes":"以图文方式按次解答客户的法律咨询问题。","imgURL":"http://139.198.11.78:8080/mylawyer/pic/2","inService":false,"priceList":[{"priceId":4,"isOpen":true,"cycle":"次","price":1}]},{"serviceName":"电话咨询","serviceType":3,"isOn":true,"notes":"以电话方式按次解答客户的法律咨询问题。","imgURL":"http://139.198.11.78:8080/mylawyer/pic/3","inService":false,"priceList":[{"priceId":5,"isOpen":true,"cycle":"分钟","price":1}]}],"scoreCounts":[{"score":0,"scoreShowName":"全部","scount":246},{"score":5,"scoreShowName":"很满意","scount":209},{"score":3,"scoreShowName":"满意","scount":32},{"score":1,"scoreShowName":"不满意","scount":5}],"giveMoneyCount":5}
-         * customerReply : [{"commentId":310,"phoneNo":"1521086***6","content":"新的测试","notes":"[]","serviceScore":3,"headURL":"http://127.0.0.1:8080/mylawyer/pic/1540","commentDate":"2017-08-01 16:12:49"},{"commentId":309,"phoneNo":"1521086***6","content":"我们等你的的111","notes":"[]","serviceScore":3,"headURL":"http://127.0.0.1:8080/mylawyer/pic/1540","commentDate":"2017-08-01 13:31:44"}]
+         * lawyer : {"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1539","lawyerOfficeName":"不知道","tags":["回复很及时","非常敬业","回答很专业","态度非常好","666"],"special":["合同纠纷","房产纠纷","婚姻继承","债权债务","侵权纠纷"],"serviceScore":63.2,"serviceCount":207,"favorite":true,"favoriteNum":1,"notes":"我该说点啥好","sex":1,"district":"北京市市辖区","city":"北京市","serviceList":[{"serviceName":"私人律师","serviceType":1,"isOn":true,"notes":"服务周期内，专业律师为客户提供个人法律顾问服务，解决法律需求。","imgURL":"http://139.198.11.78:8080/mylawyer/pic/1","inService":true,"priceList":[{"priceId":1,"isOpen":true,"cycle":"周","price":500},{"priceId":2,"isOpen":false,"cycle":"月","price":0},{"priceId":3,"isOpen":false,"cycle":"年","price":0}]},{"serviceName":"图文咨询","serviceType":2,"isOn":true,"notes":"以图文方式按次解答客户的法律咨询问题。","imgURL":"http://139.198.11.78:8080/mylawyer/pic/2","inService":true,"priceList":[{"priceId":4,"isOpen":true,"cycle":"次","price":20}]},{"serviceName":"电话咨询","serviceType":3,"isOn":true,"notes":"以电话方式按次解答客户的法律咨询问题。","imgURL":"http://139.198.11.78:8080/mylawyer/pic/3","inService":true,"priceList":[{"priceId":5,"isOpen":true,"cycle":"分钟","price":5}]}],"scoreCounts":[{"score":0,"scoreShowName":"全部","scount":247},{"score":5,"scoreShowName":"很满意","scount":210},{"score":3,"scoreShowName":"满意","scount":32},{"score":1,"scoreShowName":"不满意","scount":5}],"giveMoneyCount":5}
+         * customerReply : [{"commentId":314,"phoneNo":"1521086***6","content":"85","notes":"[]","serviceScore":5,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1540","commentDate":"2017-08-07 16:06:49"},{"commentId":313,"phoneNo":"1521086***6","content":"？？","notes":"[]","serviceScore":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1540","commentDate":"2017-08-04 23:45:40"},{"commentId":312,"phoneNo":"1521086***6","content":"111","notes":"输入的评价","serviceScore":5,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1540","commentDate":"2017-08-04 13:24:13"},{"commentId":311,"phoneNo":"1521086***6","content":"我们等你的的111","notes":"[]","serviceScore":5,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1540","commentDate":"2017-08-04 13:06:04"},{"commentId":310,"phoneNo":"1521086***6","content":"新的测试","notes":"[]","serviceScore":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1540","commentDate":"2017-08-01 16:12:49"}]
          */
 
         private LawyerBean lawyer;
@@ -75,16 +75,16 @@ public class LawyerDetail {
              * lawyerOfficeName : 不知道
              * tags : ["回复很及时","非常敬业","回答很专业","态度非常好","666"]
              * special : ["合同纠纷","房产纠纷","婚姻继承","债权债务","侵权纠纷"]
-             * serviceScore : 63.3
-             * serviceCount : 206
-             * favorite : false
-             * favoriteNum : 0
+             * serviceScore : 63.2
+             * serviceCount : 207
+             * favorite : true
+             * favoriteNum : 1
              * notes : 我该说点啥好
              * sex : 1
              * district : 北京市市辖区
              * city : 北京市
-             * serviceList : [{"serviceName":"私人律师","serviceType":1,"isOn":true,"notes":"服务周期内，专业律师为客户提供个人法律顾问服务，解决法律需求。","imgURL":"http://139.198.11.78:8080/mylawyer/pic/1","inService":false,"priceList":[{"priceId":1,"isOpen":true,"cycle":"周","price":500},{"priceId":2,"isOpen":false,"cycle":"月","price":0},{"priceId":3,"isOpen":false,"cycle":"年","price":0}]},{"serviceName":"图文咨询","serviceType":2,"isOn":true,"notes":"以图文方式按次解答客户的法律咨询问题。","imgURL":"http://139.198.11.78:8080/mylawyer/pic/2","inService":false,"priceList":[{"priceId":4,"isOpen":true,"cycle":"次","price":1}]},{"serviceName":"电话咨询","serviceType":3,"isOn":true,"notes":"以电话方式按次解答客户的法律咨询问题。","imgURL":"http://139.198.11.78:8080/mylawyer/pic/3","inService":false,"priceList":[{"priceId":5,"isOpen":true,"cycle":"分钟","price":1}]}]
-             * scoreCounts : [{"score":0,"scoreShowName":"全部","scount":246},{"score":5,"scoreShowName":"很满意","scount":209},{"score":3,"scoreShowName":"满意","scount":32},{"score":1,"scoreShowName":"不满意","scount":5}]
+             * serviceList : [{"serviceName":"私人律师","serviceType":1,"isOn":true,"notes":"服务周期内，专业律师为客户提供个人法律顾问服务，解决法律需求。","imgURL":"http://139.198.11.78:8080/mylawyer/pic/1","inService":true,"priceList":[{"priceId":1,"isOpen":true,"cycle":"周","price":500},{"priceId":2,"isOpen":false,"cycle":"月","price":0},{"priceId":3,"isOpen":false,"cycle":"年","price":0}]},{"serviceName":"图文咨询","serviceType":2,"isOn":true,"notes":"以图文方式按次解答客户的法律咨询问题。","imgURL":"http://139.198.11.78:8080/mylawyer/pic/2","inService":true,"priceList":[{"priceId":4,"isOpen":true,"cycle":"次","price":20}]},{"serviceName":"电话咨询","serviceType":3,"isOn":true,"notes":"以电话方式按次解答客户的法律咨询问题。","imgURL":"http://139.198.11.78:8080/mylawyer/pic/3","inService":true,"priceList":[{"priceId":5,"isOpen":true,"cycle":"分钟","price":5}]}]
+             * scoreCounts : [{"score":0,"scoreShowName":"全部","scount":247},{"score":5,"scoreShowName":"很满意","scount":210},{"score":3,"scoreShowName":"满意","scount":32},{"score":1,"scoreShowName":"不满意","scount":5}]
              * giveMoneyCount : 5
              */
 
@@ -261,7 +261,7 @@ public class LawyerDetail {
                  * isOn : true
                  * notes : 服务周期内，专业律师为客户提供个人法律顾问服务，解决法律需求。
                  * imgURL : http://139.198.11.78:8080/mylawyer/pic/1
-                 * inService : false
+                 * inService : true
                  * priceList : [{"priceId":1,"isOpen":true,"cycle":"周","price":500},{"priceId":2,"isOpen":false,"cycle":"月","price":0},{"priceId":3,"isOpen":false,"cycle":"年","price":0}]
                  */
 
@@ -389,7 +389,7 @@ public class LawyerDetail {
                 /**
                  * score : 0
                  * scoreShowName : 全部
-                 * scount : 246
+                 * scount : 247
                  */
 
                 private int score;
@@ -424,13 +424,13 @@ public class LawyerDetail {
 
         public static class CustomerReplyBean {
             /**
-             * commentId : 310
+             * commentId : 314
              * phoneNo : 1521086***6
-             * content : 新的测试
+             * content : 85
              * notes : []
-             * serviceScore : 3
-             * headURL : http://127.0.0.1:8080/mylawyer/pic/1540
-             * commentDate : 2017-08-01 16:12:49
+             * serviceScore : 5
+             * headURL : http://139.198.11.78:8080/mylawyer/pic/1540
+             * commentDate : 2017-08-07 16:06:49
              */
 
             private int commentId;

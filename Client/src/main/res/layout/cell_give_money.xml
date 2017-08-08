@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/com_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="132*****117"
+            android:textColor="#343434"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="14dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:src="@drawable/heart_b_c_o"
+            android:layout_height="14dp" />
+        <TextView
+            android:id="@+id/com_money"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="12元"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:textColor="@color/org"
+            android:layout_height="19dp" />
+        <TextView
+            android:id="@+id/com_time"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_width="64dp"
+            android:layout_marginLeft="6dp"
+            android:textColor="#8a8a8a"
+            android:text="03月08日"/>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/com_txt"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#343434"
+        tools:text="张律师非常专业，很耐心，非常感谢！"
+        />
+
+</LinearLayout>

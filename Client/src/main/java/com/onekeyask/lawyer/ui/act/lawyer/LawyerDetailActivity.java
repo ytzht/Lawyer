@@ -28,22 +28,19 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
+import com.onekeyask.lawyer.entity.CustomerReply;
+import com.onekeyask.lawyer.entity.CustomerReplyBean;
+import com.onekeyask.lawyer.entity.GiveMoneyList;
 import com.onekeyask.lawyer.entity.IsFavorite;
 import com.onekeyask.lawyer.entity.LawyerDetail;
-import com.onekeyask.lawyer.entity.MyLawyer;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.ui.act.consulting.PayLawyerActivity;
 import com.onekeyask.lawyer.utils.MyDecoration;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +70,8 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
     RecyclerView tagsFl;
     @BindView(R.id.service_list)
     RecyclerView serviceList;
+    @BindView(R.id.give_money_list)
+    RecyclerView giveMoneyList;
     @BindView(R.id.h_service_type)
     RecyclerView h_service_type;
     @BindView(R.id.serviceCount)
@@ -89,8 +88,8 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
     LinearLayout llFavorite;
     @BindView(R.id.consulting)
     TextView consulting;
-    @BindView(R.id.refreshLayout)
-    SmartRefreshLayout refreshLayout;
+//    @BindView(R.id.refreshLayout_detail)
+//    SmartRefreshLayout refreshLayout;
     @BindView(R.id.header_more)
     ImageView headerMore;
     @BindView(R.id.service_notes)
@@ -98,13 +97,15 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
     private int lawyerId;
     private LawyerDetail.DataBean data;
     private int index = 1;
-    private int size = 10;
+    private int size = 100;
     private boolean hasMore = true;
     private CommentListAdapter commentListAdapter;
+    private GiveMoneyListAdapter giveMoneyListAdapter;
     private SpecialAdapter specialAdapter;
     private CommentTagAdapter commentTagAdapter;
     private ServiceTypeAdapter serviceTypeAdapter;
-    private List<MyLawyer.DataBean.LawyerListBean> comData = new ArrayList<>();
+    private List<CustomerReplyBean> comData = new ArrayList<>();
+    private List<GiveMoneyList.DataBean.GiveMoneyBean> moneyData = new ArrayList<>();
     private IsFavorite isFavorite = new IsFavorite();
     private int type = 1;//图文咨询、电话咨询、私人律师
     private int price;
@@ -119,6 +120,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
     private TextView tv_yes_popup;
     private EditText et_money_popup, et_desc_popup;
     private String selectMoney = "2.00";
+    private int score = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,33 +130,10 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
 
         lawyerId = getIntent().getIntExtra("lawyerId", 0);
 
-
-        refreshLayout.setRefreshHeader(new ClassicsHeader(this));
-        refreshLayout.setRefreshFooter(new ClassicsFooter(this));
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh(1000);
-                index = 1;
-                initCListData();
-            }
-        });
-        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
-            @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadmore(1000);
-                if (hasMore) {
-                    index += 1;
-                    initCListData();
-                }
-            }
-        });
-
-
+        index = 1;
+        initCListData();
         initData();
-
         initPop();
-
     }
 
     private void initPop() {
@@ -166,7 +145,6 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         tv_cancel_popup = (TextView) popupView.findViewById(R.id.tv_cancel_popup);
         tv_yes_popup = (TextView) popupView.findViewById(R.id.tv_yes_popup);
         initPopupClick();
-
 
         et_money_popup = (EditText) popupView.findViewById(R.id.et_money_popup);
         et_desc_popup = (EditText) popupView.findViewById(R.id.et_desc_popup);
@@ -211,9 +189,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         });
 
 
-
     }
-
 
     //跳出选项框
     public PopupWindow getPopwindow(View view) {
@@ -244,31 +220,82 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         });
         return popupWindow;
     }
+
     private void initCListData() {
+
+        serviceList.setLayoutManager(new LinearLayoutManager(this) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
+        serviceList.addItemDecoration(new MyDecoration(this, MyDecoration.VERTICAL_LIST));
+        commentListAdapter = new CommentListAdapter();
+        serviceList.setAdapter(commentListAdapter);
+
         OkGo.<String>get(Apis.CommentList)
-                .params("score", "0") //满意度评分，0 全部5 很满意3 满意1 不满意
-                .params("lawyerId", "3")
+                .params("score", score) //满意度评分，0 全部5 很满意3 满意1 不满意
+                .params("lawyerId", lawyerId)
                 .params("page", index)
                 .params("size", size)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-//                        MyLawyer myLawyer = (new Gson()).fromJson(response.body(), MyLawyer.class);
-//                        hasMore = myLawyer.getData().isHasMore();
-//                        if (myLawyer.getCode() == 0) {
-//
-//                            if (index == 1) {
-//                                comData.clear();
-//                                comData.addAll(myLawyer.getData().getLawyerList());
-//                                serviceList.setAdapter(commentListAdapter);
-//                                commentListAdapter.notifyDataSetChanged();
-//                            } else {
-//                                comData.addAll(myLawyer.getData().getLawyerList());
-//                                commentListAdapter.notifyDataSetChanged();
-//                            }
-//                        } else {
-//                            showShort(myLawyer.getMsg());
-//                        }
+                        CustomerReply reply = (new Gson()).fromJson(response.body(), CustomerReply.class);
+                        hasMore = reply.getData().isHasMore();
+                        if (reply.getCode() == 0) {
+
+                            if (index == 1) {
+                                comData.clear();
+                                comData.addAll(reply.getData().getCustomerReply());
+                                serviceList.setAdapter(commentListAdapter);
+                                commentListAdapter.notifyDataSetChanged();
+                            } else {
+                                comData.addAll(reply.getData().getCustomerReply());
+                                commentListAdapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            showShort(reply.getMsg());
+                        }
+                    }
+                });
+
+
+        giveMoneyList.setLayoutManager(new LinearLayoutManager(this) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
+        giveMoneyList.addItemDecoration(new MyDecoration(this, MyDecoration.VERTICAL_LIST));
+        giveMoneyListAdapter = new GiveMoneyListAdapter();
+        giveMoneyList.setAdapter(giveMoneyListAdapter);
+
+
+        OkGo.<String>get(Apis.GiveMoneyList)
+                .params("type", 0) //满意度评分，0 全部5 很满意3 满意1 不满意
+                .params("lawyerId", lawyerId)
+                .params("page", index)
+                .params("size", size)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        GiveMoneyList reply = (new Gson()).fromJson(response.body(), GiveMoneyList.class);
+                        hasMore = reply.getData().isHasMore();
+                        if (reply.getCode() == 0) {
+
+                            if (index == 1) {
+                                moneyData.clear();
+                                moneyData.addAll(reply.getData().getGiveMoney());
+                                giveMoneyList.setAdapter(giveMoneyListAdapter);
+                                giveMoneyListAdapter.notifyDataSetChanged();
+                            } else {
+                                moneyData.addAll(reply.getData().getGiveMoney());
+                                giveMoneyListAdapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            showShort(reply.getMsg());
+                        }
                     }
                 });
     }
@@ -359,22 +386,17 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         consulting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (type == 1){
-                    startActivity(PersonLawyerActivity.class, "lawyerId", lawyerId+"");
-                }else if (type == 2){
+                if (type == 1) {
+                    startActivity(PersonLawyerActivity.class, "lawyerId", lawyerId + "");
+                } else if (type == 2) {
                     Intent intent = new Intent(LawyerDetailActivity.this, TxtPicAskActivity.class);
                     intent.putExtra("lawyerId", lawyerId);
                     startActivity(intent);
-                }else {
+                } else {
                     showShort("电话咨询");
                 }
             }
         });
-
-        serviceList.setLayoutManager(new LinearLayoutManager(this));
-        serviceList.addItemDecoration(new MyDecoration(this, MyDecoration.VERTICAL_LIST));
-        commentListAdapter = new CommentListAdapter();
-        serviceList.setAdapter(commentListAdapter);
 
 
         headerMore.setOnClickListener(new View.OnClickListener() {
@@ -469,32 +491,53 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
-            holder.tv_tag_text.setText(data.getLawyer().getTags().get(position));
+            if (position == getItemCount() - 1) {
 
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    data.getLawyer().setPosition(position);
-                    commentTagAdapter.notifyDataSetChanged();
-                }
-            });
+                holder.tv_tag_text.setText("送心意(" + data.getLawyer().getGiveMoneyCount() + ")");
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        serviceList.setVisibility(View.GONE);
+                        giveMoneyList.setVisibility(View.VISIBLE);
+                        data.getLawyer().setPosition(position);
+//                        score = data.getLawyer().getScoreCounts().get(position).getScore();
+                        commentTagAdapter.notifyDataSetChanged();
+                        index = 1;
+                        initCListData();
+                    }
+                });
+            } else {
 
-            if (data.getLawyer().getPosition() == position){
+                holder.tv_tag_text.setText(data.getLawyer().getScoreCounts().get(position).getScoreShowName() + "(" +
+                        data.getLawyer().getScoreCounts().get(position).getScount() + ")");
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        serviceList.setVisibility(View.VISIBLE);
+                        giveMoneyList.setVisibility(View.GONE);
+                        data.getLawyer().setPosition(position);
+                        score = data.getLawyer().getScoreCounts().get(position).getScore();
+                        commentTagAdapter.notifyDataSetChanged();
+                        index = 1;
+                        initCListData();
+                    }
+                });
+            }
+
+            if (data.getLawyer().getPosition() == position) {
                 holder.tv_tag_text.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.white));
                 holder.tv_tag_text.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.tag_select));
-            }else {
+            } else {
                 holder.tv_tag_text.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.grey));
                 holder.tv_tag_text.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.tag_unselect));
             }
-
-
-
 
         }
 
         @Override
         public int getItemCount() {
-            return data.getLawyer().getTags().size();
+            return data.getLawyer().getScoreCounts().size() + 1;
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
@@ -519,6 +562,12 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
 
+            holder.comName.setText(comData.get(position).getPhoneNo());
+            holder.comContent.setText(comData.get(position).getContent());
+            holder.comTime.setText(new SimpleDateFormat("yyyy-MM-dd").format(comData.get(position).getCommentDate()));
+            holder.comType.setText(comData.get(position).getServiceName());
+            holder.comTxt.setText(comData.get(position).getNotes());
+
         }
 
         @Override
@@ -541,6 +590,47 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
                 comType = (TextView) itemView.findViewById(R.id.com_type);
                 comTxt = (TextView) itemView.findViewById(R.id.com_txt);
                 comContent = (TextView) itemView.findViewById(R.id.com_content);
+            }
+        }
+
+    }
+
+    private class GiveMoneyListAdapter extends RecyclerView.Adapter<GiveMoneyListAdapter.ViewHolder> {
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new ViewHolder(LayoutInflater.from(getBaseContext()).inflate(R.layout.cell_give_money, parent, false));
+
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+
+            holder.comName.setText(moneyData.get(position).getPhoneNo());
+            holder.comTime.setText(new SimpleDateFormat("yyyy-MM-dd").format(moneyData.get(position).getGiveTime()));
+            holder.comMoney.setText(moneyData.get(position).getMoney() + "元");
+            holder.comTxt.setText(moneyData.get(position).getSummary());
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return moneyData.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+
+            private TextView comName;
+            private TextView comTime;
+            private TextView comMoney;
+            private TextView comTxt;
+
+            public ViewHolder(View itemView) {
+                super(itemView);
+                comName = (TextView) itemView.findViewById(R.id.com_name);
+                comTime = (TextView) itemView.findViewById(R.id.com_time);
+                comMoney = (TextView) itemView.findViewById(R.id.com_money);
+                comTxt = (TextView) itemView.findViewById(R.id.com_txt);
             }
         }
 

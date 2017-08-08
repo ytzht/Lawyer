@@ -67,7 +67,7 @@ public class MyLawyerFragment extends BaseFragment {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh(1000);
+                refreshlayout.finishRefresh(200);
                 index = 1;
                 initData();
             }
@@ -75,7 +75,7 @@ public class MyLawyerFragment extends BaseFragment {
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadmore(1000);
+                refreshlayout.finishLoadmore(200);
                 if (hasMore) {
                     index += 1;
                     initData();

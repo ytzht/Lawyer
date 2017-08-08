@@ -179,22 +179,35 @@
 
             </LinearLayout>
 
-            <com.scwang.smartrefresh.layout.SmartRefreshLayout
-                android:id="@+id/refreshLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="1dp"
-                android:background="@color/white">
+            <!--<com.scwang.smartrefresh.layout.SmartRefreshLayout-->
+                <!--android:id="@+id/refreshLayout_detail"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/service_list"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
 
                 </android.support.v7.widget.RecyclerView>
 
-            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/give_money_list"
+                    android:layout_marginTop="1dp"
+                    android:visibility="gone"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                </android.support.v7.widget.RecyclerView>
+
+            <!--</com.scwang.smartrefresh.layout.SmartRefreshLayout>-->
 
         </LinearLayout>
     </ScrollView>

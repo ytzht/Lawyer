@@ -186,7 +186,8 @@
         <activity android:name=".ui.act.lawyer.LawyerIntroActivity" />
         <activity android:name=".ui.act.lawyer.PersonLawyerActivity" />
         <activity android:name=".ui.act.lawyer.TxtPicAskActivity" />
-        <activity android:name=".ui.act.lawyer.SearchLawActivity"></activity>
+        <activity android:name=".ui.act.lawyer.SearchLawActivity" />
+        <activity android:name=".ui.act.lawyer.AskDetailActivity"></activity>
     </application>
 
 </manifest>

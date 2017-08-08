@@ -22,4 +22,12 @@ public interface Apis {
 
     String MyLawyerList = Apis.Base + "c/myLawyerList";//1.24 我的律师
 
+    String Discovery = Apis.Base + "c/discovery";//1.25 发现列表
+
+    String GetDiscoveryDetail = Apis.Base + "c/conversation/getDiscoveryDetail";//1.26 发现内容详情
+
+    String IsSupportUserService = Apis.Base + "c/isSupportUserService";//1.27 是否点赞某发现
+
+    String SupportUserService = Apis.Base + "c/supportUserService";//1.28 用户点赞/取消点赞某发现
+
 }
