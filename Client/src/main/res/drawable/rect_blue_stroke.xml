@@ -4,10 +4,10 @@
 
     <corners android:radius="3dp" />
 
-    <solid android:color="@android:color/white" />
+    <solid android:color="#3492ea" />
 
     <stroke
         android:width="1px"
-        android:color="@color/blue_4285f4" />
+        android:color="#3492ea" />
 
 </shape>

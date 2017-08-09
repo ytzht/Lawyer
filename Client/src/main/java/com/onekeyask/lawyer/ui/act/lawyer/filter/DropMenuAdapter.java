@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.baiiu.filter.adapter.MenuAdapter;
+import com.baiiu.filter.adapter.SimpleExtTextAdapter;
 import com.baiiu.filter.adapter.SimpleTextAdapter;
 import com.baiiu.filter.interfaces.OnFilterDoneListener;
 import com.baiiu.filter.interfaces.OnFilterItemClickListener;
@@ -15,7 +16,10 @@ import com.baiiu.filter.typeview.SingleListView;
 import com.baiiu.filter.util.CommonUtil;
 import com.baiiu.filter.util.UIUtil;
 import com.baiiu.filter.view.FilterCheckedTextView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.onekeyask.lawyer.R;
+import com.onekeyask.lawyer.entity.CityList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +83,7 @@ public class DropMenuAdapter implements MenuAdapter {
 
     private View createSingleListView() {
         SingleListView<String> singleListView = new SingleListView<String>(mContext)
-                .adapter(new SimpleTextAdapter<String>(null, mContext) {
+                .adapter(new SimpleExtTextAdapter<String>(null, mContext) {
                     @Override
                     public String provideText(String string) {
                         return string;
@@ -96,7 +100,7 @@ public class DropMenuAdapter implements MenuAdapter {
                     public void onItemClick(String item) {
                         FilterUrl.instance().singleListPosition = item;
 
-                        FilterUrl.instance().position = 0;
+                        FilterUrl.instance().position = 2;
                         FilterUrl.instance().positionTitle = item;
 
                         onFilterDone();
@@ -104,9 +108,9 @@ public class DropMenuAdapter implements MenuAdapter {
                 });
 
         List<String> list = new ArrayList<>();
-        for (int i = 0; i < 10; ++i) {
-            list.add("" + i);
-        }
+        list.add("综合排序");
+        list.add("咨询人次");
+        list.add("评价最高");
         singleListView.setList(list, -1);
 
         return singleListView;
@@ -115,7 +119,7 @@ public class DropMenuAdapter implements MenuAdapter {
 
     private View createDoubleListView() {
         DoubleListView<FilterType, String> comTypeDoubleListView = new DoubleListView<FilterType, String>(mContext)
-                .leftAdapter(new SimpleTextAdapter<FilterType>(null, mContext) {
+                .leftAdapter(new SimpleExtTextAdapter<FilterType>(null, mContext) {
                     @Override
                     public String provideText(FilterType filterType) {
                         return filterType.desc;
@@ -126,7 +130,7 @@ public class DropMenuAdapter implements MenuAdapter {
                         checkedTextView.setPadding(UIUtil.dp(mContext, 44), UIUtil.dp(mContext, 15), 0, UIUtil.dp(mContext, 15));
                     }
                 })
-                .rightAdapter(new SimpleTextAdapter<String>(null, mContext) {
+                .rightAdapter(new SimpleExtTextAdapter<String>(null, mContext) {
                     @Override
                     public String provideText(String s) {
                         return s;
@@ -146,7 +150,7 @@ public class DropMenuAdapter implements MenuAdapter {
                             FilterUrl.instance().doubleListLeft = item.desc;
                             FilterUrl.instance().doubleListRight = "";
 
-                            FilterUrl.instance().position = 1;
+                            FilterUrl.instance().position = 0;
                             FilterUrl.instance().positionTitle = item.desc;
 
                             onFilterDone();
@@ -170,31 +174,21 @@ public class DropMenuAdapter implements MenuAdapter {
 
 
         List<FilterType> list = new ArrayList<>();
+        String json = AssetsUtils.readText(mContext, "city.json");
+        List<CityList> cityList = new Gson().fromJson(json, new TypeToken<ArrayList<CityList>>() {
+        }.getType());
+        for (int i = 0; i < cityList.size(); i++) {
+            FilterType filterType = new FilterType();
+            filterType.desc = cityList.get(i).getAreaName();
 
-        //第一项
-        FilterType filterType = new FilterType();
-        filterType.desc = "10";
-        list.add(filterType);
+            List<String> childList = new ArrayList<>();
+            for (int j = 0; j < cityList.get(i).getCities().size(); j++) {
+                childList.add(cityList.get(i).getCities().get(j).getAreaName());
+            }
+            filterType.child = childList;
 
-        //第二项
-        filterType = new FilterType();
-        filterType.desc = "11";
-        List<String> childList = new ArrayList<>();
-        for (int i = 0; i < 13; ++i) {
-            childList.add("11" + i);
+            list.add(filterType);
         }
-        filterType.child = childList;
-        list.add(filterType);
-
-        //第三项
-        filterType = new FilterType();
-        filterType.desc = "12";
-        childList = new ArrayList<>();
-        for (int i = 0; i < 3; ++i) {
-            childList.add("12" + i);
-        }
-        filterType.child = childList;
-        list.add(filterType);
 
         //初始化选中.
         comTypeDoubleListView.setLeftList(list, 1);
@@ -215,7 +209,7 @@ public class DropMenuAdapter implements MenuAdapter {
 
                     @Override
                     protected void initCheckedTextView(FilterCheckedTextView checkedTextView) {
-                        checkedTextView.setPadding(0, UIUtil.dp(context, 3), 0, UIUtil.dp(context, 3));
+                        checkedTextView.setPadding(0, UIUtil.dp(context, 6), 0, UIUtil.dp(context, 6));
                         checkedTextView.setGravity(Gravity.CENTER);
                         checkedTextView.setBackgroundResource(R.drawable.selector_filter_grid);
                     }
@@ -225,7 +219,7 @@ public class DropMenuAdapter implements MenuAdapter {
                     public void onItemClick(String item) {
                         FilterUrl.instance().singleGridPosition = item;
 
-                        FilterUrl.instance().position = 2;
+                        FilterUrl.instance().position = 0;
                         FilterUrl.instance().positionTitle = item;
 
                         onFilterDone();
@@ -234,9 +228,28 @@ public class DropMenuAdapter implements MenuAdapter {
                 });
 
         List<String> list = new ArrayList<>();
-        for (int i = 20; i < 39; ++i) {
-            list.add(String.valueOf(i));
-        }
+//        for (int i = 20; i < 39; ++i) {
+//            list.add(String.valueOf(i));
+//        }
+
+        list.add("全部");
+        list.add("合同纠纷");
+        list.add("房产纠纷");
+        list.add("婚姻继承");
+        list.add("人身损害");
+        list.add("劳动争议");
+        list.add("债权债务");
+        list.add("侵权纠纷");
+        list.add("消费维权");
+        list.add("交通事故");
+        list.add("刑事辩护");
+        list.add("投资");
+        list.add("融资");
+        list.add("兼并收购");
+        list.add("上市");
+        list.add("知识产权");
+        list.add("新三板");
+
         singleGridView.setList(list, -1);
 
 
@@ -247,17 +260,26 @@ public class DropMenuAdapter implements MenuAdapter {
     private View createBetterDoubleGrid() {
 
         List<String> phases = new ArrayList<>();
-        for (int i = 0; i < 10; ++i) {
-            phases.add("3top" + i);
-        }
+        phases.add("图文咨询");
+        phases.add("电话咨询");
+        phases.add("私人律师");
+
+        List<String> mides = new ArrayList<>();
+        mides.add("0-10");
+        mides.add("11-30");
+        mides.add("31-51");
+        mides.add("51以上");
+
         List<String> areas = new ArrayList<>();
-        for (int i = 0; i < 10; ++i) {
-            areas.add("3bottom" + i);
-        }
+        areas.add("1-3年");
+        areas.add("3-5年");
+        areas.add("5-10年");
+        areas.add("10年以上");
 
 
         return new BetterDoubleGridView(mContext)
                 .setmTopGridData(phases)
+                .setmMidGridData(mides)
                 .setmBottomGridList(areas)
                 .setOnFilterDoneListener(onFilterDoneListener)
                 .build();

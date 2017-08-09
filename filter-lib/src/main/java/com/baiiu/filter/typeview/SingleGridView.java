@@ -43,7 +43,8 @@ public class SingleGridView<DATA> extends GridView implements AdapterView.OnItem
     private void init(Context context) {
         setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         setSelector(new ColorDrawable(Color.TRANSPARENT));
-        setNumColumns(3);
+//        setSelector(ContextCompat.getDrawable(context, R.drawable.selector_tv_single_filter));
+        setNumColumns(4);
         setBackgroundColor(Color.WHITE);
         setSmoothScrollbarEnabled(false);
 

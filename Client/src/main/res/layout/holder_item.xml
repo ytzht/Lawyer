@@ -10,10 +10,9 @@
     <com.baiiu.filter.view.FilterCheckedTextView
         android:id="@+id/tv_item"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="27dp"
         android:background="@drawable/selector_filter_grid"
         android:gravity="center"
-        android:padding="10dp"
         android:textColor="@drawable/selector_tv_filter"
         tools:text="选择" />
 

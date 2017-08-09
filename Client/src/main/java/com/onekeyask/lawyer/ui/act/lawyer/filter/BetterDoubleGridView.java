@@ -30,6 +30,7 @@ public class BetterDoubleGridView extends LinearLayout implements View.OnClickLi
     RecyclerView recyclerView;
 
     private List<String> mTopGridData;
+    private List<String> mMidGridData;
     private List<String> mBottomGridList;
     private OnFilterDoneListener mOnFilterDoneListener;
 
@@ -67,6 +68,11 @@ public class BetterDoubleGridView extends LinearLayout implements View.OnClickLi
         return this;
     }
 
+    public BetterDoubleGridView setmMidGridData(List<String> mMidGridData) {
+        this.mMidGridData = mMidGridData;
+        return this;
+    }
+
     public BetterDoubleGridView setmBottomGridList(List<String> mBottomGridList) {
         this.mBottomGridList = mBottomGridList;
         return this;
@@ -78,19 +84,20 @@ public class BetterDoubleGridView extends LinearLayout implements View.OnClickLi
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (position == 0 || position == mTopGridData.size() + 1) {
+                if (position == 0 || position == mTopGridData.size() + 1 || position == mTopGridData.size() + 1 + mMidGridData.size() + 1) {
                     return 4;
                 }
                 return 1;
             }
         });
         recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.setAdapter(new DoubleGridAdapter(getContext(), mTopGridData, mBottomGridList, this));
+        recyclerView.setAdapter(new DoubleGridAdapter(getContext(), mTopGridData, mMidGridData, mBottomGridList, this));
 
         return this;
     }
 
     private TextView mTopSelectedTextView;
+    private TextView mMidSelectedTextView;
     private TextView mBottomSelectedTextView;
 
     @Override
@@ -102,7 +109,10 @@ public class BetterDoubleGridView extends LinearLayout implements View.OnClickLi
         if (textView == mTopSelectedTextView) {
             mTopSelectedTextView = null;
             textView.setSelected(false);
-        } else if (textView == mBottomSelectedTextView) {
+        } else if (textView == mMidSelectedTextView) {
+            mMidSelectedTextView = null;
+            textView.setSelected(false);
+        }else if (textView == mBottomSelectedTextView) {
             mBottomSelectedTextView = null;
             textView.setSelected(false);
         } else if (mTopGridData.contains(text)) {
@@ -110,6 +120,12 @@ public class BetterDoubleGridView extends LinearLayout implements View.OnClickLi
                 mTopSelectedTextView.setSelected(false);
             }
             mTopSelectedTextView = textView;
+            textView.setSelected(true);
+        } else if (mMidGridData.contains(text)){
+            if (mMidSelectedTextView != null) {
+                mMidSelectedTextView.setSelected(false);
+            }
+            mMidSelectedTextView = textView;
             textView.setSelected(true);
         } else {
             if (mBottomSelectedTextView != null) {
@@ -130,7 +146,32 @@ public class BetterDoubleGridView extends LinearLayout implements View.OnClickLi
     public void clickDone() {
 
         FilterUrl.instance().doubleGridTop = mTopSelectedTextView == null ? "" : (String) mTopSelectedTextView.getTag();
+        FilterUrl.instance().doubleGridMid = mMidSelectedTextView == null ? "" : (String) mMidSelectedTextView.getTag();
         FilterUrl.instance().doubleGridBottom = mBottomSelectedTextView == null ? "" : (String) mBottomSelectedTextView.getTag();
+
+        if (mOnFilterDoneListener != null) {
+            mOnFilterDoneListener.onFilterDone(3, "", "");
+        }
+    }
+
+    @OnClick(R.id.bt_cancel)
+    public void clickCancel() {
+        if (mTopSelectedTextView != null){
+            mTopSelectedTextView.setSelected(false);
+            mTopSelectedTextView = null;
+        }
+        if (mMidSelectedTextView != null){
+            mMidSelectedTextView.setSelected(false);
+            mMidSelectedTextView = null;
+        }
+        if (mBottomSelectedTextView != null){
+            mBottomSelectedTextView.setSelected(false);
+            mBottomSelectedTextView = null;
+        }
+
+        FilterUrl.instance().doubleGridTop = "";
+        FilterUrl.instance().doubleGridMid = "";
+        FilterUrl.instance().doubleGridBottom = "";
 
         if (mOnFilterDoneListener != null) {
             mOnFilterDoneListener.onFilterDone(3, "", "");

@@ -17,19 +17,21 @@ public class DoubleGridAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private Context mContext;
     private List<String> topGridData;
+    private List<String> midGridData;
     private List<String> bottomGridData;
     private View.OnClickListener mListener;
 
-    public DoubleGridAdapter(Context context, List<String> topGridData, List<String> bottomGridList, View.OnClickListener listener) {
+    public DoubleGridAdapter(Context context, List<String> topGridData, List<String> midGridData, List<String> bottomGridList, View.OnClickListener listener) {
         this.mContext = context;
         this.topGridData = topGridData;
+        this.midGridData = midGridData;
         this.bottomGridData = bottomGridList;
         this.mListener = listener;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0 || position == topGridData.size() + 1) {
+        if (position == 0 || position == topGridData.size() + 1 || position == topGridData.size() + 1 + midGridData.size() + 1) {
             return TYPE_TITLE;
         }
 
@@ -60,17 +62,21 @@ public class DoubleGridAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             case TYPE_TITLE:
                 TitleViewHolder titleViewHolder = (TitleViewHolder) holder;
                 if (position == 0) {
-                    titleViewHolder.bind("Top");
-                } else {
-                    titleViewHolder.bind("Bottom");
+                    titleViewHolder.bind("服务类型");
+                } else if (position == topGridData.size() + 1) {
+                    titleViewHolder.bind("价格区间");
+                }else {
+                    titleViewHolder.bind("执业年限");
                 }
                 break;
             case TYPE_ITEM:
                 ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
                 if (position < topGridData.size() + 1) {
                     itemViewHolder.bind(topGridData.get(position - 1));
-                } else {
-                    itemViewHolder.bind(bottomGridData.get(position - topGridData.size() - 2));
+                } else  if (position < topGridData.size() + 1 + midGridData.size() + 1) {
+                    itemViewHolder.bind(midGridData.get(position - topGridData.size() - 2));
+                }else {
+                    itemViewHolder.bind(bottomGridData.get(position - topGridData.size() - midGridData.size() - 3));
                 }
                 break;
         }
@@ -78,6 +84,6 @@ public class DoubleGridAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return topGridData.size() + bottomGridData.size() + 2;
+        return topGridData.size() + midGridData.size() + bottomGridData.size() + 3;
     }
 }
