@@ -30,4 +30,6 @@ public interface Apis {
 
     String SupportUserService = Apis.Base + "c/supportUserService";//1.28 用户点赞/取消点赞某发现
 
+    String LawyerList = Apis.Base + "c/lawyerList";//1.29 找律师查询接口
+
 }

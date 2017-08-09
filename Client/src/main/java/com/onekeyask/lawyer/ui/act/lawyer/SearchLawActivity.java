@@ -35,6 +35,12 @@ public class SearchLawActivity extends BaseToolBarActivity {
         rlvIcon.addItemDecoration(new RecyclerSpace(2, ContextCompat.getColor(getBaseContext(), R.color.divider)));
         rlvIcon.setAdapter(new IconRlvAdapter());
 
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(FindLawyerActivity.class);
+            }
+        });
     }
 
     private class IconRlvAdapter extends RecyclerView.Adapter<IconRlvAdapter.ViewHolder> {

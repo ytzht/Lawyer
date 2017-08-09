@@ -58,7 +58,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-
+    compile project(':filter-lib')
     compile project(':LawyerPushSDK')
     compile 'com.wanjian:sak:0.0.2'
     compile 'top.zibin:Luban:1.0.9'

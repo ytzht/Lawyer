@@ -15,3 +15,7 @@ LawyerPushSDK/build/
 /gradle.properties
 /gradlew
 /gradlew.bat
+/Client/src/test/
+/filter-lib/build/
+*.pro
+img/8-9/icon/

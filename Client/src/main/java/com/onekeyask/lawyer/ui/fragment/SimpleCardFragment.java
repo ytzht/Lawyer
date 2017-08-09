@@ -152,6 +152,9 @@ public class SimpleCardFragment extends BaseFragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), AskDetailActivity.class);
                     intent.putExtra("cid", data.get(position).getChatId());
+                    intent.putExtra("lawyerName", data.get(position).getLawyerName());
+                    intent.putExtra("officeName", data.get(position).getOfficeName());
+                    intent.putExtra("headUrl", data.get(position).getHeadURL());
                     intent.putExtra("sid", data.get(position).getUserServiceId());
                     startActivity(intent);
 

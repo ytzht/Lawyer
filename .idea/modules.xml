@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/Lawfirm/Lawfirm.iml" filepath="$PROJECT_DIR$/Lawfirm/Lawfirm.iml" />
       <module fileurl="file://$PROJECT_DIR$/LawfirmPushSDK/LawfirmPushSDK.iml" filepath="$PROJECT_DIR$/LawfirmPushSDK/LawfirmPushSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/LawyerPushSDK/LawyerPushSDK.iml" filepath="$PROJECT_DIR$/LawyerPushSDK/LawyerPushSDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/filter-lib/filter-lib.iml" filepath="$PROJECT_DIR$/filter-lib/filter-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/lawyer.iml" filepath="$PROJECT_DIR$/lawyer.iml" />
     </modules>
   </component>
