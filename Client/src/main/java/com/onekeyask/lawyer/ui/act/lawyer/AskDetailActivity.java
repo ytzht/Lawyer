@@ -60,8 +60,8 @@ public class AskDetailActivity extends BaseActivity {
     private int cid, sid;
     private boolean isSupported;
     private int LEFT = 1;
-    private int size = 100;
-    private int conversationId;
+    private int size = 6;
+    private int page = 1;
     private boolean hasMore = true;
     private Toolbar talk_toolbar;
     private PhotoView mPhotoView;
@@ -208,6 +208,7 @@ public class AskDetailActivity extends BaseActivity {
                     if (((LinearLayoutManager) (recyclerView.getLayoutManager())).findLastVisibleItemPosition()
                             == recyclerView.getLayoutManager().getItemCount() - 1) {
                         if (hasMore) {
+                            page++;
                             loadData();
                         }
                     }
@@ -223,9 +224,8 @@ public class AskDetailActivity extends BaseActivity {
         OkGo.<String>get(Apis.GetDiscoveryDetail)
                 .params("userId", 2)
                 .params("chatId", cid)
-                .params("direction", 1)
                 .params("size", size)
-                .params("conversationId", conversationId)
+                .params("page", page)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -233,7 +233,7 @@ public class AskDetailActivity extends BaseActivity {
                         if (conversationList.getCode() == 0) {
                             hasMore = conversationList.getData().isHasMore();
                             List<TalkingConversationList.DataBean.ConversationListBean> listBeen = conversationList.getData().getConversationList();
-                            conversationId = listBeen.get(listBeen.size() - 1).getConversationId();
+//                            conversationId = listBeen.get(listBeen.size() - 1).getConversationId();
 
                             beanList.addAll(listBeen);
 

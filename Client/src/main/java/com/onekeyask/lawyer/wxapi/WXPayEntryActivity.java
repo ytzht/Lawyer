@@ -7,13 +7,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.onekeyask.lawyer.global.L;
-import com.onekeyask.lawyer.utils.easypay.EasyPay;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import static com.onekeyask.lawyer.ui.act.consulting.PayQuickConsultingActivity.WeChatAppID;
 import static com.onekeyask.lawyer.utils.easypay.pay.paystrategy.WeChatPayStrategy.WECHAT_PAY_RESULT_ACTION;
 import static com.onekeyask.lawyer.utils.easypay.pay.paystrategy.WeChatPayStrategy.WECHAT_PAY_RESULT_EXTRA;
 
@@ -29,7 +29,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mWxApi = WXAPIFactory.createWXAPI(this, EasyPay.newInstance(null).getWeChatAppID());
+        mWxApi = WXAPIFactory.createWXAPI(this, WeChatAppID);
         mWxApi.handleIntent(getIntent(), this);
     }
 
@@ -50,6 +50,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onResp(BaseResp baseResp) {
         int errCode = baseResp.errCode;
         sendPayResultBroadcast(errCode);
+        L.d(TAG, "errCode "+errCode);
     }
 
     /**

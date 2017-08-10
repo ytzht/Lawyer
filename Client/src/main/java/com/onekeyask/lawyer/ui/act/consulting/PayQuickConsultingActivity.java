@@ -1,16 +1,20 @@
 package com.onekeyask.lawyer.ui.act.consulting;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alipay.sdk.app.EnvUtils;
 import com.alipay.sdk.app.PayTask;
@@ -23,7 +27,9 @@ import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.utils.dialog.MDEditDialog;
-import com.onekeyask.lawyer.utils.easypay.enums.PayWay;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.nutz.lang.Strings;
 
@@ -40,6 +46,9 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
+
+import static com.onekeyask.lawyer.utils.easypay.pay.paystrategy.WeChatPayStrategy.WECHAT_PAY_RESULT_ACTION;
+import static com.onekeyask.lawyer.utils.easypay.pay.paystrategy.WeChatPayStrategy.WECHAT_PAY_RESULT_EXTRA;
 
 public class PayQuickConsultingActivity extends BaseToolBarActivity {
 
@@ -77,6 +86,11 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
     private double balance = 0;
 
     private int oid, fid;
+    //本地广播数据类型实例。
+    private LocalBroadcastManager localBroadcastManager;
+    private LocalReceiver localReceiver;
+    private IntentFilter intentFilter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
@@ -86,6 +100,17 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
 
         setToolbarText("打赏咨询");
         photos = new ArrayList<>();
+        //获取本地广播实例。
+        localBroadcastManager = LocalBroadcastManager.getInstance(this);
+
+        //新建intentFilter并给其action标签赋值。
+        intentFilter=new IntentFilter();
+        intentFilter.addAction(WECHAT_PAY_RESULT_ACTION);
+
+        //创建广播接收器实例，并注册。将其接收器与action标签进行绑定。
+        localReceiver = new LocalReceiver();
+        localBroadcastManager.registerReceiver(localReceiver, intentFilter);
+
 
         photos = getIntent().getStringArrayListExtra("photos");
         content = getIntent().getStringExtra("content");
@@ -147,7 +172,7 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
 
 
                 } else if (payType == 2) {
-                    goPay(selectMoney, PayWay.WechatPay);
+                    upLoadInfo();
                 } else {
                     //假设余额付款成功,这里应该去付款，再付款成功的回调里上传咨询信息，上传成功进入咨询页面
                     //或者先上传咨询信息（打赏咨询的上传咨询信息包括打赏多少钱，故不可行），
@@ -292,8 +317,8 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
 
 
         photoMap.put("type", RequestBody.create(null, "2"));
-        photoMap.put("payType", RequestBody.create(null, "1"));//payType
-        photoMap.put("money", RequestBody.create(null, selectMoney/100 + ""));
+        photoMap.put("payType", RequestBody.create(null, "" + payType));//payType
+        photoMap.put("money", RequestBody.create(null, selectMoney / 100 + ""));
         L.d(payType + " " + selectMoney);
 
         getResultOnNext = new SubscriberOnNextListener<AskResult>() {
@@ -308,6 +333,7 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
                     ZfbPay(askResult.getZfbNew().getOrderPayInfoString());
                 } else if (payType == 2) {
 
+                    WePay(askResult.getWx());
                 } else {
                     goNext(oid + "", fid + "");
                 }
@@ -324,6 +350,26 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
 
         retrofitUtil.payUpload(photoMap, new ProgressSubscriber<AskResult>(getResultOnNext, PayQuickConsultingActivity.this, true));
 
+
+    }
+
+    public static String WeChatAppID;
+
+    private void WePay(AskResult.WxBean wx) {
+
+        IWXAPI msgApi = WXAPIFactory.createWXAPI(getBaseContext(), null);
+        // 将该app注册到微信
+        WeChatAppID = wx.getAppid();
+        msgApi.registerApp(WeChatAppID);
+        PayReq request = new PayReq();
+        request.appId = WeChatAppID;
+        request.partnerId = wx.getPartnerId();
+        request.prepayId = wx.getPrepayId();
+        request.packageValue = wx.getPackageX();
+        request.nonceStr = wx.getNonceStr();
+        request.timeStamp = wx.getTimeStamp();
+        request.sign = wx.getSign();
+        msgApi.sendReq(request);
 
     }
 
@@ -393,95 +439,6 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
     }
 
 
-    private void goPay(double selectMoney, PayWay payWay) {
-
-        if (progressDialog.isShowing()) progressDialog.dismiss();
-        new Thread() {
-            @Override
-            public void run() {
-                super.run();
-                PayTask payTask = new PayTask(PayQuickConsultingActivity.this);
-                Map<String, String> result = payTask.payV2("payInfo.getPay_info()", true);
-                Message message = mHandler.obtainMessage();
-                message.what = 200;
-                message.obj = result;
-                mHandler.sendMessage(message);
-            }
-        }.start();
-
-//        PayParams params = new PayParams.Builder(this)
-//                .wechatAppID("your_wechat_appid")// 仅当支付方式选择微信支付时需要此参数
-//                .payWay(payWay)//PayWay.WechatPay
-//                .goodsPrice((int) (selectMoney * 100))// 单位为：分
-//                .goodsName("皮皮虾")
-//                .goodsIntroduction("此商品属性过于强大，难以调教，一般人切勿轻易购买，吼吼！")
-//                .httpType(HttpType.Get)
-//                .httpClientType(NetworkClientType.Retrofit)
-//                .requestBaseUrl("http://blog.csdn.net/")// 此处替换为为你的app服务器host主机地址
-//                .build();
-//
-//
-//        EasyPay.newInstance(params).requestPayInfo(new OnPayInfoRequestListener() {
-//            @Override
-//            public void onPayInfoRequetStart() {
-//            }
-//
-//            @Override
-//            public void onPayInfoRequstSuccess() {
-//                showShort("请求预支付信息成功，开始跳转到客户端支付");
-//            }
-//
-//            @Override
-//            public void onPayInfoRequestFailure() {
-//                showShort("获取预支付信息失败，会同时得到一个支付失败的回调。");
-//            }
-//        }).toPay(new OnPayResultListener() {
-//            @Override
-//            public void onPaySuccess(PayWay payWay) {
-//                // 支付成功
-//                alert("支付成功");
-//            }
-//
-//            @Override
-//            public void onPayCancel(PayWay payWay) {
-//                // 支付流程被用户中途取消
-//                alert("支付流程被用户中途取消");
-//            }
-//
-//            @Override
-//            public void onPayFailure(PayWay payWay, int errCode) {
-//                alert("支付失败");
-//            }
-//        });
-
-    }
-
-    private Handler mHandler = new Handler() {
-        public void handleMessage(Message msg) {
-            PayResult payResult = new PayResult((Map<String, String>) msg.obj);
-            /**
-             对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
-             */
-            String resultInfo = payResult.getResult();// 同步返回需要验证的信息
-            String resultStatus = payResult.getResultStatus();
-            // 判断resultStatus 为9000则代表支付成功
-            if (TextUtils.equals(resultStatus, "9000")) {
-                // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-                Toast.makeText(PayQuickConsultingActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-//                        startActivity(ResultActivity.class,"type","dateReturnBiycle");
-                        finish();
-                    }
-                });
-            } else {
-                // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-                Toast.makeText(PayQuickConsultingActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
-
     private void sel8() {
         tvSel8.setText(String.valueOf(selectMoney / 100 + "元"));
         tvSel8.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.tag_select));
@@ -532,4 +489,38 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
         tvSel6.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackModule));
         tvSel8.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackModule));
     }
+
+
+    class LocalReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+//            0	成功	展示成功页面
+//            -1	错误	可能的原因：签名错误、未注册APPID、项目设置APPID不正确、注册的APPID与设置的不匹配、其他异常等。
+//            -2	用户取消	无需处理。发生场景：用户不支付了，点击取消，返回APP
+            switch (intent.getIntExtra(WECHAT_PAY_RESULT_EXTRA, 1)){
+                case 1:
+                    showShort("未知错误");
+                    break;
+                case 0:
+                    showShort("支付成功");
+                    goNext(oid + "", fid + "");
+                    break;
+                case -1:
+                    showShort("-1\t错误\t可能的原因：签名错误、未注册APPID、项目设置APPID不正确、注册的APPID与设置的不匹配、其他异常等。");
+                    break;
+                case -2:
+                    showShort("订单已取消");
+                    break;
+            }
+
+        }
+    }
+
+    @Override
+    public void onDestroy(){//在onDestroy()方法中取消注册。
+        super.onDestroy();
+        //取消注册调用的是unregisterReceiver()方法，并传入接收器实例。
+        localBroadcastManager.unregisterReceiver(localReceiver);
+    }
+
 }
