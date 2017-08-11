@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="34dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -23,4 +23,18 @@
             android:text="正在加载"
             android:textSize="12sp" />
     </LinearLayout>
-</LinearLayout>
+
+
+    <TextView
+        android:id="@+id/detail_tv"
+        android:visibility="gone"
+        android:background="#efefef"
+        android:text="23小时或19次对话后问题关闭"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:textSize="13sp"
+        android:textColor="@color/blackModule"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+</RelativeLayout>

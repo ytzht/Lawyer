@@ -35,6 +35,7 @@ import com.onekeyask.lawyer.entity.IsFavorite;
 import com.onekeyask.lawyer.entity.LawyerDetail;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
+import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.ui.act.consulting.PayLawyerActivity;
@@ -130,6 +131,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
 
         lawyerId = getIntent().getIntExtra("lawyerId", 0);
 
+        L.d("lawyerId: " + lawyerId);
         index = 1;
         initCListData();
         initData();

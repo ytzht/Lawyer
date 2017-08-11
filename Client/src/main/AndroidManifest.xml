@@ -179,18 +179,32 @@
         <activity
             android:name=".ui.act.user.MissPasswordActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.act.user.MyInfoActivity" />
+        <activity
+            android:name=".ui.act.user.MyInfoActivity"
+            android:launchMode="singleTask" />
         <activity
             android:name=".ui.act.lawyer.LawyerDetailActivity"
             android:theme="@style/PopupTheme" />
-        <activity android:name=".ui.act.lawyer.LawyerIntroActivity" />
-        <activity android:name=".ui.act.lawyer.PersonLawyerActivity" />
-        <activity android:name=".ui.act.lawyer.TxtPicAskActivity" />
-        <activity android:name=".ui.act.lawyer.SearchLawActivity" />
+        <activity
+            android:name=".ui.act.lawyer.LawyerIntroActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.lawyer.PersonLawyerActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.lawyer.TxtPicAskActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.lawyer.SearchLawActivity"
+            android:launchMode="singleTask" />
         <activity
             android:name=".ui.act.lawyer.AskDetailActivity"
-            android:label="" />
-        <activity android:name=".ui.act.lawyer.FindLawyerActivity"></activity>
+            android:label=""
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.lawyer.FindLawyerActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".ui.act.lawyer.InputLawyerActivity"></activity>
     </application>
 
 </manifest>

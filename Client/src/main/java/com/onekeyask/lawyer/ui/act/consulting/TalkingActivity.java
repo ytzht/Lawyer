@@ -38,14 +38,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.ConversationList;
-import com.onekeyask.lawyer.entity.FreeaskDetail;
 import com.onekeyask.lawyer.entity.SendMsg;
 import com.onekeyask.lawyer.global.BaseActivity;
 import com.onekeyask.lawyer.global.BaseEvent;
 import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
-import com.onekeyask.lawyer.utils.DiffCallDetailBack;
 import com.onekeyask.lawyer.utils.DiffCallTalkingBack;
 import com.onekeyask.lawyer.utils.HideUtil;
 import com.onekeyask.lawyer.utils.photo.Info;
@@ -75,10 +73,9 @@ import top.zibin.luban.OnCompressListener;
 public class TalkingActivity extends BaseActivity {
 
 
-    private RecyclerView rlv_talking, rlv_ask_detail;
-    private LinearLayout iv_input_bottom, iv_voice_bottom, iv_photo_bottom, iv_money_bottom, iv_share_bottom;
+    private RecyclerView rlv_talking;
+    private LinearLayout iv_input_bottom, iv_voice_bottom, iv_photo_bottom, iv_money_bottom, iv_share_bottom, ll_is_detail;
     private TalkingAdapter talkingAdapter;
-    private AskDetailAdapter detailAdapter;
     private String fid, userServiceId = "0";
     private long firstConversationId, lastConversationId, conversationId;
     private String cid = "0";
@@ -102,7 +99,7 @@ public class TalkingActivity extends BaseActivity {
     private PopupWindow popupWindow = null;
     private View popupView;
     private String selectMoney = "200";
-
+    private boolean isAskDetail = false;//是否为未接单状态，是的话显示问题详情
 
     private TextView tv_sel_2;
     private TextView tv_sel_4;
@@ -259,10 +256,6 @@ public class TalkingActivity extends BaseActivity {
             }
         });
         rlv_talking.setLayoutManager(new LinearLayoutManager(this));
-        rlv_ask_detail = (RecyclerView) findViewById(R.id.rlv_ask_detail);
-        rlv_ask_detail.setLayoutManager(new LinearLayoutManager(this));
-        rlv_talking.setVisibility(View.VISIBLE);
-        rlv_ask_detail.setVisibility(View.GONE);
         tv_send_msg = (TextView) findViewById(R.id.tv_send_msg);
         et_send_msg = (EditText) findViewById(R.id.et_send_msg);
         iv_input_bottom = (LinearLayout) findViewById(R.id.iv_input_bottom);
@@ -277,6 +270,7 @@ public class TalkingActivity extends BaseActivity {
         iv_photo_bottom = (LinearLayout) findViewById(R.id.iv_photo_bottom);
         iv_money_bottom = (LinearLayout) findViewById(R.id.iv_money_bottom);
         iv_share_bottom = (LinearLayout) findViewById(R.id.iv_share_bottom);
+        ll_is_detail = (LinearLayout) findViewById(R.id.ll_is_detail);
 
         iv_share_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -525,8 +519,6 @@ public class TalkingActivity extends BaseActivity {
         getResultOnNext = new SubscriberOnNextListener<ConversationList>() {
             @Override
             public void onNext(ConversationList o) {
-
-                rlv_ask_detail.setVisibility(View.GONE);
                 ll_bottom_menu.setVisibility(View.VISIBLE);
                 ll_input_send.setVisibility(View.VISIBLE);
                 getList = o;
@@ -534,9 +526,11 @@ public class TalkingActivity extends BaseActivity {
                 rlv_talking.setVisibility(View.VISIBLE);
                 cid = String.valueOf(getList.getChatId());
                 userServiceId = String.valueOf(getList.getUserServiceId());
-                switch (getList.getStatus()) {// TODO: 2017/8/4  未接单的ui CASE "0"
+                switch (getList.getStatus()) {
                     case "0"://未接单
                         L.d("未接单");
+                        isAskDetail = true;
+                        ll_is_detail.setVisibility(View.VISIBLE);
                         isUpdateInfo = true;
                         hideMenu();
                         getAskDetail();
@@ -557,12 +551,13 @@ public class TalkingActivity extends BaseActivity {
 
                         break;
                 }
-
-                if (getList.isEvaStatus()) {
-                    //已评价
-                    hideMenu();
-                } else {
-                    showMenu();
+                if (!getList.getStatus().equals("0")) {
+                    if (getList.isEvaStatus()) {
+                        //已评价
+                        hideMenu();
+                    } else {
+                        showMenu();
+                    }
                 }
                 getList.getFromType();//订单类型 1图文咨询 2免费提问
 
@@ -638,7 +633,7 @@ public class TalkingActivity extends BaseActivity {
             @Override
             public void onError(int code, String message) {
                 if (code == -130) {
-                    getAskDetail();
+                    showShort("-130");
                 } else {
                     showShort(message);
                 }
@@ -651,44 +646,15 @@ public class TalkingActivity extends BaseActivity {
             conversationId = firstConversationId;//向上查数据
         }
 
-        L.d("orderId "+ orderId);
+        L.d("orderId " + orderId);
         retrofitUtil.getConversationList("2", cid, orderId, conversationId, direction, size, new ProgressSubscriber<ConversationList>(getResultOnNext, TalkingActivity.this, false));
 
     }
-
-    private FreeaskDetail.FreeaskBean askBean;
-
     private void getAskDetail() {
-        rlv_talking.setVisibility(View.GONE);
-        rlv_ask_detail.setVisibility(View.VISIBLE);
+        rlv_talking.setVisibility(View.VISIBLE);
         ll_bottom_menu.setVisibility(View.GONE);
         ll_input_send.setVisibility(View.GONE);
-
-        SubscriberOnNextListener<FreeaskDetail> listener = new SubscriberOnNextListener<FreeaskDetail>() {
-            @Override
-            public void onNext(FreeaskDetail detail) {
-                if (detailAdapter != null) {
-                    L.d("!=");
-                    DiffUtil.DiffResult diffResult =
-                            DiffUtil.calculateDiff(new DiffCallDetailBack(askBean, detail.getFreeask()), true);
-                    askBean = detail.getFreeask();
-                    diffResult.dispatchUpdatesTo(detailAdapter);
-                } else {
-                    L.d("==");
-                    askBean = detail.getFreeask();
-                    detailAdapter = new AskDetailAdapter();
-                    rlv_ask_detail.setAdapter(detailAdapter);
-                    rlv_ask_detail.scrollToPosition(detailAdapter.getItemCount() - 1);
-                }
-            }
-
-            @Override
-            public void onError(int code, String message) {
-                showShort(message);
-            }
-        };
-
-        retrofitUtil.getFreeaskDetail("2", fid, new ProgressSubscriber<FreeaskDetail>(listener, TalkingActivity.this, false));
+        getList.getConversationList();
     }
 
 
@@ -764,16 +730,19 @@ public class TalkingActivity extends BaseActivity {
                     ((MoreViewHolder) holder).progress_bar_more.setVisibility(View.GONE);
                     ((MoreViewHolder) holder).tv_progress_more.setVisibility(View.VISIBLE);
                     ((MoreViewHolder) holder).tv_progress_more.setText("   ");
+                    if (isAskDetail) ((MoreViewHolder) holder).detail_tv.setVisibility(View.GONE);
                 } else {
                     ((MoreViewHolder) holder).progress_bar_more.setVisibility(View.GONE);
                     ((MoreViewHolder) holder).tv_progress_more.setVisibility(View.VISIBLE);
                     ((MoreViewHolder) holder).tv_progress_more.setText("已全部加载，没有更多消息了");
+                    if (isAskDetail) ((MoreViewHolder) holder).detail_tv.setVisibility(View.VISIBLE);
                 }
 
                 if (list.size() < size) {
                     ((MoreViewHolder) holder).progress_bar_more.setVisibility(View.GONE);
                     ((MoreViewHolder) holder).tv_progress_more.setVisibility(View.VISIBLE);
                     ((MoreViewHolder) holder).tv_progress_more.setText("已全部加载，没有更多消息了");
+                    if (isAskDetail) ((MoreViewHolder) holder).detail_tv.setVisibility(View.VISIBLE);
                 }
             } else {
                 ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
@@ -839,107 +808,17 @@ public class TalkingActivity extends BaseActivity {
 
         public class MoreViewHolder extends RecyclerView.ViewHolder {
 
-            private TextView tv_progress_more;
+            private TextView tv_progress_more, detail_tv;
             private ProgressBar progress_bar_more;
 
             public MoreViewHolder(View itemView) {
                 super(itemView);
                 tv_progress_more = (TextView) itemView.findViewById(R.id.tv_progress_more);
+                detail_tv = (TextView) itemView.findViewById(R.id.detail_tv);
                 progress_bar_more = (ProgressBar) itemView.findViewById(R.id.progress_bar_more);
             }
         }
 
-    }
-
-    private class AskDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-        @Override
-        public int getItemViewType(int position) {
-
-            if (position == getItemCount() - 1) {
-                return R.layout.cell_talk_notice;
-            } else {
-                return R.layout.cell_talk_right;
-            }
-        }
-
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-            if (viewType == R.layout.cell_talk_right) {
-                return new ViewHolder(view);
-            } else {
-                return new NoViewHolder(view);
-            }
-        }
-
-        @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-
-
-            if (position == 0) {
-                Glide.with(TalkingActivity.this).load(askBean.getHeadURL()).into(((ViewHolder) holder).civ_talking_avatar);
-                ((ViewHolder) holder).tv_time_conversation.setVisibility(View.VISIBLE);
-                ((ViewHolder) holder).ll_iv_msg.setVisibility(View.GONE);
-                ((ViewHolder) holder).tv_talking_msg.setVisibility(View.VISIBLE);
-                ((ViewHolder) holder).tv_time_conversation.setText(askBean.getCreateTime());
-                ((ViewHolder) holder).tv_talking_msg.setText(askBean.getContent());
-            } else if (position == getItemCount() - 1) {
-                ((NoViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
-            } else {
-                Glide.with(TalkingActivity.this).load(askBean.getHeadURL()).into(((ViewHolder) holder).civ_talking_avatar);
-                ((ViewHolder) holder).tv_time_conversation.setVisibility(View.GONE);
-                ((ViewHolder) holder).ll_iv_msg.setVisibility(View.VISIBLE);
-                ((ViewHolder) holder).tv_talking_msg.setVisibility(View.GONE);
-                ((ViewHolder) holder).iv_talking_msg.disenable();
-                ((ViewHolder) holder).iv_talking_msg.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        PhotoView p = (PhotoView) view;
-                        mInfo = p.getInfo();
-                        Picasso.with(TalkingActivity.this).load(askBean.getPicList().get(position - 1)).into(mPhotoView);
-                        mBg.startAnimation(in);
-                        mBg.setVisibility(View.VISIBLE);
-                        mParent.setVisibility(View.VISIBLE);
-                        mPhotoView.animaFrom(mInfo);
-                    }
-                });
-                Glide.with(TalkingActivity.this).load(askBean.getPicList().get(position - 1)).into(((ViewHolder) holder).iv_talking_msg);
-            }
-        }
-
-        @Override
-        public int getItemCount() {
-            return askBean.getPicList().size() + 2;
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-            private CircleImageView civ_talking_avatar;
-            private TextView tv_talking_msg, tv_time_conversation;
-            private PhotoView iv_talking_msg;
-            private LinearLayout ll_iv_msg;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                civ_talking_avatar = (CircleImageView) itemView.findViewById(R.id.civ_talking_avatar);
-                tv_talking_msg = (TextView) itemView.findViewById(R.id.tv_talking_msg);
-                iv_talking_msg = (PhotoView) itemView.findViewById(R.id.iv_talking_msg);
-                tv_time_conversation = (TextView) itemView.findViewById(R.id.tv_time_conversation);
-                ll_iv_msg = (LinearLayout) itemView.findViewById(R.id.ll_iv_msg);
-            }
-        }
-
-        class NoViewHolder extends RecyclerView.ViewHolder {
-
-            public NoViewHolder(View itemView) {
-                super(itemView);
-            }
-        }
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.onekeyask.lawyer.ui.act.lawyer.filter;
 
 import android.text.TextUtils;
 
+import com.onekeyask.lawyer.entity.SpecialBeanString;
+
 /**
  * Created by zht on 2017/08/09 17:02
  */
@@ -39,7 +41,12 @@ public class FilterUrl {
         StringBuilder buffer = new StringBuilder();
 
         if (!TextUtils.isEmpty(singleGridPosition)) {
-            buffer.append("&special="+singleGridPosition);
+            for (int i = 0; i < SpecialBeanString.getSpecial().size(); i++) {
+
+                if (SpecialBeanString.getSpecial().get(i).getName().equals(singleGridPosition)){
+                    buffer.append("&special="+SpecialBeanString.getSpecial().get(i).getId());
+                }
+            }
         }
 
         if (!TextUtils.isEmpty(doubleListLeft)) {
@@ -51,11 +58,45 @@ public class FilterUrl {
         }
 
         if (!TextUtils.isEmpty(singleListPosition)) {
-            buffer.append("&sort="+singleListPosition);
+            switch (singleListPosition){
+                case "综合":
+                    buffer.append("&sort=1");
+                    break;
+                case "评价等级":
+                    buffer.append("&sort=2");
+                    break;
+                case "咨询人次":
+                    buffer.append("&sort=3");
+                    break;
+                case "执业年限":
+                    buffer.append("&sort=4");
+                    break;
+                case "价格由低到高":
+                    buffer.append("&sort=5");
+                    break;
+                case "价格由高到低":
+                    buffer.append("&sort=6");
+                    break;
+
+            }
+
         }
 
         if (!TextUtils.isEmpty(doubleGridTop)) {
-            buffer.append("&serviceType="+doubleGridTop);
+
+            switch (doubleGridTop){
+                case "私人律师":
+                    buffer.append("&serviceType=1");
+                    break;
+                case "图文咨询":
+                    buffer.append("&serviceType=2");
+                    break;
+                case "电话咨询":
+                    buffer.append("&serviceType=3");
+                    break;
+
+            }
+
         }
 
         if (!TextUtils.isEmpty(doubleGridMid)) {

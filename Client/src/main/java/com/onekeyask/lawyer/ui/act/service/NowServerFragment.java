@@ -192,7 +192,7 @@ public class NowServerFragment extends BaseFragment {
                 ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(TalkingActivity.class, "fid", "0", "cid", String.valueOf(listBeen.get(position).getTargetId()));
+                        startActivity(TalkingActivity.class, "fid", "0", "cid", String.valueOf(listBeen.get(position).getTargetId()), "oid", "0");
                     }
                 });
             }else {

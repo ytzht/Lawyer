@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.CityList;
+import com.onekeyask.lawyer.entity.SpecialBeanString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,9 +109,12 @@ public class DropMenuAdapter implements MenuAdapter {
                 });
 
         List<String> list = new ArrayList<>();
-        list.add("综合排序");
+        list.add("综合");
+        list.add("评价等级");
         list.add("咨询人次");
-        list.add("评价最高");
+        list.add("执业年限");
+        list.add("价格由低到高");
+        list.add("价格由高到低");
         singleListView.setList(list, -1);
 
         return singleListView;
@@ -228,27 +232,27 @@ public class DropMenuAdapter implements MenuAdapter {
                 });
 
         List<String> list = new ArrayList<>();
-//        for (int i = 20; i < 39; ++i) {
-//            list.add(String.valueOf(i));
-//        }
+        for (int i = 0; i < SpecialBeanString.getSpecial().size(); i++) {
+            list.add(SpecialBeanString.getSpecial().get(i).getName());
+        }
 
-        list.add("全部");
-        list.add("合同纠纷");
-        list.add("房产纠纷");
-        list.add("婚姻继承");
-        list.add("人身损害");
-        list.add("劳动争议");
-        list.add("债权债务");
-        list.add("侵权纠纷");
-        list.add("消费维权");
-        list.add("交通事故");
-        list.add("刑事辩护");
-        list.add("投资");
-        list.add("融资");
-        list.add("兼并收购");
-        list.add("上市");
-        list.add("知识产权");
-        list.add("新三板");
+//        list.add("全部");
+//        list.add("合同纠纷");
+//        list.add("房产纠纷");
+//        list.add("婚姻继承");
+//        list.add("人身损害");
+//        list.add("劳动争议");
+//        list.add("债权债务");
+//        list.add("侵权纠纷");
+//        list.add("消费维权");
+//        list.add("交通事故");
+//        list.add("刑事辩护");
+//        list.add("投资");
+//        list.add("融资");
+//        list.add("兼并收购");
+//        list.add("上市");
+//        list.add("知识产权");
+//        list.add("新三板");
 
         singleGridView.setList(list, -1);
 
@@ -260,9 +264,9 @@ public class DropMenuAdapter implements MenuAdapter {
     private View createBetterDoubleGrid() {
 
         List<String> phases = new ArrayList<>();
+        phases.add("私人律师");
         phases.add("图文咨询");
         phases.add("电话咨询");
-        phases.add("私人律师");
 
         List<String> mides = new ArrayList<>();
         mides.add("0-10");

@@ -38,7 +38,7 @@ public class SearchLawActivity extends BaseToolBarActivity {
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(FindLawyerActivity.class);
+                startActivity(InputLawyerActivity.class);
             }
         });
     }
@@ -89,7 +89,7 @@ public class SearchLawActivity extends BaseToolBarActivity {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showShort(position+"");
+                    startActivity(FindLawyerActivity.class, "position", position+"");
                 }
             });
         }

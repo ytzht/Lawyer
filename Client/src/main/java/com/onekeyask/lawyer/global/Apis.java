@@ -8,6 +8,8 @@ public interface Apis {
 
     String Base = "http://139.198.11.78:8080/mylawyer/";
 
+    String FreeAskCategory = Apis.Base + "c/freeAskCategory";//1.4快速咨询类别
+
     String LawyerDetail = Apis.Base + "c/lawyer";//1.18 律师详情页
 
     String CommentList = Apis.Base + "c/getCommentList";//1.19 获取律师的被评价列表  无数据
