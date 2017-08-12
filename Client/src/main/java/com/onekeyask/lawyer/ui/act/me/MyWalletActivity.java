@@ -10,7 +10,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.onekeyask.lawyer.R;
+import com.onekeyask.lawyer.entity.PriceList;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
+import com.onekeyask.lawyer.http.ProgressSubscriber;
+import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +36,22 @@ public class MyWalletActivity extends BaseToolBarActivity {
         setContentView(R.layout.activity_my_wallet);
         ButterKnife.bind(this);
         setToolbarText("我的钱包");
+
+        SubscriberOnNextListener getResultOnNext = new SubscriberOnNextListener<PriceList>() {
+            @Override
+            public void onNext(PriceList list) {
+                walletYe.setText(String.valueOf(list.getBalance()));
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                showShort(message);
+            }
+        };
+
+        retrofitUtil.getPriceList(2, new ProgressSubscriber<PriceList>(getResultOnNext, MyWalletActivity.this, false));
+
+
     }
 
 

@@ -28,6 +28,9 @@ public class PwdAuthActivity extends BaseToolBarActivity {
 
     @OnClick(R.id.pwd_auth_next)
     public void onViewClicked() {
-        startActivity(BalanceWithActivity.class);
+
+
+        startActivity(ChooseBankActivity.class, "money", getIntent().getStringExtra("money"));
+        finish();
     }
 }

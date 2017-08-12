@@ -20,7 +20,7 @@
             android:gravity="center"
             android:text="余额账户（元）"
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/wallet_ye"
@@ -29,7 +29,7 @@
             android:layout_marginTop="66dp"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="30sp"
+            android:textSize="34sp"
             tools:text="345.43" />
 
 

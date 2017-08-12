@@ -5,20 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/viewDivider"
-    android:orientation="vertical"
-    tools:context="com.onekeyask.lawyer.ui.act.me.CardManageActivity">
+    tools:context="com.onekeyask.lawyer.ui.act.me.ChooseBankActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
-        <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
-            android:id="@+id/rlv_card_manage"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rlv_choose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white" />
+            android:background="@color/white">
+
+        </android.support.v7.widget.RecyclerView>
 
 
         <TextView
@@ -30,9 +30,8 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/full_green_four"
             android:gravity="center"
-            android:text="添加银行卡"
+            android:text="完成"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>
-
 </ScrollView>

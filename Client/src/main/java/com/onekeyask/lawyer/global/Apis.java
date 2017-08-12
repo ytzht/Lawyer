@@ -34,4 +34,16 @@ public interface Apis {
 
     String LawyerList = Apis.Base + "c/lawyerList";//1.29 找律师查询接口
 
+    String PointsHistory = Apis.Base + "c/my/pointsHistory";//1.30 我的积分明细
+
+    String BalanceHistory = Apis.Base + "c/my/balanceHistory";//1.31 我的钱包账目明细
+
+    String BankCardAdd = Apis.Base + "c/wallet/bankCardAdd";//1.32 添加银行卡
+
+    String BankCardList = Apis.Base + "c/wallet/bankCardList";//1.33 管理银行卡
+
+    String DelBankCard = Apis.Base + "c/wallet/delBankCard";//1.34 银行卡删除
+
+    String ApplyTX = Apis.Base + "c/wallet/applyTX";//1.35 提现
+
 }

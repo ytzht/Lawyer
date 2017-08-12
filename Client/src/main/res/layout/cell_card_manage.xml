@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="?listChoiceBackgroundIndicator"
+    android:gravity="center_vertical"
+    android:paddingLeft="16dp"
+    android:id="@+id/ll_card"
+    android:paddingRight="16dp">
+
+
+    <ImageView
+        android:id="@+id/card_img"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/bank_ccb" />
+
+    <TextView
+        android:id="@+id/card_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_weight="1"
+        android:text="建设银行"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/card_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="储蓄卡（****9876）"
+        android:textColor="@color/blackModule"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/iv_select"
+        android:layout_width="30dp"
+        android:layout_height="16dp"
+        android:src="@drawable/arrow_r_g" />
+</LinearLayout>

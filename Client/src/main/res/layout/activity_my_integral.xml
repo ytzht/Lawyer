@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:text="积分"
             android:gravity="center"
             android:layout_marginTop="30dp"/>
@@ -30,7 +30,7 @@
             tools:text="4000"
             android:layout_marginTop="66dp"
             android:textColor="@color/white"
-            android:textSize="30sp"/>
+            android:textSize="34sp"/>
 
 
     </RelativeLayout>
@@ -46,7 +46,6 @@
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
         android:background="@color/white">
 
         <android.support.v7.widget.RecyclerView
@@ -55,32 +54,5 @@
             android:layout_height="match_parent" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-    <RelativeLayout
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:padding="10dp"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:textColor="@color/burro_primary_ext"
-            android:textSize="20sp"
-            android:text="+300"/>
-        <TextView
-            android:id="@+id/title_in"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="新用户注册"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/blackHint"
-            android:layout_below="@id/title_in"
-            android:layout_marginTop="4dp"
-            android:text="2017-08-01 20:18"/>
 
-
-    </RelativeLayout>
 </LinearLayout>

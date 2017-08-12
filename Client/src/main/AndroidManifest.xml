@@ -204,7 +204,8 @@
         <activity
             android:name=".ui.act.lawyer.FindLawyerActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.act.lawyer.InputLawyerActivity"></activity>
+        <activity android:name=".ui.act.lawyer.InputLawyerActivity" />
+        <activity android:name=".ui.act.me.ChooseBankActivity"></activity>
     </application>
 
 </manifest>

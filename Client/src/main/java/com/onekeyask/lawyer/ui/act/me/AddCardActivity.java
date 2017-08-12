@@ -1,13 +1,20 @@
 package com.onekeyask.lawyer.ui.act.me;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
+import com.onekeyask.lawyer.entity.BaseResult;
+import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 
 import butterknife.BindView;
@@ -51,8 +58,69 @@ public class AddCardActivity extends BaseToolBarActivity {
             case R.id.rg_card:
                 break;
             case R.id.balance_next:
-                finish();
+                checkInput();
                 break;
         }
+    }
+
+    private void checkInput() {
+        String cardno = etNo.getText().toString();
+
+        if (TextUtils.isEmpty(cardno)){
+            showShort(etNo.getHint().toString());
+            return;
+        }
+
+        String cardholder = etName.getText().toString();
+
+        if (TextUtils.isEmpty(cardholder)){
+            showShort(etName.getHint().toString());
+            return;
+        }
+
+        String bankname = etType.getText().toString();
+
+        if (TextUtils.isEmpty(bankname)){
+            showShort(etType.getHint().toString());
+            return;
+        }
+
+        String province = etAddress.getText().toString();
+        
+        if (TextUtils.isEmpty(province)){
+            showShort(etAddress.getHint().toString());
+            return;
+        }
+
+        if (!rbSave.isChecked() && !rbTrust.isChecked()){
+            showShort("请选择银行卡种类");
+            return;
+        }
+
+        String cardtype;
+        if (rbTrust.isChecked()) cardtype = "信用卡";
+        else cardtype = "储蓄卡";
+
+
+            OkGo.<String>get(Apis.BankCardAdd)
+                    .params("userId", 2)
+                    .params("cardno", cardno)
+                    .params("cardholder", cardholder)
+                    .params("bankname", bankname)
+                    .params("province", province)
+                    .params("cardtype", cardtype)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            BaseResult result = (new Gson()).fromJson(response.body(), BaseResult.class);
+                            if (result.getCode() == 0) {
+                                showShort("添加成功");
+                                finish();
+                            } else {
+                                showShort(result.getMsg());
+                            }
+                        }
+                    });
+
     }
 }

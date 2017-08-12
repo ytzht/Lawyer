@@ -43,7 +43,7 @@
             <EditText
                 android:id="@+id/et_no"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@null"
                 android:hint="请输入银行卡号"
                 android:textSize="18sp" />
@@ -70,7 +70,7 @@
             <EditText
                 android:id="@+id/et_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@null"
                 android:hint="请输入持卡人姓名"
                 android:textSize="18sp" />
@@ -97,7 +97,7 @@
             <EditText
                 android:id="@+id/et_type"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@null"
                 android:hint="如：中国工商银行"
                 android:textSize="18sp" />
@@ -124,7 +124,7 @@
             <EditText
                 android:id="@+id/et_address"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@null"
                 android:hint="如：北京"
                 android:textSize="18sp" />

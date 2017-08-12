@@ -44,6 +44,8 @@
             android:id="@+id/et_with"
             android:layout_width="match_parent"
             android:background="@null"
+            android:maxLength="6"
+            android:inputType="numberDecimal"
             android:textSize="16sp"
             android:hint="提现的金额不能少于5.00元"
             android:layout_marginLeft="10dp"
@@ -58,7 +60,7 @@
         android:layout_marginLeft="16dp"
         android:textSize="14sp"
         android:textColor="@color/org"
-        android:text="您输入的金额需小于可提现金额"/>
+        android:text=""/>
 
 
     <TextView
