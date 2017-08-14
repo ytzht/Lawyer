@@ -44,6 +44,7 @@ import com.onekeyask.lawyer.global.BaseEvent;
 import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
+import com.onekeyask.lawyer.ui.act.lawyer.LawyerDetailActivity;
 import com.onekeyask.lawyer.utils.DiffCallTalkingBack;
 import com.onekeyask.lawyer.utils.HideUtil;
 import com.onekeyask.lawyer.utils.photo.Info;
@@ -94,6 +95,7 @@ public class TalkingActivity extends BaseActivity {
     private HandlerThread mCheckMsgThread;
     private Handler mCheckMsgHandler;
     private boolean isUpdateInfo;
+    int lawyerId = 3;
     private static final int MSG_UPDATE_INFO = 0x110;
     private List<ConversationList.ConversationListBean> listBean;
     private PopupWindow popupWindow = null;
@@ -753,7 +755,15 @@ public class TalkingActivity extends BaseActivity {
                     }
                 });
                 Glide.with(TalkingActivity.this).load(list.get(position).getHeadURL()).into(((ViewHolder) holder).civ_talking_avatar);
-
+                if (list.get(position).getFrom() == LEFT)
+                ((ViewHolder) holder).civ_talking_avatar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(TalkingActivity.this, LawyerDetailActivity.class);
+                        intent.putExtra("lawyerId", lawyerId);
+                        startActivity(intent);
+                    }
+                });
                 if (list.get(position).isIsPicture()) {
                     ((ViewHolder) holder).tv_talking_msg.setVisibility(View.GONE);
                     ((ViewHolder) holder).ll_iv_msg.setVisibility(View.VISIBLE);

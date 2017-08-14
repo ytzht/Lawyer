@@ -100,6 +100,15 @@ public class EvaluateLawyerActivity extends BaseToolBarActivity {
                 Glide.with(EvaluateLawyerActivity.this).load(lawyerBasic.getLawyer().getHeadURL())
                         .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
                         .into(civEvaLawyer);
+                String skilled = "专业领域：";
+                for (int i = 0; i < lawyerBasic.getLawyer().getSpecial().size(); i++) {
+                    if (lawyerBasic.getLawyer().getSpecial().size()-1 == i){
+                        skilled = skilled + lawyerBasic.getLawyer().getSpecial().get(i);
+                    }else {
+                        skilled = skilled + lawyerBasic.getLawyer().getSpecial().get(i) + "、";
+                    }
+                }
+                tvSkilled.setText(skilled);
             }
 
             @Override

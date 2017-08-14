@@ -1,10 +1,13 @@
 package com.onekeyask.lawyer.ui.act.lawyer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -56,6 +59,8 @@ public class AskDetailActivity extends BaseActivity {
     LinearLayout llPraise;
     @BindView(R.id.ll_consult)
     LinearLayout llConsult;
+    @BindView(R.id.ll_lawyer)
+    LinearLayout llLawyer;
 
     private int cid, sid;
     private boolean isSupported;
@@ -72,8 +77,9 @@ public class AskDetailActivity extends BaseActivity {
     AlphaAnimation out = new AlphaAnimation(1, 0);
     private TextView talk_toolbar_title;
     private TalkingContentAdapter adapter;
+    private int lawyerId = 2;
 
-    @OnClick({R.id.ll_share, R.id.ll_praise, R.id.ll_consult})
+    @OnClick({R.id.ll_share, R.id.ll_praise, R.id.ll_consult, R.id.ll_lawyer})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_share:
@@ -101,6 +107,11 @@ public class AskDetailActivity extends BaseActivity {
 
                 break;
             case R.id.ll_consult:
+                break;
+            case R.id.ll_lawyer:
+                Intent intent = new Intent(AskDetailActivity.this, LawyerDetailActivity.class);
+                intent.putExtra("lawyerId", lawyerId);
+                startActivity(intent);
                 break;
         }
     }
@@ -232,6 +243,7 @@ public class AskDetailActivity extends BaseActivity {
                         TalkingConversationList conversationList = (new Gson()).fromJson(response.body(), TalkingConversationList.class);
                         if (conversationList.getCode() == 0) {
                             hasMore = conversationList.getData().isHasMore();
+                            lawyerId = conversationList.getData().getLawyerId();
                             List<TalkingConversationList.DataBean.ConversationListBean> listBeen = conversationList.getData().getConversationList();
 //                            conversationId = listBeen.get(listBeen.size() - 1).getConversationId();
 
@@ -299,7 +311,15 @@ public class AskDetailActivity extends BaseActivity {
                     }
                 });
                 Glide.with(AskDetailActivity.this).load(beanList.get(position).getHeadURL()).into(((ViewHolder) holder).civ_talking_avatar);
-
+                if (beanList.get(position).getFrom() == LEFT)
+                ((ViewHolder) holder).civ_talking_avatar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(AskDetailActivity.this, LawyerDetailActivity.class);
+                        intent.putExtra("lawyerId", beanList.get(position).getLawyerId());
+                        startActivity(intent);
+                    }
+                });
                 if (beanList.get(position).isIsPicture()) {
                     ((ViewHolder) holder).tv_talking_msg.setVisibility(View.GONE);
                     ((ViewHolder) holder).ll_iv_msg.setVisibility(View.VISIBLE);
@@ -363,6 +383,22 @@ public class AskDetailActivity extends BaseActivity {
                 progress_bar_more = (ProgressBar) itemView.findViewById(R.id.progress_bar_more);
             }
         }
+    }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
+

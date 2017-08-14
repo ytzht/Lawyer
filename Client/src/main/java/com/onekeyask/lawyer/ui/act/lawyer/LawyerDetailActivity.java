@@ -324,9 +324,10 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
     }
 
     private void setValue() {
-        data.getLawyer().getServiceList().get(0).setCheck(true);
-        service_notes.setText(data.getLawyer().getServiceList().get(0).getNotes());
-
+        if (data.getLawyer().getServiceList().size() != 0) {
+            data.getLawyer().getServiceList().get(0).setCheck(true);
+            service_notes.setText(data.getLawyer().getServiceList().get(0).getNotes());
+        }
         Glide.with(this).load(data.getLawyer().getHeadURL()).into(lawyerHeader);
         lawyerName.setText(data.getLawyer().getName());
         lawyerOffice.setText(data.getLawyer().getLawyerOfficeName());

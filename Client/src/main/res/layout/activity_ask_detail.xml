@@ -36,6 +36,7 @@
 
 
     <LinearLayout
+        android:id="@+id/ll_lawyer"
         android:layout_width="match_parent"
         android:gravity="center_vertical"
         android:background="@color/white"
