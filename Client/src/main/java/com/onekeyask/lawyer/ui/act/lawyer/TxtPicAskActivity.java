@@ -134,18 +134,6 @@ public class TxtPicAskActivity extends BaseToolBarActivity {
 
                     }
                 });
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     int payType = 1;//1支付宝2微信3余额

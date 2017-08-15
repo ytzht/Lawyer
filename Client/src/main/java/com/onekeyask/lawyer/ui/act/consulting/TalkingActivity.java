@@ -38,6 +38,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.ConversationList;
+import com.onekeyask.lawyer.entity.LawyerBasic;
 import com.onekeyask.lawyer.entity.SendMsg;
 import com.onekeyask.lawyer.global.BaseActivity;
 import com.onekeyask.lawyer.global.BaseEvent;
@@ -81,7 +82,7 @@ public class TalkingActivity extends BaseActivity {
     private long firstConversationId, lastConversationId, conversationId;
     private String cid = "0";
     private ConversationList getList;
-    private LinearLayout ll_input_send, ll_bottom_menu, ll_eva_comp;
+    private LinearLayout ll_input_send, ll_bottom_menu, ll_eva_comp, ll_lawyer_info, ll_law_detail;
     private RelativeLayout rl_give_money, rl_again;
     private int LEFT = 1;
     private int size = 10;
@@ -110,7 +111,8 @@ public class TalkingActivity extends BaseActivity {
     private TextView tv_cancel_popup;
     private TextView tv_yes_popup;
     private EditText et_money_popup, et_desc_popup;
-
+    private CircleImageView law_img;
+    private TextView law_name, law_office, complaint;
 
     private PhotoView mPhotoView;
     View mParent;
@@ -248,6 +250,7 @@ public class TalkingActivity extends BaseActivity {
         ll_input_send = (LinearLayout) findViewById(R.id.ll_input_send);
         ll_bottom_menu = (LinearLayout) findViewById(R.id.ll_bottom_menu);
         ll_eva_comp = (LinearLayout) findViewById(R.id.ll_eva_comp);
+        ll_lawyer_info = (LinearLayout) findViewById(R.id.ll_lawyer_info);
         rl_give_money = (RelativeLayout) findViewById(R.id.rl_give_money);
         rl_again = (RelativeLayout) findViewById(R.id.rl_again);
         rlv_talking = (RecyclerView) findViewById(R.id.rlv_talking);
@@ -550,7 +553,8 @@ public class TalkingActivity extends BaseActivity {
                         ll_input_send.setVisibility(View.GONE);
                         ll_bottom_menu.setVisibility(View.GONE);
                         ll_eva_comp.setVisibility(View.VISIBLE);
-
+                        ll_lawyer_info.setVisibility(View.VISIBLE);
+                        showLawyerAndComplaint();
                         break;
                 }
                 if (!getList.getStatus().equals("0")) {
@@ -652,6 +656,48 @@ public class TalkingActivity extends BaseActivity {
         retrofitUtil.getConversationList("2", cid, orderId, conversationId, direction, size, new ProgressSubscriber<ConversationList>(getResultOnNext, TalkingActivity.this, false));
 
     }
+
+    private void showLawyerAndComplaint() {
+        ll_law_detail = (LinearLayout) findViewById(R.id.ll_law_detail);
+        law_img = (CircleImageView) findViewById(R.id.law_img);
+        law_name = (TextView) findViewById(R.id.law_name);
+        law_office = (TextView) findViewById(R.id.law_office);
+        complaint = (TextView) findViewById(R.id.complaint);
+        ll_law_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TalkingActivity.this, LawyerDetailActivity.class);
+                intent.putExtra("lawyerId", lawyerId);
+                startActivity(intent);
+            }
+        });
+
+        SubscriberOnNextListener<LawyerBasic> listener = new SubscriberOnNextListener<LawyerBasic>() {
+            @Override
+            public void onNext(LawyerBasic lawyerBasic) {
+                law_name.setText(lawyerBasic.getLawyer().getName());
+                law_office.setText(lawyerBasic.getLawyer().getOfficeName());
+                Glide.with(TalkingActivity.this).load(lawyerBasic.getLawyer().getHeadURL())
+                        .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
+                        .into(law_img);
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                showShort(message);
+            }
+        };
+        retrofitUtil.getLawyerBasic(lawyerId, new ProgressSubscriber<LawyerBasic>(listener, TalkingActivity.this, false));
+
+        complaint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showShort("投诉");
+            }
+        });
+    }
+
     private void getAskDetail() {
         rlv_talking.setVisibility(View.VISIBLE);
         ll_bottom_menu.setVisibility(View.GONE);

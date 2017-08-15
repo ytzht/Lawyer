@@ -31,6 +31,16 @@ public class LawyerBasic {
          */
 
         private String name;
+        private String officeName;
+
+        public String getOfficeName() {
+            return officeName;
+        }
+
+        public void setOfficeName(String officeName) {
+            this.officeName = officeName;
+        }
+
         private String headURL;
         private List<String> special;
 
