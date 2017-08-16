@@ -23,8 +23,6 @@
 
     <application>
 
-
-
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="58ff00b4734be461f00003d8 ">

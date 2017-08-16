@@ -9,14 +9,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.global.BaseFragment;
 import com.onekeyask.lawyer.ui.act.me.EarnPointsActivity;
-import com.onekeyask.lawyer.ui.act.user.LoginActivity;
 import com.onekeyask.lawyer.ui.act.me.MyIntegralActivity;
 import com.onekeyask.lawyer.ui.act.me.MyWalletActivity;
 import com.onekeyask.lawyer.ui.act.me.OpinionActivity;
 import com.onekeyask.lawyer.ui.act.me.SettingActivity;
+import com.onekeyask.lawyer.ui.act.user.LoginActivity;
+import com.onekeyask.lawyer.ui.act.user.MyInfoActivity;
+import com.onekeyask.lawyer.utils.UserService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,11 +61,32 @@ public class HomeInfoFragment extends BaseFragment {
     LinearLayout myHeader;
     private View view;
 
+    private UserService userService;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.home_info_fragment, container, false);
         unbinder = ButterKnife.bind(this, view);
+        initView();
         return view;
+    }
+
+    private void initView() {
+        userService = new UserService(getActivity());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!userService.getToken().equals("")) {
+            userName.setText(userService.getUserName());
+            Glide.with(getActivity()).load(userService.getHeadURL()).skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE).into(userHeader);
+        }else {
+            userName.setText("登录/注册");
+            userHeader.setImageResource(R.drawable.ic_member_avatar);
+        }
+
+//        Picasso.with(getActivity()).load(userService.getHeadURL()).into(userHeader);
     }
 
     @Override
@@ -92,7 +117,12 @@ public class HomeInfoFragment extends BaseFragment {
                 startActivity(SettingActivity.class);
                 break;
             case R.id.my_header://头部登录
-                startActivity(LoginActivity.class);
+
+                if (userService.getToken().equals("")) {
+                    startActivity(LoginActivity.class);
+                }else {
+                    startActivity(MyInfoActivity.class);
+                }
                 break;
         }
     }

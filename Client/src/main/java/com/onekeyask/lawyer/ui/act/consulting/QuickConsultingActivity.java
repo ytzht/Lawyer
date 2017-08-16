@@ -83,6 +83,8 @@ public class QuickConsultingActivity extends BaseToolBarActivity implements View
             case R.id.rl_free_con:
                 if (points > askPrice) {
                     photoMap.clear();
+                    i = 0;
+                    k = 0;
                     if (photos.size() > 0) {
                         progressDialog = new ProgressDialog(this);
                         progressDialog.setMessage("正在压缩图片...");

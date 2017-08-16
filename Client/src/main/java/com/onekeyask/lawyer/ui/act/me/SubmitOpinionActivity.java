@@ -29,5 +29,6 @@ public class SubmitOpinionActivity extends BaseToolBarActivity {
     @OnClick(R.id.return_my)
     public void onViewClicked() {
         startActivity(MainActivity.class);
+        finish();
     }
 }

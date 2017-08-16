@@ -23,6 +23,7 @@ import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.APIFactory;
 import com.onekeyask.lawyer.image.DemoDuiTangImageReSizer;
 import com.onekeyask.lawyer.image.PtrImageLoadHandler;
+import com.onekeyask.lawyer.utils.UserService;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.MsgConstant;
@@ -88,7 +89,8 @@ public class MyApplication extends MultiDexApplication {
             @Override
             public void onSuccess(String deviceToken) {
                 //注册成功会返回device token
-                L.d("deviceToken " + deviceToken);
+                L.d("deviceToken===== " + deviceToken);
+                UserService.service(getBaseContext()).setDeviceToken(deviceToken);
             }
 
             @Override
@@ -129,7 +131,6 @@ public class MyApplication extends MultiDexApplication {
 //        制作图标时， 注意图片各边留一个像素的透明。 建议使用黑白图标。
 
     }
-
 
 
     private void initRetrofit() {
@@ -211,7 +212,6 @@ public class MyApplication extends MultiDexApplication {
 //        builder.hostnameVerifier(new SafeHostnameVerifier());
 
 
-
 //---------这里给出的是示例代码,告诉你可以这么传,实际使用的时候,根据需要传,不需要就不传-------------//
         HttpHeaders headers = new HttpHeaders();
 //        headers.put("commonHeaderKey1", "commonHeaderValue1");    //header不支持中文，不允许有特殊字符
@@ -229,8 +229,6 @@ public class MyApplication extends MultiDexApplication {
                 .addCommonHeaders(headers)                      //全局公共头
                 .addCommonParams(params);                       //全局公共参数
     }
-
-
 
 
     @Override

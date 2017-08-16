@@ -155,4 +155,14 @@ public class APIFactory extends RetrofitHttpUtil {
         toSubscribe(observable, subscriber);
     }
 
+    public void getAppeal(Map<String, RequestBody> map, Subscriber<BaseResult> subscriber) {
+        Observable<BaseResult> observable = getService().getAppeal(map);
+        toSubscribe(observable, subscriber);
+    }
+
+    public void getSubmitadvice(Map<String, RequestBody> map, Subscriber<BaseResult> subscriber) {
+        Observable<BaseResult> observable = getService().getSubmitadvice(map);
+        toSubscribe(observable, subscriber);
+    }
+
 }

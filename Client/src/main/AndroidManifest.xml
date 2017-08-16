@@ -181,7 +181,8 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".ui.act.user.MyInfoActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:theme="@style/PopupTheme" />
         <activity
             android:name=".ui.act.lawyer.LawyerDetailActivity"
             android:theme="@style/PopupTheme" />
@@ -204,9 +205,18 @@
         <activity
             android:name=".ui.act.lawyer.FindLawyerActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.act.lawyer.InputLawyerActivity" />
-        <activity android:name=".ui.act.me.ChooseBankActivity" />
-        <activity android:name=".ui.act.consulting.ComplaintLawyerActivity"></activity>
+        <activity
+            android:name=".ui.act.lawyer.InputLawyerActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.me.ChooseBankActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.consulting.ComplaintLawyerActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.consulting.ComplaintFinishActivity"
+            android:launchMode="singleTask"></activity>
     </application>
 
 </manifest>

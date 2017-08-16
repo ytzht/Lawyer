@@ -46,4 +46,19 @@ public interface Apis {
 
     String ApplyTX = Apis.Base + "c/wallet/applyTX";//1.35 提现
 
+    String SMSCode = Apis.Base + "c/SMSCode";//1.39获取手机验证码(注册用)
+
+    String Register = Apis.Base + "c/regist";//1.40注册
+
+    String Resetpwd = Apis.Base + "c/resetpwd";//1.41找回密码
+
+    String Login = Apis.Base + "c/login";//1.42登陆
+
+    String Logout = Apis.Base + "c/logout";//1.43退出登陆
+
+    String HeadPic = Apis.Base + "c/pic/head";//1.44上传头像
+
+    String ChangeName = Apis.Base + "c/my/changeName";//1.45设置昵称
+
+    String ChangePwd = Apis.Base + "c/my/changePwd";//1.46修改密码
 }

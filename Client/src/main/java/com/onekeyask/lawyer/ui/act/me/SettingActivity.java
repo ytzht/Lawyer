@@ -5,10 +5,17 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.kyleduo.switchbutton.SwitchButton;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
+import com.onekeyask.lawyer.entity.ResultData;
+import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.ui.act.user.ResetPasswordActivity;
+import com.onekeyask.lawyer.utils.UserService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,12 +40,14 @@ public class SettingActivity extends BaseToolBarActivity {
     @BindView(R.id.return_my)
     TextView returnMy;
 
+    private UserService service;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
         setToolbarText("设置与帮助");
+        service = new UserService(getBaseContext());
     }
 
     @OnClick({R.id.check_update, R.id.re_pwd, R.id.sb_phone, R.id.notice_set, R.id.clean_cache, R.id.statement, R.id.about_us, R.id.return_my})
@@ -62,6 +71,25 @@ public class SettingActivity extends BaseToolBarActivity {
             case R.id.about_us:
                 break;
             case R.id.return_my:
+
+                OkGo.<String>get(Apis.Logout)
+                        .params("userId", service.getUserId())
+                        .params("deviceToken", service.getDeviceToken())
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
+                                if (data.getCode() == 0){
+                                    service.setUserName("");
+                                    service.setToken("");
+                                    service.setHeadURL("");
+                                    service.setUserId(0);
+                                    finish();
+                                }else {
+                                    showShort(data.getMsg());
+                                }
+                            }
+                        });
                 break;
         }
     }

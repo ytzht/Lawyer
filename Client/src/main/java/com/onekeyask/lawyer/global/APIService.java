@@ -135,4 +135,14 @@ public interface APIService {
     //1.17 律师基本信息
     @GET("c/lawyerbasic")
     Observable<HttpResult<LawyerBasic>> getLawyerBasic(@Query("lawyerId") long lawyerId);
+
+    //1.37服务投诉
+    @Multipart
+    @POST("c/appeal")
+    Observable<BaseResult> getAppeal(@PartMap Map<String, RequestBody> params);
+
+    //1.37服务投诉
+    @Multipart
+    @POST("c/my/submitadvice")
+    Observable<BaseResult> getSubmitadvice(@PartMap Map<String, RequestBody> params);
 }

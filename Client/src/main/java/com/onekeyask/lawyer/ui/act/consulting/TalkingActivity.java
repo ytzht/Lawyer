@@ -240,6 +240,7 @@ public class TalkingActivity extends BaseActivity {
 
     private void initView() {
         HideUtil.init(this);
+        userServiceId = getIntent().getStringExtra("sid");
         orderId = getIntent().getStringExtra("oid");
         talk_toolbar_title = (TextView) findViewById(R.id.talk_toolbar_title);
         talk_toolbar_title.setText("聊天页面");
@@ -693,7 +694,7 @@ public class TalkingActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                showShort("投诉");
+                startActivity(ComplaintLawyerActivity.class, "lawyerId", lawyerId+"", "sid", userServiceId);
             }
         });
     }

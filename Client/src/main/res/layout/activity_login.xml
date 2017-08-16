@@ -20,7 +20,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/ic_history_black_48dp" />
+            android:src="@drawable/user_login" />
 
         <EditText
             android:id="@+id/et_phone"
@@ -47,13 +47,16 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/ic_history_black_48dp" />
+            android:src="@drawable/user_password" />
 
         <EditText
             android:id="@+id/et_pwd"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@null"
+            android:digits=",.?/;:'#$%^*()_+0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@.!"
+            android:inputType="numberPassword"
+            android:maxLength="16"
             android:hint="新密码"
             android:textSize="16sp" />
     </LinearLayout>

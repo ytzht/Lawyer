@@ -20,7 +20,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="40dp"
-            android:src="@drawable/talking_send"/>
+            android:src="@drawable/submit_succeed"/>
 
         <TextView
             android:layout_width="match_parent"
