@@ -71,9 +71,12 @@ public class MyInfoActivity extends BaseToolBarActivity {
         userName.setText(service.getUserName());
         userPhone.setText(service.getPhone());
         L.d(service.getHeadURL());
-
-        Glide.with(this).load(service.getHeadURL()).skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE).into(civ_head);
+        if (service.getHeadURL().equals("")){
+            civ_head.setImageResource(R.drawable.ic_member_avatar);
+        }else {
+            Glide.with(this).load(service.getHeadURL()).skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE).into(civ_head);
+        }
 //        Picasso.with(this).load(service.getHeadURL()).into(civ_head);
 
         dialog = new ProgressDialog(this);
@@ -196,9 +199,12 @@ public class MyInfoActivity extends BaseToolBarActivity {
                         HeaderPic pic = (new Gson()).fromJson(response.body(), HeaderPic.class);
                         if (pic.getCode() == 0) {
                             service.setHeadURL(pic.getData().getHeadUrl());
-                            Glide.with(getBaseContext()).load(pic.getData().getHeadUrl()).skipMemoryCache(true)
-                                    .diskCacheStrategy(DiskCacheStrategy.NONE).into(civ_head);
-//                            Picasso.with(getBaseContext()).load(pic.getData().getHeadUrl()).into(civ_head);
+                            if (service.getHeadURL().equals("")){
+                                civ_head.setImageResource(R.drawable.ic_member_avatar);
+                            }else {
+                                Glide.with(getBaseContext()).load(service.getHeadURL()).skipMemoryCache(true)
+                                        .diskCacheStrategy(DiskCacheStrategy.NONE).into(civ_head);
+                            }
                         } else {
                             showShort(pic.getMsg());
                         }

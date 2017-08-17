@@ -6,6 +6,7 @@ import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,9 @@ import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.global.L;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -75,6 +79,8 @@ public class PersonLawyerActivity extends BaseToolBarActivity {
     RelativeLayout rlYe;
     @BindView(R.id.notice_ll)
     LinearLayout noticeLl;
+    @BindView(R.id.tv_notice)
+    TextView tvNotice;
     @BindView(R.id.btn_pay)
     TextView btnPay;
 
@@ -135,17 +141,23 @@ public class PersonLawyerActivity extends BaseToolBarActivity {
 
         noticeLl.setVisibility(View.VISIBLE);
 
+        String s = "1、您可根据案件类型复杂程度购买图文咨询，如果时间或次数超时，只能再次购买进行图文咨询；" +
+                "<br/>2.当订单产生，根据您消费的金额<font color='#f79f0a'>赠送50积分</font>；" +
+                "<br/>3.如有什么疑问您可以拨打客服电话，号码是01082668266。";
+        tvNotice.setText(Html.fromHtml(s));
+
+
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showShort(payType + "" + priceId + "" + price);
 
-                if (payType == 1){
+                if (payType == 1) {
                     //支付宝
                     goAliPay();
-                }else if (payType == 2){
+                } else if (payType == 2) {
 
-                }else {
+                } else {
 
                 }
             }
@@ -165,7 +177,7 @@ public class PersonLawyerActivity extends BaseToolBarActivity {
                     public void onSuccess(Response<String> response) {
 
                         AliPayResult result = (new Gson()).fromJson(response.body(), AliPayResult.class);
-                        if (result.getCode() == 0){
+                        if (result.getCode() == 0) {
 
                             oid = result.getData().getOrderId();
                             fid = result.getData().getFreeaskId();
@@ -190,7 +202,7 @@ public class PersonLawyerActivity extends BaseToolBarActivity {
                             payThread.start();
 
 
-                        }else {
+                        } else {
                             showShort(result.getMsg());
                         }
                     }
@@ -253,19 +265,26 @@ public class PersonLawyerActivity extends BaseToolBarActivity {
 
 
         if (data.getService().getPriceList().size() > 0) {
-            priceId = data.getService().getPriceList().get(0).getPriceId();
-            price = data.getService().getPriceList().get(0).getPrice();
+            for (int i = 0; i < data.getService().getPriceList().size(); i++) {
+                if (data.getService().getPriceList().get(i).getCycle().equals("周")) {
+                    priceId = data.getService().getPriceList().get(i).getPriceId();
+                    price = data.getService().getPriceList().get(i).getPrice();
+                    tvTimeDown.setText(addDate(0));
+                }
+            }
+
+
             payMoney.setText("￥" + price);
             comboRlv.setLayoutManager(new GridLayoutManager(getBaseContext(), 3));
             adapter = new ComboAdapter(data.getService().getPriceList());
             comboRlv.setAdapter(adapter);
-            data.getService().getPriceList().get(0).setCheck(true);
         }
 
 
     }
 
 
+    private int checkPosition = 0;
 
     private class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.ViewHolder> {
 
@@ -284,38 +303,154 @@ public class PersonLawyerActivity extends BaseToolBarActivity {
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
 
-            holder.tv_type_text.setText("1" + bean.get(position).getCycle() + "（" + bean.get(position).getPrice() + "元）");
+            L.d("=====VH", position + "");
+            switch (position) {
+                case 0:
+                    for (int i = 0; i < bean.size(); i++) {
+                        if (bean.get(i).getCycle().equals("周")) {
+                            holder.tv_type_text.setText("1周(" + bean.get(i).getPrice() + "元)");
+
+                            if (bean.get(i).isIsOpen()) {
+                                final int finalI = i;
+                                holder.tv_type_text.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        priceId = bean.get(finalI).getPriceId();
+                                        price = bean.get(finalI).getPrice();
+                                        payMoney.setText("￥" + price);
 
 
-            if (bean.get(position).isCheck()) {
+                                        tvTimeDown.setText(addDate(0));
+
+                                        if (checkPosition != 0) {
+                                            checkPosition = 0;
+                                            adapter.notifyDataSetChanged();
+                                        }
+
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+
+                    break;
+                case 1:
+                    for (int i = 0; i < bean.size(); i++) {
+                        if (bean.get(i).getCycle().equals("月")) {
+                            holder.tv_type_text.setText("1个月(" + bean.get(i).getPrice() + "元)");
+
+                            if (bean.get(i).isIsOpen()) {
+                            final int finalI = i;
+                            holder.tv_type_text.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    priceId = bean.get(finalI).getPriceId();
+                                    price = bean.get(finalI).getPrice();
+                                    payMoney.setText("￥" + price);
+                                    tvTimeDown.setText(addDate(1));
+                                    if (checkPosition != 1) {
+                                        checkPosition = 1;
+                                        adapter.notifyDataSetChanged();
+                                    }
+
+                                }
+                            });
+                            }
+
+                        }
+                    }
+                    break;
+                case 2:
+                    for (int i = 0; i < bean.size(); i++) {
+                        if (bean.get(i).getCycle().equals("月")) {
+                            holder.tv_type_text.setText("3个月(" + bean.get(i).getPrice() * 3 + "元)");
+
+                            if (bean.get(i).isIsOpen()) {
+                            final int finalI = i;
+                            holder.tv_type_text.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    priceId = bean.get(finalI).getPriceId();
+                                    price = bean.get(finalI).getPrice() * 3;
+                                    payMoney.setText("￥" + price);
+                                    tvTimeDown.setText(addDate(2));
+                                    if (checkPosition != 2) {
+                                        checkPosition = 2;
+                                        adapter.notifyDataSetChanged();
+                                    }
+
+                                }
+                            });
+                            }
+
+                        }
+                    }
+                    break;
+                case 3:
+                    for (int i = 0; i < bean.size(); i++) {
+                        if (bean.get(i).getCycle().equals("月")) {
+                            holder.tv_type_text.setText("6个月(" + bean.get(i).getPrice() * 6 + "元)");
+                            if (bean.get(i).isIsOpen()) {
+                            final int finalI = i;
+                            holder.tv_type_text.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    priceId = bean.get(finalI).getPriceId();
+                                    price = bean.get(finalI).getPrice() * 6;
+                                    payMoney.setText("￥" + price);
+                                    tvTimeDown.setText(addDate(3));
+                                    if (checkPosition != 3) {
+                                        checkPosition = 3;
+                                        adapter.notifyDataSetChanged();
+                                    }
+
+                                }
+                            });
+                            }
+                        }
+                    }
+                    break;
+                case 4:
+                    for (int i = 0; i < bean.size(); i++) {
+                        if (bean.get(i).getCycle().equals("年")) {
+                            holder.tv_type_text.setText("1年(" + bean.get(i).getPrice() + "元)");
+
+                            if (bean.get(i).isIsOpen()) {
+                            final int finalI = i;
+                            holder.tv_type_text.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    priceId = bean.get(finalI).getPriceId();
+                                    price = bean.get(finalI).getPrice();
+                                    payMoney.setText("￥" + price);
+                                    tvTimeDown.setText(addDate(4));
+                                    if (checkPosition != 4) {
+                                        checkPosition = 4;
+                                        adapter.notifyDataSetChanged();
+                                    }
+
+                                }
+                            });
+                            }
+
+                        }
+                    }
+                    break;
+            }
+
+            if (position == checkPosition) {
                 holder.tv_type_text.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.tag_select));
                 holder.tv_type_text.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.white));
             } else {
                 holder.tv_type_text.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.type_unselect));
                 holder.tv_type_text.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.type_gray));
             }
-
-            holder.tv_type_text.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    priceId = bean.get(position).getPriceId();
-                    price = bean.get(position).getPrice();
-                    payMoney.setText("￥" + price);
-                    if (!bean.get(position).isCheck()) {
-                        for (int i = 0; i < bean.size(); i++) {
-                            bean.get(i).setCheck(false);
-                        }
-                        bean.get(position).setCheck(true);
-                        adapter.notifyDataSetChanged();
-                    }
-
-                }
-            });
         }
 
         @Override
         public int getItemCount() {
-            return bean.size();
+            return 5;
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
@@ -327,5 +462,41 @@ public class PersonLawyerActivity extends BaseToolBarActivity {
                 tv_type_text = (TextView) itemView.findViewById(R.id.tv_type_text);
             }
         }
+    }
+
+
+    private String addDate(int position) {
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date date = new Date(System.currentTimeMillis());
+        String format = sdf.format(date);
+        calendar.setTime(date);
+        switch (position) {
+            case 0:
+                calendar.add(Calendar.WEEK_OF_YEAR, 1);
+                break;
+            case 1:
+                calendar.add(Calendar.MONTH, 1);
+                break;
+            case 2:
+                calendar.add(Calendar.MONTH, 3);
+                break;
+            case 3:
+                calendar.add(Calendar.MONTH, 6);
+                break;
+            case 4:
+                calendar.add(Calendar.YEAR, 1);
+                break;
+        }
+
+        date = calendar.getTime();
+
+
+        String format1 = sdf.format(date);
+
+        return format + "—" + format1;
+
     }
 }

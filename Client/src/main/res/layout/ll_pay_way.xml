@@ -183,22 +183,32 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="买前必读：\n1、您可根据案件类型复杂程度购买图文咨询，如果时间或次数超时，只能再次购买进行图文咨询；\n2.当订单产生，根据您消费的金额赠送50积分；\n3.如有什么疑问您可以拨打客服电话，号码是01082668266。"
+                    android:textColor="#6f6f6f"
+                    android:text="买前必读："
+                    android:textSize="14sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:lineSpacingExtra="6dp"
+                    android:id="@+id/tv_notice"
+                    android:textColor="#8e8e8e"
+                    android:layout_height="wrap_content"
+                    android:text="1、您可根据案件类型复杂程度购买图文咨询，如果时间或次数超时，只能再次购买进行图文咨询；\n2.当订单产生，根据您消费的金额赠送50积分；\n3.如有什么疑问您可以拨打客服电话，号码是01082668266。"
                     android:textSize="12sp" />
-                <!--String s = "恭喜您获得 <font color='#dc5145'><big><big>" + taskIntegral + "</big></big></font> 积分";-->
-                <!--sign_get.setText(Html.fromHtml(s));-->
+
 
             </LinearLayout>
 
             <TextView
                 android:id="@+id/btn_pay"
                 android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_height="50dp"
                 android:layout_below="@id/notice_ll"
                 android:layout_centerHorizontal="true"

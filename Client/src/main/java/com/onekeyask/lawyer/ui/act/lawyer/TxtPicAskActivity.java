@@ -3,6 +3,7 @@ package com.onekeyask.lawyer.ui.act.lawyer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -63,6 +64,8 @@ public class TxtPicAskActivity extends BaseToolBarActivity {
     ImageView cbYe;
     @BindView(R.id.tv_balance)
     TextView tvBalance;
+    @BindView(R.id.tv_notice)
+    TextView tvNotice;
     @BindView(R.id.rl_ye)
     RelativeLayout rlYe;
     @BindView(R.id.notice_ll)
@@ -108,7 +111,6 @@ public class TxtPicAskActivity extends BaseToolBarActivity {
         retrofitUtil.getLawyerBasic(lawyerId, new ProgressSubscriber<LawyerBasic>(listener, TxtPicAskActivity.this, true));
 
 
-
         OkGo.<String>get(Apis.TextChatServiceInfo)
                 .params("lawyerId", lawyerId)
                 .params("userId", "2")
@@ -116,18 +118,18 @@ public class TxtPicAskActivity extends BaseToolBarActivity {
                     @Override
                     public void onSuccess(Response<String> response) {
                         TextChatServiceInfo info = (new Gson()).fromJson(response.body(), TextChatServiceInfo.class);
-                        if (info.getCode() == 0){
+                        if (info.getCode() == 0) {
 
                             service_name.setText(info.getData().getTextChat().getServiceName());
 
-                            priceOnce.setText("￥"+info.getData().getTextChat().getPriceList().get(0).getPrice()
-                                    + "元/" +info.getData().getTextChat().getPriceList().get(0).getCycle());
-                            totalPrice.setText("￥"+info.getData().getTextChat().getPriceList().get(0).getPrice());
+                            priceOnce.setText("￥" + info.getData().getTextChat().getPriceList().get(0).getPrice()
+                                    + "元/" + info.getData().getTextChat().getPriceList().get(0).getCycle());
+                            totalPrice.setText("￥" + info.getData().getTextChat().getPriceList().get(0).getPrice());
 
                             priceId = info.getData().getTextChat().getPriceList().get(0).getPriceId();
 
                             initClick();
-                        }else {
+                        } else {
                             showShort(info.getMsg());
                             finish();
                         }
@@ -137,6 +139,7 @@ public class TxtPicAskActivity extends BaseToolBarActivity {
     }
 
     int payType = 1;//1支付宝2微信3余额
+
     private void initClick() {
         rlAli.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,17 +172,20 @@ public class TxtPicAskActivity extends BaseToolBarActivity {
         });
 
         noticeLl.setVisibility(View.VISIBLE);
-
+        String s = "1、您可根据案件类型复杂程度购买图文咨询，如果时间或次数超时，只能再次购买进行图文咨询；" +
+                "<br/>2.当订单产生，根据您消费的金额<font color='#f79f0a'>赠送50积分</font>；" +
+                "<br/>3.如有什么疑问您可以拨打客服电话，号码是01082668266。";
+        tvNotice.setText(Html.fromHtml(s));
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (payType == 1){
+                if (payType == 1) {
                     //支付宝
                     goAliPay();
-                }else if (payType == 2){
+                } else if (payType == 2) {
 
-                }else {
+                } else {
 
                 }
             }
@@ -200,11 +206,11 @@ public class TxtPicAskActivity extends BaseToolBarActivity {
                     public void onSuccess(Response<String> response) {
 
                         AliPayResult result = (new Gson()).fromJson(response.body(), AliPayResult.class);
-                        if (result.getCode() == 0){
+                        if (result.getCode() == 0) {
 
                             oid = result.getData().getOrderId();
                             fid = result.getData().getFreeaskId();
-                            
+
                             final String orderInfo = result.getData().getZfbNew().getOrderPayInfoString();
                             L.d("开始支付宝支付 ", orderInfo);
                             Runnable payRunnable = new Runnable() {
@@ -226,7 +232,7 @@ public class TxtPicAskActivity extends BaseToolBarActivity {
                             payThread.start();
 
 
-                        }else {
+                        } else {
                             showShort(result.getMsg());
                         }
                     }

@@ -29,6 +29,7 @@
             android:name="UMENG_CHANNEL"
             android:value="default" />
 
+        <!--<service android:name=".global.MyPushIntentService"/>-->
         <!-- for wechat pay -->
         <activity
             android:name=".wxapi.WXPayEntryActivity"

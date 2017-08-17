@@ -79,8 +79,12 @@ public class HomeInfoFragment extends BaseFragment {
         super.onResume();
         if (!userService.getToken().equals("")) {
             userName.setText(userService.getUserName());
-            Glide.with(getActivity()).load(userService.getHeadURL()).skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE).into(userHeader);
+            if (userService.getHeadURL().equals("")){
+                userHeader.setImageResource(R.drawable.ic_member_avatar);
+            }else {
+                Glide.with(getActivity()).load(userService.getHeadURL()).skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE).into(userHeader);
+            }
         }else {
             userName.setText("登录/注册");
             userHeader.setImageResource(R.drawable.ic_member_avatar);

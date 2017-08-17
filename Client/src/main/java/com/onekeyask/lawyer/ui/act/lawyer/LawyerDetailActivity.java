@@ -12,6 +12,8 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -330,6 +332,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         }
         Glide.with(this).load(data.getLawyer().getHeadURL()).into(lawyerHeader);
         lawyerName.setText(data.getLawyer().getName());
+        setToolbarText(data.getLawyer().getName());
         lawyerOffice.setText(data.getLawyer().getLawyerOfficeName());
 
         if (data.getLawyer().getTags().size() > 0) {
@@ -788,4 +791,31 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_share, menu);
+        MenuItem item = menu.findItem(R.id.law_share);
+        item.getActionView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showShort("分享");
+            }
+        });
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.law_share) {
+
+            return true;
+        }
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+
+        return false;
+    }
 }

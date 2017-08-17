@@ -108,7 +108,7 @@ public class MyApplication extends MultiDexApplication {
             }
         };
         mPushAgent.setNotificationClickHandler(notificationClickHandler);
-
+//        mPushAgent.setPushIntentServiceClass(MyPushIntentService.class);
 //        为免过度打扰用户，SDK默认在“23:00”到“7:00”之间收到通知消息时不响铃，不振动，不闪灯。如果需要改变默认的静音时间，可以使用以下接口：
 //        mPushAgent.setNoDisturbMode(23, 0, 7, 0);
 //        mPushAgent.setNoDisturbMode(0, 0, 0, 0);

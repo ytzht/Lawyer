@@ -169,15 +169,6 @@ public class PersonalLawyer {
                 private boolean isOpen;
                 private String cycle;
                 private int price;
-                private boolean isCheck;
-
-                public boolean isCheck() {
-                    return isCheck;
-                }
-
-                public void setCheck(boolean check) {
-                    isCheck = check;
-                }
 
                 public int getPriceId() {
                     return priceId;
