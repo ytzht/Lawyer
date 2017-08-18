@@ -729,7 +729,7 @@ public class TalkingActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.evaluate) {
-            startActivity(EvaluateLawyerActivity.class, "fid", fid, "oid", String.valueOf(orderId), "userServiceId", userServiceId);
+            startActivity(EvaluateLawyerActivity.class, "userServiceId", userServiceId);
             return true;
         }
         if (item.getItemId() == android.R.id.home) {

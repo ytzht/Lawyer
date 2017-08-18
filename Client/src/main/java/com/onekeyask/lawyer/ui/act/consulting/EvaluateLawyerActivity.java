@@ -72,8 +72,6 @@ public class EvaluateLawyerActivity extends BaseToolBarActivity {
     private CommonTagList tagList;
     private List<CommonTagList.TagListBean> tagListBeen;
     private String Score = "5";
-    private String fid = "";
-    private String oid = "";
     private String userServiceId = "";
 
     @Override
@@ -82,8 +80,6 @@ public class EvaluateLawyerActivity extends BaseToolBarActivity {
         setContentView(R.layout.activity_evaluate_lawyer);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setToolbarText("评价律师");
-        fid = getIntent().getStringExtra("fid");
-        oid = getIntent().getStringExtra("oid");
         userServiceId = getIntent().getStringExtra("userServiceId");
 
 
@@ -253,7 +249,7 @@ public class EvaluateLawyerActivity extends BaseToolBarActivity {
                     map.put("customTag", etTagEva.getText().toString());
                 }
 
-                L.d("oid fid Score userServiceId " + oid + " " + fid + " " + Score + " " + userServiceId);
+                L.d("Score userServiceId " + Score + " " + userServiceId);
                 map.put("userId", "2");
                 map.put("lawyerId", "3");
                 map.put("userServiceId", userServiceId);
@@ -267,8 +263,6 @@ public class EvaluateLawyerActivity extends BaseToolBarActivity {
                         if (result.getCode() == 0) {
                             Intent intent = new Intent(EvaluateLawyerActivity.this, EvaluateCompleteActivity.class);
                             intent.putExtra("giveMoney", true);
-                            intent.putExtra("fid", fid);
-                            intent.putExtra("oid", oid);
                             intent.putExtra("userServiceId", userServiceId);
 
                             startActivity(intent);
