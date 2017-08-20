@@ -20,6 +20,7 @@ import com.onekeyask.lawyer.entity.MyLawyer;
 import com.onekeyask.lawyer.global.BaseFragment;
 import com.onekeyask.lawyer.ui.act.lawyer.LawyerDetailActivity;
 import com.onekeyask.lawyer.utils.MyDecoration;
+import com.onekeyask.lawyer.utils.UserService;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
@@ -94,7 +95,7 @@ public class MyLawyerFragment extends BaseFragment {
     private void initData() {
 
         OkGo.<String>get(MyLawyerList)
-                .params("userId", "2")
+                .params("userId", UserService.service(getActivity()).getUserId())
                 .params("page", index)
                 .params("size", size)
                 .execute(new StringCallback() {

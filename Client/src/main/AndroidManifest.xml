@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.onekeyask.lawyer">
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -29,7 +30,18 @@
             android:name="UMENG_CHANNEL"
             android:value="default" />
 
-        <!--<service android:name=".global.MyPushIntentService"/>-->
+        <!-- 监听系统下载完成的广播 -->
+        <receiver
+            android:name=".global.DownloadReceiver"
+            tools:ignore="ExportedReceiver">
+            <intent-filter>
+                <action android:name="DownloadManager.ACTION_DOWNLOAD_COMPLETE" />
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+                <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- <service android:name=".global.MyPushIntentService"/> -->
         <!-- for wechat pay -->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
@@ -217,7 +229,9 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".ui.act.consulting.ComplaintFinishActivity"
-            android:launchMode="singleTask"></activity>
+            android:launchMode="singleTask" />
+        <activity android:name=".ui.act.user.TopMsgActivity" />
+        <activity android:name=".ui.act.user.MsgDetailActivity"></activity>
     </application>
 
 </manifest>

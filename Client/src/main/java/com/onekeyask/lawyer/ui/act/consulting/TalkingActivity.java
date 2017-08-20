@@ -42,12 +42,14 @@ import com.onekeyask.lawyer.entity.LawyerBasic;
 import com.onekeyask.lawyer.entity.SendMsg;
 import com.onekeyask.lawyer.global.BaseActivity;
 import com.onekeyask.lawyer.global.BaseEvent;
+import com.onekeyask.lawyer.global.Constant;
 import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.ui.act.lawyer.LawyerDetailActivity;
 import com.onekeyask.lawyer.utils.DiffCallTalkingBack;
 import com.onekeyask.lawyer.utils.HideUtil;
+import com.onekeyask.lawyer.utils.UserService;
 import com.onekeyask.lawyer.utils.photo.Info;
 import com.onekeyask.lawyer.utils.photo.PhotoView;
 import com.squareup.picasso.Picasso;
@@ -96,7 +98,7 @@ public class TalkingActivity extends BaseActivity {
     private HandlerThread mCheckMsgThread;
     private Handler mCheckMsgHandler;
     private boolean isUpdateInfo;
-    int lawyerId = 3;
+    private int lawyerId = Constant.lawyerId;// TODO: 2017/8/20  lawId怎么获取
     private static final int MSG_UPDATE_INFO = 0x110;
     private List<ConversationList.ConversationListBean> listBean;
     private PopupWindow popupWindow = null;
@@ -120,6 +122,7 @@ public class TalkingActivity extends BaseActivity {
     Info mInfo;
     AlphaAnimation in = new AlphaAnimation(0, 1);
     AlphaAnimation out = new AlphaAnimation(1, 0);
+    private int userId;
 
 
     private UMShareListener umShareListener = new UMShareListener() {
@@ -240,6 +243,7 @@ public class TalkingActivity extends BaseActivity {
 
     private void initView() {
         HideUtil.init(this);
+        userId = UserService.service(getBaseContext()).getUserId();
         userServiceId = getIntent().getStringExtra("sid");
         orderId = getIntent().getStringExtra("oid");
         talk_toolbar_title = (TextView) findViewById(R.id.talk_toolbar_title);
@@ -498,7 +502,9 @@ public class TalkingActivity extends BaseActivity {
             }
         };
 
-        retrofitUtil.getSendMsg("2", cid, et_send_msg.getText().toString(), new ProgressSubscriber<SendMsg>(listener, TalkingActivity.this, false));
+        retrofitUtil.getSendMsg(userId,
+                cid, et_send_msg.getText().toString(),
+                new ProgressSubscriber<SendMsg>(listener, TalkingActivity.this, false));
 
     }
 
@@ -654,7 +660,7 @@ public class TalkingActivity extends BaseActivity {
         }
 
         L.d("orderId " + orderId);
-        retrofitUtil.getConversationList("2", cid, orderId, conversationId, direction, size, new ProgressSubscriber<ConversationList>(getResultOnNext, TalkingActivity.this, false));
+        retrofitUtil.getConversationList(UserService.service(getBaseContext()).getUserId(), cid, orderId, conversationId, direction, size, new ProgressSubscriber<ConversationList>(getResultOnNext, TalkingActivity.this, false));
 
     }
 
@@ -729,7 +735,10 @@ public class TalkingActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.evaluate) {
-            startActivity(EvaluateLawyerActivity.class, "userServiceId", userServiceId);
+            Intent intent = new Intent(TalkingActivity.this, EvaluateLawyerActivity.class);
+            intent.putExtra("userServiceId", userServiceId);
+            intent.putExtra("lawyerId", lawyerId);
+            startActivity(intent);
             return true;
         }
         if (item.getItemId() == android.R.id.home) {

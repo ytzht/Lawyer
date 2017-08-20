@@ -14,6 +14,7 @@ import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
+import com.onekeyask.lawyer.utils.UserService;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public class QuickConsultingActivity extends BaseToolBarActivity implements View
                 showShort(message);
             }
         };
-        retrofitUtil.getPointsInfo("2", new ProgressSubscriber<PointsInfo>(getResultOnNext, QuickConsultingActivity.this, true));
+        retrofitUtil.getPointsInfo(UserService.service(getBaseContext()).getUserId(), new ProgressSubscriber<PointsInfo>(getResultOnNext, QuickConsultingActivity.this, true));
     }
 
     private ProgressDialog progressDialog;

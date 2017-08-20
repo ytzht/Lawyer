@@ -3,6 +3,8 @@ package com.onekeyask.lawyer.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.onekeyask.lawyer.global.Constant;
+
 /**
  * Created by zht on 2017/08/16 15:43
  */
@@ -65,7 +67,7 @@ public class UserService {
     public int getUserId() {
         SharedPreferences memberPrefs = context.getSharedPreferences(
                 UserId, Context.MODE_PRIVATE);
-        return memberPrefs.getInt(UserId, 0);
+        return memberPrefs.getInt(UserId, Constant.userId);
     }
 
     public void setUserId(int userId) {

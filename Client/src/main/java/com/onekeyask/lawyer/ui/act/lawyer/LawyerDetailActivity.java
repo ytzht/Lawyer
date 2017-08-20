@@ -37,11 +37,13 @@ import com.onekeyask.lawyer.entity.IsFavorite;
 import com.onekeyask.lawyer.entity.LawyerDetail;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
+import com.onekeyask.lawyer.global.Constant;
 import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.ui.act.consulting.PayLawyerActivity;
 import com.onekeyask.lawyer.utils.MyDecoration;
+import com.onekeyask.lawyer.utils.UserService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -131,7 +133,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         setContentView(R.layout.activity_lawyer_detail);
         ButterKnife.bind(this);
 
-        lawyerId = getIntent().getIntExtra("lawyerId", 0);
+        lawyerId = getIntent().getIntExtra("lawyerId", Constant.lawyerId);
 
         L.d("lawyerId: " + lawyerId);
         index = 1;
@@ -431,7 +433,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
             }
         };
 
-        retrofitUtil.getFavoriteLawyer("2", "3", !(isFavorite.isFavorite()), new ProgressSubscriber<IsFavorite>(getResultOnNext, LawyerDetailActivity.this, true));
+        retrofitUtil.getFavoriteLawyer(UserService.service(getBaseContext()).getUserId(), lawyerId, !(isFavorite.isFavorite()), new ProgressSubscriber<IsFavorite>(getResultOnNext, LawyerDetailActivity.this, true));
 
     }
 
@@ -456,7 +458,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
                 showShort(message);
             }
         };
-        retrofitUtil.getIsFavorite("2", "3", new ProgressSubscriber<IsFavorite>(getResultOnNext, LawyerDetailActivity.this, false));
+        retrofitUtil.getIsFavorite(UserService.service(getBaseContext()).getUserId(), lawyerId, new ProgressSubscriber<IsFavorite>(getResultOnNext, LawyerDetailActivity.this, false));
 
     }
 

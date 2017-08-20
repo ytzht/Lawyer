@@ -61,4 +61,18 @@ public interface Apis {
     String ChangeName = Apis.Base + "c/my/changeName";//1.45设置昵称
 
     String ChangePwd = Apis.Base + "c/my/changePwd";//1.46修改密码
+
+    String Getswitch = Apis.Base + "c/message/getswitch";//1.47消息通知设置开关状态获取
+
+    String Saveswitch = Apis.Base + "c/message/saveswitch";//1.48消息通知设置开关状态保存
+
+    String MessageList = Apis.Base + "c/message/list";//1.49消息中心页面
+
+    String MessageDetail = Apis.Base + "c/message/detail";//1.50消息中心详情页
+
+    String Checkupdate = Apis.Base + "c/checkupdate";//1.52:系统检查更新
+
+
+
+
 }

@@ -14,6 +14,7 @@ import com.onekeyask.lawyer.entity.PriceList;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
+import com.onekeyask.lawyer.utils.UserService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,7 +50,7 @@ public class MyWalletActivity extends BaseToolBarActivity {
             }
         };
 
-        retrofitUtil.getPriceList(2, new ProgressSubscriber<PriceList>(getResultOnNext, MyWalletActivity.this, false));
+        retrofitUtil.getPriceList(UserService.service(getBaseContext()).getUserId(), new ProgressSubscriber<PriceList>(getResultOnNext, MyWalletActivity.this, false));
 
 
     }

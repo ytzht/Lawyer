@@ -60,7 +60,7 @@ public interface APIService {
 
     //1.5免费咨询价格和用户当前积分
     @POST("c/my/pointsInfo")
-    Observable<HttpResult<PointsInfo>> getPointsInfo(@Query("userId") String userId);
+    Observable<HttpResult<PointsInfo>> getPointsInfo(@Query("userId") int userId);
 
     //1.6获取id对应的图片
     @GET("pic/{picId}")
@@ -68,7 +68,7 @@ public interface APIService {
 
     //1.7获取单个会话列表
     @GET("c/conversation/getList")
-    Observable<HttpResult<ConversationList>> getConversationList(@Query("userId") String userId,
+    Observable<HttpResult<ConversationList>> getConversationList(@Query("userId") int userId,
                                                                  @Query("chatId") String chatId,
                                                                  @Query("orderId") String orderId,
                                                                  @Query("conversationId") long conversationId,
@@ -77,7 +77,7 @@ public interface APIService {
 
     //1.8获取免费提问详情
     @GET("c/freeaskDetail")
-    Observable<HttpResult<FreeaskDetail>> getFreeaskDetail(@Query("userId") String userId,
+    Observable<HttpResult<FreeaskDetail>> getFreeaskDetail(@Query("userId") int userId,
                                                            @Query("freeaskId") String freeaskId);//免费提问Id
 
     //1.9评价律师
@@ -96,18 +96,18 @@ public interface APIService {
 
     //1.12是否已收藏（关注）律师
     @GET("c/isFavorite")
-    Observable<HttpResult<IsFavorite>> getIsFavorite(@Query("userId") String userId,
-                                                     @Query("lawyerId") String lawyerId);
+    Observable<HttpResult<IsFavorite>> getIsFavorite(@Query("userId") int userId,
+                                                     @Query("lawyerId") int lawyerId);
 
     //1.13收藏（关注）律师
     @GET("c/favoriteLawyer")
-    Observable<HttpResult<IsFavorite>> getFavoriteLawyer(@Query("userId") String userId,
-                                                         @Query("lawyerId") String lawyerId,
+    Observable<HttpResult<IsFavorite>> getFavoriteLawyer(@Query("userId") int userId,
+                                                         @Query("lawyerId") int lawyerId,
                                                          @Query("favorite") boolean favorite);
 
     //1.14 服务列表
     @GET("c/conversation/userServiceList")
-    Observable<HttpResult<ChatList>> getChatList(@Query("userId") long userId,
+    Observable<HttpResult<ChatList>> getChatList(@Query("userId") int userId,
                                                  @Query("page") int page,//页数
                                                  @Query("size") int size,//行数
                                                  @Query("status") String status,
@@ -116,7 +116,7 @@ public interface APIService {
     //1.15 发送对话
     @FormUrlEncoded
     @POST("c/conversation/send")
-    Observable<HttpResult<SendMsg>> getSendMsg(@Field("userId") String userId,
+    Observable<HttpResult<SendMsg>> getSendMsg(@Field("userId") int userId,
                                                @Field("chatId") String chatId,//订单ID
                                                @Field("content") String content);
 
@@ -130,11 +130,11 @@ public interface APIService {
 
     //1.16 用户余额
     @GET("c/my/balanceInfo")
-    Observable<HttpResult<PriceList>> getPriceList(@Query("userId") long userId);
+    Observable<HttpResult<PriceList>> getPriceList(@Query("userId") int userId);
 
     //1.17 律师基本信息
     @GET("c/lawyerbasic")
-    Observable<HttpResult<LawyerBasic>> getLawyerBasic(@Query("lawyerId") long lawyerId);
+    Observable<HttpResult<LawyerBasic>> getLawyerBasic(@Query("lawyerId") int lawyerId);
 
     //1.37服务投诉
     @Multipart

@@ -26,6 +26,7 @@ import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
+import com.onekeyask.lawyer.utils.UserService;
 import com.onekeyask.lawyer.utils.dialog.MDEditDialog;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -131,7 +132,7 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
             }
         };
 
-        retrofitUtil.getPriceList(2, new ProgressSubscriber<PriceList>(getResultOnNext, PayQuickConsultingActivity.this, true));
+        retrofitUtil.getPriceList(UserService.service(getBaseContext()).getUserId(), new ProgressSubscriber<PriceList>(getResultOnNext, PayQuickConsultingActivity.this, true));
 
 
     }

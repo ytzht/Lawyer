@@ -20,6 +20,7 @@ import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.ui.act.consulting.ConsultingDetailActivity;
 import com.onekeyask.lawyer.ui.act.lawyer.SearchLawActivity;
+import com.onekeyask.lawyer.ui.act.user.TopMsgActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -60,7 +61,7 @@ public class HomeIndexFragment extends BaseFragment implements View.OnClickListe
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         search_et = (TextView) view.findViewById(R.id.search_et);
         iv_top_msg = (ImageView) view.findViewById(R.id.iv_top_msg);
-
+        iv_top_msg.setOnClickListener(this);
         rl_quick_consulting = (RelativeLayout) view.findViewById(R.id.rl_quick_consulting);
         rl_quick_consulting.setOnClickListener(this);
         rl_look_lawyer = (RelativeLayout) view.findViewById(R.id.rl_look_lawyer);
@@ -216,6 +217,8 @@ public class HomeIndexFragment extends BaseFragment implements View.OnClickListe
             case R.id.tv_more_solutions:
                 showShort("更多 模块尚未上线");
                 break;
+            case R.id.iv_top_msg:
+                startActivity(TopMsgActivity.class);
         }
     }
 

@@ -20,6 +20,7 @@ import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
+import com.onekeyask.lawyer.utils.UserService;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
@@ -101,7 +102,7 @@ public class MyIntegralActivity extends BaseToolBarActivity {
                 showShort(message);
             }
         };
-        retrofitUtil.getPointsInfo("2", new ProgressSubscriber<PointsInfo>(getResultOnNext, MyIntegralActivity.this, false));
+        retrofitUtil.getPointsInfo(UserService.service(getBaseContext()).getUserId(), new ProgressSubscriber<PointsInfo>(getResultOnNext, MyIntegralActivity.this, false));
 
 
 

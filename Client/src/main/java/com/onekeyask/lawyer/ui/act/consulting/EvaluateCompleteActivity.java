@@ -1,5 +1,6 @@
 package com.onekeyask.lawyer.ui.act.consulting;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -24,8 +25,10 @@ import com.bumptech.glide.Glide;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.IsFavorite;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
+import com.onekeyask.lawyer.global.Constant;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
+import com.onekeyask.lawyer.utils.UserService;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -58,11 +61,14 @@ public class EvaluateCompleteActivity extends BaseToolBarActivity {
     private TextView tv_yes_popup;
 
     private boolean giveMoney;
+    private int lawyerId;
     private PopupWindow popupWindow = null;
     private EditText et_money_popup, et_desc_popup;
     private View popupView;
     private String selectMoney = "2.00";
     private String userServiceId = "";
+    private UserService service;
+    private String lawName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +84,10 @@ public class EvaluateCompleteActivity extends BaseToolBarActivity {
 
     private void initView() {
 
+        service = new UserService(getBaseContext());
         userServiceId = getIntent().getStringExtra("userServiceId");
-
+            lawName = getIntent().getStringExtra("lawName");
+        lawyerId = getIntent().getIntExtra("lawyerId", Constant.lawyerId);
 
         initIsFavorite();
         Glide.with(this).load("http://139.198.11.78:8080/mylawyer/pic/1534").into(ivTopComp);
@@ -170,7 +178,7 @@ public class EvaluateCompleteActivity extends BaseToolBarActivity {
                 showShort(message);
             }
         };
-        retrofitUtil.getIsFavorite("2", "3", new ProgressSubscriber<IsFavorite>(getResultOnNext, EvaluateCompleteActivity.this, false));
+        retrofitUtil.getIsFavorite(service.getUserId(), lawyerId, new ProgressSubscriber<IsFavorite>(getResultOnNext, EvaluateCompleteActivity.this, false));
 
     }
 
@@ -188,7 +196,7 @@ public class EvaluateCompleteActivity extends BaseToolBarActivity {
             }
         };
 
-        retrofitUtil.getFavoriteLawyer("2", "3", !(isFavorite.isFavorite()), new ProgressSubscriber<IsFavorite>(getResultOnNext, EvaluateCompleteActivity.this, true));
+        retrofitUtil.getFavoriteLawyer(service.getUserId(), lawyerId, !(isFavorite.isFavorite()), new ProgressSubscriber<IsFavorite>(getResultOnNext, EvaluateCompleteActivity.this, true));
 
     }
 
@@ -276,12 +284,13 @@ public class EvaluateCompleteActivity extends BaseToolBarActivity {
                 } else {
                     popupWindow.dismiss();
                     showShort("选择" + selectMoney + "元 并说" + et_desc_popup.getText().toString());
-                    startActivity(PayLawyerActivity.class,
-                            "name", "张三",
-                            "money", selectMoney + "",
-                            "summary", et_desc_popup.getText().toString(),
-                            "userServiceId", userServiceId);
-                }
+
+                    Intent intent = new Intent(EvaluateCompleteActivity.this, PayLawyerActivity.class);
+                    intent.putExtra("name", lawName);
+                    intent.putExtra("money", selectMoney);
+                    intent.putExtra("summary", et_desc_popup.getText().toString());
+                    intent.putExtra("userServiceId", userServiceId);
+                    startActivity(intent);}
             }
         });
         tv_sel_2.setOnClickListener(new View.OnClickListener() {

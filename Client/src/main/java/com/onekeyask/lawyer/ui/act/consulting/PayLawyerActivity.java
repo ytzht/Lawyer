@@ -12,8 +12,10 @@ import com.onekeyask.lawyer.entity.GiveMoneyOrderAndGetPayInfo;
 import com.onekeyask.lawyer.entity.LawyerBasic;
 import com.onekeyask.lawyer.entity.PriceList;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
+import com.onekeyask.lawyer.global.Constant;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
+import com.onekeyask.lawyer.utils.UserService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,6 +51,7 @@ public class PayLawyerActivity extends BaseToolBarActivity {
     private int payType = 1;
     private String userServiceId = "";
     private double balance = 0;
+    private int lawyerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,8 @@ public class PayLawyerActivity extends BaseToolBarActivity {
 
         name = getIntent().getStringExtra("name");
         summary = getIntent().getStringExtra("summary");
-        money = Double.parseDouble(getIntent().getStringExtra("money"));
+        lawyerId = getIntent().getIntExtra("lawyerId", Constant.lawyerId);
+        money = getIntent().getDoubleExtra("money", 0);
         userServiceId = getIntent().getStringExtra("userServiceId");
 
         initName();
@@ -100,7 +104,7 @@ public class PayLawyerActivity extends BaseToolBarActivity {
             }
         };
 
-        retrofitUtil.getPriceList(2, new ProgressSubscriber<PriceList>(getResultOnNext, PayLawyerActivity.this, true));
+        retrofitUtil.getPriceList(UserService.service(getBaseContext()).getUserId(), new ProgressSubscriber<PriceList>(getResultOnNext, PayLawyerActivity.this, true));
 
     }
 
@@ -153,6 +157,7 @@ public class PayLawyerActivity extends BaseToolBarActivity {
 
                             Intent intent = new Intent(PayLawyerActivity.this, EvaluateCompleteActivity.class);
                             intent.putExtra("giveMoney", false);
+                            intent.putExtra("lawyerId", lawyerId);
                             startActivity(intent);
                             finish();
                         }

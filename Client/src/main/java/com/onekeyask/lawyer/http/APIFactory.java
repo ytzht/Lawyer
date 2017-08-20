@@ -8,7 +8,6 @@ import com.onekeyask.lawyer.entity.CommonTagList;
 import com.onekeyask.lawyer.entity.ConversationList;
 import com.onekeyask.lawyer.entity.FreeAskCategory;
 import com.onekeyask.lawyer.entity.FreeaskBean;
-import com.onekeyask.lawyer.entity.FreeaskDetail;
 import com.onekeyask.lawyer.entity.GiveMoneyOrderAndGetPayInfo;
 import com.onekeyask.lawyer.entity.HomePage;
 import com.onekeyask.lawyer.entity.IsFavorite;
@@ -58,7 +57,7 @@ public class APIFactory extends RetrofitHttpUtil {
         toSubscribe(observable, subscriber);
     }
 
-    public void getPointsInfo(String userId, Subscriber<PointsInfo> subscriber) {
+    public void getPointsInfo(int userId, Subscriber<PointsInfo> subscriber) {
         Observable<PointsInfo> observable = getService().getPointsInfo(userId)
                 .map(new HttpResultFunc<PointsInfo>());
         toSubscribe(observable, subscriber);
@@ -69,16 +68,9 @@ public class APIFactory extends RetrofitHttpUtil {
         toSubscribe(observable, subscriber);
     }
 
-    public void getConversationList(String userId, String chatId, String orderId, long conversationId, String direction, int size, Subscriber<ConversationList> subscriber) {
+    public void getConversationList(int userId, String chatId, String orderId, long conversationId, String direction, int size, Subscriber<ConversationList> subscriber) {
         Observable<ConversationList> observable = getService().getConversationList(userId, chatId, orderId, conversationId, direction, size)
                 .map(new HttpResultFunc<ConversationList>());
-        toSubscribe(observable, subscriber);
-    }
-
-
-    public void getFreeaskDetail(String userId, String freeaskId, Subscriber<FreeaskDetail> subscriber) {
-        Observable<FreeaskDetail> observable = getService().getFreeaskDetail(userId, freeaskId)
-                .map(new HttpResultFunc<FreeaskDetail>());
         toSubscribe(observable, subscriber);
     }
 
@@ -99,19 +91,19 @@ public class APIFactory extends RetrofitHttpUtil {
         toSubscribe(observable, subscriber);
     }
 
-    public void getIsFavorite(String userId, String lawyerId, Subscriber<IsFavorite> subscriber) {
+    public void getIsFavorite(int userId, int lawyerId, Subscriber<IsFavorite> subscriber) {
         Observable<IsFavorite> observable = getService().getIsFavorite(userId, lawyerId)
                 .map(new HttpResultFunc<IsFavorite>());
         toSubscribe(observable, subscriber);
     }
 
-    public void getFavoriteLawyer(String userId, String lawyerId, boolean favorite, Subscriber<IsFavorite> subscriber) {
+    public void getFavoriteLawyer(int userId, int lawyerId, boolean favorite, Subscriber<IsFavorite> subscriber) {
         Observable<IsFavorite> observable = getService().getFavoriteLawyer(userId, lawyerId, favorite)
                 .map(new HttpResultFunc<IsFavorite>());
         toSubscribe(observable, subscriber);
     }
 
-    public void getChatList(long userId, int page, int size, String status, int type, Subscriber<ChatList> subscriber) {
+    public void getChatList(int userId, int page, int size, String status, int type, Subscriber<ChatList> subscriber) {
         Observable<ChatList> observable = getService().getChatList(userId, page, size, status, type)
                 .map(new HttpResultFunc<ChatList>());
         toSubscribe(observable, subscriber);
@@ -127,7 +119,7 @@ public class APIFactory extends RetrofitHttpUtil {
 
     }
 
-    public void getSendMsg(String userId, String chatId, String content, Subscriber<SendMsg> subscriber) {
+    public void getSendMsg(int userId, String chatId, String content, Subscriber<SendMsg> subscriber) {
         Observable<SendMsg> observable = getService().getSendMsg(userId, chatId, content)
                 .map(new HttpResultFunc<SendMsg>());
         toSubscribe(observable, subscriber);
@@ -145,12 +137,12 @@ public class APIFactory extends RetrofitHttpUtil {
         toSubscribe(observable, subscriber);
     }
 
-    public void getPriceList(long serId, Subscriber<PriceList> subscriber) {
+    public void getPriceList(int serId, Subscriber<PriceList> subscriber) {
         Observable<PriceList> observable = getService().getPriceList(serId).map(new HttpResultFunc<PriceList>());
         toSubscribe(observable, subscriber);
     }
 
-    public void getLawyerBasic(long lawyerId, Subscriber<LawyerBasic> subscriber) {
+    public void getLawyerBasic(int lawyerId, Subscriber<LawyerBasic> subscriber) {
         Observable<LawyerBasic> observable = getService().getLawyerBasic(lawyerId).map(new HttpResultFunc<LawyerBasic>());
         toSubscribe(observable, subscriber);
     }
