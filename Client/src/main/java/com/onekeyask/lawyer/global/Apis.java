@@ -70,7 +70,7 @@ public interface Apis {
 
     String MessageDetail = Apis.Base + "c/message/detail";//1.50消息中心详情页
 
-    String Checkupdate = Apis.Base + "c/checkupdate";//1.52:系统检查更新
+    String Checkupdate = Apis.Base + "pub/c/checkupdate";//1.52:系统检查更新
 
 
 

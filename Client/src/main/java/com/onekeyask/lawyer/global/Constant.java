@@ -34,4 +34,8 @@ public class Constant {
     public static int lawyerId = 3;
 
     public static int userId = 2;
+    public static final String WECHAT_PAY_RESULT_ACTION = "com.tencent.mm.opensdk.WECHAT_PAY_RESULT_ACTION";
+    public static final String WECHAT_PAY_RESULT_EXTRA = "com.tencent.mm.opensdk.WECHAT_PAY_RESULT_EXTRA";
+
+    public static String WeChatAppID;
 }

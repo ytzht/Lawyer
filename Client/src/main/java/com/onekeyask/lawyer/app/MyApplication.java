@@ -76,7 +76,7 @@ public class MyApplication extends MultiDexApplication {
 
     private void initShare() {
         UMShareAPI.get(this);
-        PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
+        PlatformConfig.setWeixin("wx51d42419270bac61", "3aa5bdca57372f5ea207a493d3766696");
         PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
     }
 

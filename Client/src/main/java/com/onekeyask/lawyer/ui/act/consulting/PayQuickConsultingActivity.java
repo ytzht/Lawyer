@@ -48,8 +48,9 @@ import okhttp3.RequestBody;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
-import static com.onekeyask.lawyer.utils.easypay.pay.paystrategy.WeChatPayStrategy.WECHAT_PAY_RESULT_ACTION;
-import static com.onekeyask.lawyer.utils.easypay.pay.paystrategy.WeChatPayStrategy.WECHAT_PAY_RESULT_EXTRA;
+import static com.onekeyask.lawyer.global.Constant.WECHAT_PAY_RESULT_ACTION;
+import static com.onekeyask.lawyer.global.Constant.WECHAT_PAY_RESULT_EXTRA;
+import static com.onekeyask.lawyer.global.Constant.WeChatAppID;
 
 public class PayQuickConsultingActivity extends BaseToolBarActivity {
 
@@ -354,7 +355,7 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
 
     }
 
-    public static String WeChatAppID;
+
 
     private void WePay(AskResult.WxBean wx) {
 

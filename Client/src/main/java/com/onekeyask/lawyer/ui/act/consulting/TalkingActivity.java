@@ -103,7 +103,7 @@ public class TalkingActivity extends BaseActivity {
     private List<ConversationList.ConversationListBean> listBean;
     private PopupWindow popupWindow = null;
     private View popupView;
-    private String selectMoney = "200";
+    private String selectMoney = "2.00";
     private boolean isAskDetail = false;//是否为未接单状态，是的话显示问题详情
 
     private TextView tv_sel_2;
@@ -160,6 +160,7 @@ public class TalkingActivity extends BaseActivity {
         //创建后台线程
         initBackThread();
 
+        showLawyerAndComplaint();
     }
 
     private void initBackThread() {
@@ -365,7 +366,7 @@ public class TalkingActivity extends BaseActivity {
         et_money_popup = (EditText) popupView.findViewById(R.id.et_money_popup);
         et_desc_popup = (EditText) popupView.findViewById(R.id.et_desc_popup);
         et_money_popup.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-
+        et_money_popup.setText("2.00");
         et_money_popup.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -375,7 +376,7 @@ public class TalkingActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!et_money_popup.getText().toString().equals("") && !et_money_popup.getText().toString().equals(".")) {
-                    int money = (int) (((Double.parseDouble(et_money_popup.getText().toString()))));
+                    double money = ((Double.parseDouble(et_money_popup.getText().toString())));
                     if (money != 0) {
                         selectMoney = String.valueOf(money);
                     } else {
@@ -416,12 +417,15 @@ public class TalkingActivity extends BaseActivity {
                 } else {
                     popupWindow.dismiss();
                     showShort("选择" + selectMoney + "元并说" + et_desc_popup.getText().toString());
-                    startActivity(PayLawyerActivity.class,
-                            "name", "张三",
-                            "money", selectMoney + "",
-                            "summary", et_desc_popup.getText().toString(),
-                            "userServiceId", userServiceId);
 
+                    Intent intent = new Intent(TalkingActivity.this, PayLawyerActivity.class);
+                    intent.putExtra("name", law_name.getText().toString());
+                    intent.putExtra("lawyerId", lawyerId);
+                    intent.putExtra("type", "2");
+                    intent.putExtra("money", Double.parseDouble(selectMoney));
+                    intent.putExtra("summary", et_desc_popup.getText().toString());
+                    intent.putExtra("userServiceId", userServiceId);
+                    startActivity(intent);
                 }
             }
         });

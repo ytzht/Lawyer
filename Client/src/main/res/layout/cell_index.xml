@@ -92,6 +92,7 @@
                 android:text="赵谢杰" />
 
             <TextView
+                android:id="@+id/lawyer_office"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -108,9 +109,10 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="15dp"
-                android:src="@drawable/praise" />
+                android:src="@drawable/praise_c" />
 
             <TextView
+                android:id="@+id/count_zan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

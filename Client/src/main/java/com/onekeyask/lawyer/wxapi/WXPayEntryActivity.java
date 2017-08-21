@@ -13,9 +13,9 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
-import static com.onekeyask.lawyer.ui.act.consulting.PayQuickConsultingActivity.WeChatAppID;
-import static com.onekeyask.lawyer.utils.easypay.pay.paystrategy.WeChatPayStrategy.WECHAT_PAY_RESULT_ACTION;
-import static com.onekeyask.lawyer.utils.easypay.pay.paystrategy.WeChatPayStrategy.WECHAT_PAY_RESULT_EXTRA;
+import static com.onekeyask.lawyer.global.Constant.WECHAT_PAY_RESULT_ACTION;
+import static com.onekeyask.lawyer.global.Constant.WECHAT_PAY_RESULT_EXTRA;
+import static com.onekeyask.lawyer.global.Constant.WeChatAppID;
 
 /**
  * Created by  on 17-3-15

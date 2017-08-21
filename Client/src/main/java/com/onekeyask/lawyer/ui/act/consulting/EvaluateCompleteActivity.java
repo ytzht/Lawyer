@@ -287,7 +287,9 @@ public class EvaluateCompleteActivity extends BaseToolBarActivity {
 
                     Intent intent = new Intent(EvaluateCompleteActivity.this, PayLawyerActivity.class);
                     intent.putExtra("name", lawName);
-                    intent.putExtra("money", selectMoney);
+                    intent.putExtra("type", "2");
+                    intent.putExtra("lawyerId", lawyerId);
+                    intent.putExtra("money", Double.parseDouble(selectMoney));
                     intent.putExtra("summary", et_desc_popup.getText().toString());
                     intent.putExtra("userServiceId", userServiceId);
                     startActivity(intent);}

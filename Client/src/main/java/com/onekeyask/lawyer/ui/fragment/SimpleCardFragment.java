@@ -22,6 +22,7 @@ import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseFragment;
 import com.onekeyask.lawyer.ui.act.lawyer.AskDetailActivity;
 import com.onekeyask.lawyer.utils.MyDecoration;
+import com.onekeyask.lawyer.utils.UserService;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
@@ -104,7 +105,7 @@ public class SimpleCardFragment extends BaseFragment {
 
     private void initData() {
         OkGo.<String>get(Apis.Discovery)
-                .params("userId", "2")
+                .params("userId", UserService.service(getActivity()).getUserId())
                 .params("category", id)
                 .params("page", index)
                 .params("size", size)

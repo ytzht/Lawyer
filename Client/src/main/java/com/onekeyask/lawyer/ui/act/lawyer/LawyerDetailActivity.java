@@ -311,7 +311,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
 
         OkGo.<String>get(Apis.LawyerDetail)
                 .params("lawyerId", lawyerId)
-                .params("userId", "2")
+                .params("userId", UserService.service(getBaseContext()).getUserId())
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -723,11 +723,15 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
                 } else {
                     popupWindow.dismiss();
                     showShort("选择" + selectMoney + "元 并说" + et_desc_popup.getText().toString());
-                    startActivity(PayLawyerActivity.class,
-                            "name", "张三",
-                            "money", selectMoney + "",
-                            "summary", et_desc_popup.getText().toString(),
-                            "userServiceId", "-1");
+                    Intent intent = new Intent(LawyerDetailActivity.this, PayLawyerActivity.class);
+
+                    intent.putExtra("name", lawyerName.getText().toString());
+                    intent.putExtra("lawyerId", lawyerId);
+                    intent.putExtra("type", "1");
+                    intent.putExtra("money", Double.parseDouble(selectMoney));
+                    intent.putExtra("summary", et_desc_popup.getText().toString());
+                    intent.putExtra("userServiceId", "-1");
+                    startActivity(intent);
                 }
             }
         });

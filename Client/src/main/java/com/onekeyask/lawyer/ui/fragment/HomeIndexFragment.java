@@ -1,7 +1,9 @@
 package com.onekeyask.lawyer.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,14 +15,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.HomePage;
+import com.onekeyask.lawyer.entity.UserDiscoveries;
+import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseFragment;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.ui.act.consulting.ConsultingDetailActivity;
+import com.onekeyask.lawyer.ui.act.lawyer.AskDetailActivity;
 import com.onekeyask.lawyer.ui.act.lawyer.SearchLawActivity;
 import com.onekeyask.lawyer.ui.act.user.TopMsgActivity;
+import com.onekeyask.lawyer.utils.UserService;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -30,23 +40,27 @@ import com.youth.banner.loader.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by zht on 2017/04/10 15:13
  */
 
-public class HomeIndexFragment extends BaseFragment implements View.OnClickListener {
+public class HomeIndexFragment extends BaseFragment {
 
     private View view;
     private TextView search_et;
     private ImageView iv_top_msg;
-    private RelativeLayout rl_quick_consulting, rl_look_lawyer, rl_project_one, rl_project_two, rl_project_three, rl_project_four;
-    private Banner banner;
+
     private List<String> image_url = new ArrayList<>();
     private List<String> banner_img = new ArrayList<>();
-    private TextView tv_more_solutions;
+
     private RecyclerView rlv_index;
-//    private SubscriberOnNextListener getResultOnNext;
+    private int index = 1;
+    private int size = 10;
+    private boolean hasMore = true;
+    private List<UserDiscoveries.DataBean.UserDiscoveriesBean> data = new ArrayList<>();
+    private IndexAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,38 +72,64 @@ public class HomeIndexFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void initView(View view) {
+        data.clear();
+
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         search_et = (TextView) view.findViewById(R.id.search_et);
         iv_top_msg = (ImageView) view.findViewById(R.id.iv_top_msg);
-        iv_top_msg.setOnClickListener(this);
-        rl_quick_consulting = (RelativeLayout) view.findViewById(R.id.rl_quick_consulting);
-        rl_quick_consulting.setOnClickListener(this);
-        rl_look_lawyer = (RelativeLayout) view.findViewById(R.id.rl_look_lawyer);
-        rl_look_lawyer.setOnClickListener(this);
-        rl_project_one = (RelativeLayout) view.findViewById(R.id.rl_project_one);
-        rl_project_one.setOnClickListener(this);
-        rl_project_two = (RelativeLayout) view.findViewById(R.id.rl_project_two);
-        rl_project_two.setOnClickListener(this);
-        rl_project_three = (RelativeLayout) view.findViewById(R.id.rl_project_three);
-        rl_project_three.setOnClickListener(this);
-        rl_project_four = (RelativeLayout) view.findViewById(R.id.rl_project_four);
-        rl_project_four.setOnClickListener(this);
-        tv_more_solutions = (TextView) view.findViewById(R.id.tv_more_solutions);
-        tv_more_solutions.setOnClickListener(this);
         rlv_index = (RecyclerView) view.findViewById(R.id.rlv_index);
-        rlv_index.setLayoutManager(new LinearLayoutManager(getActivity()) {
+        rlv_index.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rlv_index.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        iv_top_msg.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean canScrollVertically() {
-                return false;
+            public void onClick(View v) {
+                startActivity(TopMsgActivity.class);
             }
         });
-        rlv_index.setAdapter(new IndexAdapter());
-        initBanner(view);
+        adapter = new IndexAdapter();
+        rlv_index.setAdapter(adapter);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        index = 1;
+        initData();
+    }
+
+    private void initData() {
+        OkGo.<String>get(Apis.Discovery)
+                .params("userId", UserService.service(getActivity()).getUserId())
+                .params("sort", "1")
+                .params("page", index)
+                .params("size", size)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        UserDiscoveries discoveries = (new Gson()).fromJson(response.body(), UserDiscoveries.class);
+                        hasMore = discoveries.getData().isHasMore();
+                        if (discoveries.getCode() == 0) {
+                            if (index == 1) {
+                                data.clear();
+                                data.addAll(discoveries.getData().getUserDiscoveries());
+                                rlv_index.setAdapter(adapter);
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                data.addAll(discoveries.getData().getUserDiscoveries());
+                                adapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            showShort(discoveries.getMsg());
+                        }
+                    }
+                });
+
 
     }
 
-    private void initBanner(View view) {
-        banner = (Banner) view.findViewById(R.id.banner_index);
+    private void initBanner(final Banner banner) {
+
 
         banner_img.clear();
 
@@ -192,36 +232,6 @@ public class HomeIndexFragment extends BaseFragment implements View.OnClickListe
 
     }
 
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.rl_quick_consulting:
-                startActivity(ConsultingDetailActivity.class);
-                break;
-            case R.id.rl_look_lawyer:
-                startActivity(SearchLawActivity.class);
-                break;
-            case R.id.rl_project_one:
-                showShort("专题待一 模块尚未上线");
-                break;
-            case R.id.rl_project_two:
-                showShort("专题待二 模块尚未上线");
-                break;
-            case R.id.rl_project_three:
-                showShort("专题待三 模块尚未上线");
-                break;
-            case R.id.rl_project_four:
-                showShort("专题待四 模块尚未上线");
-                break;
-            case R.id.tv_more_solutions:
-                showShort("更多 模块尚未上线");
-                break;
-            case R.id.iv_top_msg:
-                startActivity(TopMsgActivity.class);
-        }
-    }
-
     private class GlideImageLoader extends ImageLoader {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
@@ -232,27 +242,125 @@ public class HomeIndexFragment extends BaseFragment implements View.OnClickListe
 
     }
 
-    private class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> {
+    private class IndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return null;
+        public int getItemViewType(int position) {
+
+            if (position == 0) {
+                return R.layout.cell_index_main;
+            }else {
+                return R.layout.cell_index;
+            }
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(getActivity()).inflate(viewType, parent, false);
+
+            if (viewType == R.layout.cell_index_main){
+                return new IndexViewHolder(view);
+            }else {
+                return new ViewHolder(view);
+            }
+        }
+
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+
+            if (position == 0){
+                initBanner(((IndexViewHolder)holder).banner);
+                ((IndexViewHolder)holder).rl_quick_consulting.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(ConsultingDetailActivity.class);
+                    }
+                });
+                ((IndexViewHolder)holder).rl_look_lawyer.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(SearchLawActivity.class);
+                    }
+                });
+
+
+
+            }else {
+
+                ((ViewHolder)holder).dis_type.setText(data.get(position - 1).getCategoryName());
+                ((ViewHolder)holder).dis_context.setText(data.get(position - 1).getContent());
+                ((ViewHolder)holder).dis_name.setText(data.get(position - 1).getLawyerName());
+                ((ViewHolder)holder).dis_office.setText(data.get(position - 1).getOfficeName());
+                ((ViewHolder)holder).dis_count.setText(String.valueOf(data.get(position - 1).getSupportCount()));
+                Glide.with(getActivity()).load(data.get(position - 1).getHeadURL()).into(((ViewHolder)holder).dis_img);
+
+                ((ViewHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), AskDetailActivity.class);
+                        intent.putExtra("cid", data.get(position - 1).getChatId());
+                        intent.putExtra("lawyerName", data.get(position - 1).getLawyerName());
+                        intent.putExtra("officeName", data.get(position - 1).getOfficeName());
+                        intent.putExtra("headUrl", data.get(position - 1).getHeadURL());
+                        intent.putExtra("sid", data.get(position - 1).getUserServiceId());
+                        startActivity(intent);
+
+                    }
+                });
+            }
 
         }
 
         @Override
         public int getItemCount() {
-            return 0;
+            return data.size() + 1;
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
+            private TextView dis_type, dis_context, dis_name, dis_office, dis_count;
+            private ImageView dis_praise;
+            private CircleImageView dis_img;
+
 
             public ViewHolder(View itemView) {
                 super(itemView);
+                dis_type = (TextView) itemView.findViewById(R.id.tv_tag_now);
+                dis_context = (TextView) itemView.findViewById(R.id.tv_content_index);
+                dis_name = (TextView) itemView.findViewById(R.id.tv_law_name);
+                dis_office = (TextView) itemView.findViewById(R.id.lawyer_office);
+                dis_count = (TextView) itemView.findViewById(R.id.count_zan);
+                dis_praise = (ImageView) itemView.findViewById(R.id.iv_like);
+                dis_img = (CircleImageView) itemView.findViewById(R.id.iv_law);
+            }
+        }
+
+        public class IndexViewHolder extends RecyclerView.ViewHolder {
+            private RelativeLayout rl_quick_consulting, rl_look_lawyer, rl_project_one, rl_project_two, rl_project_three, rl_project_four;
+            private Banner banner;
+            private TextView tv_more_solutions;
+
+            public IndexViewHolder(View itemView) {
+                super(itemView);
+
+                banner = (Banner) itemView.findViewById(R.id.banner_index);
+
+                rl_quick_consulting = (RelativeLayout) itemView.findViewById(R.id.rl_quick_consulting);
+
+                rl_look_lawyer = (RelativeLayout) itemView.findViewById(R.id.rl_look_lawyer);
+
+                rl_project_one = (RelativeLayout) itemView.findViewById(R.id.rl_project_one);
+
+                rl_project_two = (RelativeLayout) itemView.findViewById(R.id.rl_project_two);
+
+                rl_project_three = (RelativeLayout) itemView.findViewById(R.id.rl_project_three);
+
+                rl_project_four = (RelativeLayout) itemView.findViewById(R.id.rl_project_four);
+
+                tv_more_solutions = (TextView) itemView.findViewById(R.id.tv_more_solutions);
+
+
+
             }
         }
     }
