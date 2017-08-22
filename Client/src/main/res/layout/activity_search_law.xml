@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#eeeeee"
     android:orientation="vertical"
-    tools:context="com.onekeyask.lawyer.ui.act.lawyer.SearchLawActivity">
+    tools:context="com.onekeyask.lawyer.ui.act.search.SearchLawActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

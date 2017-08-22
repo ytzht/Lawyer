@@ -57,6 +57,7 @@ public class FindLawyerActivity extends BaseToolBarActivity implements OnFilterD
     int page = 1;
     private boolean hasMore = true;
     private String url;
+    private String keyword = "";
     private List<MyLawyerList.DataBean.LawyerListBean> lawyerList = new ArrayList<>();
 
     @Override
@@ -76,6 +77,10 @@ public class FindLawyerActivity extends BaseToolBarActivity implements OnFilterD
     }
 
     private void initView() {
+
+        if (getIntent().hasExtra("keyword")){
+            keyword = getIntent().getStringExtra("keyword");
+        }
 
         refreshLayout.setRefreshHeader(new ClassicsHeader(getBaseContext()));
         refreshLayout.setRefreshFooter(new ClassicsFooter(getBaseContext()));
@@ -114,6 +119,7 @@ public class FindLawyerActivity extends BaseToolBarActivity implements OnFilterD
         OkGo.<String>get(url)
                 .params("userId", 2)
                 .params("size", 4)
+                .params("keyword", keyword)
                 .params("page", page)
                 .execute(new StringCallback() {
                     @Override

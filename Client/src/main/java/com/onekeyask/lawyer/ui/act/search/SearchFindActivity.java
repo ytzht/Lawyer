@@ -1,0 +1,167 @@
+package com.onekeyask.lawyer.ui.act.search;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.onekeyask.lawyer.R;
+import com.onekeyask.lawyer.global.BaseActivity;
+import com.onekeyask.lawyer.utils.UserService;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class SearchFindActivity extends BaseActivity {
+
+    private TextView searchcancel;
+    private ImageView searchiv;
+    private EditText searchet;
+    private ImageView ivclearhistory;
+    private RecyclerView rlvhistory;
+    private LinearLayout llhistory;
+    private List<String> history_list = new ArrayList<>();
+    private UserService service;
+    private String sp_history;
+    private SearchHistoryAdapter historyAdapter;
+    private String keyword = "";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_search_find);
+
+        initView();
+
+    }
+
+    private void initView() {
+        this.llhistory = (LinearLayout) findViewById(R.id.ll_history);
+        this.rlvhistory = (RecyclerView) findViewById(R.id.rlv_history);
+        this.ivclearhistory = (ImageView) findViewById(R.id.iv_clear_history);
+        this.searchet = (EditText) findViewById(R.id.search_et);
+        this.searchiv = (ImageView) findViewById(R.id.search_iv);
+        this.searchcancel = (TextView) findViewById(R.id.search_cancel);
+
+
+        history_list.clear();
+        service = new UserService(getBaseContext());
+        sp_history = service.getSearchHistory();
+        String[] split = sp_history.split("&");
+        for (int i = 0; i < split.length; i++) {
+            if (split.length != 1)
+                history_list.add(split[i]);
+        }
+        rlvhistory.setLayoutManager(new LinearLayoutManager(this));
+        historyAdapter = new SearchHistoryAdapter();
+        rlvhistory.setAdapter(historyAdapter);
+        searchcancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        ivclearhistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                service.saveSearchHistory("");
+                history_list.clear();
+                historyAdapter.notifyDataSetChanged();
+            }
+        });
+        searchet.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    // 先隐藏键盘
+                    ((InputMethodManager) searchet.getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    //实现自己的搜索逻辑
+
+                    keyword = searchet.getText().toString();
+                    sp_history = service.getSearchHistory();
+                    if (!keyword.equals("")) {
+                        if (TextUtils.isEmpty(sp_history)) {
+                            service.saveSearchHistory(keyword);
+                        } else {
+                            service.saveSearchHistory(sp_history + "&" + keyword);
+                        }
+                        history_list.add(keyword);
+                        historyAdapter.notifyDataSetChanged();
+                        searchet.setText("");
+
+                        startActivity(DiscoverSearchActivity.class, "keyword", keyword);
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+
+    }
+
+
+    private class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.ViewHolder> {
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new ViewHolder(LayoutInflater.from(getBaseContext()).inflate(R.layout.cell_search_history, parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder holder, final int position) {
+            holder.history_content.setText(history_list.get(position));
+            holder.history_close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    history_list.remove(position);
+                    String now_history = "";
+                    for (int i = 0; i < history_list.size(); i++) {
+                        if (i == history_list.size() - 1) {
+                            now_history += history_list.get(i);
+                        } else {
+                            now_history += (history_list.get(i) + "&");
+                        }
+                    }
+                    service.saveSearchHistory(now_history);
+                    notifyDataSetChanged();
+                }
+            });
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((InputMethodManager) searchet.getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    keyword = history_list.get(position);
+                    startActivity(DiscoverSearchActivity.class, "keyword", keyword);
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return history_list.size();
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+
+            private TextView history_content;
+            private ImageView history_close;
+
+            public ViewHolder(View itemView) {
+                super(itemView);
+                history_close = (ImageView) itemView.findViewById(R.id.history_close);
+                history_content = (TextView) itemView.findViewById(R.id.history_content);
+            }
+        }
+    }
+
+}

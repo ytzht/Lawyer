@@ -1,4 +1,4 @@
-package com.onekeyask.lawyer.ui.act.lawyer;
+package com.onekeyask.lawyer.ui.act.search;
 
 import android.os.Bundle;
 

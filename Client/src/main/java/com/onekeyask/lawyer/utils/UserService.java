@@ -18,6 +18,7 @@ public class UserService {
     private static final String Password = "_password";
     private static final String UserId = "_userId";
     private static final String HeadURL = "_headURL";
+    private static final String SearchHistory = "_searchHistory";
     private Context context;
 
     public static UserService service(Context context) {
@@ -111,6 +112,19 @@ public class UserService {
                 Password, Context.MODE_PRIVATE);
         memberPrefs.edit().putString(Password, password).apply();
     }
+
+    public String getSearchHistory() {
+        SharedPreferences memberPrefs = context.getSharedPreferences(
+                SearchHistory, Context.MODE_PRIVATE);
+        return memberPrefs.getString(SearchHistory, "");
+    }
+
+    public void saveSearchHistory(String searchHistory) {
+        SharedPreferences memberPrefs = context.getSharedPreferences(
+                SearchHistory, Context.MODE_PRIVATE);
+        memberPrefs.edit().putString(SearchHistory, searchHistory).apply();
+    }
+
 
 
 }

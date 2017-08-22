@@ -28,9 +28,16 @@ import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.ui.act.consulting.ConsultingDetailActivity;
 import com.onekeyask.lawyer.ui.act.lawyer.AskDetailActivity;
-import com.onekeyask.lawyer.ui.act.lawyer.SearchLawActivity;
+import com.onekeyask.lawyer.ui.act.search.SearchLawActivity;
+import com.onekeyask.lawyer.ui.act.search.SearchContentActivity;
 import com.onekeyask.lawyer.ui.act.user.TopMsgActivity;
 import com.onekeyask.lawyer.utils.UserService;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -50,8 +57,8 @@ public class HomeIndexFragment extends BaseFragment {
 
     private View view;
     private TextView search_et;
-    private ImageView iv_top_msg;
-
+    private ImageView iv_top_msg, search_main;
+    private SmartRefreshLayout refreshLayout;
     private List<String> image_url = new ArrayList<>();
     private List<String> banner_img = new ArrayList<>();
 
@@ -74,6 +81,13 @@ public class HomeIndexFragment extends BaseFragment {
     private void initView(View view) {
         data.clear();
 
+        search_main = (ImageView) view.findViewById(R.id.search_main);
+        search_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(SearchContentActivity.class);
+            }
+        });
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         search_et = (TextView) view.findViewById(R.id.search_et);
         iv_top_msg = (ImageView) view.findViewById(R.id.iv_top_msg);
@@ -88,6 +102,29 @@ public class HomeIndexFragment extends BaseFragment {
         });
         adapter = new IndexAdapter();
         rlv_index.setAdapter(adapter);
+
+        refreshLayout = (SmartRefreshLayout)view.findViewById(R.id.index_refreshLayout);
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+        refreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshlayout.finishRefresh(200);
+                index = 1;
+                initData();
+            }
+        });
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadmore(200);
+                if (hasMore) {
+                    index += 1;
+                    initData();
+                }
+            }
+        });
+
     }
 
 

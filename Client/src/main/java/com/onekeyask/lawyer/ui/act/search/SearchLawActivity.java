@@ -1,4 +1,4 @@
-package com.onekeyask.lawyer.ui.act.lawyer;
+package com.onekeyask.lawyer.ui.act.search;
 
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
+import com.onekeyask.lawyer.ui.act.lawyer.FindLawyerActivity;
 import com.onekeyask.lawyer.utils.RecyclerSpace;
 
 import butterknife.BindView;

@@ -1,10 +1,11 @@
-package com.onekeyask.lawyer.ui.fragment;
+package com.onekeyask.lawyer.ui.act.search;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,8 @@ import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.UserDiscoveries;
 import com.onekeyask.lawyer.global.Apis;
-import com.onekeyask.lawyer.global.BaseFragment;
+import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.ui.act.lawyer.AskDetailActivity;
-import com.onekeyask.lawyer.utils.MyDecoration;
 import com.onekeyask.lawyer.utils.UserService;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -36,46 +36,41 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+public class DiscoverSearchActivity extends BaseToolBarActivity {
 
-@SuppressLint("ValidFragment")
-public class SimpleCardFragment extends BaseFragment {
-    private int id;
+    private String keyword;
     private SmartRefreshLayout refreshLayout;
-    private RecyclerView discover_list;
-    private View view;
-    private DiscoverAdapter adapter;
+    private RecyclerView rlv_index;
     private int index = 1;
-    private RelativeLayout rl_no_content;
     private int size = 10;
+    private RelativeLayout rl_no_content;
     private boolean hasMore = true;
     private List<UserDiscoveries.DataBean.UserDiscoveriesBean> data = new ArrayList<>();
-
-    public static SimpleCardFragment getInstance(int id) {
-        SimpleCardFragment sf = new SimpleCardFragment();
-        sf.id = id;
-        return sf;
-    }
+    private IndexAdapter adapter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
+        setContentView(R.layout.activity_discover_search);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_find_card, null);
+        keyword = getIntent().getStringExtra("keyword");
+
+        setToolbarText("搜“" + keyword + "”");
+
         initView();
-
-        return view;
     }
 
     private void initView() {
-        index = 1;
         data.clear();
-        rl_no_content = (RelativeLayout) view.findViewById(R.id.rl_no_content);
-        refreshLayout = (SmartRefreshLayout)view.findViewById(R.id.discover_refreshLayout);
-        refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
-        refreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
+        rlv_index = (RecyclerView) findViewById(R.id.rlv_search);
+        rlv_index.setLayoutManager(new LinearLayoutManager(this));
+        rlv_index.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        rl_no_content = (RelativeLayout) findViewById(R.id.rl_no_content);
+        adapter = new IndexAdapter();
+        rlv_index.setAdapter(adapter);
+        refreshLayout = (SmartRefreshLayout) findViewById(R.id.search_refreshLayout);
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getBaseContext()));
+        refreshLayout.setRefreshFooter(new ClassicsFooter(getBaseContext()));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
@@ -94,21 +89,19 @@ public class SimpleCardFragment extends BaseFragment {
                 }
             }
         });
+    }
 
-
-        discover_list = (RecyclerView)view.findViewById(R.id.discover_list);
-        discover_list.setLayoutManager(new LinearLayoutManager(getActivity()));
-        discover_list.addItemDecoration(new MyDecoration(getActivity(), MyDecoration.VERTICAL_LIST));
-        adapter = new DiscoverAdapter();
-        discover_list.setAdapter(adapter);
+    @Override
+    public void onResume() {
+        super.onResume();
+        index = 1;
         initData();
-
     }
 
     private void initData() {
-        OkGo.<String>get(Apis.Discovery)
-                .params("userId", UserService.service(getActivity()).getUserId())
-                .params("category", id)
+        OkGo.<String>post(Apis.Discovery)
+                .params("userId", UserService.service(getBaseContext()).getUserId())
+                .params("keywords", keyword)
                 .params("page", index)
                 .params("size", size)
                 .execute(new StringCallback() {
@@ -120,7 +113,7 @@ public class SimpleCardFragment extends BaseFragment {
                             if (index == 1) {
                                 data.clear();
                                 data.addAll(discoveries.getData().getUserDiscoveries());
-                                discover_list.setAdapter(adapter);
+                                rlv_index.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
 
                                 if (data.size() == 0){
@@ -128,7 +121,6 @@ public class SimpleCardFragment extends BaseFragment {
                                 }else {
                                     rl_no_content.setVisibility(View.GONE);
                                 }
-
                             } else {
                                 data.addAll(discoveries.getData().getUserDiscoveries());
                                 adapter.notifyDataSetChanged();
@@ -138,29 +130,31 @@ public class SimpleCardFragment extends BaseFragment {
                         }
                     }
                 });
+
+
     }
 
-    private class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHolder>{
 
+    private class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.ViewHolder> {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(LayoutInflater.from(getActivity()).inflate(R.layout.cell_discover, parent, false));
+            return new ViewHolder(LayoutInflater.from(getBaseContext()).inflate(R.layout.cell_index, parent, false));
         }
 
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
-
             holder.dis_type.setText(data.get(position).getCategoryName());
-            holder.dis_context.setText(data.get(position).getContent());
+            String s = data.get(position).getContent().replace(keyword, "<font color='#f79f0a'>" + keyword + "</font>");
+            holder.dis_context.setText(Html.fromHtml(s));
             holder.dis_name.setText(data.get(position).getLawyerName());
             holder.dis_office.setText(data.get(position).getOfficeName());
             holder.dis_count.setText(String.valueOf(data.get(position).getSupportCount()));
-            Glide.with(getActivity()).load(data.get(position).getHeadURL()).into(holder.dis_img);
+            Glide.with(getBaseContext()).load(data.get(position).getHeadURL()).into(holder.dis_img);
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), AskDetailActivity.class);
+                    Intent intent = new Intent(DiscoverSearchActivity.this, AskDetailActivity.class);
                     intent.putExtra("cid", data.get(position).getChatId());
                     intent.putExtra("lawyerName", data.get(position).getLawyerName());
                     intent.putExtra("officeName", data.get(position).getOfficeName());
@@ -170,7 +164,6 @@ public class SimpleCardFragment extends BaseFragment {
 
                 }
             });
-
         }
 
         @Override
@@ -178,22 +171,23 @@ public class SimpleCardFragment extends BaseFragment {
             return data.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder{
-
+        public class ViewHolder extends RecyclerView.ViewHolder {
             private TextView dis_type, dis_context, dis_name, dis_office, dis_count;
             private ImageView dis_praise;
             private CircleImageView dis_img;
 
+
             public ViewHolder(View itemView) {
                 super(itemView);
-                dis_type = (TextView) itemView.findViewById(R.id.dis_type);
-                dis_context = (TextView) itemView.findViewById(R.id.dis_context);
-                dis_name = (TextView) itemView.findViewById(R.id.dis_name);
-                dis_office = (TextView) itemView.findViewById(R.id.dis_office);
-                dis_count = (TextView) itemView.findViewById(R.id.dis_count);
-                dis_praise = (ImageView)  itemView.findViewById(R.id.dis_praise);
-                dis_img = (CircleImageView) itemView.findViewById(R.id.dis_img);
+                dis_type = (TextView) itemView.findViewById(R.id.tv_tag_now);
+                dis_context = (TextView) itemView.findViewById(R.id.tv_content_index);
+                dis_name = (TextView) itemView.findViewById(R.id.tv_law_name);
+                dis_office = (TextView) itemView.findViewById(R.id.lawyer_office);
+                dis_count = (TextView) itemView.findViewById(R.id.count_zan);
+                dis_praise = (ImageView) itemView.findViewById(R.id.iv_like);
+                dis_img = (CircleImageView) itemView.findViewById(R.id.iv_law);
             }
         }
     }
+
 }
