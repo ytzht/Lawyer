@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.global.BaseActivity;
+import com.onekeyask.lawyer.ui.act.lawyer.FindLawyerActivity;
 import com.onekeyask.lawyer.utils.UserService;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class SearchFindActivity extends BaseActivity {
     private String sp_history;
     private SearchHistoryAdapter historyAdapter;
     private String keyword = "";
+    private String type = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class SearchFindActivity extends BaseActivity {
         this.searchiv = (ImageView) findViewById(R.id.search_iv);
         this.searchcancel = (TextView) findViewById(R.id.search_cancel);
 
+        type = getIntent().getStringExtra("type");
 
         history_list.clear();
         service = new UserService(getBaseContext());
@@ -100,7 +103,12 @@ public class SearchFindActivity extends BaseActivity {
                         historyAdapter.notifyDataSetChanged();
                         searchet.setText("");
 
-                        startActivity(DiscoverSearchActivity.class, "keyword", keyword);
+                        if (type.equals("content"))
+                            startActivity(DiscoverSearchActivity.class, "keyword", keyword);
+                        if (type.equals("lawyer"))
+                            startActivity(FindLawyerActivity.class, "keyword", keyword);
+
+                        finish();
                     }
                     return true;
                 }
@@ -141,7 +149,12 @@ public class SearchFindActivity extends BaseActivity {
                 public void onClick(View v) {
                     ((InputMethodManager) searchet.getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     keyword = history_list.get(position);
-                    startActivity(DiscoverSearchActivity.class, "keyword", keyword);
+                    if (type.equals("content"))
+                        startActivity(DiscoverSearchActivity.class, "keyword", keyword);
+                    if (type.equals("lawyer"))
+                        startActivity(FindLawyerActivity.class, "keyword", keyword);
+
+                    finish();
                 }
             });
         }

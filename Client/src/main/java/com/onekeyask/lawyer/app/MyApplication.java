@@ -1,10 +1,11 @@
 package com.onekeyask.lawyer.app;
 
 import android.app.Application;
+import android.app.Notification;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
-import android.widget.Toast;
+import android.util.Log;
 
 import com.blankj.utilcode.util.Utils;
 import com.lzy.okgo.OkGo;
@@ -28,7 +29,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.MsgConstant;
 import com.umeng.message.PushAgent;
-import com.umeng.message.UmengNotificationClickHandler;
+import com.umeng.message.UmengMessageHandler;
 import com.umeng.message.entity.UMessage;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
@@ -50,6 +51,7 @@ import okhttp3.OkHttpClient;
 
 public class MyApplication extends MultiDexApplication {
 
+    private static final String TAG = "app=====";
     public static Context aContext;
 
 
@@ -101,10 +103,11 @@ public class MyApplication extends MultiDexApplication {
         mPushAgent.setDebugMode(BuildConfig.DEBUG);
 
         //自定义通知打开动作
-        UmengNotificationClickHandler notificationClickHandler = new UmengNotificationClickHandler() {
+        UmengMessageHandler notificationClickHandler = new UmengMessageHandler() {
             @Override
-            public void dealWithCustomAction(Context context, UMessage msg) {
-                Toast.makeText(context, msg.custom, Toast.LENGTH_LONG).show();
+            public Notification getNotification(Context context, UMessage uMessage) {
+                Log.d(TAG, "getNotification: "+uMessage.custom);
+                return null;
             }
         };
         mPushAgent.setNotificationClickHandler(notificationClickHandler);

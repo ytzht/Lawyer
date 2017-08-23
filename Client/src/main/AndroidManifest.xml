@@ -230,11 +230,21 @@
         <activity
             android:name=".ui.act.consulting.ComplaintFinishActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.act.user.TopMsgActivity" />
-        <activity android:name=".ui.act.user.MsgDetailActivity" />
-        <activity android:name=".ui.act.search.SearchContentActivity" />
-        <activity android:name=".ui.act.search.DiscoverSearchActivity" />
-        <activity android:name=".ui.act.search.SearchFindActivity"></activity>
+        <activity
+            android:name=".ui.act.user.TopMsgActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.user.MsgDetailActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.search.SearchContentActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.search.DiscoverSearchActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.search.SearchFindActivity"
+            android:launchMode="singleTask" />
     </application>
 
 </manifest>

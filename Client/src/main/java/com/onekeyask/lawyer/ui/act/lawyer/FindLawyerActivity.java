@@ -23,7 +23,9 @@ import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.ui.act.lawyer.filter.DropMenuAdapter;
 import com.onekeyask.lawyer.ui.act.lawyer.filter.FilterUrl;
+import com.onekeyask.lawyer.ui.act.search.SearchFindActivity;
 import com.onekeyask.lawyer.utils.MyDecoration;
+import com.onekeyask.lawyer.utils.UserService;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
@@ -110,17 +112,24 @@ public class FindLawyerActivity extends BaseToolBarActivity implements OnFilterD
         adapter = new FindLawyerAdapter();
         rlvFind.setAdapter(adapter);
 
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(SearchFindActivity.class, "type", "lawyer");
+                finish();
+            }
+        });
         initData();
 
     }
 
     private void initData() {
 
-        OkGo.<String>get(url)
-                .params("userId", 2)
+        OkGo.<String>post(url)
+                .params("userId", UserService.service(getBaseContext()).getUserId())
                 .params("size", 4)
-                .params("keyword", keyword)
                 .params("page", page)
+                .params("searchKey", keyword)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

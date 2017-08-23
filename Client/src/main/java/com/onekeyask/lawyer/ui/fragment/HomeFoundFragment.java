@@ -43,7 +43,7 @@ public class HomeFoundFragment extends BaseFragment implements OnTabSelectListen
         search_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(SearchFindActivity.class);
+                startActivity(SearchFindActivity.class, "type", "content");
             }
         });
         return view;

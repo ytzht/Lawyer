@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eeeeee"
     android:orientation="vertical"
     tools:context="com.onekeyask.lawyer.ui.act.lawyer.FindLawyerActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="62dp"
+        android:background="#eeeeee"
         android:padding="15dp">
 
         <ImageView
