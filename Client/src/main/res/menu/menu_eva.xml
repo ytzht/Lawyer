@@ -6,4 +6,12 @@
         android:orderInCategory="80"
         android:title="@string/evaluate"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/law_share"
+        android:orderInCategory="80"
+        android:visible="false"
+        app:actionLayout="@layout/menu_share_action"
+        app:showAsAction="always"
+        android:title="分享" />
 </menu>

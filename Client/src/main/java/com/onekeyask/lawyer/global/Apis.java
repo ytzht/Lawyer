@@ -72,6 +72,12 @@ public interface Apis {
 
     String Checkupdate = Apis.Base + "pub/c/checkupdate";//1.52:系统检查更新
 
+    String ProgressTX = Apis.Base + "c/wallet/progressTX";//1.54提现进度
+
+    String SaveShare = Apis.Base + "c/saveshare";//1.55分享
+
+    String GetRed = Apis.Base + "c/getRed";//1.56 小红点
+
 
 
 

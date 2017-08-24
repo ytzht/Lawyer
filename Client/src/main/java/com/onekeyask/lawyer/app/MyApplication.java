@@ -1,11 +1,9 @@
 package com.onekeyask.lawyer.app;
 
 import android.app.Application;
-import android.app.Notification;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
-import android.util.Log;
 
 import com.blankj.utilcode.util.Utils;
 import com.lzy.okgo.OkGo;
@@ -21,6 +19,7 @@ import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.onekeyask.lawyer.BuildConfig;
 import com.onekeyask.lawyer.global.L;
+import com.onekeyask.lawyer.global.MyPushIntentService;
 import com.onekeyask.lawyer.http.APIFactory;
 import com.onekeyask.lawyer.image.DemoDuiTangImageReSizer;
 import com.onekeyask.lawyer.image.PtrImageLoadHandler;
@@ -29,8 +28,6 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.MsgConstant;
 import com.umeng.message.PushAgent;
-import com.umeng.message.UmengMessageHandler;
-import com.umeng.message.entity.UMessage;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 
@@ -103,15 +100,15 @@ public class MyApplication extends MultiDexApplication {
         mPushAgent.setDebugMode(BuildConfig.DEBUG);
 
         //自定义通知打开动作
-        UmengMessageHandler notificationClickHandler = new UmengMessageHandler() {
-            @Override
-            public Notification getNotification(Context context, UMessage uMessage) {
-                Log.d(TAG, "getNotification: "+uMessage.custom);
-                return null;
-            }
-        };
-        mPushAgent.setNotificationClickHandler(notificationClickHandler);
-//        mPushAgent.setPushIntentServiceClass(MyPushIntentService.class);
+//        UmengMessageHandler notificationClickHandler = new UmengMessageHandler() {
+//            @Override
+//            public Notification getNotification(Context context, UMessage uMessage) {
+//                Log.d(TAG, "getNotification: "+uMessage.custom);
+//                return null;
+//            }
+//        };
+//        mPushAgent.setNotificationClickHandler(notificationClickHandler);
+        mPushAgent.setPushIntentServiceClass(MyPushIntentService.class);
 //        为免过度打扰用户，SDK默认在“23:00”到“7:00”之间收到通知消息时不响铃，不振动，不闪灯。如果需要改变默认的静音时间，可以使用以下接口：
 //        mPushAgent.setNoDisturbMode(23, 0, 7, 0);
 //        mPushAgent.setNoDisturbMode(0, 0, 0, 0);

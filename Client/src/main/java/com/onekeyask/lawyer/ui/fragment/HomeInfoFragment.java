@@ -12,7 +12,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.onekeyask.lawyer.R;
+import com.onekeyask.lawyer.entity.PointsInfo;
 import com.onekeyask.lawyer.global.BaseFragment;
+import com.onekeyask.lawyer.http.ProgressSubscriber;
+import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.ui.act.me.EarnPointsActivity;
 import com.onekeyask.lawyer.ui.act.me.MyIntegralActivity;
 import com.onekeyask.lawyer.ui.act.me.MyWalletActivity;
@@ -69,9 +72,26 @@ public class HomeInfoFragment extends BaseFragment {
         initView();
         return view;
     }
-
+    public SubscriberOnNextListener getResultOnNext;
     private void initView() {
         userService = new UserService(getActivity());
+
+
+        getResultOnNext = new SubscriberOnNextListener<PointsInfo>() {
+            @Override
+            public void onNext(PointsInfo info) {
+                myScore.setText(String.valueOf(info.getPoints()));
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                showShort(message);
+            }
+        };
+        retrofitUtil.getPointsInfo(UserService.service(getActivity()).getUserId(), new ProgressSubscriber<PointsInfo>(getResultOnNext, getActivity(), false));
+
+
+
     }
 
     @Override

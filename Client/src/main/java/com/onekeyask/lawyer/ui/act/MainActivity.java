@@ -20,9 +20,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
+import com.onekeyask.lawyer.entity.GetRed;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseActivity;
 import com.onekeyask.lawyer.global.BaseEvent;
@@ -31,6 +34,7 @@ import com.onekeyask.lawyer.ui.fragment.HomeFoundFragment;
 import com.onekeyask.lawyer.ui.fragment.HomeIndexFragment;
 import com.onekeyask.lawyer.ui.fragment.HomeInfoFragment;
 import com.onekeyask.lawyer.ui.fragment.HomeServiceFragment;
+import com.onekeyask.lawyer.utils.UserService;
 
 public class MainActivity extends BaseActivity {
 
@@ -39,6 +43,7 @@ public class MainActivity extends BaseActivity {
     private int index;
     private int currentTabIndex;
     private long exitTime = 0;
+    private TextView tv_red;
     private DownloadManager downloadManager;
     private boolean isWifi;
 
@@ -46,6 +51,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tv_red = (TextView) findViewById(R.id.tv_red);
         initBottom();
         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
 //        UpdateInfo();
@@ -59,7 +65,7 @@ public class MainActivity extends BaseActivity {
             PackageInfo packInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
 
             OkGo.<String>get(Apis.Checkupdate).params("app_id", packInfo.versionName)
-                    .params("plat", "android").execute(new StringCallback() {
+                    .params("plat", "Android").execute(new StringCallback() {
                 @Override
                 public void onSuccess(com.lzy.okgo.model.Response<String> response) {
 //                    if (isWifi) {
@@ -80,6 +86,32 @@ public class MainActivity extends BaseActivity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        OkGo.<String>get(Apis.GetRed).params("userId", UserService.service(getBaseContext()).getUserId()).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+
+                GetRed red = (new Gson()).fromJson(response.body(), GetRed.class);
+                if (red.getCode() == 0){
+
+                    if (red.getData().getMessageIds().size() != 0){
+                        //消息中心的右上角小红点显示
+                    }
+
+                    if ((red.getData().getChatIds().size() + red.getData().getUserServiceInfoIds().size()) != 0){
+                        tv_red.setVisibility(View.VISIBLE);
+                    }else {
+                        tv_red.setVisibility(View.GONE);
+                    }
+                }else {
+                    showShort(red.getMsg());
+                }
+            }
+        });
     }
 
     public void InatallDialog(final String SDPATH) {

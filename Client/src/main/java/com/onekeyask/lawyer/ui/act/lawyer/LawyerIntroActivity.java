@@ -48,7 +48,7 @@ public class LawyerIntroActivity extends BaseToolBarActivity {
         headerMore.setVisibility(View.GONE);
         introTxt.setText(getIntent().getStringExtra("notes"));
         lawyerOffice.setText(getIntent().getStringExtra("office"));
-        getIntent().getIntExtra("lawyerId", 0);
+        lawyerId = getIntent().getIntExtra("lawyerId", 0);
 
 
 
@@ -82,7 +82,7 @@ public class LawyerIntroActivity extends BaseToolBarActivity {
                 showShort(message);
             }
         };
-        retrofitUtil.getLawyerBasic(3, new ProgressSubscriber<LawyerBasic>(listener, LawyerIntroActivity.this, true));
+        retrofitUtil.getLawyerBasic(lawyerId, new ProgressSubscriber<LawyerBasic>(listener, LawyerIntroActivity.this, true));
 
     }
 }

@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,10 +37,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.ConversationList;
 import com.onekeyask.lawyer.entity.LawyerBasic;
+import com.onekeyask.lawyer.entity.ResultData;
 import com.onekeyask.lawyer.entity.SendMsg;
+import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseActivity;
 import com.onekeyask.lawyer.global.BaseEvent;
 import com.onekeyask.lawyer.global.Constant;
@@ -57,7 +64,11 @@ import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 import com.umeng.socialize.shareboard.ShareBoardConfig;
+import com.umeng.socialize.shareboard.SnsPlatform;
+import com.umeng.socialize.utils.ShareBoardlistener;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -76,11 +87,11 @@ import top.zibin.luban.OnCompressListener;
 
 public class TalkingActivity extends BaseActivity {
 
-
+    private AlertDialog alertDialog;
     private RecyclerView rlv_talking;
     private LinearLayout iv_input_bottom, iv_voice_bottom, iv_photo_bottom, iv_money_bottom, iv_share_bottom, ll_is_detail;
     private TalkingAdapter talkingAdapter;
-    private String fid, userServiceId = "0";
+    private String userServiceId = "0";
     private long firstConversationId, lastConversationId, conversationId;
     private String cid = "0";
     private ConversationList getList;
@@ -124,6 +135,43 @@ public class TalkingActivity extends BaseActivity {
     AlphaAnimation out = new AlphaAnimation(1, 0);
     private int userId;
 
+    private SHARE_MEDIA shareMedia;
+    private String shareUrl = "http://ytzht.top";
+    private String shareTitle = "你的朋友喊你一起来玩";
+    private String shareSummary = "shareSummary";
+
+    private void goShare() {
+        InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        im.hideSoftInputFromWindow(iv_share_bottom.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        ShareAction action = new ShareAction(TalkingActivity.this).withText("hello")
+                .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+                .setShareboardclickCallback(new ShareBoardlistener() {
+                    @Override
+                    public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                        UMWeb web = new UMWeb(shareUrl);
+                        web.setTitle(shareTitle);//标题
+                        web.setThumb(new UMImage(getBaseContext(), R.mipmap.ic_launcher));  //缩略图
+                        web.setDescription(shareSummary);//描述
+                        shareMedia = share_media;
+
+                        if (share_media == SHARE_MEDIA.SINA){
+                            showShort("敬请期待");
+                        }else {
+                            new ShareAction(TalkingActivity.this).withMedia(web)
+                                    .setCallback(umShareListener).setPlatform(share_media).share();
+                        }
+                    }
+                });
+
+        ShareBoardConfig config = new ShareBoardConfig();
+        config.setTitleVisibility(false);
+        config.setShareboardPostion(ShareBoardConfig.SHAREBOARD_POSITION_BOTTOM);
+        config.setMenuItemBackgroundShape(ShareBoardConfig.BG_SHAPE_CIRCULAR);
+        config.setCancelButtonVisibility(false);
+        config.setIndicatorVisibility(false);
+//                config.setShareboardBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.divider));
+        action.open(config);
+    }
 
     private UMShareListener umShareListener = new UMShareListener() {
         @Override
@@ -134,6 +182,16 @@ public class TalkingActivity extends BaseActivity {
         @Override
         public void onResult(SHARE_MEDIA share_media) {
             L.d("onResult 分享成功");
+            goShareSuccess();
+            View view1 = LayoutInflater.from(TalkingActivity.this).inflate(R.layout.custom_dialog_share, null, false);
+            alertDialog = new AlertDialog.Builder(TalkingActivity.this).setView(view1).setCancelable(false).show();
+
+            view1.findViewById(R.id.tv_share_con).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
         }
 
         @Override
@@ -146,6 +204,32 @@ public class TalkingActivity extends BaseActivity {
             L.d("onCancel 分项取消");
         }
     };
+
+    private void goShareSuccess() {
+
+        String targetPlat;
+        if (shareMedia == SHARE_MEDIA.SINA){
+            targetPlat = "3";
+        }else if (shareMedia == SHARE_MEDIA.WEIXIN){
+            targetPlat = "1";
+        }else {
+            targetPlat = "2";
+        }
+        OkGo.<String>post(Apis.SaveShare).params("userId", UserService.service(getBaseContext()).getUserId())
+                .params("title", shareTitle)
+                .params("summary", shareSummary)
+                .params("targetPlat", targetPlat)
+                .params("url", shareUrl)//“1”-微信朋友 //“2”-微信朋友圈； //“3”-新浪微博
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
+                        if (data.getCode() != 0){
+                            showShort(data.getMsg());
+                        }
+                    }
+                });
+    }
 
 
     @Override
@@ -251,7 +335,6 @@ public class TalkingActivity extends BaseActivity {
         talk_toolbar_title.setText("聊天页面");
         talk_toolbar = (Toolbar) findViewById(R.id.talk_toolbar);
         setSupportActionBar(talk_toolbar);
-        fid = getIntent().getStringExtra("fid");
         cid = getIntent().getStringExtra("cid");
         ll_input_send = (LinearLayout) findViewById(R.id.ll_input_send);
         ll_bottom_menu = (LinearLayout) findViewById(R.id.ll_bottom_menu);
@@ -286,19 +369,8 @@ public class TalkingActivity extends BaseActivity {
         iv_share_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                im.hideSoftInputFromWindow(iv_share_bottom.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                ShareAction action = new ShareAction(TalkingActivity.this).withText("hello")
-                        .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
-                        .setCallback(umShareListener);
-                ShareBoardConfig config = new ShareBoardConfig();
-                config.setTitleVisibility(false);
-                config.setShareboardPostion(ShareBoardConfig.SHAREBOARD_POSITION_BOTTOM);
-                config.setMenuItemBackgroundShape(ShareBoardConfig.BG_SHAPE_CIRCULAR);
-                config.setCancelButtonVisibility(false);
-                config.setIndicatorVisibility(false);
-//                config.setShareboardBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.divider));
-                action.open(config);
+                goShare();
+
             }
         });
 
@@ -416,7 +488,7 @@ public class TalkingActivity extends BaseActivity {
                     showShort("请选择金额");
                 } else {
                     popupWindow.dismiss();
-                    showShort("选择" + selectMoney + "元并说" + et_desc_popup.getText().toString());
+//                    showShort("选择" + selectMoney + "元并说" + et_desc_popup.getText().toString());
 
                     Intent intent = new Intent(TalkingActivity.this, PayLawyerActivity.class);
                     intent.putExtra("name", law_name.getText().toString());
@@ -538,7 +610,6 @@ public class TalkingActivity extends BaseActivity {
                 ll_bottom_menu.setVisibility(View.VISIBLE);
                 ll_input_send.setVisibility(View.VISIBLE);
                 getList = o;
-
                 rlv_talking.setVisibility(View.VISIBLE);
                 cid = String.valueOf(getList.getChatId());
                 userServiceId = String.valueOf(getList.getUserServiceId());
@@ -566,6 +637,7 @@ public class TalkingActivity extends BaseActivity {
                         ll_eva_comp.setVisibility(View.VISIBLE);
                         ll_lawyer_info.setVisibility(View.VISIBLE);
                         showLawyerAndComplaint();
+                        showShareMenu();
                         break;
                 }
                 if (!getList.getStatus().equals("0")) {
@@ -726,6 +798,13 @@ public class TalkingActivity extends BaseActivity {
         if (menu != null)
             menu.getItem(0).setVisible(true);
     }
+    private void showShareMenu() {
+        if (menu != null) {
+            L.d("showShareMenu: ");
+            menu.getItem(0).setVisible(false);
+            menu.getItem(1).setVisible(true);
+        }
+    }
 
 
     @Override
@@ -733,6 +812,13 @@ public class TalkingActivity extends BaseActivity {
         this.menu = menu;
         getMenuInflater().inflate(R.menu.menu_eva, this.menu);
         this.menu.getItem(0).setVisible(false);
+        MenuItem item = this.menu.findItem(R.id.law_share);
+        item.getActionView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goShare();
+            }
+        });
         return true;
     }
 

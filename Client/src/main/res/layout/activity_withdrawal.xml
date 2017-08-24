@@ -21,7 +21,7 @@
             android:id="@+id/can_with"
             android:layout_width="wrap_content"
             android:textColor="@color/org"
-            android:text="100.00元"
+            tools:text="100.00元"
             android:textSize="16sp"
             android:layout_height="wrap_content" />
     </LinearLayout>

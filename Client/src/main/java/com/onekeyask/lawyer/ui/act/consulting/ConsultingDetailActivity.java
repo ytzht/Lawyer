@@ -160,15 +160,15 @@ public class ConsultingDetailActivity extends BaseToolBarActivity {
                 break;
             case R.id.iv_voice_bottom:
 
-                View view1 = LayoutInflater.from(this).inflate(R.layout.custom_dialog_share, null, false);
-                dialog = new AlertDialog.Builder(this).setView(view1).setCancelable(false).show();
-
-                view1.findViewById(R.id.tv_share_con).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
+//                View view1 = LayoutInflater.from(this).inflate(R.layout.custom_dialog_share, null, false);
+//                dialog = new AlertDialog.Builder(this).setView(view1).setCancelable(false).show();
+//
+//                view1.findViewById(R.id.tv_share_con).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        dialog.dismiss();
+//                    }
+//                });
 
                 break;
             case R.id.iv_photo_bottom:

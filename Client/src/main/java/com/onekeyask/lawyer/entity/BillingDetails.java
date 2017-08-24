@@ -11,7 +11,7 @@ public class BillingDetails {
     /**
      * code : 0
      * msg : 正常
-     * data : {"balanceHistories":[{"id":226,"userId":2,"tranType":"3","amount":1,"withDrawInfoId":8,"summary":"提现","tranTime":1502441966000},{"id":224,"userId":2,"tranType":"2","amount":2,"summary":"送心意","tranTime":1502433545000},{"id":222,"userId":2,"tranType":"3","amount":5,"withDrawInfoId":7,"summary":"提现","tranTime":1502366457000},{"id":221,"userId":2,"tranType":"3","amount":55,"withDrawInfoId":6,"summary":"提现","tranTime":1502366326000},{"id":220,"userId":2,"tranType":"3","amount":5,"withDrawInfoId":5,"summary":"提现","tranTime":1502366185000},{"id":219,"userId":2,"tranType":"3","amount":5,"withDrawInfoId":4,"summary":"提现","tranTime":1502365841000},{"id":218,"userId":2,"tranType":"3","amount":15,"withDrawInfoId":3,"summary":"提现","tranTime":1502355999000},{"id":217,"userId":2,"tranType":"3","amount":50,"withDrawInfoId":2,"summary":"提现","tranTime":1502330557000},{"id":216,"userId":2,"tranType":"3","amount":50,"withDrawInfoId":1,"summary":"提现","tranTime":1502330316000},{"id":215,"userId":2,"tranType":"2","amount":500,"summary":"私人律师","tranTime":1502026535000}],"hasMore":true}
+     * data : {"balanceHistories":[{"id":274,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503479385000},{"id":272,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503479269000},{"id":270,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503479107000},{"id":268,"userId":2,"tranType":"5","amount":0.2,"summary":"送心意","tranTime":1503478917000},{"id":255,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503474061000},{"id":252,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503309686000},{"id":250,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503309235000},{"id":249,"userId":2,"tranType":"2","amount":500,"summary":"私人律师","tranTime":1503303586000},{"id":245,"userId":2,"tranType":"2","amount":2,"summary":"打赏咨询","tranTime":1503298859000},{"id":243,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503298451000}],"hasMore":true}
      */
 
     private int code;
@@ -44,7 +44,7 @@ public class BillingDetails {
 
     public static class DataBean {
         /**
-         * balanceHistories : [{"id":226,"userId":2,"tranType":"3","amount":1,"withDrawInfoId":8,"summary":"提现","tranTime":1502441966000},{"id":224,"userId":2,"tranType":"2","amount":2,"summary":"送心意","tranTime":1502433545000},{"id":222,"userId":2,"tranType":"3","amount":5,"withDrawInfoId":7,"summary":"提现","tranTime":1502366457000},{"id":221,"userId":2,"tranType":"3","amount":55,"withDrawInfoId":6,"summary":"提现","tranTime":1502366326000},{"id":220,"userId":2,"tranType":"3","amount":5,"withDrawInfoId":5,"summary":"提现","tranTime":1502366185000},{"id":219,"userId":2,"tranType":"3","amount":5,"withDrawInfoId":4,"summary":"提现","tranTime":1502365841000},{"id":218,"userId":2,"tranType":"3","amount":15,"withDrawInfoId":3,"summary":"提现","tranTime":1502355999000},{"id":217,"userId":2,"tranType":"3","amount":50,"withDrawInfoId":2,"summary":"提现","tranTime":1502330557000},{"id":216,"userId":2,"tranType":"3","amount":50,"withDrawInfoId":1,"summary":"提现","tranTime":1502330316000},{"id":215,"userId":2,"tranType":"2","amount":500,"summary":"私人律师","tranTime":1502026535000}]
+         * balanceHistories : [{"id":274,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503479385000},{"id":272,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503479269000},{"id":270,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503479107000},{"id":268,"userId":2,"tranType":"5","amount":0.2,"summary":"送心意","tranTime":1503478917000},{"id":255,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503474061000},{"id":252,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503309686000},{"id":250,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503309235000},{"id":249,"userId":2,"tranType":"2","amount":500,"summary":"私人律师","tranTime":1503303586000},{"id":245,"userId":2,"tranType":"2","amount":2,"summary":"打赏咨询","tranTime":1503298859000},{"id":243,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503298451000}]
          * hasMore : true
          */
 
@@ -69,21 +69,29 @@ public class BillingDetails {
 
         public static class BalanceHistoriesBean {
             /**
-             * id : 226
+             * id : 274
              * userId : 2
-             * tranType : 3
-             * amount : 1
-             * withDrawInfoId : 8
-             * summary : 提现
-             * tranTime : 1502441966000
+             * tranType : 5
+             * amount : 2.0
+             * summary : 送心意
+             * tranTime : 1503479385000
              */
 
             private int id;
             private int userId;
             private String tranType;
-            private int amount;
-            private int withDrawInfoId;
+            private String amount;
             private String summary;
+            private String withDrawInfoId;
+
+            public String getWithDrawInfoId() {
+                return withDrawInfoId;
+            }
+
+            public void setWithDrawInfoId(String withDrawInfoId) {
+                this.withDrawInfoId = withDrawInfoId;
+            }
+
             private long tranTime;
 
             public int getId() {
@@ -110,20 +118,12 @@ public class BillingDetails {
                 this.tranType = tranType;
             }
 
-            public int getAmount() {
+            public String getAmount() {
                 return amount;
             }
 
-            public void setAmount(int amount) {
+            public void setAmount(String amount) {
                 this.amount = amount;
-            }
-
-            public int getWithDrawInfoId() {
-                return withDrawInfoId;
-            }
-
-            public void setWithDrawInfoId(int withDrawInfoId) {
-                this.withDrawInfoId = withDrawInfoId;
             }
 
             public String getSummary() {

@@ -20,6 +20,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
+import com.onekeyask.lawyer.entity.GetRed;
 import com.onekeyask.lawyer.entity.HomePage;
 import com.onekeyask.lawyer.entity.UserDiscoveries;
 import com.onekeyask.lawyer.global.Apis;
@@ -28,8 +29,8 @@ import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.ui.act.consulting.ConsultingDetailActivity;
 import com.onekeyask.lawyer.ui.act.lawyer.AskDetailActivity;
-import com.onekeyask.lawyer.ui.act.search.SearchLawActivity;
 import com.onekeyask.lawyer.ui.act.search.SearchContentActivity;
+import com.onekeyask.lawyer.ui.act.search.SearchLawActivity;
 import com.onekeyask.lawyer.ui.act.user.TopMsgActivity;
 import com.onekeyask.lawyer.utils.UserService;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -103,7 +104,7 @@ public class HomeIndexFragment extends BaseFragment {
         adapter = new IndexAdapter();
         rlv_index.setAdapter(adapter);
 
-        refreshLayout = (SmartRefreshLayout)view.findViewById(R.id.index_refreshLayout);
+        refreshLayout = (SmartRefreshLayout) view.findViewById(R.id.index_refreshLayout);
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
         refreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -135,6 +136,28 @@ public class HomeIndexFragment extends BaseFragment {
         initData();
     }
 
+    private void initRed() {
+        OkGo.<String>get(Apis.GetRed).params("userId", UserService.service(getActivity()).getUserId()).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+
+                GetRed red = (new Gson()).fromJson(response.body(), GetRed.class);
+                if (red.getCode() == 0) {
+
+                    if (red.getData().getMessageIds().size() != 0) {
+                        //消息中心的右上角小红点显示
+                        iv_top_msg.setImageResource(R.drawable.tips_n);
+                    } else {
+                        iv_top_msg.setImageResource(R.drawable.tips);
+                    }
+
+                } else {
+                    showShort(red.getMsg());
+                }
+            }
+        });
+    }
+
     private void initData() {
         OkGo.<String>get(Apis.Discovery)
                 .params("userId", UserService.service(getActivity()).getUserId())
@@ -161,7 +184,7 @@ public class HomeIndexFragment extends BaseFragment {
                         }
                     }
                 });
-
+        initRed();
 
     }
 
@@ -287,7 +310,7 @@ public class HomeIndexFragment extends BaseFragment {
 
             if (position == 0) {
                 return R.layout.cell_index_main;
-            }else {
+            } else {
                 return R.layout.cell_index;
             }
         }
@@ -296,9 +319,9 @@ public class HomeIndexFragment extends BaseFragment {
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getActivity()).inflate(viewType, parent, false);
 
-            if (viewType == R.layout.cell_index_main){
+            if (viewType == R.layout.cell_index_main) {
                 return new IndexViewHolder(view);
-            }else {
+            } else {
                 return new ViewHolder(view);
             }
         }
@@ -306,15 +329,15 @@ public class HomeIndexFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-            if (position == 0){
-                initBanner(((IndexViewHolder)holder).banner);
-                ((IndexViewHolder)holder).rl_quick_consulting.setOnClickListener(new View.OnClickListener() {
+            if (position == 0) {
+                initBanner(((IndexViewHolder) holder).banner);
+                ((IndexViewHolder) holder).rl_quick_consulting.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         startActivity(ConsultingDetailActivity.class);
                     }
                 });
-                ((IndexViewHolder)holder).rl_look_lawyer.setOnClickListener(new View.OnClickListener() {
+                ((IndexViewHolder) holder).rl_look_lawyer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         startActivity(SearchLawActivity.class);
@@ -322,17 +345,16 @@ public class HomeIndexFragment extends BaseFragment {
                 });
 
 
+            } else {
 
-            }else {
+                ((ViewHolder) holder).dis_type.setText(data.get(position - 1).getCategoryName());
+                ((ViewHolder) holder).dis_context.setText(data.get(position - 1).getContent());
+                ((ViewHolder) holder).dis_name.setText(data.get(position - 1).getLawyerName());
+                ((ViewHolder) holder).dis_office.setText(data.get(position - 1).getOfficeName());
+                ((ViewHolder) holder).dis_count.setText(String.valueOf(data.get(position - 1).getSupportCount()));
+                Glide.with(getActivity()).load(data.get(position - 1).getHeadURL()).into(((ViewHolder) holder).dis_img);
 
-                ((ViewHolder)holder).dis_type.setText(data.get(position - 1).getCategoryName());
-                ((ViewHolder)holder).dis_context.setText(data.get(position - 1).getContent());
-                ((ViewHolder)holder).dis_name.setText(data.get(position - 1).getLawyerName());
-                ((ViewHolder)holder).dis_office.setText(data.get(position - 1).getOfficeName());
-                ((ViewHolder)holder).dis_count.setText(String.valueOf(data.get(position - 1).getSupportCount()));
-                Glide.with(getActivity()).load(data.get(position - 1).getHeadURL()).into(((ViewHolder)holder).dis_img);
-
-                ((ViewHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
+                ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), AskDetailActivity.class);
@@ -395,7 +417,6 @@ public class HomeIndexFragment extends BaseFragment {
                 rl_project_four = (RelativeLayout) itemView.findViewById(R.id.rl_project_four);
 
                 tv_more_solutions = (TextView) itemView.findViewById(R.id.tv_more_solutions);
-
 
 
             }

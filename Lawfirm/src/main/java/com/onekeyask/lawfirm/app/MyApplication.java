@@ -13,8 +13,6 @@ import com.onekeyask.lawfirm.image.PtrImageLoadHandler;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
-import com.umeng.socialize.PlatformConfig;
-import com.umeng.socialize.UMShareAPI;
 
 import in.srain.cube.Cube;
 import in.srain.cube.image.ImageLoaderFactory;
@@ -43,16 +41,16 @@ public class MyApplication extends Application {
 
         initPush();
 
-        initShare();
+//        initShare();
 
         Utils.init(this);
     }
 
-    private void initShare() {
-        UMShareAPI.get(this);
-        PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
-        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
-    }
+//    private void initShare() {
+//        UMShareAPI.get(this);
+//        PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
+//        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
+//    }
     private void initPush() {
         //如需手动获取device token，可以调用mPushAgent.getRegistrationId()方法
         PushAgent mPushAgent = PushAgent.getInstance(this);

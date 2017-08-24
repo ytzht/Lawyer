@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
+import com.onekeyask.lawyer.entity.MsgDetail;
 import com.onekeyask.lawyer.entity.PointHistory;
 import com.onekeyask.lawyer.entity.PointsInfo;
 import com.onekeyask.lawyer.global.Apis;
@@ -56,6 +58,25 @@ public class MyIntegralActivity extends BaseToolBarActivity {
     private void initView() {
         index = 1;
         data.clear();
+
+        if (getIntent().hasExtra("id")){
+            if (getIntent().getIntExtra("id", 0) != 0){
+                OkGo.<String>get(Apis.MessageDetail).params("userId", UserService.service(getBaseContext()).getUserId())
+                        .params("messageId", getIntent().getIntExtra("id", 0)).execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        MsgDetail msgDetail = JSON.parseObject(response.body(), MsgDetail.class);
+                        if (msgDetail.getCode() == 0){
+
+                        }else {
+                            showShort(msgDetail.getMsg());
+                            finish();
+                        }
+                    }
+                });
+            }
+
+        }
 
         integral = (TextView)findViewById(R.id.integral);
         refreshLayout = (SmartRefreshLayout) findViewById(R.id.refreshLayout);
@@ -107,7 +128,7 @@ public class MyIntegralActivity extends BaseToolBarActivity {
 
 
         OkGo.<String>get(Apis.PointsHistory)
-                .params("userId", "2")
+                .params("userId", UserService.service(getBaseContext()).getUserId())
                 .params("page", index)
                 .params("size", size)
                 .execute(new StringCallback() {
@@ -144,7 +165,11 @@ public class MyIntegralActivity extends BaseToolBarActivity {
 
             holder.title_in.setText(data.get(position).getSummary());
             holder.tv_in_time.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(data.get(position).getTranTime()));
-            holder.tv_integral.setText("+"+data.get(position).getNumber());
+            if (data.get(position).getTranType().equals("7")) {
+                holder.tv_integral.setText("-" + data.get(position).getNumber());
+            }else {
+                holder.tv_integral.setText("+" + data.get(position).getNumber());
+            }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

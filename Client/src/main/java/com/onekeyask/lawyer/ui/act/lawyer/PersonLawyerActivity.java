@@ -196,7 +196,7 @@ public class PersonLawyerActivity extends BaseToolBarActivity {
     private void goPay() {
 
         OkGo.<String>get(Apis.MakeOrderAndGetPayInfo)
-                .params("userId", "2")
+                .params("userId", UserService.service(getBaseContext()).getUserId())
                 .params("lawyerId", lawyerId)
                 .params("priceId", priceId)
                 .params("number", "1")
@@ -338,8 +338,8 @@ public class PersonLawyerActivity extends BaseToolBarActivity {
         localBroadcastManager.registerReceiver(localReceiver, intentFilter);
 
         OkGo.<String>get(Apis.PersonalLawyerServiceInfo)
-                .params("lawyerId", "3")
-                .params("userId", "2")
+                .params("lawyerId", lawyerId)
+                .params("userId", UserService.service(getBaseContext()).getUserId())
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

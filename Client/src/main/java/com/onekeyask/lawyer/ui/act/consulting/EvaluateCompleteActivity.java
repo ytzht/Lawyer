@@ -283,7 +283,7 @@ public class EvaluateCompleteActivity extends BaseToolBarActivity {
                     showShort("请选择金额");
                 } else {
                     popupWindow.dismiss();
-                    showShort("选择" + selectMoney + "元 并说" + et_desc_popup.getText().toString());
+//                    showShort("选择" + selectMoney + "元 并说" + et_desc_popup.getText().toString());
 
                     Intent intent = new Intent(EvaluateCompleteActivity.this, PayLawyerActivity.class);
                     intent.putExtra("name", lawName);

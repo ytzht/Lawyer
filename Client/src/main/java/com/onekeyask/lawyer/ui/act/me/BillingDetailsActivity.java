@@ -7,16 +7,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.BillingDetails;
+import com.onekeyask.lawyer.entity.MsgDetail;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
+import com.onekeyask.lawyer.utils.UserService;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
@@ -54,6 +58,25 @@ public class BillingDetailsActivity extends BaseToolBarActivity {
         index = 1;
         data.clear();
 
+        if (getIntent().hasExtra("id")){
+            if (getIntent().getIntExtra("id", 0) != 0){
+                OkGo.<String>get(Apis.MessageDetail).params("userId", UserService.service(getBaseContext()).getUserId())
+                        .params("messageId", getIntent().getIntExtra("id", 0)).execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        MsgDetail msgDetail = JSON.parseObject(response.body(), MsgDetail.class);
+                        if (msgDetail.getCode() == 0){
+
+                        }else {
+                            showShort(msgDetail.getMsg());
+                            finish();
+                        }
+                    }
+                });
+            }
+
+        }
+
         refreshLayout = (SmartRefreshLayout) findViewById(R.id.refreshLayout);
         rlv_integral = (RecyclerView) findViewById(R.id.rlv_integral);
         refreshLayout.setRefreshHeader(new ClassicsHeader(this));
@@ -87,7 +110,7 @@ public class BillingDetailsActivity extends BaseToolBarActivity {
 
     private void initData() {
         OkGo.<String>get(Apis.BalanceHistory)
-                .params("userId", "2")
+                .params("userId", UserService.service(getBaseContext()).getUserId())
                 .params("page", index)
                 .params("size", size)
                 .execute(new StringCallback() {
@@ -122,17 +145,41 @@ public class BillingDetailsActivity extends BaseToolBarActivity {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder holder, final int position) {
 
-            holder.detail_score.setText(data.get(position).getAmount()+"");
             holder.detail_time.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(data.get(position).getTranTime()));
             holder.detail_title.setText(data.get(position).getSummary());
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                }
-            });
+            switch (data.get(position).getTranType()){
+                case "1":
+                    holder.detail_score.setText("+"+data.get(position).getAmount());
+                    break;
+                case "2":
+                    holder.detail_score.setText("-"+data.get(position).getAmount());
+                    break;
+                case "3":
+                    holder.detail_score.setText("-"+data.get(position).getAmount());
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(WithStateActivity.class, "id", data.get(position).getWithDrawInfoId());
+                        }
+                    });
+                    break;
+                case "4":
+                    holder.detail_score.setText("+"+data.get(position).getAmount());
+                    break;
+                case "5":
+                    holder.detail_score.setText("-"+data.get(position).getAmount());
+                    break;
+                case "6":
+                    holder.detail_score.setText("+"+data.get(position).getAmount());
+                    break;
+                case "7":
+                    holder.detail_score.setText("+"+data.get(position).getAmount());
+                    break;
+
+            }
 
         }
 
@@ -144,11 +191,13 @@ public class BillingDetailsActivity extends BaseToolBarActivity {
         class ViewHolder extends RecyclerView.ViewHolder{
 
             private TextView detail_score, detail_title, detail_time;
+            private ImageView iv_arrow;
             public ViewHolder(View itemView) {
                 super(itemView);
                 detail_score = (TextView) itemView.findViewById(R.id.detail_score);
                 detail_title = (TextView) itemView.findViewById(R.id.detail_title);
                 detail_time = (TextView) itemView.findViewById(R.id.detail_time);
+                iv_arrow = (ImageView) itemView.findViewById(R.id.iv_arrow);
             }
         }
     }

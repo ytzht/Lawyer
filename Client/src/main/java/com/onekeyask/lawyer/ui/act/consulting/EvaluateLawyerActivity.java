@@ -22,6 +22,7 @@ import com.onekeyask.lawyer.global.Constant;
 import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
+import com.onekeyask.lawyer.utils.UserService;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -252,8 +253,8 @@ public class EvaluateLawyerActivity extends BaseToolBarActivity {
                 }
 
                 L.d("Score userServiceId " + Score + " " + userServiceId);
-                map.put("userId", "2");
-                map.put("lawyerId", "3");
+                map.put("userId", UserService.service(getBaseContext()).getUserId()+"");
+                map.put("lawyerId", lawyerId+"");
                 map.put("userServiceId", userServiceId);
 //                map.put("orderId", oid);
 //                map.put("freeaskId", fid);

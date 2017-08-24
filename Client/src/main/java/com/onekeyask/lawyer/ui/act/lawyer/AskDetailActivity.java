@@ -1,7 +1,9 @@
 package com.onekeyask.lawyer.ui.act.lawyer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -24,14 +27,24 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.PraiseSupported;
+import com.onekeyask.lawyer.entity.ResultData;
 import com.onekeyask.lawyer.entity.TalkingConversationList;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseActivity;
 import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.utils.HideUtil;
+import com.onekeyask.lawyer.utils.UserService;
 import com.onekeyask.lawyer.utils.photo.Info;
 import com.onekeyask.lawyer.utils.photo.PhotoView;
 import com.squareup.picasso.Picasso;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
+import com.umeng.socialize.shareboard.ShareBoardConfig;
+import com.umeng.socialize.shareboard.SnsPlatform;
+import com.umeng.socialize.utils.ShareBoardlistener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,10 +96,11 @@ public class AskDetailActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_share:
+                goShare();
                 break;
             case R.id.ll_praise:
                 OkGo.<String>get(Apis.SupportUserService)
-                        .params("userId", 2)
+                        .params("userId", UserService.service(getBaseContext()).getUserId())
                         .params("userServiceId", sid)
                         .params("up", !isSupported).execute(new StringCallback() {
                     @Override
@@ -184,7 +198,7 @@ public class AskDetailActivity extends BaseActivity {
         sid = getIntent().getIntExtra("sid", 0);
 
         OkGo.<String>get(Apis.IsSupportUserService)
-                .params("userId", 2)
+                .params("userId", UserService.service(getBaseContext()).getUserId())
                 .params("userServiceId", sid)
                 .execute(new StringCallback() {
                     @Override
@@ -233,7 +247,7 @@ public class AskDetailActivity extends BaseActivity {
 
     private void loadData() {
         OkGo.<String>get(Apis.GetDiscoveryDetail)
-                .params("userId", 2)
+                .params("userId", UserService.service(getBaseContext()).getUserId())
                 .params("chatId", cid)
                 .params("size", size)
                 .params("page", page)
@@ -400,5 +414,103 @@ public class AskDetailActivity extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    private SHARE_MEDIA shareMedia;
+    private String shareUrl = "http://ytzht.top";
+    private String shareTitle = "你的朋友喊你一起来玩";
+    private String shareSummary = "shareSummary";
+
+    private void goShare() {
+        InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        im.hideSoftInputFromWindow(llShare.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        ShareAction action = new ShareAction(AskDetailActivity.this).withText("hello")
+                .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+                .setShareboardclickCallback(new ShareBoardlistener() {
+                    @Override
+                    public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                        UMWeb web = new UMWeb(shareUrl);
+                        web.setTitle(shareTitle);//标题
+                        web.setThumb(new UMImage(getBaseContext(), R.mipmap.ic_launcher));  //缩略图
+                        web.setDescription(shareSummary);//描述
+                        shareMedia = share_media;
+
+                        if (share_media == SHARE_MEDIA.SINA){
+                            showShort("敬请期待");
+                        }else {
+                            new ShareAction(AskDetailActivity.this).withMedia(web)
+                                    .setCallback(umShareListener).setPlatform(share_media).share();
+                        }
+                    }
+                });
+
+        ShareBoardConfig config = new ShareBoardConfig();
+        config.setTitleVisibility(false);
+        config.setShareboardPostion(ShareBoardConfig.SHAREBOARD_POSITION_BOTTOM);
+        config.setMenuItemBackgroundShape(ShareBoardConfig.BG_SHAPE_CIRCULAR);
+        config.setCancelButtonVisibility(false);
+        config.setIndicatorVisibility(false);
+//                config.setShareboardBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.divider));
+        action.open(config);
+    }
+    private AlertDialog alertDialog;
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onStart(SHARE_MEDIA share_media) {
+            L.d("onStart 开始分享");
+        }
+
+        @Override
+        public void onResult(SHARE_MEDIA share_media) {
+            L.d("onResult 分享成功");
+            goShareSuccess();
+            View view1 = LayoutInflater.from(AskDetailActivity.this).inflate(R.layout.custom_dialog_share, null, false);
+            alertDialog = new AlertDialog.Builder(AskDetailActivity.this).setView(view1).setCancelable(false).show();
+
+            view1.findViewById(R.id.tv_share_con).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+            L.e("onError 分享失败 " + throwable.toString());
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA share_media) {
+            L.d("onCancel 分项取消");
+        }
+    };
+
+    private void goShareSuccess() {
+
+        String targetPlat;
+        if (shareMedia == SHARE_MEDIA.SINA){
+            targetPlat = "3";
+        }else if (shareMedia == SHARE_MEDIA.WEIXIN){
+            targetPlat = "1";
+        }else {
+            targetPlat = "2";
+        }
+        OkGo.<String>post(Apis.SaveShare).params("userId", UserService.service(getBaseContext()).getUserId())
+                .params("title", shareTitle)
+                .params("summary", shareSummary)
+                .params("targetPlat", targetPlat)
+                .params("url", shareUrl)//“1”-微信朋友 //“2”-微信朋友圈； //“3”-新浪微博
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
+                        if (data.getCode() != 0){
+                            showShort(data.getMsg());
+                        }
+                    }
+                });
+    }
+
 }
 

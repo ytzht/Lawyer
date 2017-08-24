@@ -82,6 +82,15 @@
                 android:background="?listChoiceBackgroundIndicator"
                 android:onClick="onTabClicked">
 
+                <TextView
+                    android:id="@+id/tv_red"
+                    android:visibility="gone"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:background="@drawable/red_round"
+                    android:layout_marginTop="4dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"/>
                 <ImageView
                     android:id="@+id/btn_2"
                     android:layout_width="25dp"

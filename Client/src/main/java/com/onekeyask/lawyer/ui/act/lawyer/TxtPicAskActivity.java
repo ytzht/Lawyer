@@ -27,6 +27,7 @@ import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
+import com.onekeyask.lawyer.utils.UserService;
 
 import java.util.Map;
 
@@ -113,7 +114,7 @@ public class TxtPicAskActivity extends BaseToolBarActivity {
 
         OkGo.<String>get(Apis.TextChatServiceInfo)
                 .params("lawyerId", lawyerId)
-                .params("userId", "2")
+                .params("userId", UserService.service(getBaseContext()).getUserId())
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -196,7 +197,7 @@ public class TxtPicAskActivity extends BaseToolBarActivity {
     private void goAliPay() {
 
         OkGo.<String>get(Apis.MakeOrderAndGetPayInfo)
-                .params("userId", "2")
+                .params("userId", UserService.service(getBaseContext()).getUserId())
                 .params("lawyerId", lawyerId)
                 .params("priceId", priceId)
                 .params("number", "1")

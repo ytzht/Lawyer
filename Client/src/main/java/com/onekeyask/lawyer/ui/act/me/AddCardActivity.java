@@ -16,6 +16,7 @@ import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.BaseResult;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
+import com.onekeyask.lawyer.utils.UserService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -102,8 +103,8 @@ public class AddCardActivity extends BaseToolBarActivity {
         else cardtype = "储蓄卡";
 
 
-            OkGo.<String>get(Apis.BankCardAdd)
-                    .params("userId", 2)
+            OkGo.<String>post(Apis.BankCardAdd)
+                    .params("userId", UserService.service(getBaseContext()).getUserId())
                     .params("cardno", cardno)
                     .params("cardholder", cardholder)
                     .params("bankname", bankname)

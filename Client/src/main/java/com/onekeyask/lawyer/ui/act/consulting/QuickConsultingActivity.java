@@ -157,7 +157,7 @@ public class QuickConsultingActivity extends BaseToolBarActivity implements View
     }
 
     private void goSubmit() {
-        photoMap.put("userId", RequestBody.create(null, "2"));
+        photoMap.put("userId", RequestBody.create(null, UserService.service(getBaseContext()).getUserId()+""));
         photoMap.put("content", RequestBody.create(null, content));
         photoMap.put("category", RequestBody.create(null, category + ""));
 

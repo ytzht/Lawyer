@@ -15,16 +15,11 @@ import com.onekeyask.lawyer.utils.UserService;
 
 import java.text.SimpleDateFormat;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static android.R.attr.data;
 
 public class MsgDetailActivity extends BaseToolBarActivity {
 
-    @BindView(R.id.msg_time_detail)
     TextView msgTimeDetail;
-    @BindView(R.id.msg_detail)
     TextView msgDetailTv;
 
     @Override
@@ -34,15 +29,17 @@ public class MsgDetailActivity extends BaseToolBarActivity {
         ButterKnife.bind(this);
         setToolbarText("消息详情");
 
+        msgDetailTv = (TextView)findViewById(R.id.msg_detail);
+        msgTimeDetail = (TextView)findViewById(R.id.msg_time_detail);
         OkGo.<String>get(Apis.MessageDetail).params("userId", UserService.service(getBaseContext()).getUserId())
                 .params("messageId", getIntent().getStringExtra("id")).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 MsgDetail msgDetail = JSON.parseObject(response.body(), MsgDetail.class);
                 if (msgDetail.getCode() == 0){
-                    msgDetailTv.setText(msgDetail.getMessage().getContent());
+                    msgDetailTv.setText(msgDetail.getData().getContent());
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
-                    msgTimeDetail.setText(format.format(msgDetail.getMessage().getCreateTime()));
+                    msgTimeDetail.setText(format.format(msgDetail.getData().getCreateTime()));
                 }else {
                     showShort(msgDetail.getMsg());
                     finish();

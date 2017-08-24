@@ -9,12 +9,12 @@ public class MsgDetail {
     /**
      * code : 0
      * msg : 正常
-     * message : {"messageId":323,"content":"您的积分增加了300，请到我的积分中查看。","status":1,"createTime":1502871323000}
+     * data : {"messageId":497,"content":"您的积分增加了20，请到我的积分中查看。","status":1,"createTime":1503542645000}
      */
 
     private int code;
     private String msg;
-    private MessageBean message;
+    private DataBean data;
 
     public int getCode() {
         return code;
@@ -32,20 +32,20 @@ public class MsgDetail {
         this.msg = msg;
     }
 
-    public MessageBean getMessage() {
-        return message;
+    public DataBean getData() {
+        return data;
     }
 
-    public void setMessage(MessageBean message) {
-        this.message = message;
+    public void setData(DataBean data) {
+        this.data = data;
     }
 
-    public static class MessageBean {
+    public static class DataBean {
         /**
-         * messageId : 323
-         * content : 您的积分增加了300，请到我的积分中查看。
+         * messageId : 497
+         * content : 您的积分增加了20，请到我的积分中查看。
          * status : 1
-         * createTime : 1502871323000
+         * createTime : 1503542645000
          */
 
         private int messageId;

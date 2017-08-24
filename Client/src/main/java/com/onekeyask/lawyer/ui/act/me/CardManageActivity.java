@@ -22,6 +22,7 @@ import com.onekeyask.lawyer.entity.BaseResult;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.global.L;
+import com.onekeyask.lawyer.utils.UserService;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
@@ -106,10 +107,10 @@ public class CardManageActivity extends BaseToolBarActivity {
 
             if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
 
-                showShort(list.getData().getCardList().get(adapterPosition).getId() + "");
+//                showShort(list.getData().getCardList().get(adapterPosition).getId() + "");
 
                 OkGo.<String>get(Apis.DelBankCard)
-                        .params("userId", 2)
+                        .params("userId", UserService.service(getBaseContext()).getUserId())
                         .params("cardId", list.getData().getCardList().get(adapterPosition).getId())
                         .execute(new StringCallback() {
                             @Override
@@ -140,7 +141,7 @@ public class CardManageActivity extends BaseToolBarActivity {
 
     private void initData() {
         OkGo.<String>get(Apis.BankCardList)
-                .params("userId", 2)
+                .params("userId", UserService.service(getBaseContext()).getUserId())
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

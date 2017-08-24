@@ -21,6 +21,7 @@ import com.onekeyask.lawyer.entity.ApplyTX;
 import com.onekeyask.lawyer.entity.BankCardList;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
+import com.onekeyask.lawyer.utils.UserService;
 
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class ChooseBankActivity extends BaseToolBarActivity {
 
     private void initData() {
         OkGo.<String>get(Apis.BankCardList)
-                .params("userId", 2)
+                .params("userId", UserService.service(getBaseContext()).getUserId())
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

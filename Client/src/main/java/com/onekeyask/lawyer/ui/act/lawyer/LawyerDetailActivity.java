@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +36,7 @@ import com.onekeyask.lawyer.entity.CustomerReplyBean;
 import com.onekeyask.lawyer.entity.GiveMoneyList;
 import com.onekeyask.lawyer.entity.IsFavorite;
 import com.onekeyask.lawyer.entity.LawyerDetail;
+import com.onekeyask.lawyer.entity.ResultData;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.global.Constant;
@@ -44,6 +46,14 @@ import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.ui.act.consulting.PayLawyerActivity;
 import com.onekeyask.lawyer.utils.MyDecoration;
 import com.onekeyask.lawyer.utils.UserService;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
+import com.umeng.socialize.shareboard.ShareBoardConfig;
+import com.umeng.socialize.shareboard.SnsPlatform;
+import com.umeng.socialize.utils.ShareBoardlistener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -93,7 +103,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
     LinearLayout llFavorite;
     @BindView(R.id.consulting)
     TextView consulting;
-//    @BindView(R.id.refreshLayout_detail)
+    //    @BindView(R.id.refreshLayout_detail)
 //    SmartRefreshLayout refreshLayout;
     @BindView(R.id.header_more)
     ImageView headerMore;
@@ -722,7 +732,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
                     showShort("请选择金额");
                 } else {
                     popupWindow.dismiss();
-                    showShort("选择" + selectMoney + "元 并说" + et_desc_popup.getText().toString());
+//                    showShort("选择" + selectMoney + "元 并说" + et_desc_popup.getText().toString());
                     Intent intent = new Intent(LawyerDetailActivity.this, PayLawyerActivity.class);
 
                     intent.putExtra("name", lawyerName.getText().toString());
@@ -804,7 +814,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         item.getActionView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showShort("分享");
+                goShare();
             }
         });
 
@@ -824,4 +834,100 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
 
         return false;
     }
+
+    private SHARE_MEDIA shareMedia;
+    private String shareUrl = "http://ytzht.top";
+    private String shareTitle = "你的朋友喊你一起来玩";
+    private String shareSummary = "shareSummary";
+
+    private void goShare() {
+        ShareAction action = new ShareAction(LawyerDetailActivity.this).withText("hello")
+                .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+                .setShareboardclickCallback(new ShareBoardlistener() {
+                    @Override
+                    public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                        UMWeb web = new UMWeb(shareUrl);
+                        web.setTitle(shareTitle);//标题
+                        web.setThumb(new UMImage(getBaseContext(), R.mipmap.ic_launcher));  //缩略图
+                        web.setDescription(shareSummary);//描述
+                        shareMedia = share_media;
+
+                        if (share_media == SHARE_MEDIA.SINA) {
+                            showShort("敬请期待");
+                        } else {
+                            new ShareAction(LawyerDetailActivity.this).withMedia(web)
+                                    .setCallback(umShareListener).setPlatform(share_media).share();
+                        }
+                    }
+                });
+
+        ShareBoardConfig config = new ShareBoardConfig();
+        config.setTitleVisibility(false);
+        config.setShareboardPostion(ShareBoardConfig.SHAREBOARD_POSITION_BOTTOM);
+        config.setMenuItemBackgroundShape(ShareBoardConfig.BG_SHAPE_CIRCULAR);
+        config.setCancelButtonVisibility(false);
+        config.setIndicatorVisibility(false);
+//                config.setShareboardBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.divider));
+        action.open(config);
+    }
+
+    private AlertDialog alertDialog;
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onStart(SHARE_MEDIA share_media) {
+            L.d("onStart 开始分享");
+        }
+
+        @Override
+        public void onResult(SHARE_MEDIA share_media) {
+            L.d("onResult 分享成功");
+            goShareSuccess();
+            View view1 = LayoutInflater.from(LawyerDetailActivity.this).inflate(R.layout.custom_dialog_share, null, false);
+            alertDialog = new AlertDialog.Builder(LawyerDetailActivity.this).setView(view1).setCancelable(false).show();
+
+            view1.findViewById(R.id.tv_share_con).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+            L.e("onError 分享失败 " + throwable.toString());
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA share_media) {
+            L.d("onCancel 分项取消");
+        }
+    };
+
+    private void goShareSuccess() {
+
+        String targetPlat;
+        if (shareMedia == SHARE_MEDIA.SINA){
+            targetPlat = "3";
+        }else if (shareMedia == SHARE_MEDIA.WEIXIN){
+            targetPlat = "1";
+        }else {
+            targetPlat = "2";
+        }
+        OkGo.<String>post(Apis.SaveShare).params("userId", UserService.service(getBaseContext()).getUserId())
+                .params("title", shareTitle)
+                .params("summary", shareSummary)
+                .params("targetPlat", targetPlat)
+                .params("url", shareUrl)//“1”-微信朋友 //“2”-微信朋友圈； //“3”-新浪微博
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
+                        if (data.getCode() != 0){
+                            showShort(data.getMsg());
+                        }
+                    }
+                });
+    }
+
 }

@@ -53,10 +53,10 @@
         android:paddingRight="16dp">
 
         <LinearLayout
+            android:id="@+id/my_in"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/my_in"
             android:gravity="center_vertical">
 
 
