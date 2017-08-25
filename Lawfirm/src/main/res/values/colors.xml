@@ -2,10 +2,6 @@
 <resources>
 
 
-
-
-
-
     <color name="colorPrimary">#3492EA</color>
     <color name="colorPrimaryDark">#3492EA</color>
     <color name="colorAccent">#3492EA</color>
@@ -19,22 +15,43 @@
     <color name="blackSec">#8e8e8e</color>
     <color name="blackHint">#aeaeae</color>
 
-    <color name="divider">#dddddd</color>
-    <color name="divider_">#e4e4e4</color>
+    <color name="gray">#dcdcdc</color>
+    <color name="bg_gray">#eeeeee</color>
+
+    <color name="money_red">#FFFD635E</color>
+    <color name="divider">#eeeeee</color>
+    <color name="divider_">#e6e6e6</color>
     <color name="viewDivider">#f0f0f0</color>
+    <color name="input_bg">#fbfbfb</color>
+
+    <color name="now_service_name">#333333</color>
+    <color name="now_service_no_name">#8e8e8e</color>
 
     <color name="base_text_color">#343434</color>
     <color name="transparentBlack">#96000000</color>
 
+
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
+    <color name="black_">#424242</color>
     <color name="grey">#5A5A5A</color>
+    <color name="type_gray">#6f6f6f</color>
+    <color name="grey_">#5A5A5A</color>
+    <color name="ser_grey">#8a8a8a</color>
 
-    <color name="gray">#dcdcdc</color>
-    <color name="bg_gray">#eeeeee</color>
+    <color name="tag_select">#d7e7fa</color>
 
     <color name="red">#ff2d4b</color>
-    <color name="money_red">#FFFD635E</color>
+    <color name="red_btn">#ff2d4b</color>
+    <color name="org">#f79f0a</color>
     <color name="black_light">#363636</color>
     <color name="switchButton">#4ACB63</color>
+    <color name="comment_divider">#cccccc</color>
+
+    <color name="black_p50">#7f000000</color>
+    <color name="gray_e7e7e7">#e7e7e7</color>
+    <color name="b_c_fafafa">#fafafa</color>
+    <color name="blue_4285f4">#4285f4</color>
+    <color name="black_5a626d">#5a626d</color>
+
 </resources>

@@ -63,7 +63,7 @@
             <ImageView
                 android:layout_width="19dp"
                 android:layout_height="19dp"
-                android:src="@drawable/bottom_01" />
+                android:src="@drawable/total_o" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -88,12 +88,13 @@
             android:text="如何获取积分？"
             android:textColor="@color/blackHint"
             android:textSize="14sp" />
+
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/my_wallet"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/my_wallet"
         android:layout_marginTop="10dp"
         android:background="@color/white"
         android:gravity="center_vertical"
@@ -103,7 +104,7 @@
         <ImageView
             android:layout_width="19dp"
             android:layout_height="19dp"
-            android:src="@drawable/bottom_02" />
+            android:src="@drawable/balance_opacity" />
 
         <TextView
             android:layout_width="0dp"
@@ -141,7 +142,7 @@
         <ImageView
             android:layout_width="19dp"
             android:layout_height="19dp"
-            android:src="@drawable/bottom_03" />
+            android:src="@drawable/service_opacity" />
 
         <TextView
             android:layout_width="0dp"
@@ -170,7 +171,7 @@
         <ImageView
             android:layout_width="19dp"
             android:layout_height="19dp"
-            android:src="@drawable/bottom_04" />
+            android:src="@drawable/feedback_o" />
 
         <TextView
             android:layout_width="0dp"
@@ -199,7 +200,7 @@
         <ImageView
             android:layout_width="19dp"
             android:layout_height="19dp"
-            android:src="@drawable/bottom_02" />
+            android:src="@drawable/set_opacity" />
 
         <TextView
             android:layout_width="0dp"

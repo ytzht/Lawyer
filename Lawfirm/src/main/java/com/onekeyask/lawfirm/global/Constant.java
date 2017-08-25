@@ -31,4 +31,10 @@ public class Constant {
      */
     public static boolean goService = false;
 
+
+    public static int lawyerId = 3;
+
+    public static int userId = 2;
+
+
 }

@@ -72,6 +72,9 @@
             android:name=".ui.act.talk.AskDetailActivity"
             android:label=""
             android:launchMode="singleTask" />
+        <activity android:name=".ui.act.user.LoginActivity" />
+        <activity android:name=".ui.act.user.RegisterActivity" />
+        <activity android:name=".ui.act.user.IdentityVerificationActivity"></activity>
     </application>
 
 </manifest>
