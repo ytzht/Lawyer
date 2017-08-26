@@ -56,7 +56,6 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     /**
      * 发送微信支付结果的本地广播
      * 本地广播比全局广播效率高，更安全
-     * <p>
      * 接收者请参考：
      * http://www.cnblogs.com/trinea/archive/2012/11/09/2763182.html
      *
