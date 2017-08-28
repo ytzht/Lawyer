@@ -1,16 +1,12 @@
 package com.onekeyask.lawfirm.ui.fragment;
 
 import android.content.Context;
-import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.text.Html;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.WindowManager.LayoutParams;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,13 +15,14 @@ import com.bumptech.glide.Glide;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.HomePage;
 import com.onekeyask.lawfirm.global.BaseFragment;
+import com.onekeyask.lawfirm.global.L;
 import com.onekeyask.lawfirm.http.ProgressSubscriber;
 import com.onekeyask.lawfirm.http.SubscriberOnNextListener;
 import com.onekeyask.lawfirm.ui.act.index.GraphicConsultActivity;
-import com.onekeyask.lawfirm.ui.act.index.PayConsultActivity;
 import com.onekeyask.lawfirm.ui.act.index.PersonConsultActivity;
 import com.onekeyask.lawfirm.ui.act.index.PhoneConsultActivity;
-import com.onekeyask.lawfirm.utils.ScreenUtils;
+import com.onekeyask.lawfirm.ui.act.user.TopMsgActivity;
+import com.onekeyask.lawfirm.utils.UserService;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -45,19 +42,15 @@ import rx.Subscriber;
 public class HomeIndexFragment extends BaseFragment {
 
     private View view;
-    private EditText search_et;
+    private TextView search_et;
     private Banner banner;
     private HomePage homePage;
     private Subscriber subscriber;
-    private TextView tv_monthIncome_index, tv_balance_index;
+    private TextView tv_monthIncome_index, tv_balance_index, tv_tx, tv_detail;
     private List<String> image_url = new ArrayList<>();
     private List<String> banner_img = new ArrayList<>();
     private RelativeLayout rl_project_one, rl_project_two, rl_project_three, rl_project_four;
-
-    private ImageView img;
-
-    private WindowManager windowManager;
-
+    private ImageView iv_top_msg;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,58 +61,38 @@ public class HomeIndexFragment extends BaseFragment {
 
     private void initView(View view) {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        search_et = (EditText) view.findViewById(R.id.search_et);
+        search_et = (TextView) view.findViewById(R.id.search_et);
         tv_monthIncome_index = (TextView) view.findViewById(R.id.tv_monthIncome_index);
+        tv_tx = (TextView) view.findViewById(R.id.tv_tx);
+        tv_detail = (TextView) view.findViewById(R.id.tv_detail);
         tv_balance_index = (TextView) view.findViewById(R.id.tv_balance_index);
         rl_project_one = (RelativeLayout) view.findViewById(R.id.rl_project_one);
         rl_project_two = (RelativeLayout) view.findViewById(R.id.rl_project_two);
         rl_project_three = (RelativeLayout) view.findViewById(R.id.rl_project_three);
         rl_project_four = (RelativeLayout) view.findViewById(R.id.rl_project_four);
-
-        initBanner(view);
-
-
-//        initWindow(view);
-    }
-
-    private void initWindow(View view) {
-        windowManager = getActivity().getWindowManager();
-
-        // 动态初始化图层
-        img = new ImageView(getActivity());
-        img.setLayoutParams(new LayoutParams(
-                android.view.ViewGroup.LayoutParams.MATCH_PARENT,
-                android.view.ViewGroup.LayoutParams.MATCH_PARENT));
-        img.setScaleType(ImageView.ScaleType.FIT_XY);
-        img.setImageResource(R.drawable.guide);
-
-        // 设置LayoutParams参数
-        LayoutParams params = new WindowManager.LayoutParams();
-        // 设置显示的类型，TYPE_PHONE指的是来电话的时候会被覆盖，其他时候会在最前端，显示位置在stateBar下面，其他更多的值请查阅文档
-        params.type = WindowManager.LayoutParams.TYPE_PHONE;
-        // 设置显示格式
-        params.format = PixelFormat.RGBA_8888;
-        // 设置对齐方式
-        params.gravity = Gravity.LEFT | Gravity.TOP;
-        // 设置宽高
-        params.width = ScreenUtils.getScreenWidth(getActivity());
-        params.height = ScreenUtils.getScreenHeight(getActivity());
-
-        // 添加到当前的窗口上
-        windowManager.addView(img, params);
-
-        // 点击图层之后，将图层移除
-        img.setOnClickListener(new View.OnClickListener() {
-
+        iv_top_msg = (ImageView) view.findViewById(R.id.iv_top_msg);
+        iv_top_msg.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View arg0) {
-                windowManager.removeView(img);
+            public void onClick(View v) {
+                startActivity(TopMsgActivity.class);
+            }
+        });
+        tv_tx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showShort("提现");
             }
         });
 
+        tv_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showShort("收入详情");
+            }
+        });
+        initBanner(view);
+
     }
-
-
     private void initBanner(View view) {
         banner = (Banner) view.findViewById(R.id.banner_index);
 
@@ -194,7 +167,7 @@ public class HomeIndexFragment extends BaseFragment {
             public void onNext(HomePage page) {
                 homePage = page;
 
-                tv_monthIncome_index.setText(Html.fromHtml("本月收入: <font color='#f79f0a'>￥" + homePage.getMonthIncome() + "元</font>"));
+//                tv_monthIncome_index.setText(Html.fromHtml("本月收入: <font color='#f79f0a'>￥" + homePage.getMonthIncome() + "元</font>"));
                 tv_balance_index.setText(Html.fromHtml("我的钱包: <font color='#f79f0a'>￥" + homePage.getBalance() + "元</font>"));
 
                 for (int i = 0; i < homePage.getServiceList().size(); i++) {
@@ -224,13 +197,13 @@ public class HomeIndexFragment extends BaseFragment {
                                 }
                             });
                             break;
-                        case 9://打赏咨询
-                            rl_project_one.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    startActivity(PayConsultActivity.class, "switch", homePage.getServiceList().get(finalI).isIsOn() + "");
-                                }
-                            });
+//                        case 9://打赏咨询
+//                            rl_project_one.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    startActivity(PayConsultActivity.class, "switch", homePage.getServiceList().get(finalI).isIsOn() + "");
+//                                }
+//                            });
                     }
                 }
 
@@ -246,6 +219,7 @@ public class HomeIndexFragment extends BaseFragment {
                     banner.setOnBannerListener(new OnBannerListener() {
                         @Override
                         public void OnBannerClick(int position) {
+                            L.d(position+"");
                             showShort(homePage.getAdList().get(position).getContent());
                         }
                     });
@@ -265,7 +239,7 @@ public class HomeIndexFragment extends BaseFragment {
             }
         };
 
-        retrofitUtil.getHomePage("3", new ProgressSubscriber<HomePage>(getResultOnNext, getActivity(), false));
+        retrofitUtil.getHomePage(UserService.service(getActivity()).getLawyerId(), new ProgressSubscriber<HomePage>(getResultOnNext, getActivity(), false));
     }
 
     private class GlideImageLoader extends ImageLoader {

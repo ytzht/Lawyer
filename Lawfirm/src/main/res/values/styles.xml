@@ -46,6 +46,10 @@
         <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
     </style>
 
+    <style name="PopupTheme" parent="AppTheme">
+        <item name="android:windowIsTranslucent">false</item><!--就是关掉这个Activity的透明背景-->
+    </style>
+
     <style name="Base.TextAppearance" parent="Base.TextAppearance.AppCompat">
         <item name="android:textSize">14sp</item>
     </style>

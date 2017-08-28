@@ -6,52 +6,26 @@ package com.onekeyask.lawfirm.entity;
 
 public class BaseResult {
     /**
-     * err : {"code":-130,"msg":"找不到对话信息","eventid":""}
+     * code : 0
+     * msg : 正常
      */
 
-    private ErrBean err;
+    private int code;
+    private String msg;
 
-    public ErrBean getErr() {
-        return err;
+    public int getCode() {
+        return code;
     }
 
-    public void setErr(ErrBean err) {
-        this.err = err;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public static class ErrBean {
-        /**
-         * code : -130
-         * msg : 找不到对话信息
-         * eventid :
-         */
+    public String getMsg() {
+        return msg;
+    }
 
-        private int code;
-        private String msg;
-        private String eventid;
-
-        public int getCode() {
-            return code;
-        }
-
-        public void setCode(int code) {
-            this.code = code;
-        }
-
-        public String getMsg() {
-            return msg;
-        }
-
-        public void setMsg(String msg) {
-            this.msg = msg;
-        }
-
-        public String getEventid() {
-            return eventid;
-        }
-
-        public void setEventid(String eventid) {
-            this.eventid = eventid;
-        }
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

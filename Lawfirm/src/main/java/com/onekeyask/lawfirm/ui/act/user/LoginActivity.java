@@ -125,6 +125,7 @@ public class LoginActivity extends BaseToolBarActivity {
                                     switch (login.getData().getLawyer().getStatus()){
                                         case "0"://正常
                                             showShort("正常");
+                                            finish();
                                             break;
                                         case "1"://冻结
                                             showShort("冻结");
@@ -137,9 +138,12 @@ public class LoginActivity extends BaseToolBarActivity {
                                             break;
                                         case "3"://等待审核
                                             showShort("等待审核");
+                                            finish();
                                             break;
                                         case "4"://审核不通过
                                             showShort("审核不通过");
+                                            startActivity(GotoVerifyActivity.class);
+                                            finish();
                                             break;
 
                                     }

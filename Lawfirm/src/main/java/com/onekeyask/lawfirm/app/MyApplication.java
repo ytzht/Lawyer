@@ -21,6 +21,7 @@ import com.onekeyask.lawfirm.global.L;
 import com.onekeyask.lawfirm.http.APIFactory;
 import com.onekeyask.lawfirm.image.DemoDuiTangImageReSizer;
 import com.onekeyask.lawfirm.image.PtrImageLoadHandler;
+import com.onekeyask.lawfirm.utils.UserService;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
@@ -77,6 +78,7 @@ public class MyApplication extends Application {
             public void onSuccess(String deviceToken) {
                 //注册成功会返回device token
                 L.d("deviceToken " + deviceToken);
+                UserService.service(getBaseContext()).setDeviceToken(deviceToken);
             }
 
             @Override

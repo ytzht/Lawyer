@@ -166,7 +166,34 @@
             android:layout_height="20dp"
             android:src="@drawable/arrow_r_g" />
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/opinion"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
+        <ImageView
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:src="@drawable/feedback_o" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:text="意见反馈"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="20dp"
+            android:src="@drawable/arrow_r_g" />
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/setting"
         android:layout_width="match_parent"

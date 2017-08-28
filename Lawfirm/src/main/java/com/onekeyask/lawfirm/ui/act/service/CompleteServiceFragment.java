@@ -22,6 +22,7 @@ import com.onekeyask.lawfirm.global.BaseFragment;
 import com.onekeyask.lawfirm.http.ProgressSubscriber;
 import com.onekeyask.lawfirm.http.SubscriberOnNextListener;
 import com.onekeyask.lawfirm.utils.MyDecoration;
+import com.onekeyask.lawfirm.utils.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +95,7 @@ public class CompleteServiceFragment extends BaseFragment {
                 showShort(message);
             }
         };
-        retrofitUtil.getConversationChatList(3, index, size, "2", type, new ProgressSubscriber<ConversationChatList>(getResultOnNextserver, getActivity(), false));
+        retrofitUtil.getConversationChatList(UserService.service(getActivity()).getLawyerId(), index, size, "2", type, new ProgressSubscriber<ConversationChatList>(getResultOnNextserver, getActivity(), false));
 
 
     }

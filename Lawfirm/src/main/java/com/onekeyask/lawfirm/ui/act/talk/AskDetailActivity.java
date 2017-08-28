@@ -22,6 +22,7 @@ import com.onekeyask.lawfirm.global.BaseActivity;
 import com.onekeyask.lawfirm.http.ProgressSubscriber;
 import com.onekeyask.lawfirm.http.SubscriberOnNextListener;
 import com.onekeyask.lawfirm.ui.act.service.TalkingActivity;
+import com.onekeyask.lawfirm.utils.UserService;
 import com.onekeyask.lawfirm.utils.photo.Info;
 import com.onekeyask.lawfirm.utils.photo.PhotoView;
 import com.squareup.picasso.Picasso;
@@ -147,7 +148,7 @@ public class AskDetailActivity extends BaseActivity {
             }
         };
 
-        retrofitUtil.getFreeAskOrder(freeAskId, 3, new ProgressSubscriber<FreeAskOrder>(listener, AskDetailActivity.this, true));
+        retrofitUtil.getFreeAskOrder(freeAskId, UserService.service(getBaseContext()).getLawyerId(), new ProgressSubscriber<FreeAskOrder>(listener, AskDetailActivity.this, true));
 
     }
 
@@ -218,7 +219,7 @@ public class AskDetailActivity extends BaseActivity {
             }
         };
 
-        retrofitUtil.getAskDetail(freeAskId, 3, new ProgressSubscriber<AskDetail>(listener, AskDetailActivity.this, false));
+        retrofitUtil.getAskDetail(freeAskId, UserService.service(getBaseContext()).getLawyerId(), new ProgressSubscriber<AskDetail>(listener, AskDetailActivity.this, false));
 
     }
 

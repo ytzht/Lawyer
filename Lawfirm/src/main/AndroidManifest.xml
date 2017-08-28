@@ -72,9 +72,37 @@
             android:name=".ui.act.talk.AskDetailActivity"
             android:label=""
             android:launchMode="singleTask" />
-        <activity android:name=".ui.act.user.LoginActivity" />
-        <activity android:name=".ui.act.user.RegisterActivity" />
-        <activity android:name=".ui.act.user.IdentityVerificationActivity"></activity>
+        <activity
+            android:name=".ui.act.user.LoginActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.user.RegisterActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.user.IdentityVerificationActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.act.user.IdentityVerificationNextActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".ui.act.user.GotoVerifyActivity" />
+        <activity android:name=".ui.act.me.SettingActivity" />
+        <activity android:name=".ui.act.user.ResetPasswordActivity" />
+        <activity android:name=".ui.act.me.StatementActivity" />
+        <activity android:name=".ui.act.user.TopMsgActivity" />
+        <activity android:name=".ui.act.user.MsgDetailActivity" />
+        <activity android:name=".ui.act.me.MyWalletActivity" />
+        <activity android:name=".ui.act.me.BillingDetailsActivity" />
+        <activity android:name=".ui.act.me.WithStateActivity" />
+        <activity android:name=".ui.act.me.WithdrawalActivity" />
+        <activity android:name=".ui.act.me.PwdAuthActivity" />
+        <activity android:name=".ui.act.me.ChooseBankActivity" />
+        <activity android:name=".ui.act.me.AddCardActivity" />
+        <activity android:name=".ui.act.me.CardManageActivity" />
+        <activity android:name=".ui.act.me.OpinionActivity" />
+        <activity android:name=".ui.act.me.SubmitOpinionActivity" />
+        <activity android:name=".ui.act.user.MyInfoActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/PopupTheme"/>
     </application>
 
 </manifest>

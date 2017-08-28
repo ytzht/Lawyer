@@ -4,6 +4,6 @@
     <item
         android:id="@+id/my_wallet"
         android:orderInCategory="80"
-        android:title="账目明细"
+        android:title="提现明细"
         app:showAsAction="always" />
 </menu>

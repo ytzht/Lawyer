@@ -13,7 +13,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.global.BaseFragment;
+import com.onekeyask.lawfirm.ui.act.me.MyWalletActivity;
+import com.onekeyask.lawfirm.ui.act.me.OpinionActivity;
+import com.onekeyask.lawfirm.ui.act.me.SettingActivity;
 import com.onekeyask.lawfirm.ui.act.user.LoginActivity;
+import com.onekeyask.lawfirm.ui.act.user.MyInfoActivity;
 import com.onekeyask.lawfirm.utils.UserService;
 
 import butterknife.BindView;
@@ -35,6 +39,8 @@ public class HomeInfoFragment extends BaseFragment {
     TextView userName;
     @BindView(R.id.user_info)
     ImageView userInfo;
+    @BindView(R.id.opinion)
+    LinearLayout opinion;
     @BindView(R.id.my_money)
     TextView myMoney;
     @BindView(R.id.my_wallet)
@@ -65,14 +71,14 @@ public class HomeInfoFragment extends BaseFragment {
         if (!userService.getToken().equals("")) {
             userName.setText(userService.getUserName());
             if (userService.getHeadURL().equals("")){
-                userHeader.setImageResource(R.drawable.ic_member_avatar);
+                userHeader.setImageResource(R.drawable.no_portrait_b);
             }else {
                 Glide.with(getActivity()).load(userService.getHeadURL()).skipMemoryCache(true)
                         .diskCacheStrategy(DiskCacheStrategy.NONE).into(userHeader);
             }
         }else {
             userName.setText("登录/注册");
-            userHeader.setImageResource(R.drawable.ic_member_avatar);
+            userHeader.setImageResource(R.drawable.no_portrait);
         }
 
 //        Picasso.with(getActivity()).load(userService.getHeadURL()).into(userHeader);
@@ -85,26 +91,28 @@ public class HomeInfoFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.my_wallet, R.id.customer_server, R.id.setting, R.id.my_header})
+    @OnClick({R.id.my_wallet, R.id.customer_server, R.id.setting, R.id.my_header, R.id.opinion})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_wallet://我的钱包
-//                startActivity(MyWalletActivity.class);
+                startActivity(MyWalletActivity.class);
                 break;
             case R.id.customer_server://客服
                 showAlert();
                 break;
-
+            case R.id.opinion://意见反馈
+                startActivity(OpinionActivity.class);
+                break;
             case R.id.setting:
-//                startActivity(SettingActivity.class);
+                startActivity(SettingActivity.class);
                 break;
             case R.id.my_header://头部登录
 
-//                if (userService.getToken().equals("")) {
+                if (userService.getToken().equals("")) {
                     startActivity(LoginActivity.class);
-//                }else {
-//                    startActivity(MyInfoActivity.class);
-//                }
+                }else {
+                    startActivity(MyInfoActivity.class);
+                }
                 break;
         }
     }

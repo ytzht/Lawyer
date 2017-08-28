@@ -20,6 +20,7 @@ public class UserService {
     private static final String LawyerId = "_lawyerId";
     private static final String HeadURL = "_headURL";
     private static final String SearchHistory = "_searchHistory";
+    private static final String Introduce = "_introduce";
     private Context context;
 
     public static UserService service(Context context) {
@@ -64,6 +65,18 @@ public class UserService {
         SharedPreferences memberPrefs = context.getSharedPreferences(
                 UserName, Context.MODE_PRIVATE);
         memberPrefs.edit().putString(UserName, userName).apply();
+    }
+
+    public String getIntroduce() {
+        SharedPreferences memberPrefs = context.getSharedPreferences(
+                Introduce, Context.MODE_PRIVATE);
+        return memberPrefs.getString(Introduce, "");
+    }
+
+    public void setIntroduce(String introduce) {
+        SharedPreferences memberPrefs = context.getSharedPreferences(
+                Introduce, Context.MODE_PRIVATE);
+        memberPrefs.edit().putString(Introduce, introduce).apply();
     }
 
     public int getLawyerId() {

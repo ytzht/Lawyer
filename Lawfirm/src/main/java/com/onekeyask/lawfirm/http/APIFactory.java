@@ -8,6 +8,7 @@ import com.onekeyask.lawfirm.entity.ConversationGetList;
 import com.onekeyask.lawfirm.entity.FoundFrag;
 import com.onekeyask.lawfirm.entity.FreeAskOrder;
 import com.onekeyask.lawfirm.entity.HomePage;
+import com.onekeyask.lawfirm.entity.ResultData;
 import com.onekeyask.lawfirm.entity.SendCon;
 
 import java.util.Map;
@@ -26,7 +27,7 @@ public class APIFactory extends RetrofitHttpUtil{
         return new APIFactory();
     }
 
-    public void getHomePage(String lawyerId, Subscriber<HomePage> subscriber){
+    public void getHomePage(int lawyerId, Subscriber<HomePage> subscriber){
         Observable<HomePage> observable = getService().getHomePage(lawyerId)
                 .map(new HttpResultFunc<HomePage>());
         toSubscribe(observable, subscriber);
@@ -35,11 +36,6 @@ public class APIFactory extends RetrofitHttpUtil{
     public void getConversationChatList(long lawyerId, int page, int size, String status, int type, Subscriber<ConversationChatList> subscriber){
         Observable<ConversationChatList> observable = getService().getConversationChatList(lawyerId, page, size, status, type)
                 .map(new HttpResultFunc<ConversationChatList>());
-        toSubscribe(observable, subscriber);
-    }
-
-    public void getFinshedOrder(Map<String, String> map, Subscriber<BaseResult> subscriber){
-        Observable<BaseResult> observable = getService().getFinshedOrder(map);
         toSubscribe(observable, subscriber);
     }
 
@@ -73,18 +69,22 @@ public class APIFactory extends RetrofitHttpUtil{
         toSubscribe(observable, subscriber);
     }
 
-    public void getFinishCon(long lawyerId, String chatId, Subscriber<BaseResult> subscriber){
-        Observable<BaseResult> observable = getService().getFinishCon(lawyerId, chatId);
-        toSubscribe(observable, subscriber);
-    }
-
     public void getSendPic(Map<String, RequestBody> map, Subscriber<SendCon> subscriber) {
         Observable<SendCon> observable = getService().getSendPic(map)
                 .map(new HttpResultFunc<SendCon>());
         toSubscribe(observable, subscriber);
     }
 
+    public void gotoVerify(Map<String, RequestBody> map, Subscriber<ResultData> subscriber) {
+        Observable<ResultData> observable = getService().gotoVerify(map);
+        toSubscribe(observable, subscriber);
+    }
 
+
+    public void getSubmitadvice(Map<String, RequestBody> map, Subscriber<BaseResult> subscriber) {
+        Observable<BaseResult> observable = getService().getSubmitadvice(map);
+        toSubscribe(observable, subscriber);
+    }
 
 
 

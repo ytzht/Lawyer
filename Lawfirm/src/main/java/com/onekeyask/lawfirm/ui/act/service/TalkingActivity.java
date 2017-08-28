@@ -37,6 +37,7 @@ import com.onekeyask.lawfirm.http.ProgressSubscriber;
 import com.onekeyask.lawfirm.http.SubscriberOnNextListener;
 import com.onekeyask.lawfirm.utils.DiffCallTalkingBack;
 import com.onekeyask.lawfirm.utils.HideUtil;
+import com.onekeyask.lawfirm.utils.UserService;
 import com.onekeyask.lawfirm.utils.photo.Info;
 import com.onekeyask.lawfirm.utils.photo.PhotoView;
 import com.squareup.picasso.Picasso;
@@ -277,7 +278,7 @@ public class TalkingActivity extends BaseActivity {
         };
 
         L.d("send cid " + cid);
-        retrofitUtil.getSendCon(3, cid, et_send_msg.getText().toString(), new ProgressSubscriber<SendCon>(listener, TalkingActivity.this, false));
+        retrofitUtil.getSendCon(UserService.service(getBaseContext()).getLawyerId(), cid, et_send_msg.getText().toString(), new ProgressSubscriber<SendCon>(listener, TalkingActivity.this, false));
     }
 
 
@@ -432,7 +433,7 @@ public class TalkingActivity extends BaseActivity {
             conversationId = firstConversationId;//向上查数据
         }
 
-        retrofitUtil.getConversationList(3, cid, conversationId, direction, size, new ProgressSubscriber<ConversationGetList>(listener, TalkingActivity.this, false));
+        retrofitUtil.getConversationList(UserService.service(getBaseContext()).getLawyerId(), cid, conversationId, direction, size, new ProgressSubscriber<ConversationGetList>(listener, TalkingActivity.this, false));
     }
 
     @Override
@@ -619,7 +620,7 @@ public class TalkingActivity extends BaseActivity {
 
                         Map<String, RequestBody> map = new HashMap<>();
                         map.clear();
-                        map.put("lawyerId", RequestBody.create(null, "3"));
+                        map.put("lawyerId", RequestBody.create(null, UserService.service(getBaseContext()).getLawyerId()+""));
                         map.put("chatId", RequestBody.create(null, cid));
                         String key = "picture\"; filename=\"picture";
                         map.put(key, RequestBody.create(MediaType.parse("multipart/form-data"), file));

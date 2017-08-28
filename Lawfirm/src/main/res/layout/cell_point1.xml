@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/ll_point"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="33dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="37dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:textColor="#cccccc"
+            android:layout_weight="5"
+            android:background="@drawable/btn_full_gray"
+            android:gravity="center"
+            android:text="基本信息" />
+
+        <LinearLayout
+            android:id="@+id/ll_point1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center">
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="2dp"
+                android:layout_marginLeft="7dp"
+                android:background="#bfbfbf" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="2dp"
+                android:layout_marginLeft="7dp"
+                android:background="#bfbfbf" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="2dp"
+                android:layout_marginLeft="7dp"
+                android:background="#bfbfbf" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="2dp"
+                android:layout_marginLeft="7dp"
+                android:background="#bfbfbf" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="2dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:background="#bfbfbf" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:textColor="@color/white"
+            android:layout_height="30dp"
+            android:layout_weight="5"
+            android:background="@drawable/btn_full_four"
+            android:gravity="center"
+            android:text="身份验证" />
+
+        <LinearLayout
+            android:id="@+id/ll_point2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center">
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="2dp"
+                android:layout_marginLeft="7dp"
+                android:background="#bfbfbf" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="2dp"
+                android:layout_marginLeft="7dp"
+                android:background="#bfbfbf" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="2dp"
+                android:layout_marginLeft="7dp"
+                android:background="#bfbfbf" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="2dp"
+                android:layout_marginLeft="7dp"
+                android:background="#bfbfbf" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="2dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:background="#bfbfbf" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="5"
+            android:background="@drawable/btn_full_gray"
+            android:gravity="center"
+            android:text="提交审核"
+            android:textColor="#cccccc" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:paddingTop="17dp"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:background="#efefef"
+        android:gravity="center_vertical"
+        android:layout_height="55dp">
+
+
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:src="@drawable/tips"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:textColor="#8e8e8e"
+
+            android:text="以下信息仅作认证使用，不会公开"/>
+
+    </LinearLayout>
+
+</LinearLayout>

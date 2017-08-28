@@ -18,6 +18,7 @@ import com.onekeyask.lawfirm.http.ProgressSubscriber;
 import com.onekeyask.lawfirm.http.SubscriberOnNextListener;
 import com.onekeyask.lawfirm.ui.act.talk.AskDetailActivity;
 import com.onekeyask.lawfirm.utils.MyDecoration;
+import com.onekeyask.lawfirm.utils.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -138,7 +139,7 @@ public class HomeFoundFragment extends BaseFragment {
             }
         };
 
-        retrofitUtil.getFoundFragList(3, index, size, new ProgressSubscriber<FoundFrag>(listener, getActivity(), false));
+        retrofitUtil.getFoundFragList(UserService.service(getActivity()).getLawyerId(), index, size, new ProgressSubscriber<FoundFrag>(listener, getActivity(), false));
     }
 
     private class FoundFragAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

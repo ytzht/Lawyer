@@ -1,20 +1,14 @@
 package com.onekeyask.lawfirm.network;
 
 import com.onekeyask.lawfirm.entity.AskDetail;
-import com.onekeyask.lawfirm.entity.BaseResult;
 import com.onekeyask.lawfirm.entity.ConversationChatList;
 import com.onekeyask.lawfirm.entity.ConversationGetList;
 import com.onekeyask.lawfirm.entity.FoundFrag;
 import com.onekeyask.lawfirm.entity.FreeAskOrder;
 import com.onekeyask.lawfirm.entity.SendCon;
 
-import java.util.Map;
-
 import retrofit2.Call;
-import retrofit2.http.FieldMap;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -30,10 +24,10 @@ public interface LBiz {
                                                        @Query("size") int size,//行数
                                                        @Query("type") int type);//对话类型 0或不传-全部 1-图文订单 2-免费提问 3-打赏咨询
 
-    //1.24完成订单
-    @FormUrlEncoded
-    @POST("l/order/finshedOrder")
-    Call<BaseResult> getFinshedOrder(@FieldMap Map<String, String> params);
+//    //1.24完成订单
+//    @FormUrlEncoded
+//    @POST("l/order/finshedOrder")
+//    Call<BaseResult> getFinshedOrder(@FieldMap Map<String, String> params);
 
     //1.29获取我的对话列表
     @GET("l/conversation/getList")
@@ -64,10 +58,10 @@ public interface LBiz {
     Call<FreeAskOrder> getFreeAskOrder(@Query("freeaskId") String freeaskId,//免费提问Id
                                        @Query("lawyerId") long lawyerId);//律师id
 
-    //1.34完成对话咨询
-    @GET("l/conversation/finishConversation")
-    Call<BaseResult> getFinishCon(@Query("lawyerId") long lawyerId,//律师ID
-                                  @Query("chatId") String chatId);//订单ID
+//    //1.34完成对话咨询
+//    @GET("l/conversation/finishConversation")
+//    Call<BaseResult> getFinishCon(@Query("lawyerId") long lawyerId,//律师ID
+//                                  @Query("chatId") String chatId);//订单ID
 
 
 
