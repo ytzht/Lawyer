@@ -12,7 +12,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
-import com.onekeyask.lawfirm.entity.Register;
+import com.onekeyask.lawfirm.entity.ResultData;
 import com.onekeyask.lawfirm.entity.SMSCode;
 import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.global.Apis;
@@ -23,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RegisterActivity extends BaseToolBarActivity {
+public class MissPasswordActivity extends BaseToolBarActivity {
 
     @BindView(R.id.et_phone)
     EditText etPhone;
@@ -33,6 +33,8 @@ public class RegisterActivity extends BaseToolBarActivity {
     TextView tvGetCode;
     @BindView(R.id.et_pwd)
     EditText etPwd;
+    @BindView(R.id.et_pwd_confirm)
+    EditText etPwdConfirm;
     @BindView(R.id.register_submit)
     TextView registerSubmit;
     @BindView(R.id.login)
@@ -43,14 +45,12 @@ public class RegisterActivity extends BaseToolBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_miss_password);
         ButterKnife.bind(this);
-        setToolbarText("注册法宝律师");
+        setToolbarText("忘记密码");
 
         initView();
-
     }
-
 
     private void initView() {
         handler = new Handler();
@@ -77,6 +77,7 @@ public class RegisterActivity extends BaseToolBarActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_get_code:
+
                 String accout = etPhone.getEditableText().toString();
                 if (Forms.disValid(accout, Forms.PHONENUM)) {
                     etPhone.requestFocus();
@@ -88,14 +89,15 @@ public class RegisterActivity extends BaseToolBarActivity {
                     @Override
                     public void onSuccess(Response<String> response) {
                         SMSCode data = (new Gson()).fromJson(response.body(), SMSCode.class);
-                        if (data.getCode() == 0) {
+                        if (data.getCode() == 0){
                             codeId = data.getData().getCodeId();
                             djs();
-                        } else {
+                        }else {
                             showShort(data.getMsg());
                         }
                     }
                 });
+
 
                 break;
             case R.id.register_submit:
@@ -110,69 +112,48 @@ public class RegisterActivity extends BaseToolBarActivity {
                     return;
                 }
                 final String password = etPwd.getText().toString();
+                final String etPwdCon = etPwdConfirm.getText().toString();
 
-                if (password.equals("")) {
+                if (password.equals("")){
                     showShort("请输入密码");
                     return;
                 }
-                if (password.length() < 6) {
+                if (password.length() < 6){
                     showShort("密码长度过短");
+                    return;
+                }
+
+                if (!password.equals(etPwdCon)){
+                    showShort("两次输入的密码不一致");
                     return;
                 }
 
                 String code = etCode.getText().toString();
 
-                if (code.equals("")) {
+                if (code.equals("")){
                     showShort("请输入验证码");
                     return;
                 }
-                if (code.length() != 6) {
+                if (code.length() != 6){
                     showShort("请输入正确验证码");
                     return;
                 }
-
-                OkGo.<String>get(Apis.Register)
+                OkGo.<String>get(Apis.Resetpwd)
                         .params("phoneNo", phoneNo)
                         .params("code", code)
                         .params("codeId", codeId)
                         .params("password", password)
-                        .params("phoneType", "android")
-                        .params("model", model)
-                        .params("deviceToken", deviceToken)
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
-                                Register register = (new Gson()).fromJson(response.body(), Register.class);
-
-                                if (register.getCode() == 0) {
-
-                                    UserService.service(getBaseContext()).setToken(register.getData().getToken());
-
-                                    switch (register.getData().getLawyer().getStatus()){
-                                        case "0"://正常
-                                            showShort("正常");
-                                            break;
-                                        case "1"://冻结
-                                            showShort("冻结");
-                                            break;
-                                        case "2"://未提交审核
-
-                                            UserService.service(getBaseContext()).setLawyerId(register.getData().getLawyer().getLawyerId());
-                                            startActivity(IdentityVerificationActivity.class);
-
-                                            break;
-                                        case "3"://等待审核
-                                            showShort("等待审核");
-                                            break;
-                                        case "4"://审核不通过
-                                            showShort("审核不通过");
-                                            break;
-
-                                    }
-
-
+                                ResultData register = (new Gson()).fromJson(response.body(), ResultData.class);
+                                if (register.getCode() == 0){
+                                    showShort("修改成功");
+                                    UserService service = new UserService(getBaseContext());
+                                    service.setPhone(phoneNo);
+                                    service.setPassword(password);
                                     finish();
-                                } else {
+                                }else {
                                     showShort(register.getMsg());
                                 }
 
@@ -180,13 +161,25 @@ public class RegisterActivity extends BaseToolBarActivity {
                         });
 
 
+
                 break;
             case R.id.login:
-                startActivity(LoginActivity.class);
-                finish();
                 break;
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private Handler handler;
     private Runnable runnable;
@@ -208,6 +201,5 @@ public class RegisterActivity extends BaseToolBarActivity {
             handler = null;
         }
     }
-
 
 }

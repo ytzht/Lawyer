@@ -7,15 +7,17 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.GotoVerify;
+import com.onekeyask.lawfirm.entity.MsgDetail;
 import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.global.L;
-import com.onekeyask.lawfirm.ui.act.Apis;
+import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.utils.UserService;
 
 public class GotoVerifyActivity extends BaseToolBarActivity {
@@ -35,6 +37,24 @@ public class GotoVerifyActivity extends BaseToolBarActivity {
         this.tvunre = (TextView) findViewById(R.id.tv_un_re);
         setToolbarText("身份验证");
 
+        if (getIntent().hasExtra("id")){
+            if (getIntent().getIntExtra("id", 0) != 0){
+                OkGo.<String>get(Apis.MessageDetail).params("lawyerId", UserService.service(getBaseContext()).getLawyerId())
+                        .params("messageId", getIntent().getIntExtra("id", 0)).execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        MsgDetail msgDetail = JSON.parseObject(response.body(), MsgDetail.class);
+                        if (msgDetail.getCode() == 0){
+
+                        }else {
+                            showShort(msgDetail.getMsg());
+                            finish();
+                        }
+                    }
+                });
+            }
+
+        }
 
         OkGo.<String>get(Apis.GotoVerify).params("lawyerId", UserService.service(getBaseContext()).getLawyerId())
                 .execute(new StringCallback() {

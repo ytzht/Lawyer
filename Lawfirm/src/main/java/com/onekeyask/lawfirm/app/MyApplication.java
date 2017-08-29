@@ -18,6 +18,7 @@ import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.onekeyask.lawfirm.global.BuildConfig;
 import com.onekeyask.lawfirm.global.L;
+import com.onekeyask.lawfirm.global.MyPushIntentService;
 import com.onekeyask.lawfirm.http.APIFactory;
 import com.onekeyask.lawfirm.image.DemoDuiTangImageReSizer;
 import com.onekeyask.lawfirm.image.PtrImageLoadHandler;
@@ -87,6 +88,7 @@ public class MyApplication extends Application {
             }
         });
         mPushAgent.setDebugMode(BuildConfig.DEBUG);
+        mPushAgent.setPushIntentServiceClass(MyPushIntentService.class);
     }
 
     private void initRetrofit() {

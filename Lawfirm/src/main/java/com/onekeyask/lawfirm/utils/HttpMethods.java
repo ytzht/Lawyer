@@ -2,7 +2,7 @@ package com.onekeyask.lawfirm.utils;
 
 import com.onekeyask.lawfirm.http.HttpResult;
 import com.onekeyask.lawfirm.network.LBiz;
-import com.onekeyask.lawfirm.ui.act.Apis;
+import com.onekeyask.lawfirm.global.Apis;
 
 import java.util.concurrent.TimeUnit;
 

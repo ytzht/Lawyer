@@ -100,6 +100,8 @@ public class MainActivity extends BaseActivity {
 
                     if (red.getData().getMessageIds().size() != 0){
                         //消息中心的右上角小红点显示
+                    }else {
+
                     }
 
                     if ((red.getData().getChatIds().size() + red.getData().getUserServiceInfoIds().size()) != 0){

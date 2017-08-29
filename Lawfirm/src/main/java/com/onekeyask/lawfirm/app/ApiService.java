@@ -1,6 +1,6 @@
 package com.onekeyask.lawfirm.app;
 
-import com.onekeyask.lawfirm.ui.act.Apis;
+import com.onekeyask.lawfirm.global.Apis;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;

@@ -2,6 +2,7 @@ package com.onekeyask.lawfirm.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +13,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
+import com.onekeyask.lawfirm.entity.GetRed;
 import com.onekeyask.lawfirm.entity.HomePage;
+import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.global.BaseFragment;
 import com.onekeyask.lawfirm.global.L;
 import com.onekeyask.lawfirm.http.ProgressSubscriber;
@@ -21,6 +28,7 @@ import com.onekeyask.lawfirm.http.SubscriberOnNextListener;
 import com.onekeyask.lawfirm.ui.act.index.GraphicConsultActivity;
 import com.onekeyask.lawfirm.ui.act.index.PersonConsultActivity;
 import com.onekeyask.lawfirm.ui.act.index.PhoneConsultActivity;
+import com.onekeyask.lawfirm.ui.act.me.WithdrawalActivity;
 import com.onekeyask.lawfirm.ui.act.user.TopMsgActivity;
 import com.onekeyask.lawfirm.utils.UserService;
 import com.youth.banner.Banner;
@@ -59,6 +67,35 @@ public class HomeIndexFragment extends BaseFragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initRed();
+    }
+
+    private void initRed() {
+        OkGo.<String>get(Apis.GetRed).params("userId", UserService.service(getActivity()).getLawyerId()).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+
+                GetRed red = (new Gson()).fromJson(response.body(), GetRed.class);
+                if (red.getCode() == 0) {
+
+                    if (red.getData().getMessageIds().size() != 0) {
+                        //消息中心的右上角小红点显示
+                        iv_top_msg.setImageResource(R.drawable.tips_n);
+                    } else {
+                        iv_top_msg.setImageResource(R.drawable.tips_);
+                    }
+
+                } else {
+                    showShort(red.getMsg());
+                }
+            }
+        });
+    }
+
+    private AlertDialog alert;
     private void initView(View view) {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         search_et = (TextView) view.findViewById(R.id.search_et);
@@ -80,7 +117,26 @@ public class HomeIndexFragment extends BaseFragment {
         tv_tx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showShort("提现");
+                View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.custom_dialog_share, null, false);
+                alert = new AlertDialog.Builder(getActivity()).setView(view1).setCancelable(false).show();
+                TextView tvMsg = (TextView) view1.findViewById(R.id.tv_msg);
+                TextView cancel = (TextView) view1.findViewById(R.id.tv_cancel);
+                TextView next = (TextView) view1.findViewById(R.id.tv_share_con);
+                cancel.setVisibility(View.VISIBLE);
+                tvMsg.setText("提现需十个工作日的时间才能到账，您是否需要继续？");
+                next.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(WithdrawalActivity.class);
+                        if (alert.isShowing()) alert.dismiss();
+                    }
+                });
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (alert.isShowing()) alert.dismiss();
+                    }
+                });
             }
         });
 
@@ -88,6 +144,9 @@ public class HomeIndexFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 showShort("收入详情");
+                startActivity(WithdrawalActivity.class);
+
+
             }
         });
         initBanner(view);

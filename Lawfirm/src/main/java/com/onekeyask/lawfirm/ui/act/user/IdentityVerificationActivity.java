@@ -25,7 +25,7 @@ import com.onekeyask.lawfirm.entity.GetSpecialInfoList;
 import com.onekeyask.lawfirm.entity.ProvinceBean;
 import com.onekeyask.lawfirm.entity.ResultData;
 import com.onekeyask.lawfirm.global.BaseToolBarActivity;
-import com.onekeyask.lawfirm.ui.act.Apis;
+import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.utils.AssetsUtils;
 import com.onekeyask.lawfirm.utils.UserService;
 

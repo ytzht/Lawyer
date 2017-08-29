@@ -45,16 +45,15 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
             android:gravity="center_vertical"
             android:text="关闭此项服务将不能收到用户信息，正常使用不可关闭"
             android:textColor="@color/blackSec"
             android:textSize="14dp" />
 
         <RelativeLayout
+            android:id="@+id/rl_price"
             android:layout_width="match_parent"
             android:layout_height="49dp"
             android:background="@color/white"
@@ -63,17 +62,25 @@
             android:paddingRight="15dp">
 
             <TextView
+                android:id="@+id/price_cycle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="费用"
                 android:textColor="@color/blackTopic"
                 android:textSize="16dp" />
-
+            <ImageView
+                android:id="@+id/iv_arrow"
+                android:layout_width="16dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/arrow_r_g" />
             <TextView
+                android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="10元/每次"
+                android:layout_toLeftOf="@id/iv_arrow"
+                tools:text="10元/每次"
                 android:textColor="@color/blackSec"
                 android:textSize="14sp" />
 

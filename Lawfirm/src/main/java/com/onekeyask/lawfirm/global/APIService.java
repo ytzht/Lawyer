@@ -30,6 +30,12 @@ import rx.Observable;
 
 public interface APIService {
 
+
+    //1.3提交律师信息验证
+    @Multipart
+    @POST("l/verify")
+    Observable<ResultData> gotoVerify(@PartMap Map<String, RequestBody> params);
+
     //1.8首页
     @GET("l/homepage")
     Observable<HttpResult<HomePage>> getHomePage(@Query("lawyerId") int lawyerId);//律师ID
@@ -42,11 +48,6 @@ public interface APIService {
                                                                          @Query("status") String status,
                                                                          @Query("type") int type);//对话类型 0或不传-全部 1-图文订单 2-免费提问 3-打赏咨询
 
-//    //1.24完成订单
-//    @FormUrlEncoded
-//    @POST("l/order/finshedOrder")
-//    Observable<BaseResult> getFinshedOrder(@FieldMap Map<String, String> params);
-
     //1.15获取单个聊天的详情列表
     @GET("l/conversation/getList")
     Observable<HttpResult<ConversationGetList>> getConversationList(@Query("lawyerId") long lawyerId,//律师ID
@@ -54,20 +55,16 @@ public interface APIService {
                                                                     @Query("conversationId") long conversationId,
                                                                     @Query("direction") String direction,//数据方向  0向上 1向下
                                                                     @Query("size") int size);//条数
-
     //1.16发送对话
     @FormUrlEncoded
     @POST("l/conversation/send")
     Observable<HttpResult<SendCon>> getSendCon(@Field("lawyerId") long lawyerId,//律师ID
                                                @Field("chatId") String chatId,//订单ID
                                                @Field("content") String content);
+    //1.16发送对话
     @Multipart
     @POST("l/conversation/send")
     Observable<HttpResult<SendCon>> getSendPic(@PartMap Map<String, RequestBody> params);
-
-    @Multipart
-    @POST("l/verify")//1.3提交律师信息验证
-    Observable<ResultData> gotoVerify(@PartMap Map<String, RequestBody> params);
 
     //1.17 免费提问列表，未接单状态的
     @GET("l/freeask/list")

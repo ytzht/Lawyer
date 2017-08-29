@@ -12,7 +12,7 @@ import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.ProgressTX;
 import com.onekeyask.lawfirm.global.BaseToolBarActivity;
-import com.onekeyask.lawfirm.ui.act.Apis;
+import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.utils.UserService;
 
 import java.text.SimpleDateFormat;

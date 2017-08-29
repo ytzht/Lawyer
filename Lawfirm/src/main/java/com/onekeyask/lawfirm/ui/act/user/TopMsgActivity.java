@@ -16,7 +16,7 @@ import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.MyMsg;
 import com.onekeyask.lawfirm.global.BaseToolBarActivity;
-import com.onekeyask.lawfirm.ui.act.Apis;
+import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.utils.MyDecoration;
 import com.onekeyask.lawfirm.utils.UserService;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -109,7 +109,11 @@ public class TopMsgActivity extends BaseToolBarActivity {
 
                             if (index == 1) {
                                 data.clear();
-                                data.addAll(myMsg.getData().getMessageList());
+                                if (myMsg.getData().getMessageList() == null){
+
+                                }else {
+                                    data.addAll(myMsg.getData().getMessageList());
+                                }
                                 myMsgList.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
                             } else {

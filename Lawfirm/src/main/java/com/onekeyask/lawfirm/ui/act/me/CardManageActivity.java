@@ -21,7 +21,7 @@ import com.onekeyask.lawfirm.entity.BankCardList;
 import com.onekeyask.lawfirm.entity.ResultData;
 import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.global.L;
-import com.onekeyask.lawfirm.ui.act.Apis;
+import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.utils.UserService;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;

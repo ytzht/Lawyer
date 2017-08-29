@@ -109,7 +109,11 @@ public class TopMsgActivity extends BaseToolBarActivity {
 
                             if (index == 1) {
                                 data.clear();
-                                data.addAll(myMsg.getData().getMessageList());
+                                if (myMsg.getData().getMessageList() == null){
+
+                                }else {
+                                    data.addAll(myMsg.getData().getMessageList());
+                                }
                                 myMsgList.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
                             } else {

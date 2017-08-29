@@ -11,7 +11,7 @@ public class BillingDetails {
     /**
      * code : 0
      * msg : 正常
-     * data : {"balanceHistories":[{"id":274,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503479385000},{"id":272,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503479269000},{"id":270,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503479107000},{"id":268,"userId":2,"tranType":"5","amount":0.2,"summary":"送心意","tranTime":1503478917000},{"id":255,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503474061000},{"id":252,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503309686000},{"id":250,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503309235000},{"id":249,"userId":2,"tranType":"2","amount":500,"summary":"私人律师","tranTime":1503303586000},{"id":245,"userId":2,"tranType":"2","amount":2,"summary":"打赏咨询","tranTime":1503298859000},{"id":243,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503298451000}],"hasMore":true}
+     * data : {"hasMore":false,"withdrawHistories":[{"id":15,"lawyerId":3,"cardNum":"6225768759511619","bankName":"招商银行","applyName":"杨国艺","money":1865.58,"status":1,"createTime":1503579158000,"lawyer":{"phoneNo":"15210862987","name":"律师之家","headURL":"http://139.198.11.78:8080/mylawyer/pic/1539","userType":"1","lawyerId":3},"userType":0,"userId":3}]}
      */
 
     private int code;
@@ -44,12 +44,12 @@ public class BillingDetails {
 
     public static class DataBean {
         /**
-         * balanceHistories : [{"id":274,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503479385000},{"id":272,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503479269000},{"id":270,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503479107000},{"id":268,"userId":2,"tranType":"5","amount":0.2,"summary":"送心意","tranTime":1503478917000},{"id":255,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503474061000},{"id":252,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503309686000},{"id":250,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503309235000},{"id":249,"userId":2,"tranType":"2","amount":500,"summary":"私人律师","tranTime":1503303586000},{"id":245,"userId":2,"tranType":"2","amount":2,"summary":"打赏咨询","tranTime":1503298859000},{"id":243,"userId":2,"tranType":"5","amount":2,"summary":"送心意","tranTime":1503298451000}]
-         * hasMore : true
+         * hasMore : false
+         * withdrawHistories : [{"id":15,"lawyerId":3,"cardNum":"6225768759511619","bankName":"招商银行","applyName":"杨国艺","money":1865.58,"status":1,"createTime":1503579158000,"lawyer":{"phoneNo":"15210862987","name":"律师之家","headURL":"http://139.198.11.78:8080/mylawyer/pic/1539","userType":"1","lawyerId":3},"userType":0,"userId":3}]
          */
 
         private boolean hasMore;
-        private List<BalanceHistoriesBean> balanceHistories;
+        private List<WithdrawHistoriesBean> withdrawHistories;
 
         public boolean isHasMore() {
             return hasMore;
@@ -59,40 +59,40 @@ public class BillingDetails {
             this.hasMore = hasMore;
         }
 
-        public List<BalanceHistoriesBean> getBalanceHistories() {
-            return balanceHistories;
+        public List<WithdrawHistoriesBean> getWithdrawHistories() {
+            return withdrawHistories;
         }
 
-        public void setBalanceHistories(List<BalanceHistoriesBean> balanceHistories) {
-            this.balanceHistories = balanceHistories;
+        public void setWithdrawHistories(List<WithdrawHistoriesBean> withdrawHistories) {
+            this.withdrawHistories = withdrawHistories;
         }
 
-        public static class BalanceHistoriesBean {
+        public static class WithdrawHistoriesBean {
             /**
-             * id : 274
-             * userId : 2
-             * tranType : 5
-             * amount : 2.0
-             * summary : 送心意
-             * tranTime : 1503479385000
+             * id : 15
+             * lawyerId : 3
+             * cardNum : 6225768759511619
+             * bankName : 招商银行
+             * applyName : 杨国艺
+             * money : 1865.58
+             * status : 1
+             * createTime : 1503579158000
+             * lawyer : {"phoneNo":"15210862987","name":"律师之家","headURL":"http://139.198.11.78:8080/mylawyer/pic/1539","userType":"1","lawyerId":3}
+             * userType : 0
+             * userId : 3
              */
 
             private int id;
+            private int lawyerId;
+            private String cardNum;
+            private String bankName;
+            private String applyName;
+            private double money;
+            private int status;
+            private long createTime;
+            private LawyerBean lawyer;
+            private int userType;
             private int userId;
-            private String tranType;
-            private String amount;
-            private String summary;
-            private String withDrawInfoId;
-
-            public String getWithDrawInfoId() {
-                return withDrawInfoId;
-            }
-
-            public void setWithDrawInfoId(String withDrawInfoId) {
-                this.withDrawInfoId = withDrawInfoId;
-            }
-
-            private long tranTime;
 
             public int getId() {
                 return id;
@@ -100,6 +100,78 @@ public class BillingDetails {
 
             public void setId(int id) {
                 this.id = id;
+            }
+
+            public int getLawyerId() {
+                return lawyerId;
+            }
+
+            public void setLawyerId(int lawyerId) {
+                this.lawyerId = lawyerId;
+            }
+
+            public String getCardNum() {
+                return cardNum;
+            }
+
+            public void setCardNum(String cardNum) {
+                this.cardNum = cardNum;
+            }
+
+            public String getBankName() {
+                return bankName;
+            }
+
+            public void setBankName(String bankName) {
+                this.bankName = bankName;
+            }
+
+            public String getApplyName() {
+                return applyName;
+            }
+
+            public void setApplyName(String applyName) {
+                this.applyName = applyName;
+            }
+
+            public double getMoney() {
+                return money;
+            }
+
+            public void setMoney(double money) {
+                this.money = money;
+            }
+
+            public int getStatus() {
+                return status;
+            }
+
+            public void setStatus(int status) {
+                this.status = status;
+            }
+
+            public long getCreateTime() {
+                return createTime;
+            }
+
+            public void setCreateTime(long createTime) {
+                this.createTime = createTime;
+            }
+
+            public LawyerBean getLawyer() {
+                return lawyer;
+            }
+
+            public void setLawyer(LawyerBean lawyer) {
+                this.lawyer = lawyer;
+            }
+
+            public int getUserType() {
+                return userType;
+            }
+
+            public void setUserType(int userType) {
+                this.userType = userType;
             }
 
             public int getUserId() {
@@ -110,36 +182,60 @@ public class BillingDetails {
                 this.userId = userId;
             }
 
-            public String getTranType() {
-                return tranType;
-            }
+            public static class LawyerBean {
+                /**
+                 * phoneNo : 15210862987
+                 * name : 律师之家
+                 * headURL : http://139.198.11.78:8080/mylawyer/pic/1539
+                 * userType : 1
+                 * lawyerId : 3
+                 */
 
-            public void setTranType(String tranType) {
-                this.tranType = tranType;
-            }
+                private String phoneNo;
+                private String name;
+                private String headURL;
+                private String userType;
+                private int lawyerId;
 
-            public String getAmount() {
-                return amount;
-            }
+                public String getPhoneNo() {
+                    return phoneNo;
+                }
 
-            public void setAmount(String amount) {
-                this.amount = amount;
-            }
+                public void setPhoneNo(String phoneNo) {
+                    this.phoneNo = phoneNo;
+                }
 
-            public String getSummary() {
-                return summary;
-            }
+                public String getName() {
+                    return name;
+                }
 
-            public void setSummary(String summary) {
-                this.summary = summary;
-            }
+                public void setName(String name) {
+                    this.name = name;
+                }
 
-            public long getTranTime() {
-                return tranTime;
-            }
+                public String getHeadURL() {
+                    return headURL;
+                }
 
-            public void setTranTime(long tranTime) {
-                this.tranTime = tranTime;
+                public void setHeadURL(String headURL) {
+                    this.headURL = headURL;
+                }
+
+                public String getUserType() {
+                    return userType;
+                }
+
+                public void setUserType(String userType) {
+                    this.userType = userType;
+                }
+
+                public int getLawyerId() {
+                    return lawyerId;
+                }
+
+                public void setLawyerId(int lawyerId) {
+                    this.lawyerId = lawyerId;
+                }
             }
         }
     }

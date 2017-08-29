@@ -1,22 +1,40 @@
 package com.onekeyask.lawfirm.ui.act;
 
+import android.app.DownloadManager;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
+import com.onekeyask.lawfirm.entity.GetRed;
+import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.global.BaseActivity;
 import com.onekeyask.lawfirm.global.BaseEvent;
+import com.onekeyask.lawfirm.global.DownLoadAPK;
 import com.onekeyask.lawfirm.ui.fragment.HomeFoundFragment;
 import com.onekeyask.lawfirm.ui.fragment.HomeIndexFragment;
 import com.onekeyask.lawfirm.ui.fragment.HomeInfoFragment;
 import com.onekeyask.lawfirm.ui.fragment.HomeServiceFragment;
+import com.onekeyask.lawfirm.utils.UserService;
 
 
 public class MainActivity extends BaseActivity {
@@ -24,16 +42,116 @@ public class MainActivity extends BaseActivity {
     private Fragment[] fragments;
     private int index;
     private int currentTabIndex;
-
+    private TextView tv_red;
+    private DownloadManager downloadManager;
+    private boolean isWifi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tv_red = (TextView) findViewById(R.id.tv_red);
         initBottom();
-
+        downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+//        UpdateInfo();
     }
 
+    private void UpdateInfo() {
+
+        isWifi = NetworkInfo.State.CONNECTED == ((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
+        try {
+            // getPackageName()是你当前类的包名，0代表是获取版本信息
+            PackageInfo packInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+
+            OkGo.<String>get(Apis.Checkupdate).params("app_id", packInfo.versionName)
+                    .params("plat", "Android").execute(new StringCallback() {
+                @Override
+                public void onSuccess(com.lzy.okgo.model.Response<String> response) {
+//                    if (isWifi) {
+//                        //wifi下自动下载最新版本，检测目录下是否已经下载好
+//                        String SDPATH = Environment.getExternalStorageDirectory().getPath() + "/lawyer/lawyer" + vName + ".apk";
+//                        if (new File(SDPATH).exists()) {
+//                            //安装SDPATH的文件
+//                            InatallDialog(SDPATH);
+//                        } else {
+//                            showShort("正在后台下载，请稍后...");
+//                            DownLoadAPK.downloadAPK(downloadManager, downloadUrl, "法宝律师" + vName, "");
+//                        }
+//                    } else {
+//                        myDialog(downloadManager, downloadUrl, vName);
+//                    }
+                }
+            });
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        OkGo.<String>get(Apis.GetRed).params("userId", UserService.service(getBaseContext()).getLawyerId()).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+
+                GetRed red = (new Gson()).fromJson(response.body(), GetRed.class);
+                if (red.getCode() == 0){
+
+                    if (red.getData().getMessageIds().size() != 0){
+                        //消息中心的右上角小红点显示
+                    }
+
+                    if ((red.getData().getChatIds().size() + red.getData().getUserServiceInfoIds().size()) != 0){
+                        tv_red.setVisibility(View.VISIBLE);
+                    }else {
+                        tv_red.setVisibility(View.GONE);
+                    }
+                }else {
+                    showShort(red.getMsg());
+                }
+            }
+        });
+    }
+
+    public void InatallDialog(final String SDPATH) {
+        new AlertDialog.Builder(this).setTitle("新版本提醒")//对话框标题
+                .setMessage("已下载完成最新版本，是否现在安装？")//对话框提示正文
+                .setIcon(R.mipmap.ic_launcher)//对话框标题上的图片
+                .setNegativeButton("暂不升级", new DialogInterface.OnClickListener() {
+                    @Override//取消按钮
+                    public void onClick(DialogInterface dialog, int which) {
+                        showShort("请尽快更新");
+                    }
+                }).setPositiveButton("立即安装", new DialogInterface.OnClickListener() {
+            @Override//确定按钮
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent();
+                intent.setAction(android.content.Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.parse("file://" + SDPATH), "application/vnd.android.package-archive");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        }).setCancelable(false)//点击其他区域关闭对话框
+                .show();
+    }
+
+    public void myDialog(final DownloadManager downloadManager, final String url, final String vName) {
+        new AlertDialog.Builder(this).setTitle("益善通新版本提醒")//对话框标题
+                .setMessage("本期做了一些优化体验，BUG修复，快来试试吧？")//对话框提示正文
+                .setIcon(R.mipmap.ic_launcher)//对话框标题上的图片
+                .setNegativeButton("暂不升级", new DialogInterface.OnClickListener() {
+                    @Override//取消按钮
+                    public void onClick(DialogInterface dialog, int which) {
+                        showShort("请尽快更新");
+                    }
+                }).setPositiveButton("立即升级", new DialogInterface.OnClickListener() {
+            @Override//确定按钮
+            public void onClick(DialogInterface dialog, int which) {
+                showShort("正在后台下载，请稍后...");
+                DownLoadAPK.downloadAPK(downloadManager, url, "法宝律师" + vName, "");
+            }
+        }).setCancelable(false)//点击其他区域关闭对话框
+                .show();
+    }
 
     @Override
     public void onEventMainThread(BaseEvent event) {

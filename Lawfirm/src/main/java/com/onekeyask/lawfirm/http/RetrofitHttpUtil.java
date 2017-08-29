@@ -4,7 +4,7 @@ import android.content.Context;
 
 
 import com.onekeyask.lawfirm.global.APIService;
-import com.onekeyask.lawfirm.ui.act.Apis;
+import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.global.BuildConfig;
 
 import java.io.File;
