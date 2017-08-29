@@ -29,6 +29,7 @@ import com.onekeyask.lawfirm.ui.act.index.GraphicConsultActivity;
 import com.onekeyask.lawfirm.ui.act.index.PersonConsultActivity;
 import com.onekeyask.lawfirm.ui.act.index.PhoneConsultActivity;
 import com.onekeyask.lawfirm.ui.act.me.WithdrawalActivity;
+import com.onekeyask.lawfirm.ui.act.user.IncomeDetailActivity;
 import com.onekeyask.lawfirm.ui.act.user.TopMsgActivity;
 import com.onekeyask.lawfirm.utils.UserService;
 import com.youth.banner.Banner;
@@ -143,8 +144,7 @@ public class HomeIndexFragment extends BaseFragment {
         tv_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showShort("收入详情");
-                startActivity(WithdrawalActivity.class);
+                startActivity(IncomeDetailActivity.class);
 
 
             }

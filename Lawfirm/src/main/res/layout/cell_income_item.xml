@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/type_tv"
+        android:text="图文咨询"
+        android:textColor="#343434"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="14sp"
+            android:textColor="#424242"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收入："/>
+        <TextView
+            android:id="@+id/income_tv"
+            android:textSize="14sp"
+            android:textColor="@color/baseOrange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥100元"/>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_income_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2017/03/23"
+        android:textSize="14sp"
+        android:textColor="#aeaeae"/>
+
+</LinearLayout>

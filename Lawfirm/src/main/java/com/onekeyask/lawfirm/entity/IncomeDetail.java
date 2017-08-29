@@ -84,7 +84,7 @@ public class IncomeDetail {
              */
 
             private String serviceName;
-            private int amount;
+            private String amount;
             private String time;
 
             public String getServiceName() {
@@ -95,11 +95,11 @@ public class IncomeDetail {
                 this.serviceName = serviceName;
             }
 
-            public int getAmount() {
+            public String getAmount() {
                 return amount;
             }
 
-            public void setAmount(int amount) {
+            public void setAmount(String amount) {
                 this.amount = amount;
             }
 
