@@ -34,7 +34,7 @@ public class RetrofitHttpUtil {
     /**
      * 服务器地址
      */
-    private static final String BASE_URL = Apis.API_BASE;
+    private static final String BASE_URL = Apis.Base;
 
     public APIService apiService;
     private static Retrofit retrofit = null;

@@ -6,7 +6,7 @@ package com.onekeyask.lawyer.global;
 
 public interface Apis {
 
-    String Base = "http://139.198.11.78:8080/mylawyer/";
+    String Base = "http://api.zhimalawyer.com/mylawyer/";
 
     String FreeAskCategory = Apis.Base + "c/freeAskCategory";//1.4快速咨询类别
 

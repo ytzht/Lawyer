@@ -21,7 +21,7 @@ public class AppLauncherActivity extends BaseActivity {
 
     private static final String TAG = "Launch=====";
     private String first = "";
-    private long time = 1000;
+    private long time = 3000;
 
     @Override
     public void onPause() {
@@ -65,7 +65,7 @@ public class AppLauncherActivity extends BaseActivity {
         }
         ImageView imageView = (ImageView) findViewById(R.id.image);
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.splash);
-        imageView.setAnimation(animation);
+//        imageView.setAnimation(animation);
         animation.setFillAfter(true);
 
         SharedPreferences preferences = getSharedPreferences("first_open", Context.MODE_PRIVATE);

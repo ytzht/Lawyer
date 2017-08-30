@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.IsFavorite;
+import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.global.Constant;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
@@ -90,7 +91,7 @@ public class EvaluateCompleteActivity extends BaseToolBarActivity {
         lawyerId = getIntent().getIntExtra("lawyerId", Constant.lawyerId);
 
         initIsFavorite();
-        Glide.with(this).load("http://139.198.11.78:8080/mylawyer/pic/1534").into(ivTopComp);
+        Glide.with(this).load(Apis.Base + "pic/1534").into(ivTopComp);
 
         tvScoreComp.setText(Html.fromHtml("感谢您的评价，赠送给您 <font color='#f79f0a'>30</font> 积分"));
 

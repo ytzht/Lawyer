@@ -11,11 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:background="@color/burro_primary_ext" />
+        android:background="@drawable/splash" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_margin="40dp"
@@ -28,6 +29,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="40dp"
         android:background="#1AFFFFFF"
+        android:visibility="gone"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp">

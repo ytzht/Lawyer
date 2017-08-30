@@ -193,8 +193,8 @@ public class HomeIndexFragment extends BaseFragment {
 
         banner_img.clear();
 
-        banner_img.add("http://139.198.11.78:8080/mylawyer/pic/7");
-        banner_img.add("http://139.198.11.78:8080/mylawyer/pic/1534");
+        banner_img.add(Apis.Base + "pic/7");
+        banner_img.add(Apis.Base + "pic/1534");
 
         banner.setIndicatorGravity(BannerConfig.CENTER)
                 .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
