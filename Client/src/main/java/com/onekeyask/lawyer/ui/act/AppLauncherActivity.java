@@ -20,7 +20,7 @@ public class AppLauncherActivity extends BaseActivity {
 
     private static final String TAG = "Launch=====";
     private String first = "";
-    private long time = 3000;
+    private long time = 2000;
 
     @Override
     public void onPause() {

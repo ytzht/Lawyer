@@ -75,24 +75,30 @@ public class ChooseBankActivity extends BaseToolBarActivity {
     @OnClick(R.id.add_card)
     public void onViewClicked() {
 
-        OkGo.<String>get(Apis.ApplyTX)
-                .params("lawyerId", UserService.service(getBaseContext()).getLawyerId())
-                .params("cardId", list.getData().getCardList().get(selectIndex).getId())
-                .params("money", getIntent().getStringExtra("money"))
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
+        if (list.getData().getCardList().size()>0) {
+            OkGo.<String>get(Apis.ApplyTX)
+                    .params("lawyerId", UserService.service(getBaseContext()).getLawyerId())
+                    .params("cardId", list.getData().getCardList().get(selectIndex).getId())
+                    .params("money", getIntent().getStringExtra("money"))
+                    .params("codeId", getIntent().getStringExtra("codeId"))
+                    .params("code", getIntent().getStringExtra("code"))
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
 
-                        ApplyTX tx = (new Gson()).fromJson(response.body(), ApplyTX.class);
-                        if (tx.getCode() == 0){
-                            startActivity(WithStateActivity.class);
-                            finish();
-                        }else {
-                            showShort(tx.getMsg());
+                            ApplyTX tx = (new Gson()).fromJson(response.body(), ApplyTX.class);
+                            if (tx.getCode() == 0) {
+                                startActivity(WithStateActivity.class);
+                                finish();
+                            } else {
+                                showShort(tx.getMsg());
+                            }
+
                         }
-
-                    }
-                });
+                    });
+        }else {
+            showShort("请先添加一张银行卡");
+        }
     }
 
     private int selectIndex = 0;

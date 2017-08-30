@@ -180,7 +180,7 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
                     //或者先上传咨询信息（打赏咨询的上传咨询信息包括打赏多少钱，故不可行），
                     // 这就可能会导致用户付款成功而信息上传失败，失败后如何处理？
 
-                    if (balance >= selectMoney) {
+                    if (balance >= selectMoney/100) {
                         showShort("payType " + payType + "money" + selectMoney);
 
                         upLoadInfo();
