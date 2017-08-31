@@ -313,7 +313,7 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
 
     //提交问题信息，可能有图
     private void goSubmit() {
-        photoMap.put("userId", RequestBody.create(null, "2"));
+        photoMap.put("userId", RequestBody.create(null, UserService.service(getBaseContext()).getUserId()+""));
         photoMap.put("content", RequestBody.create(null, content));
         photoMap.put("category", RequestBody.create(null, category + ""));
 

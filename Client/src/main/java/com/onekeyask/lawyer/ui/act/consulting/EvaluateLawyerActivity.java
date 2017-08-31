@@ -18,7 +18,6 @@ import com.onekeyask.lawyer.entity.BaseResult;
 import com.onekeyask.lawyer.entity.CommonTagList;
 import com.onekeyask.lawyer.entity.LawyerBasic;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
-import com.onekeyask.lawyer.global.Constant;
 import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
@@ -75,7 +74,7 @@ public class EvaluateLawyerActivity extends BaseToolBarActivity {
     private List<CommonTagList.TagListBean> tagListBeen;
     private String Score = "5";
     private String userServiceId = "";
-    private int lawyerId;
+    private String lawyerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +83,7 @@ public class EvaluateLawyerActivity extends BaseToolBarActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setToolbarText("评价律师");
         userServiceId = getIntent().getStringExtra("userServiceId");
-        lawyerId = getIntent().getIntExtra("lawyerId", Constant.lawyerId);
+        lawyerId = getIntent().getStringExtra("lawyerId");
 
         initTags();
 
@@ -115,7 +114,7 @@ public class EvaluateLawyerActivity extends BaseToolBarActivity {
                 showShort(message);
             }
         };
-        retrofitUtil.getLawyerBasic(lawyerId, new ProgressSubscriber<LawyerBasic>(listener, EvaluateLawyerActivity.this, true));
+        retrofitUtil.getLawyerBasic(Integer.parseInt(lawyerId), new ProgressSubscriber<LawyerBasic>(listener, EvaluateLawyerActivity.this, true));
     }
 
     private void initTags() {

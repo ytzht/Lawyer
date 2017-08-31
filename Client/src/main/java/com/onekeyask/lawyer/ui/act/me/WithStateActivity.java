@@ -11,6 +11,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
+import com.onekeyask.lawyer.entity.ProgressInfo;
 import com.onekeyask.lawyer.entity.ProgressTX;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
@@ -49,42 +50,63 @@ public class WithStateActivity extends BaseToolBarActivity {
         this.bankname = (TextView) findViewById(R.id.bank_name);
         setToolbarText("提现进度");
 
-        OkGo.<String>get(Apis.ProgressTX).params("userId", UserService.service(getBaseContext()).getUserId())
-                .params("withDrawInfoId", getIntent().getStringExtra("id")).execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
+        if (getIntent().hasExtra("id")){
+            OkGo.<String>get(Apis.ProgressTX).params("userId", UserService.service(getBaseContext()).getUserId())
+                    .params("withDrawInfoId", getIntent().getStringExtra("id")).execute(new StringCallback() {
+                @Override
+                public void onSuccess(Response<String> response) {
 
-                ProgressTX tx = (new Gson()).fromJson(response.body(), ProgressTX.class);
-                if (tx.getCode() == 0) {
-                    ProgressTX.DataBean.ProgressInfoBean info = tx.getData().getProgressInfo();
+                    ProgressTX tx = (new Gson()).fromJson(response.body(), ProgressTX.class);
+                    if (tx.getCode() == 0) {
+                        ProgressInfo info = tx.getData().getProgressInfo();
+
+                        setData(info);
 
 
-                    name.setText(info.getBankName() + "(" + info.getCardNum() + ")" + info.getApplyName());
 
-                    bankname.setText(info.getBankName());
 
-                    money.setText(info.getMoney()+"");
-                    SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm");
-                    SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                    if (info.getStatus() == 1){
-                        img3.setImageResource(R.drawable.select_g);
-                        passtime.setVisibility(View.GONE);
-                        status.setText("处理中");
-                    }else {
-                        img3.setImageResource(R.drawable.select_c);
-                        passtime.setVisibility(View.VISIBLE);
-                        passtime.setText(sdf.format(info.getPassTime()));
-                        status.setText("已完成");
+                    } else {
+                        showShort(tx.getMsg());
                     }
-
-                    createtime1.setText(sdf1.format(info.getCreateTime()));
-                    createtime.setText(sdf.format(info.getCreateTime()));
-
-
-                } else {
-                    showShort(tx.getMsg());
                 }
+            });
+        }else {
+
+            ProgressInfo info = (ProgressInfo) getIntent().getSerializableExtra("info");
+
+            if (info == null){
+                finish();
+            }else {
+                setData(info);
             }
-        });
+
+        }
+
+
+
+    }
+
+    private void setData(ProgressInfo info) {
+
+        name.setText(info.getBankName() + "(" + info.getCardNum() + ")" + info.getApplyName());
+
+        bankname.setText(info.getBankName());
+
+        money.setText(info.getMoney()+"");
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm");
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        if (info.getStatus() == 1){
+            img3.setImageResource(R.drawable.select_g);
+            passtime.setVisibility(View.GONE);
+            status.setText("处理中");
+        }else {
+            img3.setImageResource(R.drawable.select_c);
+            passtime.setVisibility(View.VISIBLE);
+            passtime.setText(sdf.format(info.getPassTime()));
+            status.setText("已完成");
+        }
+
+        createtime1.setText(sdf1.format(info.getCreateTime()));
+        createtime.setText(sdf.format(info.getCreateTime()));
     }
 }

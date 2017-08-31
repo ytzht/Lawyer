@@ -58,7 +58,7 @@ public class NowServerFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         index = 1;
-        initData();
+        initView(view);
     }
 
     private void initData() {

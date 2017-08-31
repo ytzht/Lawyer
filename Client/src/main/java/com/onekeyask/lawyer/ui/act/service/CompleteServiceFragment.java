@@ -65,7 +65,7 @@ public class CompleteServiceFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         index = 1;
-        initData();
+        initView(view);
     }
 
 
@@ -286,7 +286,7 @@ public class CompleteServiceFragment extends BaseFragment {
                 ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(TalkingActivity.class, "fid", "0", "cid", String.valueOf(listBeen.get(position).getTargetId()), "sid", listBeen.get(position).getServiceId());
+                        startActivity(TalkingActivity.class, "lawyerId", listBeen.get(position).getLawyer().getLawyerId(), "fid", "0", "cid", String.valueOf(listBeen.get(position).getTargetId()), "sid", listBeen.get(position).getServiceId());
                     }
                 });
             } else {

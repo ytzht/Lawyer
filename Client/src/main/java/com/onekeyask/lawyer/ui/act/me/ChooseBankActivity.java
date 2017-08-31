@@ -1,5 +1,6 @@
 package com.onekeyask.lawyer.ui.act.me;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -87,7 +88,11 @@ public class ChooseBankActivity extends BaseToolBarActivity {
 
                             ApplyTX tx = (new Gson()).fromJson(response.body(), ApplyTX.class);
                             if (tx.getCode() == 0) {
-                                startActivity(WithStateActivity.class);
+                                Intent intent = new Intent(ChooseBankActivity.this, WithStateActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("info", tx.getData().getProgressInfo());
+                                intent.putExtras(bundle);
+                                startActivity(intent);
                                 finish();
                             } else {
                                 showShort(tx.getMsg());

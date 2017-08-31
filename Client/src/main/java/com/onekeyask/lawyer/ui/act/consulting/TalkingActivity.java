@@ -49,7 +49,6 @@ import com.onekeyask.lawyer.entity.SendMsg;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseActivity;
 import com.onekeyask.lawyer.global.BaseEvent;
-import com.onekeyask.lawyer.global.Constant;
 import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
@@ -109,7 +108,7 @@ public class TalkingActivity extends BaseActivity {
     private HandlerThread mCheckMsgThread;
     private Handler mCheckMsgHandler;
     private boolean isUpdateInfo;
-    private int lawyerId = Constant.lawyerId;// TODO: 2017/8/20  lawId怎么获取
+    private String lawyerId = "-1";
     private static final int MSG_UPDATE_INFO = 0x110;
     private List<ConversationList.ConversationListBean> listBean;
     private PopupWindow popupWindow = null;
@@ -328,6 +327,9 @@ public class TalkingActivity extends BaseActivity {
 
     private void initView() {
         HideUtil.init(this);
+        if (getIntent().hasExtra("lawyerId")){
+            lawyerId = getIntent().getStringExtra("lawyerId");
+        }
         userId = UserService.service(getBaseContext()).getUserId();
         userServiceId = getIntent().getStringExtra("sid");
         orderId = getIntent().getStringExtra("oid");
@@ -770,7 +772,7 @@ public class TalkingActivity extends BaseActivity {
                 showShort(message);
             }
         };
-        retrofitUtil.getLawyerBasic(lawyerId, new ProgressSubscriber<LawyerBasic>(listener, TalkingActivity.this, false));
+        retrofitUtil.getLawyerBasic(Integer.parseInt(lawyerId), new ProgressSubscriber<LawyerBasic>(listener, TalkingActivity.this, false));
 
         complaint.setOnClickListener(new View.OnClickListener() {
             @Override

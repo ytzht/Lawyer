@@ -57,6 +57,7 @@
             android:layout_marginRight="10dp">
 
             <ImageView
+                android:id="@+id/law_pic_1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="2dp"
@@ -65,6 +66,7 @@
                 android:src="@drawable/logo_zl" />
 
             <ImageView
+                android:id="@+id/law_pic_2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"
@@ -82,6 +84,7 @@
             android:layout_marginTop="4dp">
 
             <ImageView
+                android:id="@+id/law_pic_3"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="2dp"
@@ -90,6 +93,7 @@
                 android:src="@drawable/logo_wh" />
 
             <ImageView
+                android:id="@+id/law_pic_4"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"

@@ -25,11 +25,9 @@ import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.utils.UserService;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -238,13 +236,7 @@ public class IncomeDetailActivity extends BaseToolBarActivity {
                 ((ViewHolder) holder).type_tv.setText(list.get(position - 1).getServiceName());
                 ((ViewHolder) holder).income_tv.setText("￥" + list.get(position - 1).getAmount() + "元");
                 SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
-                try {
-                    Date date = sdf.parse(list.get(position - 1).getTime());
-                    String formatStr = new SimpleDateFormat("yyyy/MM/dd").format(date);
-                    ((ViewHolder) holder).tv_income_time.setText(formatStr);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                ((ViewHolder) holder).tv_income_time.setText(list.get(position - 1).getTime());
 
             }
         }

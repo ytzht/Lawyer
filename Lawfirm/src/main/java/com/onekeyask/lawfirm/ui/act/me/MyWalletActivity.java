@@ -15,8 +15,8 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.MyMoney;
-import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.global.Apis;
+import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.utils.UserService;
 
 import butterknife.BindView;
@@ -41,6 +41,13 @@ public class MyWalletActivity extends BaseToolBarActivity {
         ButterKnife.bind(this);
         setToolbarText("我的钱包");
 
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         OkGo.<String>get(Apis.MyWallet).params("lawyerId", UserService.service(getBaseContext()).getLawyerId()).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
@@ -53,9 +60,7 @@ public class MyWalletActivity extends BaseToolBarActivity {
                 }
             }
         });
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

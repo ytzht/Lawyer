@@ -23,8 +23,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.onekeyask.lawyer.R;
+import com.onekeyask.lawyer.entity.HomePage;
 import com.onekeyask.lawyer.entity.IsFavorite;
-import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.global.Constant;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
@@ -87,11 +87,27 @@ public class EvaluateCompleteActivity extends BaseToolBarActivity {
 
         service = new UserService(getBaseContext());
         userServiceId = getIntent().getStringExtra("userServiceId");
-            lawName = getIntent().getStringExtra("lawName");
+        lawName = getIntent().getStringExtra("lawName");
         lawyerId = getIntent().getIntExtra("lawyerId", Constant.lawyerId);
 
         initIsFavorite();
-        Glide.with(this).load(Apis.Base + "pic/1534").into(ivTopComp);
+
+
+        SubscriberOnNextListener<HomePage> listener = new SubscriberOnNextListener<HomePage>() {
+            @Override
+            public void onNext(final HomePage homePage) {
+
+                Glide.with(EvaluateCompleteActivity.this).load(homePage.getAdList().get(0).getPicURL()).into(ivTopComp);
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                showShort(message);
+            }
+        };
+        retrofitUtil.getHomePage(new ProgressSubscriber<HomePage>(listener, EvaluateCompleteActivity.this, false));
+
 
         tvScoreComp.setText(Html.fromHtml("感谢您的评价，赠送给您 <font color='#f79f0a'>30</font> 积分"));
 
@@ -293,7 +309,8 @@ public class EvaluateCompleteActivity extends BaseToolBarActivity {
                     intent.putExtra("money", Double.parseDouble(selectMoney));
                     intent.putExtra("summary", et_desc_popup.getText().toString());
                     intent.putExtra("userServiceId", userServiceId);
-                    startActivity(intent);}
+                    startActivity(intent);
+                }
             }
         });
         tv_sel_2.setOnClickListener(new View.OnClickListener() {

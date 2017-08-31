@@ -21,6 +21,7 @@ import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.MyLawyerList;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
+import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.ui.act.lawyer.filter.DropMenuAdapter;
 import com.onekeyask.lawyer.ui.act.lawyer.filter.FilterUrl;
 import com.onekeyask.lawyer.ui.act.search.SearchFindActivity;
@@ -61,6 +62,7 @@ public class FindLawyerActivity extends BaseToolBarActivity implements OnFilterD
     private String url;
     private String keyword = "";
     private List<MyLawyerList.DataBean.LawyerListBean> lawyerList = new ArrayList<>();
+    private String positionId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +75,6 @@ public class FindLawyerActivity extends BaseToolBarActivity implements OnFilterD
         dropDownMenu.setMenuAdapter(new DropMenuAdapter(this, titleList, this));
 
         url = Apis.LawyerList;
-//                + "?office="+getIntent().getStringExtra("position");
 
         initView();
     }
@@ -82,6 +83,9 @@ public class FindLawyerActivity extends BaseToolBarActivity implements OnFilterD
 
         if (getIntent().hasExtra("keyword")){
             keyword = getIntent().getStringExtra("keyword");
+        }
+        if (getIntent().hasExtra("position")){
+            positionId = getIntent().getStringExtra("position");
         }
 
         refreshLayout.setRefreshHeader(new ClassicsHeader(getBaseContext()));
@@ -125,24 +129,102 @@ public class FindLawyerActivity extends BaseToolBarActivity implements OnFilterD
 
     private void initData() {
 
-        OkGo.<String>post(url)
-                .params("userId", UserService.service(getBaseContext()).getUserId())
-                .params("size", 4)
-                .params("page", page)
-                .params("searchKey", keyword)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        MyLawyerList list = (new Gson()).fromJson(response.body(), MyLawyerList.class);
-                        if (list.getCode() == 0) {
-                            hasMore = list.getData().isHasMore();
-                            lawyerList = list.getData().getLawyerList();
-                            adapter.notifyDataSetChanged();
-                        } else {
-                            showShort(list.getMsg());
+        if (keyword.equals("") && positionId.equals("")){
+            OkGo.<String>post(url)
+                    .params("userId", UserService.service(getBaseContext()).getUserId())
+                    .params("size", 10)
+                    .params("page", page)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            MyLawyerList list = (new Gson()).fromJson(response.body(), MyLawyerList.class);
+                            if (list.getCode() == 0) {
+                                hasMore = list.getData().isHasMore();
+                                if (page == 1){
+                                    lawyerList = list.getData().getLawyerList();
+                                }else {
+                                    lawyerList.addAll(list.getData().getLawyerList());
+                                }
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                showShort(list.getMsg());
+                            }
                         }
-                    }
-                });
+                    });
+        }else if (keyword.equals("") && !positionId.equals("")){
+            OkGo.<String>post(url)
+                    .params("userId", UserService.service(getBaseContext()).getUserId())
+                    .params("size", 10)
+                    .params("special", positionId)
+                    .params("page", page)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            MyLawyerList list = (new Gson()).fromJson(response.body(), MyLawyerList.class);
+                            if (list.getCode() == 0) {
+                                hasMore = list.getData().isHasMore();
+                                if (page == 1){
+                                    lawyerList = list.getData().getLawyerList();
+                                }else {
+                                    lawyerList.addAll(list.getData().getLawyerList());
+                                }
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                showShort(list.getMsg());
+                            }
+                        }
+                    });
+
+        }else if (!keyword.equals("") && positionId.equals("")){
+            OkGo.<String>post(url)
+                    .params("userId", UserService.service(getBaseContext()).getUserId())
+                    .params("size", 10)
+                    .params("page", page)
+                    .params("searchKey", keyword)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            MyLawyerList list = (new Gson()).fromJson(response.body(), MyLawyerList.class);
+                            if (list.getCode() == 0) {
+                                hasMore = list.getData().isHasMore();
+                                if (page == 1){
+                                    lawyerList = list.getData().getLawyerList();
+                                }else {
+                                    lawyerList.addAll(list.getData().getLawyerList());
+                                }
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                showShort(list.getMsg());
+                            }
+                        }
+                    });
+        }else if (!keyword.equals("") && !positionId.equals("")){
+            OkGo.<String>post(url)
+                    .params("userId", UserService.service(getBaseContext()).getUserId())
+                    .params("size", 10)
+                    .params("page", page)
+                    .params("special", positionId)
+                    .params("searchKey", keyword)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            MyLawyerList list = (new Gson()).fromJson(response.body(), MyLawyerList.class);
+                            if (list.getCode() == 0) {
+                                hasMore = list.getData().isHasMore();
+                                if (page == 1){
+                                    lawyerList = list.getData().getLawyerList();
+                                }else {
+                                    lawyerList.addAll(list.getData().getLawyerList());
+                                }
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                showShort(list.getMsg());
+                            }
+                        }
+                    });
+        }
+
+
 
 
     }
@@ -153,13 +235,15 @@ public class FindLawyerActivity extends BaseToolBarActivity implements OnFilterD
         if (position != 3) {
             dropDownMenu.setPositionIndicatorText(FilterUrl.instance().position, FilterUrl.instance().positionTitle);
         }
-
+        keyword = "";
+        positionId = "";
         dropDownMenu.close();
 
-        if (!FilterUrl.instance().toString().equals("")) {
-            url = Apis.MyLawyerList;
+        L.d("=====dropDownMenu", FilterUrl.instance().toString()+" ");
+        if (FilterUrl.instance().toString().equals("")) {
+            url = Apis.LawyerList;
         } else {
-            url = Apis.MyLawyerList + "?" + FilterUrl.instance().toString().substring(1, FilterUrl.instance().toString().length());
+            url = Apis.LawyerList + "?" + FilterUrl.instance().toString().substring(1, FilterUrl.instance().toString().length());
         }
 
         page = 1;

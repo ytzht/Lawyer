@@ -131,7 +131,7 @@ public class MyLawyerFragment extends BaseFragment {
         super.onResume();
 
         index = 1;
-        initData();
+        initView(view);
 
     }
 

@@ -38,6 +38,13 @@ public class MyWalletActivity extends BaseToolBarActivity {
         ButterKnife.bind(this);
         setToolbarText("我的钱包");
 
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         SubscriberOnNextListener getResultOnNext = new SubscriberOnNextListener<PriceList>() {
             @Override
             public void onNext(PriceList list) {
@@ -52,9 +59,7 @@ public class MyWalletActivity extends BaseToolBarActivity {
 
         retrofitUtil.getPriceList(UserService.service(getBaseContext()).getUserId(), new ProgressSubscriber<PriceList>(getResultOnNext, MyWalletActivity.this, false));
 
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

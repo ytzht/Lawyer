@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="中国建设银行"
+                tools:text="中国建设银行"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="600.00"
+            tools:text="600.00"
             android:textSize="30sp" />
 
         <TextView
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:text="已完成"
+            tools:text="已完成"
             android:textColor="@color/blackModule" />
     </LinearLayout>
 
@@ -124,7 +124,7 @@
                         android:id="@+id/create_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="03-15 09：30"
+                        tools:text="03-15 09：30"
                         android:textColor="@color/blackSec" />
                 </LinearLayout>
 
@@ -168,7 +168,7 @@
                         android:id="@+id/pass_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="03-15 09：30"
+                        tools:text="03-15 09：30"
                         android:textColor="@color/blackSec" />
                 </LinearLayout>
 
@@ -235,7 +235,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="中国建设银行（7654）张华"
+            tools:text="中国建设银行（7654）张华"
             android:layout_margin="16dp"
             android:textColor="@color/blackModule" />
     </RelativeLayout>
@@ -260,7 +260,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="2017-03-15 11：30"
+            tools:text="2017-03-15 11：30"
             android:layout_margin="16dp"
             android:textColor="@color/blackModule" />
     </RelativeLayout>
