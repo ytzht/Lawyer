@@ -37,12 +37,18 @@ public class HomeServiceFragment extends Fragment {
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
 
-        HomeServiceAdapter pagerAdapter = new HomeServiceAdapter(getActivity().getSupportFragmentManager());
+        pagerAdapter = new HomeServiceAdapter(getActivity().getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        nowServerFragment = new NowServerFragment();
+        myLawyerFragment = new MyLawyerFragment();
+        completeServiceFragment = new CompleteServiceFragment();
     }
-
+    private HomeServiceAdapter pagerAdapter;
+    private NowServerFragment nowServerFragment;
+    private MyLawyerFragment myLawyerFragment;
+    private CompleteServiceFragment completeServiceFragment;
 
     private class HomeServiceAdapter extends FragmentPagerAdapter {
 
@@ -52,13 +58,13 @@ public class HomeServiceFragment extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
-            switch (position){
+            switch (position) {
                 case 0:
-                    return new NowServerFragment();
+                    return nowServerFragment;
                 case 1:
-                    return new MyLawyerFragment();
+                    return myLawyerFragment;
                 case 2:
-                    return new CompleteServiceFragment();
+                    return completeServiceFragment;
                 default:
                     return null;
             }

@@ -405,13 +405,21 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
             @Override
             public void onClick(View v) {
                 if (type == 1) {
-                    startActivity(PersonLawyerActivity.class, "lawyerId", lawyerId + "");
+                    if (data.getLawyer().getServiceList().get(0).isIsOn()){
+                        startActivity(PersonLawyerActivity.class, "lawyerId", lawyerId + "");
+                    }else {
+                        showShort("律师未开通此服务。");
+                    }
                 } else if (type == 2) {
-                    Intent intent = new Intent(LawyerDetailActivity.this, TxtPicAskActivity.class);
-                    intent.putExtra("lawyerId", lawyerId);
-                    startActivity(intent);
+                    if (data.getLawyer().getServiceList().get(1).isIsOn()){
+                        Intent intent = new Intent(LawyerDetailActivity.this, TxtPicAskActivity.class);
+                        intent.putExtra("lawyerId", lawyerId);
+                        startActivity(intent);
+                    }else {
+                        showShort("律师未开通此服务。");
+                    }
                 } else {
-                    showShort("电话咨询");
+                    showShort("律师未开通此服务。");
                 }
             }
         });

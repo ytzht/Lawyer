@@ -10,14 +10,15 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.ConversationChatList;
 import com.onekeyask.lawfirm.global.BaseFragment;
+import com.onekeyask.lawfirm.global.L;
 import com.onekeyask.lawfirm.http.ProgressSubscriber;
 import com.onekeyask.lawfirm.http.SubscriberOnNextListener;
 import com.onekeyask.lawfirm.utils.MyDecoration;
 import com.onekeyask.lawfirm.utils.UserService;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +74,7 @@ public class NowServerFragment extends BaseFragment {
                 if (index == 1) {
                     list.clear();
                     list.addAll(chatList.getServiceList());
+                    adapter = new NowServerAdapter();
                     rlv_now_ser.setAdapter(adapter);
                 } else {
                     list.addAll(chatList.getServiceList());
@@ -96,13 +98,8 @@ public class NowServerFragment extends BaseFragment {
         rlv_now_ser = (RecyclerView) view.findViewById(R.id.rlv_now_ser);
         rlv_now_ser.setLayoutManager(new LinearLayoutManager(getActivity()));
         rlv_now_ser.addItemDecoration(new MyDecoration(getActivity(), MyDecoration.VERTICAL_LIST));
-        adapter = new NowServerAdapter();
-//        StoreHouseHeader header = new StoreHouseHeader(getActivity());
-//        header.setPadding(0, LocalDisplay.dp2px(20), 0, LocalDisplay.dp2px(20));
-//        header.initWithString("discover");
+
         ptrFrameLayout.setDurationToCloseHeader(1500);
-//        ptrFrameLayout.setHeaderView(header);
-//        ptrFrameLayout.addPtrUIHandler(header);
         ptrFrameLayout.setPtrHandler(new PtrHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
@@ -169,6 +166,7 @@ public class NowServerFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             if (position + 1 != getItemCount()) {
+                L.d("=====getLastServiceTime", list.get(position).getLastServiceTime());
                 ((ViewHolder) holder).tv_content_now.setText(list.get(position).getServiceContent());
                 ((ViewHolder) holder).tv_name_now.setText(list.get(position).getUser().getName());
                 ((ViewHolder) holder).tv_time_now.setText(list.get(position).getLastServiceTime());
@@ -189,8 +187,10 @@ public class NowServerFragment extends BaseFragment {
                         ((ViewHolder) holder).tv_tag_now.setText(list.get(position).getType());
                         break;
                 }
-                Glide.with(getActivity()).load(Uri.parse(list.get(position).getUser().getHeadURL()))
-                        .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
+                L.d("=====getHeadURL()", list.get(position).getUser().getHeadURL());
+                Picasso.with(getActivity()).load(Uri.parse(list.get(position).getUser().getHeadURL()))
+//                        .skipMemoryCache(true)
+//                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .into(((ViewHolder) holder).civ_avatar_now);
 
                 ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {

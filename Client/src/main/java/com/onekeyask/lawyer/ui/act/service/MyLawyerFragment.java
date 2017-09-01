@@ -19,6 +19,7 @@ import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.MyLawyer;
 import com.onekeyask.lawyer.global.BaseFragment;
 import com.onekeyask.lawyer.ui.act.lawyer.LawyerDetailActivity;
+import com.onekeyask.lawyer.ui.act.search.SearchLawActivity;
 import com.onekeyask.lawyer.utils.MyDecoration;
 import com.onekeyask.lawyer.utils.UserService;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -123,13 +124,13 @@ public class MyLawyerFragment extends BaseFragment {
 
     @OnClick(R.id.search_lawyer_ll)
     public void onViewClicked() {
-
+        startActivity(SearchLawActivity.class);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
+        hasMore = true;
         index = 1;
         initView(view);
 

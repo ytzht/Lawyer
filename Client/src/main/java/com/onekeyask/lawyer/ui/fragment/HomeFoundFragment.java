@@ -39,15 +39,15 @@ public class HomeFoundFragment extends BaseFragment implements OnTabSelectListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.home_found_fragment, container, false);
         initTag();
-        search_main = (ImageView) view.findViewById(R.id.search_main);
-        search_main.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(SearchFindActivity.class, "type", "content");
-            }
-        });
+
         return view;
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        initTag();
+//    }
 
     private void initTag() {
         SubscriberOnNextListener<FreeAskCategory> listener = new SubscriberOnNextListener<FreeAskCategory>() {
@@ -64,6 +64,15 @@ public class HomeFoundFragment extends BaseFragment implements OnTabSelectListen
 
 
         retrofitUtil.getTags(new ProgressSubscriber<FreeAskCategory>(listener, getActivity(), false));
+
+        search_main = (ImageView) view.findViewById(R.id.search_main);
+        search_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(SearchFindActivity.class, "type", "content");
+            }
+        });
+
     }
 
     private void initView() {

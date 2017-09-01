@@ -9,6 +9,22 @@ import java.util.List;
 public class ConversationList {
 
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getLawyerId() {
+        return lawyerId;
+    }
+
+    public void setLawyerId(String lawyerId) {
+        this.lawyerId = lawyerId;
+    }
+
     /**
      * chatId : 366
      * userServiceId : 43
@@ -20,9 +36,12 @@ public class ConversationList {
      * evaStatus : false
      */
 
+
     private int chatId;
     private int userServiceId;
     private String status;
+    private String userId;
+    private String lawyerId;
     private int fromType;
     private int rounds;
     private boolean hasMore;

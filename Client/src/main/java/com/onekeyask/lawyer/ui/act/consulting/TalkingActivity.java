@@ -243,7 +243,7 @@ public class TalkingActivity extends BaseActivity {
         //创建后台线程
         initBackThread();
 
-        showLawyerAndComplaint();
+//        showLawyerAndComplaint();
     }
 
     private void initBackThread() {
@@ -612,6 +612,9 @@ public class TalkingActivity extends BaseActivity {
                 ll_bottom_menu.setVisibility(View.VISIBLE);
                 ll_input_send.setVisibility(View.VISIBLE);
                 getList = o;
+                if (!getList.getLawyerId().equals("")){
+                    lawyerId = getList.getLawyerId();
+                }
                 rlv_talking.setVisibility(View.VISIBLE);
                 cid = String.valueOf(getList.getChatId());
                 userServiceId = String.valueOf(getList.getUserServiceId());
@@ -752,7 +755,7 @@ public class TalkingActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TalkingActivity.this, LawyerDetailActivity.class);
-                intent.putExtra("lawyerId", lawyerId);
+                intent.putExtra("lawyerId", Integer.parseInt(lawyerId));
                 startActivity(intent);
             }
         });
@@ -772,6 +775,7 @@ public class TalkingActivity extends BaseActivity {
                 showShort(message);
             }
         };
+        L.d("=====TalkingAct", lawyerId);
         retrofitUtil.getLawyerBasic(Integer.parseInt(lawyerId), new ProgressSubscriber<LawyerBasic>(listener, TalkingActivity.this, false));
 
         complaint.setOnClickListener(new View.OnClickListener() {
@@ -908,7 +912,7 @@ public class TalkingActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(TalkingActivity.this, LawyerDetailActivity.class);
-                        intent.putExtra("lawyerId", lawyerId);
+                        intent.putExtra("lawyerId", Integer.parseInt(lawyerId));
                         startActivity(intent);
                     }
                 });
