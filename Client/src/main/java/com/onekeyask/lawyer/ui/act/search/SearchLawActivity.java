@@ -181,7 +181,7 @@ public class SearchLawActivity extends BaseToolBarActivity {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(FindLawyerActivity.class, "position", beanList.get(position).getId() + "");
+                    startActivity(FindLawyerActivity.class, "position", beanList.get(position).getId() + "", "special", beanList.get(position).getName());
                 }
             });
         }

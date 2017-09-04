@@ -44,7 +44,7 @@ public class UserService {
     public String getToken() {
         SharedPreferences memberPrefs = context.getSharedPreferences(
                 Token, Context.MODE_PRIVATE);
-        return memberPrefs.getString(Token, "");
+        return memberPrefs.getString(Token, "-1");
     }
 
     public void setToken(String token) {
@@ -126,5 +126,8 @@ public class UserService {
     }
 
 
+    public boolean isLogin(){
+        return !getToken().equals("-1");
+    }
 
 }

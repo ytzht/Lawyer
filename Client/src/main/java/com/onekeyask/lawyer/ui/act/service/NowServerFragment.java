@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.ChatList;
 import com.onekeyask.lawyer.global.BaseFragment;
@@ -20,6 +19,7 @@ import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.ui.act.consulting.TalkingActivity;
 import com.onekeyask.lawyer.utils.MyDecoration;
 import com.onekeyask.lawyer.utils.UserService;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -186,7 +186,7 @@ public class NowServerFragment extends BaseFragment {
                     default:
                         ((ViewHolder) holder).tv_tag_now.setText("咨询");
                 }
-                Glide.with(getActivity()).load(Uri.parse(listBeen.get(position).getLawyer().getHeadURL()))
+                Picasso.with(getActivity()).load(Uri.parse(listBeen.get(position).getLawyer().getHeadURL()))
                         .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
                         .into(((ViewHolder) holder).civ_avatar_now);
                 ((ViewHolder) holder).status.setText(listBeen.get(position).getStatus());

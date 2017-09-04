@@ -112,7 +112,7 @@ public class SettingActivity extends BaseToolBarActivity {
                                 ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
                                 if (data.getCode() == 0) {
                                     service.setUserName("");
-                                    service.setToken("");
+                                    service.setToken("-1");
                                     service.setHeadURL("");
                                     service.setUserId(0);
                                     finish();

@@ -76,6 +76,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.7'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.youth.banner:banner:1.4.9'
+    compile 'com.kaopiz:kprogresshud:1.1.0'
     compile 'com.bm.photoview:library:1.4.1'
     compile 'com.jude:swipebackhelper:3.1.2'
     compile 'com.jakewharton:butterknife:8.5.1'

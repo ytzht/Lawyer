@@ -37,6 +37,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -351,6 +352,14 @@ public class TalkingActivity extends BaseActivity {
                 popupWindow = getPopwindow(popupView);
             }
         });
+        rl_again.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TalkingActivity.this, LawyerDetailActivity.class);
+                intent.putExtra("lawyerId", Integer.parseInt(lawyerId));
+                startActivity(intent);
+            }
+        });
         rlv_talking.setLayoutManager(new LinearLayoutManager(this));
         tv_send_msg = (TextView) findViewById(R.id.tv_send_msg);
         et_send_msg = (EditText) findViewById(R.id.et_send_msg);
@@ -408,6 +417,8 @@ public class TalkingActivity extends BaseActivity {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+                ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                        .hideSoftInputFromWindow(rlv_talking.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     if (((LinearLayoutManager) (recyclerView.getLayoutManager())).findFirstVisibleItemPosition() == 0) {
@@ -765,8 +776,7 @@ public class TalkingActivity extends BaseActivity {
             public void onNext(LawyerBasic lawyerBasic) {
                 law_name.setText(lawyerBasic.getLawyer().getName());
                 law_office.setText(lawyerBasic.getLawyer().getOfficeName());
-                Glide.with(TalkingActivity.this).load(lawyerBasic.getLawyer().getHeadURL())
-                        .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
+                Picasso.with(TalkingActivity.this).load(lawyerBasic.getLawyer().getHeadURL())
                         .into(law_img);
             }
 
@@ -906,7 +916,8 @@ public class TalkingActivity extends BaseActivity {
                         L.d(list.get(position).getContent());
                     }
                 });
-                Glide.with(TalkingActivity.this).load(list.get(position).getHeadURL()).into(((ViewHolder) holder).civ_talking_avatar);
+                Glide.with(TalkingActivity.this).load(list.get(position).getHeadURL()).skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE).into(((ViewHolder) holder).civ_talking_avatar);
                 if (list.get(position).getFrom() == LEFT)
                 ((ViewHolder) holder).civ_talking_avatar.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -920,7 +931,8 @@ public class TalkingActivity extends BaseActivity {
                     ((ViewHolder) holder).tv_talking_msg.setVisibility(View.GONE);
                     ((ViewHolder) holder).ll_iv_msg.setVisibility(View.VISIBLE);
                     ((ViewHolder) holder).iv_talking_msg.disenable();
-                    Glide.with(TalkingActivity.this).load(list.get(position).getContent()).into(((ViewHolder) holder).iv_talking_msg);
+                    Glide.with(TalkingActivity.this).load(list.get(position).getContent()).skipMemoryCache(true)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE).into(((ViewHolder) holder).iv_talking_msg);
 //                Picasso.with(TalkingActivity.this).load(list.get(position).getContent()).into(holder.iv_talking_msg);
 
                     ((ViewHolder) holder).iv_talking_msg.setOnClickListener(new View.OnClickListener() {

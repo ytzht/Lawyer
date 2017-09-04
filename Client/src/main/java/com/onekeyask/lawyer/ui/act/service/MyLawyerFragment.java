@@ -8,9 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -28,11 +28,11 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.onekeyask.lawyer.global.Apis.MyLawyerList;
@@ -44,6 +44,7 @@ import static com.onekeyask.lawyer.global.Apis.MyLawyerList;
 public class MyLawyerFragment extends BaseFragment {
 
     RecyclerView myLawyerList;
+    LinearLayout search_lawyer_ll;
     SmartRefreshLayout refreshLayout;
     private View view;
     private MyLawyerAdapter adapter;
@@ -62,7 +63,13 @@ public class MyLawyerFragment extends BaseFragment {
     }
 
     private void initView(View view) {
-
+        search_lawyer_ll = (LinearLayout) view.findViewById(R.id.search_lawyer_ll);
+        search_lawyer_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(SearchLawActivity.class);
+            }
+        });
         refreshLayout = (SmartRefreshLayout)view.findViewById(R.id.refreshLayout);
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
         refreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
@@ -122,10 +129,6 @@ public class MyLawyerFragment extends BaseFragment {
                 });
     }
 
-    @OnClick(R.id.search_lawyer_ll)
-    public void onViewClicked() {
-        startActivity(SearchLawActivity.class);
-    }
 
     @Override
     public void onResume() {
@@ -157,7 +160,7 @@ public class MyLawyerFragment extends BaseFragment {
                 }
             });
 
-            Glide.with(getActivity()).load(data.get(position).getHeadURL()).into(holder.law_img);
+            Picasso.with(getActivity()).load(data.get(position).getHeadURL()).into(holder.law_img);
             holder.law_name.setText(data.get(position).getName());
             holder.law_office.setText(data.get(position).getLawyerOfficeName());
             if (data.get(position).isServiced()) {

@@ -31,6 +31,7 @@ import com.onekeyask.lawyer.ui.act.consulting.ConsultingDetailActivity;
 import com.onekeyask.lawyer.ui.act.lawyer.AskDetailActivity;
 import com.onekeyask.lawyer.ui.act.search.SearchContentActivity;
 import com.onekeyask.lawyer.ui.act.search.SearchLawActivity;
+import com.onekeyask.lawyer.ui.act.user.LoginActivity;
 import com.onekeyask.lawyer.ui.act.user.TopMsgActivity;
 import com.onekeyask.lawyer.utils.UserService;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -62,7 +63,7 @@ public class HomeIndexFragment extends BaseFragment {
     private SmartRefreshLayout refreshLayout;
     private List<String> image_url = new ArrayList<>();
     private List<String> banner_img = new ArrayList<>();
-
+    private UserService service;
     private RecyclerView rlv_index;
     private int index = 1;
     private int size = 10;
@@ -81,6 +82,7 @@ public class HomeIndexFragment extends BaseFragment {
 
     private void initView(View view) {
         data.clear();
+        service = UserService.service(getActivity());
 
         search_main = (ImageView) view.findViewById(R.id.search_main);
         search_main.setOnClickListener(new View.OnClickListener() {
@@ -301,7 +303,6 @@ public class HomeIndexFragment extends BaseFragment {
 
 
     }
-
     private class IndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
@@ -334,7 +335,11 @@ public class HomeIndexFragment extends BaseFragment {
                 ((IndexViewHolder) holder).rl_quick_consulting.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(ConsultingDetailActivity.class);
+                        if (service.isLogin()) {
+                            startActivity(ConsultingDetailActivity.class);
+                        }else {
+                            startActivity(LoginActivity.class);
+                        }
                     }
                 });
                 ((IndexViewHolder) holder).rl_look_lawyer.setOnClickListener(new View.OnClickListener() {

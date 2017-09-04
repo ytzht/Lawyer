@@ -1,10 +1,10 @@
 package com.onekeyask.lawfirm.http;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
+
+import com.kaopiz.kprogresshud.KProgressHUD;
 
 /**
  * Created by zht on 2017/04/19 17:22
@@ -15,36 +15,24 @@ public class ProgressDialogHandler extends Handler {
     public static final int SHOW_PROGRESS_DIALOG = 1;
     public static final int DISMISS_PROGRESS_DIALOG = 2;
 
-    private ProgressDialog pd;
+    private KProgressHUD pd;
 
     private Context context;
-    private boolean cancelable;
     private boolean show;
-    private ProgressCancelListener mProgressCancelListener;
 
     public ProgressDialogHandler(Context context, ProgressCancelListener mProgressCancelListener,
                                  boolean cancelable,boolean show) {
         super();
         this.context = context;
         this.mProgressCancelListener = mProgressCancelListener;
-        this.cancelable = cancelable;
         this.show = show;
     }
 
     private void initProgressDialog(){
         if (pd == null) {
-            pd = new ProgressDialog(context);
 
-            pd.setCancelable(cancelable);
-
-            if (cancelable) {
-                pd.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialogInterface) {
-                        mProgressCancelListener.onCancelProgress();
-                    }
-                });
-            }
+            pd = KProgressHUD.create(context).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                    .setCancellable(cancelable);
 
             if (!pd.isShowing()&&show) {
                 pd.show();

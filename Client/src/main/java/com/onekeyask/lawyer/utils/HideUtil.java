@@ -113,8 +113,8 @@ public class HideUtil {
      */
     private void hideSoftInput(Activity mActivity, IBinder token) {
         if (token != null) {
-            InputMethodManager im = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
+            ((InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE))
+                    .hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 }

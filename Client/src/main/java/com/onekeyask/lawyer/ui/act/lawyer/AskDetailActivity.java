@@ -121,11 +121,14 @@ public class AskDetailActivity extends BaseActivity {
 
                 break;
             case R.id.ll_consult:
-                break;
-            case R.id.ll_lawyer:
                 Intent intent = new Intent(AskDetailActivity.this, LawyerDetailActivity.class);
                 intent.putExtra("lawyerId", lawyerId);
                 startActivity(intent);
+                break;
+            case R.id.ll_lawyer:
+                Intent intent1 = new Intent(AskDetailActivity.this, LawyerDetailActivity.class);
+                intent1.putExtra("lawyerId", lawyerId);
+                startActivity(intent1);
                 break;
         }
     }

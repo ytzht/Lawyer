@@ -10,6 +10,7 @@ import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.widget.NormalDialog;
 import com.onekeyask.lawfirm.http.APIFactory;
 import com.onekeyask.lawfirm.http.SubscriberOnNextListener;
+import com.onekeyask.lawfirm.utils.HideUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
 
@@ -64,7 +65,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         EventBus.getDefault().register(this);
-
+        HideUtil.init(this);
         PushAgent.getInstance(context).onAppStart();
     }
 

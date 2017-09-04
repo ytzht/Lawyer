@@ -11,6 +11,7 @@ import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.widget.NormalDialog;
 import com.onekeyask.lawyer.http.APIFactory;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
+import com.onekeyask.lawyer.utils.UserService;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
 
@@ -57,11 +58,14 @@ public class BaseActivity extends AppCompatActivity {
         this.mCompositeSubscription.add(s);
     }
 
+    private UserService service;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         EventBus.getDefault().register(this);
+
+        service = UserService.service(getBaseContext());
 
         PushAgent.getInstance(context).onAppStart();
     }

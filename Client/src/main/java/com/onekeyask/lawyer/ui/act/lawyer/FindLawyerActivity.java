@@ -63,7 +63,7 @@ public class FindLawyerActivity extends BaseToolBarActivity implements OnFilterD
     private String keyword = "";
     private List<MyLawyerList.DataBean.LawyerListBean> lawyerList = new ArrayList<>();
     private String positionId = "";
-
+    String[] titleList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +71,11 @@ public class FindLawyerActivity extends BaseToolBarActivity implements OnFilterD
         ButterKnife.bind(this);
         setToolbarText("找律师");
 
-        String[] titleList = new String[]{"擅长领域", "区域", "排序", "筛选"};
+        if (getIntent().hasExtra("special")){
+            titleList = new String[]{getIntent().getStringExtra("special"), "区域", "排序", "筛选"};
+        }else {
+            titleList = new String[]{"擅长领域", "区域", "排序", "筛选"};
+        }
         dropDownMenu.setMenuAdapter(new DropMenuAdapter(this, titleList, this));
 
         url = Apis.LawyerList;

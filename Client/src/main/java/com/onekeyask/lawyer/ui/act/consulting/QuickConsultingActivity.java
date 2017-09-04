@@ -1,12 +1,12 @@
 package com.onekeyask.lawyer.ui.act.consulting;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.FreeaskBean;
 import com.onekeyask.lawyer.entity.PointsInfo;
@@ -74,7 +74,7 @@ public class QuickConsultingActivity extends BaseToolBarActivity implements View
         retrofitUtil.getPointsInfo(UserService.service(getBaseContext()).getUserId(), new ProgressSubscriber<PointsInfo>(getResultOnNext, QuickConsultingActivity.this, true));
     }
 
-    private ProgressDialog progressDialog;
+    private KProgressHUD hud;
     private Map<String, RequestBody> photoMap = new HashMap<>();
 
     @Override
@@ -87,10 +87,9 @@ public class QuickConsultingActivity extends BaseToolBarActivity implements View
                     i = 0;
                     k = 0;
                     if (photos.size() > 0) {
-                        progressDialog = new ProgressDialog(this);
-                        progressDialog.setMessage("正在压缩图片...");
-                        progressDialog.setCancelable(false);
-                        progressDialog.show();
+                        hud = KProgressHUD.create(QuickConsultingActivity.this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                                .setCancellable(true)
+                                .show();
                         i = 0;
                         for (int j = 0; j < photos.size(); j++) {
 
@@ -141,7 +140,7 @@ public class QuickConsultingActivity extends BaseToolBarActivity implements View
 
                         L.d("photoMap.size() " + photoMap.size() + " photos.size() " + photos.size());
                         if (photoMap.size() == photos.size()) {
-                            if (progressDialog.isShowing()) progressDialog.dismiss();
+                            if (hud.isShowing()) hud.dismiss();
                             goSubmit();
 
                         }
@@ -150,7 +149,7 @@ public class QuickConsultingActivity extends BaseToolBarActivity implements View
                     @Override
                     public void onError(Throwable e) {
                         L.e(e.toString());
-                        if (progressDialog.isShowing()) progressDialog.dismiss();
+                        if (hud.isShowing()) hud.dismiss();
                         showShort("第" + i + "张图片压缩出错");
                     }
                 }).launch();    //启动压缩
