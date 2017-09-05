@@ -57,7 +57,7 @@
                 android:background="@null"
                 android:cursorVisible="false"
                 android:gravity="center_vertical"
-                android:hint="搜索问答内容"
+                android:hint="搜索相关法律内容"
                 android:imeOptions="actionSearch"
                 android:maxLength="15"
                 android:singleLine="true"

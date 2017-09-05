@@ -166,9 +166,13 @@ public class DropMenuAdapter implements MenuAdapter {
                 .onRightItemClickListener(new DoubleListView.OnRightItemClickListener<FilterType, String>() {
                     @Override
                     public void onRightItemClick(FilterType item, String string) {
-                        FilterUrl.instance().doubleListLeft = item.desc;
-                        FilterUrl.instance().doubleListRight = string;
-
+                        if (item.desc.equals("全国")) {
+                            FilterUrl.instance().doubleListLeft = "";
+                            FilterUrl.instance().doubleListRight = "";
+                        } else {
+                            FilterUrl.instance().doubleListLeft = item.desc;
+                            FilterUrl.instance().doubleListRight = string;
+                        }
                         FilterUrl.instance().position = 1;
                         FilterUrl.instance().positionTitle = string;
 
@@ -195,8 +199,8 @@ public class DropMenuAdapter implements MenuAdapter {
         }
 
         //初始化选中.
-        comTypeDoubleListView.setLeftList(list, 1);
-        comTypeDoubleListView.setRightList(list.get(1).child, -1);
+        comTypeDoubleListView.setLeftList(list, 0);
+        comTypeDoubleListView.setRightList(list.get(0).child, 0);
         comTypeDoubleListView.getLeftListView().setBackgroundColor(mContext.getResources().getColor(R.color.b_c_fafafa));
 
         return comTypeDoubleListView;

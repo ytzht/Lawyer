@@ -24,6 +24,7 @@ import com.onekeyask.lawyer.entity.GetRed;
 import com.onekeyask.lawyer.entity.HomePage;
 import com.onekeyask.lawyer.entity.UserDiscoveries;
 import com.onekeyask.lawyer.global.Apis;
+import com.onekeyask.lawyer.global.BaseEvent;
 import com.onekeyask.lawyer.global.BaseFragment;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
@@ -45,6 +46,8 @@ import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -345,10 +348,19 @@ public class HomeIndexFragment extends BaseFragment {
                 ((IndexViewHolder) holder).rl_look_lawyer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(SearchLawActivity.class);
+                        if (service.isLogin()) {
+                            startActivity(SearchLawActivity.class);
+                        }else {
+                            startActivity(LoginActivity.class);
+                        }
                     }
                 });
-
+                ((IndexViewHolder) holder).tv_more_solutions.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EventBus.getDefault().post(BaseEvent.event(BaseEvent.GO_DISCOVER));
+                    }
+                });
 
             } else {
 
@@ -362,13 +374,20 @@ public class HomeIndexFragment extends BaseFragment {
                 ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), AskDetailActivity.class);
-                        intent.putExtra("cid", data.get(position - 1).getChatId());
-                        intent.putExtra("lawyerName", data.get(position - 1).getLawyerName());
-                        intent.putExtra("officeName", data.get(position - 1).getOfficeName());
-                        intent.putExtra("headUrl", data.get(position - 1).getHeadURL());
-                        intent.putExtra("sid", data.get(position - 1).getUserServiceId());
-                        startActivity(intent);
+
+                        if (service.isLogin()) {
+                            Intent intent = new Intent(getActivity(), AskDetailActivity.class);
+                            intent.putExtra("cid", data.get(position - 1).getChatId());
+                            intent.putExtra("lawyerName", data.get(position - 1).getLawyerName());
+                            intent.putExtra("officeName", data.get(position - 1).getOfficeName());
+                            intent.putExtra("headUrl", data.get(position - 1).getHeadURL());
+                            intent.putExtra("sid", data.get(position - 1).getUserServiceId());
+                            startActivity(intent);
+                        }else {
+                            startActivity(LoginActivity.class);
+                        }
+
+
 
                     }
                 });

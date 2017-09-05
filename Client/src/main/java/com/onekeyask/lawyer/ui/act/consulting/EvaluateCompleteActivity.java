@@ -31,6 +31,8 @@ import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.utils.UserService;
 
+import java.text.DecimalFormat;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -299,17 +301,31 @@ public class EvaluateCompleteActivity extends BaseToolBarActivity {
                 if (selectMoney.equals("")) {
                     showShort("请选择金额");
                 } else {
-                    popupWindow.dismiss();
+
+                    double input = (Double.parseDouble((new DecimalFormat("#.00")).format(Double.parseDouble(selectMoney))));
+
+                    if (input == 0) {
+                        showShort("输入金额不能小于0.01元");
+                    } else {
+                        if (input > 200) {
+                            showShort("输入金额不能大于200元");
+                        } else {
+                            popupWindow.dismiss();
 //                    showShort("选择" + selectMoney + "元 并说" + et_desc_popup.getText().toString());
 
-                    Intent intent = new Intent(EvaluateCompleteActivity.this, PayLawyerActivity.class);
-                    intent.putExtra("name", lawName);
-                    intent.putExtra("type", "2");
-                    intent.putExtra("lawyerId", lawyerId);
-                    intent.putExtra("money", Double.parseDouble(selectMoney));
-                    intent.putExtra("summary", et_desc_popup.getText().toString());
-                    intent.putExtra("userServiceId", userServiceId);
-                    startActivity(intent);
+                            Intent intent = new Intent(EvaluateCompleteActivity.this, PayLawyerActivity.class);
+                            intent.putExtra("name", lawName);
+                            intent.putExtra("type", "2");
+                            intent.putExtra("lawyerId", lawyerId);
+                            intent.putExtra("money", input);
+                            intent.putExtra("summary", et_desc_popup.getText().toString());
+                            intent.putExtra("userServiceId", userServiceId);
+                            startActivity(intent);
+
+                        }
+                    }
+
+
                 }
             }
         });

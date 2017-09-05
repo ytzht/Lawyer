@@ -1,5 +1,7 @@
 package com.onekeyask.lawyer.ui.fragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -65,31 +67,33 @@ public class HomeInfoFragment extends BaseFragment {
     private View view;
 
     private UserService userService;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.home_info_fragment, container, false);
         unbinder = ButterKnife.bind(this, view);
-        initView();
+        userService = new UserService(getActivity());
         return view;
     }
+
     public SubscriberOnNextListener getResultOnNext;
+
     private void initView() {
-        userService = new UserService(getActivity());
 
+        if (userService.isLogin()) {
+            getResultOnNext = new SubscriberOnNextListener<PointsInfo>() {
+                @Override
+                public void onNext(PointsInfo info) {
+                    myScore.setText(String.valueOf(info.getPoints()));
+                }
 
-        getResultOnNext = new SubscriberOnNextListener<PointsInfo>() {
-            @Override
-            public void onNext(PointsInfo info) {
-                myScore.setText(String.valueOf(info.getPoints()));
-            }
-
-            @Override
-            public void onError(int code, String message) {
-                showShort(message);
-            }
-        };
-        retrofitUtil.getPointsInfo(UserService.service(getActivity()).getUserId(), new ProgressSubscriber<PointsInfo>(getResultOnNext, getActivity(), false));
-
+                @Override
+                public void onError(int code, String message) {
+                    showShort(message);
+                }
+            };
+            retrofitUtil.getPointsInfo(UserService.service(getActivity()).getUserId(), new ProgressSubscriber<PointsInfo>(getResultOnNext, getActivity(), false));
+        }
 
 
     }
@@ -97,15 +101,16 @@ public class HomeInfoFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (!userService.getToken().equals("")) {
+        if (!userService.getToken().equals("-1")) {
             userName.setText(userService.getUserName());
-            if (userService.getHeadURL().equals("")){
+            if (userService.getHeadURL().equals("")) {
                 userHeader.setImageResource(R.drawable.ic_member_avatar);
-            }else {
+            } else {
                 Glide.with(getActivity()).load(userService.getHeadURL()).skipMemoryCache(true)
                         .diskCacheStrategy(DiskCacheStrategy.NONE).into(userHeader);
             }
-        }else {
+            initView();
+        } else {
             userName.setText("登录/注册");
             userHeader.setImageResource(R.drawable.ic_member_avatar);
         }
@@ -123,13 +128,27 @@ public class HomeInfoFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_in://我的积分
-                startActivity(MyIntegralActivity.class);
+
+                if (userService.isLogin()) {
+                    startActivity(MyIntegralActivity.class);
+                } else {
+                    startActivity(LoginActivity.class);
+                }
                 break;
             case R.id.how_in://赚取积分
-                startActivity(EarnPointsActivity.class);
+                if (userService.isLogin()) {
+                    startActivity(EarnPointsActivity.class);
+                } else {
+                    startActivity(LoginActivity.class);
+                }
+
                 break;
             case R.id.my_wallet://我的钱包
-                startActivity(MyWalletActivity.class);
+                if (userService.isLogin()) {
+                    startActivity(MyWalletActivity.class);
+                } else {
+                    startActivity(LoginActivity.class);
+                }
                 break;
             case R.id.customer_server://客服
                 showAlert();
@@ -138,13 +157,18 @@ public class HomeInfoFragment extends BaseFragment {
                 startActivity(OpinionActivity.class);
                 break;
             case R.id.setting:
-                startActivity(SettingActivity.class);
+                if (userService.isLogin()) {
+                    startActivity(SettingActivity.class);
+                } else {
+                    startActivity(LoginActivity.class);
+                }
+
                 break;
             case R.id.my_header://头部登录
 
-                if (userService.getToken().equals("")) {
+                if (userService.getToken().equals("-1")) {
                     startActivity(LoginActivity.class);
-                }else {
+                } else {
                     startActivity(MyInfoActivity.class);
                 }
                 break;
@@ -152,17 +176,26 @@ public class HomeInfoFragment extends BaseFragment {
     }
 
 
-
     private AlertDialog dialog;
+
     private void showAlert() {
         View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.custom_dialog_tel, null, false);
         dialog = new AlertDialog.Builder(getActivity()).setView(view1).setCancelable(true).show();
 
         ImageView iv_close = (ImageView) view1.findViewById(R.id.iv_close);
+        LinearLayout call_ll = (LinearLayout) view1.findViewById(R.id.call_ll);
         iv_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (dialog.isShowing()) dialog.dismiss();
+            }
+        });
+        call_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:010-62886288"));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
     }

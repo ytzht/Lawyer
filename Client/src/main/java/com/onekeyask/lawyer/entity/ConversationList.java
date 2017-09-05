@@ -127,14 +127,25 @@ public class ConversationList {
         private int conversationId;
         private int from;
         private int userId;
+        private int lawyerId = 3;
+
+        public int getLawyerId() {
+            return lawyerId;
+        }
+
+        public void setLawyerId(int lawyerId) {
+            this.lawyerId = lawyerId;
+        }
+
         private String headURL;
         private String name;
         private String content;
         private boolean isPicture;
         private String time;
 
-        public ConversationListBean(int conversationId, int from, int userId, String headURL, String name, String content, boolean isPicture, String time) {
+        public ConversationListBean(int lawyerId, int conversationId, int from, int userId, String headURL, String name, String content, boolean isPicture, String time) {
             this.conversationId = conversationId;
+            this.lawyerId = lawyerId;
             this.from = from;
             this.userId = userId;
             this.headURL = headURL;

@@ -123,7 +123,7 @@ public class FindLawyerActivity extends BaseToolBarActivity implements OnFilterD
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(SearchFindActivity.class, "type", "lawyer");
+                startActivity(SearchFindActivity.class, "type", "lawyer", "start", "yes");
                 finish();
             }
         });

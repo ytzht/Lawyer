@@ -85,6 +85,7 @@ public class EvaluateLawyerActivity extends BaseToolBarActivity {
         userServiceId = getIntent().getStringExtra("userServiceId");
         lawyerId = getIntent().getStringExtra("lawyerId");
 
+        L.d("onCreate: "+userServiceId);
         initTags();
 
         initName();

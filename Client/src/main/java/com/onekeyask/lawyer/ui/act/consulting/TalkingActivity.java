@@ -73,6 +73,7 @@ import com.umeng.socialize.utils.ShareBoardlistener;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -486,6 +487,8 @@ public class TalkingActivity extends BaseActivity {
 
     }
 
+    String lawName = "";
+
     private void initPopupClick() {
 
         tv_cancel_popup.setOnClickListener(new View.OnClickListener() {
@@ -500,17 +503,32 @@ public class TalkingActivity extends BaseActivity {
                 if (selectMoney.equals("")) {
                     showShort("请选择金额");
                 } else {
-                    popupWindow.dismiss();
+
+                    double input = (Double.parseDouble((new DecimalFormat("#.00")).format(Double.parseDouble(selectMoney))));
+
+                    if (input == 0) {
+                        showShort("输入金额不能小于0.01元");
+                    } else {
+                        if (input > 200) {
+                            showShort("输入金额不能大于200元");
+                        } else {
+                            popupWindow.dismiss();
 //                    showShort("选择" + selectMoney + "元并说" + et_desc_popup.getText().toString());
 
-                    Intent intent = new Intent(TalkingActivity.this, PayLawyerActivity.class);
-                    intent.putExtra("name", law_name.getText().toString());
-                    intent.putExtra("lawyerId", lawyerId);
-                    intent.putExtra("type", "2");
-                    intent.putExtra("money", Double.parseDouble(selectMoney));
-                    intent.putExtra("summary", et_desc_popup.getText().toString());
-                    intent.putExtra("userServiceId", userServiceId);
-                    startActivity(intent);
+                            Intent intent = new Intent(TalkingActivity.this, PayLawyerActivity.class);
+                            intent.putExtra("name", lawName);
+                            intent.putExtra("lawyerId", lawyerId);
+                            intent.putExtra("type", "2");
+                            intent.putExtra("money", Double.parseDouble(selectMoney));
+                            intent.putExtra("summary", et_desc_popup.getText().toString());
+                            intent.putExtra("userServiceId", userServiceId);
+                            startActivity(intent);
+
+                        }
+                    }
+
+
+
                 }
             }
         });
@@ -667,7 +685,7 @@ public class TalkingActivity extends BaseActivity {
                 getList.getFromType();//订单类型 1图文咨询 2免费提问
 
                 ConversationList.ConversationListBean bean = new ConversationList.ConversationListBean
-                        ((int) conversationId, 1, 2, "12", "12", "content", false, "00:00");
+                        (3, (int) conversationId, 1, 2, "12", "12", "content", false, "00:00");
 
                 if (talkingAdapter != null) {
 
@@ -918,15 +936,18 @@ public class TalkingActivity extends BaseActivity {
                 });
                 Glide.with(TalkingActivity.this).load(list.get(position).getHeadURL()).skipMemoryCache(true)
                         .diskCacheStrategy(DiskCacheStrategy.NONE).into(((ViewHolder) holder).civ_talking_avatar);
-                if (list.get(position).getFrom() == LEFT)
-                ((ViewHolder) holder).civ_talking_avatar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(TalkingActivity.this, LawyerDetailActivity.class);
-                        intent.putExtra("lawyerId", Integer.parseInt(lawyerId));
-                        startActivity(intent);
-                    }
-                });
+                if (list.get(position).getFrom() == LEFT) {
+                    ((ViewHolder) holder).civ_talking_avatar.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(TalkingActivity.this, LawyerDetailActivity.class);
+                            intent.putExtra("lawyerId", Integer.parseInt(lawyerId));
+                            startActivity(intent);
+                        }
+                    });
+                    lawName = list.get(position).getName();
+                    lawyerId = list.get(position).getLawyerId()+"";
+                }
                 if (list.get(position).isIsPicture()) {
                     ((ViewHolder) holder).tv_talking_msg.setVisibility(View.GONE);
                     ((ViewHolder) holder).ll_iv_msg.setVisibility(View.VISIBLE);
@@ -1038,7 +1059,7 @@ public class TalkingActivity extends BaseActivity {
 
                         Map<String, RequestBody> map = new HashMap<>();
                         map.clear();
-                        map.put("userId", RequestBody.create(null, "2"));
+                        map.put("userId", RequestBody.create(null, UserService.service(getBaseContext()).getUserId()+""));
                         map.put("chatId", RequestBody.create(null, cid));
                         String key = "picture\"; filename=\"picture";
                         map.put(key, RequestBody.create(MediaType.parse("multipart/form-data"), file));

@@ -1,5 +1,16 @@
 [
   {
+    "areaId": "000000",
+    "areaName": "全国",
+    "cities": [
+      {
+        "areaId": "000000",
+        "areaName": "全国地区",
+        "counties": []
+      }
+    ]
+  },
+  {
     "areaId": "110000",
     "areaName": "北京市",
     "cities": [

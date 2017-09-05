@@ -95,11 +95,13 @@ public class SettingActivity extends BaseToolBarActivity {
 
                 break;
             case R.id.clean_cache:
+                showShort("缓存清理成功");
                 break;
             case R.id.statement:
                 startActivity(StatementActivity.class);
                 break;
             case R.id.about_us:
+                startActivity(AboutUsActivity.class);
                 break;
             case R.id.return_my:
 

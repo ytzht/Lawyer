@@ -7,6 +7,7 @@ package com.onekeyask.lawyer.global;
 public class BaseEvent {
 
     public static final int GO_SERVICE = 100;//由聊天页面back回main
+    public static final int GO_DISCOVER = 200;//首页点击更多去发现页面
 
 
 

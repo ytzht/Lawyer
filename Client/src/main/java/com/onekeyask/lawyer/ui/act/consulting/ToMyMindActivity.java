@@ -136,8 +136,8 @@ public class ToMyMindActivity extends BaseToolBarActivity {
                                     if (selectMoney == 0) {
                                         showShort("输入金额不能小于0.01元");
                                     } else {
-                                        if (selectMoney > 10000) {
-                                            showShort("输入金额不能大于10000元");
+                                        if (selectMoney > 200) {
+                                            showShort("输入金额不能大于200元");
                                         } else {
                                             dialog.dismiss();
                                             selectMoney = Double.parseDouble(text);

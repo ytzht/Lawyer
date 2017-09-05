@@ -58,6 +58,13 @@ public class SearchFindActivity extends BaseActivity {
 
         type = getIntent().getStringExtra("type");
 
+        if (type.equals("lawyer")){
+            searchet.setHint("输入律师名、律所、擅长领域");
+        }
+
+        if (type.equals("content")){
+            searchet.setHint("搜索相关法律内容");
+        }
         history_list.clear();
         service = new UserService(getBaseContext());
         sp_history = service.getSearchHistory();
@@ -72,6 +79,9 @@ public class SearchFindActivity extends BaseActivity {
         searchcancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (getIntent().hasExtra("start")){
+                    startActivity(FindLawyerActivity.class);
+                }
                 finish();
             }
         });

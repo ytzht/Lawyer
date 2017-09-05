@@ -20,6 +20,7 @@ import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.utils.Forms;
+import com.onekeyask.lawyer.utils.UserService;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -177,7 +178,7 @@ public class ComplaintLawyerActivity extends BaseToolBarActivity {
             }
         }
 
-        photoMap.put("userId", RequestBody.create(null, "2"));
+        photoMap.put("userId", RequestBody.create(null, UserService.service(getBaseContext()).getUserId()+""));
         photoMap.put("lawyerId", RequestBody.create(null, getIntent().getStringExtra("lawyerId")));
         photoMap.put("userServiceId", RequestBody.create(null, getIntent().getStringExtra("sid")));
         photoMap.put("content", RequestBody.create(null, etcontent.getText().toString()));

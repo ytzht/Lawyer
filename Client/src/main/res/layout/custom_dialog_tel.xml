@@ -33,6 +33,7 @@
         android:background="@color/viewDivider"/>
 
     <LinearLayout
+        android:id="@+id/call_ll"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:padding="30dp"

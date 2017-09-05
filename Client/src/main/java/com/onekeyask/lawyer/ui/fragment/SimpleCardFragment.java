@@ -21,6 +21,7 @@ import com.onekeyask.lawyer.entity.UserDiscoveries;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseFragment;
 import com.onekeyask.lawyer.ui.act.lawyer.AskDetailActivity;
+import com.onekeyask.lawyer.ui.act.user.LoginActivity;
 import com.onekeyask.lawyer.utils.MyDecoration;
 import com.onekeyask.lawyer.utils.UserService;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -158,14 +159,18 @@ public class SimpleCardFragment extends BaseFragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), AskDetailActivity.class);
-                    intent.putExtra("cid", data.get(position).getChatId());
-                    intent.putExtra("lawyerName", data.get(position).getLawyerName());
-                    intent.putExtra("officeName", data.get(position).getOfficeName());
-                    intent.putExtra("headUrl", data.get(position).getHeadURL());
-                    intent.putExtra("sid", data.get(position).getUserServiceId());
-                    startActivity(intent);
 
+                    if (UserService.service(getActivity()).isLogin()) {
+                        Intent intent = new Intent(getActivity(), AskDetailActivity.class);
+                        intent.putExtra("cid", data.get(position).getChatId());
+                        intent.putExtra("lawyerName", data.get(position).getLawyerName());
+                        intent.putExtra("officeName", data.get(position).getOfficeName());
+                        intent.putExtra("headUrl", data.get(position).getHeadURL());
+                        intent.putExtra("sid", data.get(position).getUserServiceId());
+                        startActivity(intent);
+                    }else {
+                        startActivity(LoginActivity.class);
+                    }
                 }
             });
 

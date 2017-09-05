@@ -20,6 +20,7 @@ import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.utils.Forms;
+import com.onekeyask.lawyer.utils.UserService;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -177,7 +178,7 @@ public class OpinionActivity extends BaseToolBarActivity {
             }
         }
 
-        photoMap.put("userId", RequestBody.create(null, "2"));
+        photoMap.put("userId", RequestBody.create(null, UserService.service(getBaseContext()).getUserId()+""));
         photoMap.put("advise", RequestBody.create(null, etopinion.getText().toString()));
 
         getResultOnNext = new SubscriberOnNextListener<BaseResult>() {

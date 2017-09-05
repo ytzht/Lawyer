@@ -30,6 +30,7 @@ import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseActivity;
 import com.onekeyask.lawyer.global.BaseEvent;
 import com.onekeyask.lawyer.global.DownLoadAPK;
+import com.onekeyask.lawyer.ui.act.user.LoginActivity;
 import com.onekeyask.lawyer.ui.fragment.HomeFoundFragment;
 import com.onekeyask.lawyer.ui.fragment.HomeIndexFragment;
 import com.onekeyask.lawyer.ui.fragment.HomeInfoFragment;
@@ -96,20 +97,20 @@ public class MainActivity extends BaseActivity {
             public void onSuccess(Response<String> response) {
 
                 GetRed red = (new Gson()).fromJson(response.body(), GetRed.class);
-                if (red.getCode() == 0){
+                if (red.getCode() == 0) {
 
-                    if (red.getData().getMessageIds().size() != 0){
+                    if (red.getData().getMessageIds().size() != 0) {
                         //消息中心的右上角小红点显示
-                    }else {
+                    } else {
 
                     }
 
-                    if ((red.getData().getChatIds().size() + red.getData().getUserServiceInfoIds().size()) != 0){
+                    if ((red.getData().getChatIds().size() + red.getData().getUserServiceInfoIds().size()) != 0) {
                         tv_red.setVisibility(View.VISIBLE);
-                    }else {
+                    } else {
                         tv_red.setVisibility(View.GONE);
                     }
-                }else {
+                } else {
                     showShort(red.getMsg());
                 }
             }
@@ -164,14 +165,21 @@ public class MainActivity extends BaseActivity {
         if (event.getCode() == BaseEvent.GO_SERVICE) {
             index = 1;
             goTag();
+        } else if (event.getCode() == BaseEvent.GO_DISCOVER) {
+            index = 2;
+            goTag();
         }
     }
+    HomeIndexFragment indexFragment;
+    HomeServiceFragment serviceFragment;
+    HomeFoundFragment foundFragment;
+    HomeInfoFragment infoFragment;
 
     private void initBottom() {
-        HomeIndexFragment indexFragment = new HomeIndexFragment();
-        HomeServiceFragment serviceFragment = new HomeServiceFragment();
-        HomeFoundFragment foundFragment = new HomeFoundFragment();
-        HomeInfoFragment infoFragment = new HomeInfoFragment();
+        indexFragment = new HomeIndexFragment();
+        serviceFragment = new HomeServiceFragment();
+        foundFragment = new HomeFoundFragment();
+        infoFragment = new HomeInfoFragment();
 
         mTabs = new RelativeLayout[4];
         mTabs[0] = (RelativeLayout) findViewById(R.id.rl_1);
@@ -186,7 +194,7 @@ public class MainActivity extends BaseActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fl_change, indexFragment)
-                .add(R.id.fl_change, serviceFragment).hide(serviceFragment)
+//                .add(R.id.fl_change, serviceFragment).hide(serviceFragment)
                 .add(R.id.fl_change, foundFragment).hide(foundFragment)
                 .add(R.id.fl_change, infoFragment).hide(infoFragment)
                 .show(indexFragment)
@@ -208,7 +216,15 @@ public class MainActivity extends BaseActivity {
                 index = 3;
                 break;
         }
-        goTag();
+        if (index == 1 && currentTabIndex != 1) {
+            if (UserService.service(getBaseContext()).isLogin()) {
+                goCircleFragment();
+            }else {
+                startActivity(LoginActivity.class);
+            }
+        } else {
+            goTag();
+        }
     }
 
     private void goTag() {
@@ -266,6 +282,15 @@ public class MainActivity extends BaseActivity {
 
         }
     }
+
+    private void goCircleFragment() {
+        if (serviceFragment == null) {
+            serviceFragment = new HomeServiceFragment();
+            getSupportFragmentManager().beginTransaction().add(R.id.fl_change, serviceFragment).hide(serviceFragment).commit();
+        }
+        goTag();
+    }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

@@ -44,7 +44,9 @@ public class FilterUrl {
             for (int i = 0; i < SpecialBeanString.getSpecial().size(); i++) {
 
                 if (SpecialBeanString.getSpecial().get(i).getName().equals(singleGridPosition)){
-                    buffer.append("&special="+SpecialBeanString.getSpecial().get(i).getId());
+                    if (SpecialBeanString.getSpecial().get(i).getId() != 11) {
+                        buffer.append("&special=" + SpecialBeanString.getSpecial().get(i).getId());
+                    }
                 }
             }
         }
@@ -83,19 +85,7 @@ public class FilterUrl {
         }
 
         if (!TextUtils.isEmpty(doubleGridTop)) {
-
-            switch (doubleGridTop){
-                case "私人律师":
-                    buffer.append("&serviceType=1");
-                    break;
-                case "图文咨询":
-                    buffer.append("&serviceType=2");
-                    break;
-                case "电话咨询":
-                    buffer.append("&serviceType=3");
-                    break;
-
-            }
+            buffer.append("&serviceType=" + doubleGridTop);
 
         }
 

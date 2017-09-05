@@ -45,6 +45,7 @@ import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.ui.act.consulting.PayLawyerActivity;
+import com.onekeyask.lawyer.ui.act.user.LoginActivity;
 import com.onekeyask.lawyer.utils.MyDecoration;
 import com.onekeyask.lawyer.utils.UserService;
 import com.umeng.socialize.ShareAction;
@@ -56,6 +57,7 @@ import com.umeng.socialize.shareboard.ShareBoardConfig;
 import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.ShareBoardlistener;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -406,23 +408,30 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         consulting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (type == 1) {
-                    if (data.getLawyer().getServiceList().get(0).isIsOn()){
-                        startActivity(PersonLawyerActivity.class, "lawyerId", lawyerId + "");
-                    }else {
+
+                if (UserService.service(getBaseContext()).isLogin()) {
+                    if (type == 1) {
+                        if (data.getLawyer().getServiceList().get(0).isIsOn()){
+                            startActivity(PersonLawyerActivity.class, "lawyerId", lawyerId + "");
+                        }else {
+                            showShort("律师未开通此服务。");
+                        }
+                    } else if (type == 2) {
+                        if (data.getLawyer().getServiceList().get(1).isIsOn()){
+                            Intent intent = new Intent(LawyerDetailActivity.this, TxtPicAskActivity.class);
+                            intent.putExtra("lawyerId", lawyerId);
+                            startActivity(intent);
+                        }else {
+                            showShort("律师未开通此服务。");
+                        }
+                    } else {
                         showShort("律师未开通此服务。");
                     }
-                } else if (type == 2) {
-                    if (data.getLawyer().getServiceList().get(1).isIsOn()){
-                        Intent intent = new Intent(LawyerDetailActivity.this, TxtPicAskActivity.class);
-                        intent.putExtra("lawyerId", lawyerId);
-                        startActivity(intent);
-                    }else {
-                        showShort("律师未开通此服务。");
-                    }
-                } else {
-                    showShort("律师未开通此服务。");
+                }else {
+                    startActivity(LoginActivity.class);
                 }
+
+
             }
         });
 
@@ -742,17 +751,33 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
                 if (selectMoney.equals("")) {
                     showShort("请选择金额");
                 } else {
-                    popupWindow.dismiss();
-//                    showShort("选择" + selectMoney + "元 并说" + et_desc_popup.getText().toString());
-                    Intent intent = new Intent(LawyerDetailActivity.this, PayLawyerActivity.class);
+                    double money = Double.parseDouble((new DecimalFormat("#.00")).format(Double.parseDouble(selectMoney)));
 
-                    intent.putExtra("name", lawyerName.getText().toString());
-                    intent.putExtra("lawyerId", lawyerId);
-                    intent.putExtra("type", "1");
-                    intent.putExtra("money", Double.parseDouble(selectMoney));
-                    intent.putExtra("summary", et_desc_popup.getText().toString());
-                    intent.putExtra("userServiceId", "-1");
-                    startActivity(intent);
+
+                    if (money == 0) {
+                        showShort("输入金额不能小于0.01元");
+                    } else {
+                        if (money > 200) {
+                            showShort("输入金额不能大于200元");
+                        } else {
+                            popupWindow.dismiss();
+//                    showShort("选择" + selectMoney + "元 并说" + et_desc_popup.getText().toString());
+                            Intent intent = new Intent(LawyerDetailActivity.this, PayLawyerActivity.class);
+
+                            intent.putExtra("name", lawyerName.getText().toString());
+                            intent.putExtra("lawyerId", lawyerId);
+                            intent.putExtra("type", "1");
+                            intent.putExtra("money", money);
+                            intent.putExtra("summary", et_desc_popup.getText().toString());
+                            intent.putExtra("userServiceId", "-1");
+                            startActivity(intent);
+
+                        }
+                    }
+
+
+
+
                 }
             }
         });

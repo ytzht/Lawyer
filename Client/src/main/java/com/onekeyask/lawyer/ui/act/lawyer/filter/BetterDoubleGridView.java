@@ -13,7 +13,9 @@ import android.widget.TextView;
 
 import com.baiiu.filter.interfaces.OnFilterDoneListener;
 import com.onekeyask.lawyer.R;
+import com.onekeyask.lawyer.global.L;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -96,9 +98,13 @@ public class BetterDoubleGridView extends LinearLayout implements View.OnClickLi
         return this;
     }
 
-    private TextView mTopSelectedTextView;
+    private TextView mTopSelectedTextView1;
+    private TextView mTopSelectedTextView2;
+    private TextView mTopSelectedTextView3;
     private TextView mMidSelectedTextView;
     private TextView mBottomSelectedTextView;
+
+    private List<String> mTopString = new ArrayList<>();
 
     @Override
     public void onClick(View v) {
@@ -106,9 +112,18 @@ public class BetterDoubleGridView extends LinearLayout implements View.OnClickLi
         TextView textView = (TextView) v;
         String text = (String) textView.getTag();
 
-        if (textView == mTopSelectedTextView) {
-            mTopSelectedTextView = null;
+        if (textView == mTopSelectedTextView1) {
+            mTopSelectedTextView1 = null;
             textView.setSelected(false);
+            mTopString.remove("1");
+        } else if (textView == mTopSelectedTextView2) {
+            mTopSelectedTextView2 = null;
+            textView.setSelected(false);
+            mTopString.remove("2");
+        } else if (textView == mTopSelectedTextView3) {
+            mTopSelectedTextView3 = null;
+            textView.setSelected(false);
+            mTopString.remove("3");
         } else if (textView == mMidSelectedTextView) {
             mMidSelectedTextView = null;
             textView.setSelected(false);
@@ -116,11 +131,18 @@ public class BetterDoubleGridView extends LinearLayout implements View.OnClickLi
             mBottomSelectedTextView = null;
             textView.setSelected(false);
         } else if (mTopGridData.contains(text)) {
-            if (mTopSelectedTextView != null) {
-                mTopSelectedTextView.setSelected(false);
+            if (text.contains("私人律师")){
+                mTopSelectedTextView1 = textView;
+                mTopString.add("1");
+            }else if (text.contains("图文咨询")){
+                mTopSelectedTextView2 = textView;
+                mTopString.add("2");
+            }else if (text.contains("电话咨询")){
+                mTopSelectedTextView3 = textView;
+                mTopString.add("3");
             }
-            mTopSelectedTextView = textView;
             textView.setSelected(true);
+
         } else if (mMidGridData.contains(text)){
             if (mMidSelectedTextView != null) {
                 mMidSelectedTextView.setSelected(false);
@@ -145,7 +167,19 @@ public class BetterDoubleGridView extends LinearLayout implements View.OnClickLi
     @OnClick(R.id.bt_confirm)
     public void clickDone() {
 
-        FilterUrl.instance().doubleGridTop = mTopSelectedTextView == null ? "" : (String) mTopSelectedTextView.getTag();
+        String mTop = "";
+        if (mTopString.size() != 0){
+            for (int i = 0; i < mTopString.size(); i++) {
+                L.d("=====ss=====", mTopString.get(i));
+                if (i == 0){
+                    mTop += mTopString.get(i);
+                }else {
+                    mTop += ((",")+mTopString.get(i));
+                }
+            }
+        }
+        FilterUrl.instance().doubleGridTop = mTop;
+//        FilterUrl.instance().doubleGridTop = mTopSelectedTextView == null ? "" : (String) mTopSelectedTextView.getTag();
         FilterUrl.instance().doubleGridMid = mMidSelectedTextView == null ? "" : (String) mMidSelectedTextView.getTag();
         FilterUrl.instance().doubleGridBottom = mBottomSelectedTextView == null ? "" : (String) mBottomSelectedTextView.getTag();
 
@@ -156,15 +190,23 @@ public class BetterDoubleGridView extends LinearLayout implements View.OnClickLi
 
     @OnClick(R.id.bt_cancel)
     public void clickCancel() {
-        if (mTopSelectedTextView != null){
-            mTopSelectedTextView.setSelected(false);
-            mTopSelectedTextView = null;
+        if (mTopSelectedTextView1 != null) {
+            mTopSelectedTextView1.setSelected(false);
+            mTopSelectedTextView1 = null;
         }
-        if (mMidSelectedTextView != null){
+        if (mTopSelectedTextView2 != null) {
+            mTopSelectedTextView2.setSelected(false);
+            mTopSelectedTextView2 = null;
+        }
+        if (mTopSelectedTextView3 != null) {
+            mTopSelectedTextView3.setSelected(false);
+            mTopSelectedTextView3 = null;
+        }
+        if (mMidSelectedTextView != null) {
             mMidSelectedTextView.setSelected(false);
             mMidSelectedTextView = null;
         }
-        if (mBottomSelectedTextView != null){
+        if (mBottomSelectedTextView != null) {
             mBottomSelectedTextView.setSelected(false);
             mBottomSelectedTextView = null;
         }
