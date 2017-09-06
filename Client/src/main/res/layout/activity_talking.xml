@@ -236,31 +236,43 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="0.8dp"
                 android:background="@drawable/bottom_bar_top_shadow" />
 
             <LinearLayout
                 android:id="@+id/ll_give_btn"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
+                android:layout_height="50dp">
 
+                <LinearLayout
+                    android:id="@+id/ll_share"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/share_g" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textColor="#6f6f6f"
+                        android:text="分享"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
 
                 <RelativeLayout
                     android:id="@+id/rl_give_money"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_marginLeft="12dp"
                     android:layout_weight="1"
-                    android:background="@drawable/org_un_bg"
                     android:gravity="center"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:paddingTop="10dp">
-
+                    android:background="@color/org"
+                    android:layout_height="match_parent">
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
@@ -268,41 +280,34 @@
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/heart_b_c_o" />
+                            android:src="@drawable/heart_w" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="  略表心意"
-                            android:textColor="@color/baseOrange"
+                            android:textColor="@color/white"
                             android:textSize="18sp" />
                     </LinearLayout>
                 </RelativeLayout>
-
                 <RelativeLayout
                     android:id="@+id/rl_again"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_marginLeft="12dp"
                     android:layout_weight="1"
-                    android:background="@drawable/tag_select_green"
                     android:gravity="center"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:paddingTop="10dp">
+                    android:background="@color/burro_primary_ext"
+                    android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/tv_favorite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="再次咨询"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
+                        <TextView
+                            android:id="@+id/tv_favorite"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="再次咨询"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
                 </RelativeLayout>
-            </LinearLayout>
 
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

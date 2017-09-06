@@ -96,7 +96,7 @@ public class TalkingActivity extends BaseActivity {
     private long firstConversationId, lastConversationId, conversationId;
     private String cid = "0";
     private ConversationList getList;
-    private LinearLayout ll_input_send, ll_bottom_menu, ll_eva_comp, ll_lawyer_info, ll_law_detail;
+    private LinearLayout ll_input_send, ll_bottom_menu, ll_eva_comp, ll_lawyer_info, ll_law_detail, ll_share;
     private RelativeLayout rl_give_money, rl_again;
     private int LEFT = 1;
     private int size = 10;
@@ -137,8 +137,8 @@ public class TalkingActivity extends BaseActivity {
     private int userId;
 
     private SHARE_MEDIA shareMedia;
-    private String shareUrl = "http://ytzht.top";
-    private String shareTitle = "你的朋友喊你一起来玩";
+    private String shareUrl = "http://www.baidu.com";
+    private String shareTitle = "shareTitle";
     private String shareSummary = "shareSummary";
 
     private void goShare() {
@@ -341,6 +341,7 @@ public class TalkingActivity extends BaseActivity {
         setSupportActionBar(talk_toolbar);
         cid = getIntent().getStringExtra("cid");
         ll_input_send = (LinearLayout) findViewById(R.id.ll_input_send);
+        ll_share = (LinearLayout) findViewById(R.id.ll_share);
         ll_bottom_menu = (LinearLayout) findViewById(R.id.ll_bottom_menu);
         ll_eva_comp = (LinearLayout) findViewById(R.id.ll_eva_comp);
         ll_lawyer_info = (LinearLayout) findViewById(R.id.ll_lawyer_info);
@@ -385,7 +386,12 @@ public class TalkingActivity extends BaseActivity {
 
             }
         });
-
+        ll_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goShare();
+            }
+        });
 
         iv_money_bottom.setOnClickListener(new View.OnClickListener() {
             @Override

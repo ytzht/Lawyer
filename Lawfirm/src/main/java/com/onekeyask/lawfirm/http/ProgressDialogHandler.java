@@ -24,7 +24,6 @@ public class ProgressDialogHandler extends Handler {
                                  boolean cancelable,boolean show) {
         super();
         this.context = context;
-        this.mProgressCancelListener = mProgressCancelListener;
         this.show = show;
     }
 
@@ -32,7 +31,7 @@ public class ProgressDialogHandler extends Handler {
         if (pd == null) {
 
             pd = KProgressHUD.create(context).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                    .setCancellable(cancelable);
+                    .setCancellable(false);
 
             if (!pd.isShowing()&&show) {
                 pd.show();

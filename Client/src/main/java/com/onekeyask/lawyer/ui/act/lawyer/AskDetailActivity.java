@@ -424,8 +424,8 @@ public class AskDetailActivity extends BaseActivity {
 
 
     private SHARE_MEDIA shareMedia;
-    private String shareUrl = "http://ytzht.top";
-    private String shareTitle = "你的朋友喊你一起来玩";
+    private String shareUrl = "http://www.baidu.com";
+    private String shareTitle = "shareTitle";
     private String shareSummary = "shareSummary";
 
     private void goShare() {
