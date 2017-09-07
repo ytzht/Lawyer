@@ -195,7 +195,7 @@ public class MainActivity extends BaseActivity {
                 .beginTransaction()
                 .add(R.id.fl_change, indexFragment)
 //                .add(R.id.fl_change, serviceFragment).hide(serviceFragment)
-                .add(R.id.fl_change, foundFragment).hide(foundFragment)
+//                .add(R.id.fl_change, foundFragment).hide(foundFragment)
                 .add(R.id.fl_change, infoFragment).hide(infoFragment)
                 .show(indexFragment)
                 .commit();
@@ -218,7 +218,9 @@ public class MainActivity extends BaseActivity {
         }
         if (index == 1 && currentTabIndex != 1) {
             if (UserService.service(getBaseContext()).isLogin()) {
-                goCircleFragment();
+                goServiceFragment();
+            }else if (index == 2 && currentTabIndex != 2) {
+                goFoundFragment();
             }else {
                 startActivity(LoginActivity.class);
             }
@@ -283,7 +285,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private void goCircleFragment() {
+    private void goServiceFragment() {
         if (serviceFragment == null) {
             serviceFragment = new HomeServiceFragment();
             getSupportFragmentManager().beginTransaction().add(R.id.fl_change, serviceFragment).hide(serviceFragment).commit();
@@ -291,6 +293,13 @@ public class MainActivity extends BaseActivity {
         goTag();
     }
 
+    private void goFoundFragment() {
+        if (foundFragment == null) {
+            foundFragment = new HomeFoundFragment();
+            getSupportFragmentManager().beginTransaction().add(R.id.fl_change, foundFragment).hide(foundFragment).commit();
+        }
+        goTag();
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

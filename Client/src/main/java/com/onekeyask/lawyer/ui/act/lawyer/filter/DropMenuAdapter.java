@@ -33,10 +33,12 @@ public class DropMenuAdapter implements MenuAdapter {
     private final Context mContext;
     private OnFilterDoneListener onFilterDoneListener;
     private String[] titles;
+    private int special = -1;
 
-    public DropMenuAdapter(Context context, String[] titles, OnFilterDoneListener onFilterDoneListener) {
+    public DropMenuAdapter(Context context, String[] titles, OnFilterDoneListener onFilterDoneListener, int special) {
         this.mContext = context;
         this.titles = titles;
+        this.special = special;
         this.onFilterDoneListener = onFilterDoneListener;
     }
 
@@ -258,7 +260,7 @@ public class DropMenuAdapter implements MenuAdapter {
 //        list.add("知识产权");
 //        list.add("新三板");
 
-        singleGridView.setList(list, -1);
+        singleGridView.setList(list, special);
 
 
         return singleGridView;

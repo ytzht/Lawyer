@@ -262,6 +262,7 @@ public class CompleteServiceFragment extends BaseFragment {
                 ((ViewHolder) holder).tv_content_now.setText(listBeen.get(position).getServiceContent());
                 ((ViewHolder) holder).tv_name_now.setText(listBeen.get(position).getLawyer().getName());
                 ((ViewHolder) holder).tv_time_now.setText(listBeen.get(position).getLastServiceTime());
+                ((ViewHolder) holder).com_price.setText("￥"+listBeen.get(position).getServiceAmount());
                 switch (listBeen.get(position).getType()) {
                     case "1":
                         ((ViewHolder) holder).tv_tag_now.setText("快速咨询");
@@ -307,7 +308,7 @@ public class CompleteServiceFragment extends BaseFragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            private TextView tv_content_now, tv_tag_now, tv_time_now, tv_name_now, status;
+            private TextView tv_content_now, tv_tag_now, tv_time_now, tv_name_now, status, com_price;
             private CircleImageView civ_avatar_now;
 
             private ViewHolder(View itemView) {
@@ -317,8 +318,8 @@ public class CompleteServiceFragment extends BaseFragment {
                 tv_time_now = (TextView) itemView.findViewById(R.id.tv_time_now);
                 status = (TextView) itemView.findViewById(R.id.status);
                 tv_name_now = (TextView) itemView.findViewById(R.id.tv_name_now);
+                com_price = (TextView) itemView.findViewById(R.id.com_price);
                 civ_avatar_now = (CircleImageView) itemView.findViewById(R.id.civ_avatar_now);
-
 
             }
         }

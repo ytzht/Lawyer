@@ -67,7 +67,7 @@ public class SearchFindActivity extends BaseActivity {
         }
         history_list.clear();
         service = new UserService(getBaseContext());
-        sp_history = service.getSearchHistory();
+        sp_history = service.getSearchHistorys();
         String[] split = sp_history.split("&");
         for (int i = 0; i < split.length; i++) {
             if (split.length != 1)
@@ -88,7 +88,7 @@ public class SearchFindActivity extends BaseActivity {
         ivclearhistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                service.saveSearchHistory("");
+                service.saveSearchHistorys("");
                 history_list.clear();
                 historyAdapter.notifyDataSetChanged();
             }
@@ -102,14 +102,25 @@ public class SearchFindActivity extends BaseActivity {
                     //实现自己的搜索逻辑
 
                     keyword = searchet.getText().toString();
-                    sp_history = service.getSearchHistory();
+                    sp_history = service.getSearchHistorys();
                     if (!keyword.equals("")) {
                         if (TextUtils.isEmpty(sp_history)) {
-                            service.saveSearchHistory(keyword);
+                            service.saveSearchHistorys(keyword);
+                            history_list.add(keyword);
                         } else {
-                            service.saveSearchHistory(sp_history + "&" + keyword);
+                            sp_history = service.getSearchHistorys();
+                            String[] split = sp_history.split("&");
+                            boolean hasHis = false;
+                            for (int i = 0; i < split.length; i++) {
+                                if (split[i].equals(keyword)){
+                                    hasHis = true;
+                                }
+                            }
+                            if (!hasHis) {
+                                service.saveSearchHistorys(sp_history + "&" + keyword);
+                                history_list.add(keyword);
+                            }
                         }
-                        history_list.add(keyword);
                         historyAdapter.notifyDataSetChanged();
                         searchet.setText("");
 
@@ -150,7 +161,7 @@ public class SearchFindActivity extends BaseActivity {
                             now_history += (history_list.get(i) + "&");
                         }
                     }
-                    service.saveSearchHistory(now_history);
+                    service.saveSearchHistorys(now_history);
                     notifyDataSetChanged();
                 }
             });

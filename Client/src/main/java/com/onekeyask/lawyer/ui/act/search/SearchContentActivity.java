@@ -165,10 +165,21 @@ public class SearchContentActivity extends BaseActivity {
                     if (!keyword.equals("")) {
                         if (TextUtils.isEmpty(sp_history)) {
                             service.saveSearchHistory(keyword);
+                            history_list.add(keyword);
                         } else {
-                            service.saveSearchHistory(sp_history + "&" + keyword);
+                            sp_history = service.getSearchHistory();
+                            String[] split = sp_history.split("&");
+                            boolean hasHis = false;
+                            for (int i = 0; i < split.length; i++) {
+                                if (split[i].equals(keyword)){
+                                    hasHis = true;
+                                }
+                            }
+                            if (!hasHis) {
+                                service.saveSearchHistory(sp_history + "&" + keyword);
+                                history_list.add(keyword);
+                            }
                         }
-                        history_list.add(keyword);
                         historyAdapter.notifyDataSetChanged();
                         searchet.setText("");
                         searchOver();

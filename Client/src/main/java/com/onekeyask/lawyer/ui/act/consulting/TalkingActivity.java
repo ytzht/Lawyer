@@ -524,6 +524,7 @@ public class TalkingActivity extends BaseActivity {
                             Intent intent = new Intent(TalkingActivity.this, PayLawyerActivity.class);
                             intent.putExtra("name", lawName);
                             intent.putExtra("lawyerId", lawyerId);
+                            intent.putExtra("start", "over");
                             intent.putExtra("type", "2");
                             intent.putExtra("money", Double.parseDouble(selectMoney));
                             intent.putExtra("summary", et_desc_popup.getText().toString());
@@ -747,7 +748,7 @@ public class TalkingActivity extends BaseActivity {
                     talkingAdapter = new TalkingAdapter();
                     listBean.add(0, bean);
                     talkingAdapter.setList(listBean);
-                    if (listBean.size() > 0) {
+                    if (listBean.size() > 0) {// TODO: 2017/9/7 111111
                         firstConversationId = listBean.get(1).getConversationId();
                         lastConversationId = listBean.get(listBean.size() - 1).getConversationId();
                     }
@@ -936,7 +937,10 @@ public class TalkingActivity extends BaseActivity {
                 ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        showShort(list.get(position).getContent());
+//                        showShort(list.get(position).getContent());
+                        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                                .hideSoftInputFromWindow(rlv_talking.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
                         L.d(list.get(position).getContent());
                     }
                 });

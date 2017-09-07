@@ -26,7 +26,7 @@ import okhttp3.RequestBody;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
-public class QuickConsultingActivity extends BaseToolBarActivity implements View.OnClickListener {
+public class QuickConsultingActivity extends BaseToolBarActivity {
 
     private RelativeLayout rl_free_con, rl_pay_con;
     private TextView tv_points;
@@ -47,11 +47,8 @@ public class QuickConsultingActivity extends BaseToolBarActivity implements View
 
     private void initView() {
         rl_free_con = (RelativeLayout) findViewById(R.id.rl_free_con);
-        rl_free_con.setOnClickListener(this);
         rl_pay_con = (RelativeLayout) findViewById(R.id.rl_pay_con);
-        rl_pay_con.setOnClickListener(this);
         tv_points = (TextView) findViewById(R.id.tv_points);
-        tv_points.setOnClickListener(this);
         photos = new ArrayList<>();
 
         photos = getIntent().getStringArrayListExtra("photos");
@@ -72,16 +69,10 @@ public class QuickConsultingActivity extends BaseToolBarActivity implements View
             }
         };
         retrofitUtil.getPointsInfo(UserService.service(getBaseContext()).getUserId(), new ProgressSubscriber<PointsInfo>(getResultOnNext, QuickConsultingActivity.this, true));
-    }
 
-    private KProgressHUD hud;
-    private Map<String, RequestBody> photoMap = new HashMap<>();
-
-    @Override
-    public void onClick(View v) {
-
-        switch (v.getId()) {
-            case R.id.rl_free_con:
+        rl_free_con.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 if (points > askPrice) {
                     photoMap.clear();
                     i = 0;
@@ -103,17 +94,23 @@ public class QuickConsultingActivity extends BaseToolBarActivity implements View
                 } else {
                     showShort("金币不足");
                 }
-                break;
+            }
+        });
 
-            case R.id.rl_pay_con:
+        rl_pay_con.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent intent = new Intent(QuickConsultingActivity.this, PayQuickConsultingActivity.class);
                 intent.putExtra("content", content);
                 intent.putExtra("category", category);
                 intent.putStringArrayListExtra("photos", photos);
                 startActivity(intent);
-                break;
-        }
+            }
+        });
     }
+
+    private KProgressHUD hud;
+    private Map<String, RequestBody> photoMap = new HashMap<>();
 
     private int i = 0;
 

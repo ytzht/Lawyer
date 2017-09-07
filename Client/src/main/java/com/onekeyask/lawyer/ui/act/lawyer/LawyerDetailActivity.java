@@ -341,6 +341,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
     }
 
     private void setValue() {
+        type = data.getLawyer().getServiceList().get(0).getServiceType();
         if (data.getLawyer().getServiceList().size() != 0) {
             data.getLawyer().getServiceList().get(0).setCheck(true);
             service_notes.setText(data.getLawyer().getServiceList().get(0).getNotes());
@@ -684,8 +685,8 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
 
-            Glide.with(LawyerDetailActivity.this).load(data.getLawyer().getServiceList().get(position).getImgURL()).skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE).into(holder.service_pic);
+            Glide.with(LawyerDetailActivity.this).load(data.getLawyer().getServiceList().get(position).getImgURL())
+                    .into(holder.service_pic);
             holder.service_name.setText(data.getLawyer().getServiceList().get(position).getServiceName());
 
             if (data.getLawyer().getServiceList().get(position).isCheck()) {
@@ -763,7 +764,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
                             popupWindow.dismiss();
 //                    showShort("选择" + selectMoney + "元 并说" + et_desc_popup.getText().toString());
                             Intent intent = new Intent(LawyerDetailActivity.this, PayLawyerActivity.class);
-
+                            intent.putExtra("start", "over");
                             intent.putExtra("name", lawyerName.getText().toString());
                             intent.putExtra("lawyerId", lawyerId);
                             intent.putExtra("type", "1");

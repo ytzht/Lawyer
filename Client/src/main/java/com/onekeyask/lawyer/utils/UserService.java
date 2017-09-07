@@ -19,6 +19,7 @@ public class UserService {
     private static final String UserId = "_userId";
     private static final String HeadURL = "_headURL";
     private static final String SearchHistory = "_searchHistory";
+    private static final String SearchHistorys = "_searchHistorys";
     private Context context;
 
     public static UserService service(Context context) {
@@ -123,6 +124,18 @@ public class UserService {
         SharedPreferences memberPrefs = context.getSharedPreferences(
                 SearchHistory, Context.MODE_PRIVATE);
         memberPrefs.edit().putString(SearchHistory, searchHistory).apply();
+    }
+
+    public String getSearchHistorys() {
+        SharedPreferences memberPrefs = context.getSharedPreferences(
+                SearchHistorys, Context.MODE_PRIVATE);
+        return memberPrefs.getString(SearchHistorys, "");
+    }
+
+    public void saveSearchHistorys(String searchHistorys) {
+        SharedPreferences memberPrefs = context.getSharedPreferences(
+                SearchHistorys, Context.MODE_PRIVATE);
+        memberPrefs.edit().putString(SearchHistorys, searchHistorys).apply();
     }
 
 

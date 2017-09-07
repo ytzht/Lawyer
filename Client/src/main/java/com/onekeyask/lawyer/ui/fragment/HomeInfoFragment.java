@@ -64,6 +64,8 @@ public class HomeInfoFragment extends BaseFragment {
     Unbinder unbinder;
     @BindView(R.id.my_header)
     LinearLayout myHeader;
+    @BindView(R.id.ll_score)
+    LinearLayout ll_score;
     private View view;
 
     private UserService userService;
@@ -110,7 +112,9 @@ public class HomeInfoFragment extends BaseFragment {
                         .diskCacheStrategy(DiskCacheStrategy.NONE).into(userHeader);
             }
             initView();
+            ll_score.setVisibility(View.VISIBLE);
         } else {
+            ll_score.setVisibility(View.GONE);
             userName.setText("登录/注册");
             userHeader.setImageResource(R.drawable.ic_member_avatar);
         }

@@ -250,6 +250,8 @@ public class TalkingActivity extends BaseActivity {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+                ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                        .hideSoftInputFromWindow(rlv_talking.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     if (((LinearLayoutManager) (recyclerView.getLayoutManager())).findFirstVisibleItemPosition() == 0) {
@@ -507,7 +509,9 @@ public class TalkingActivity extends BaseActivity {
                 ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        showShort(list.get(position).getContent());
+                        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                                .hideSoftInputFromWindow(rlv_talking.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
                         L.d(list.get(position).getContent());
                     }
                 });

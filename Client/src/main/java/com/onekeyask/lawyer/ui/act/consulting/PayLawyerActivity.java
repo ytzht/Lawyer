@@ -199,7 +199,11 @@ public class PayLawyerActivity extends BaseToolBarActivity {
         Intent intent = new Intent(PayLawyerActivity.this, EvaluateCompleteActivity.class);
         intent.putExtra("giveMoney", false);
         intent.putExtra("lawyerId", lawyerId);
-        startActivity(intent);
+        if (getIntent().getStringExtra("start").equals("eva")) {
+            startActivity(intent);
+        }else {
+            showShort("成功赠送心意");
+        }
         finish();
     }
 

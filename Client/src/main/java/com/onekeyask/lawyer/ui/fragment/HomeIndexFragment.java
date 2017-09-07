@@ -103,7 +103,11 @@ public class HomeIndexFragment extends BaseFragment {
         iv_top_msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(TopMsgActivity.class);
+                if (UserService.service(getActivity()).isLogin()) {
+                    startActivity(TopMsgActivity.class);
+                }else {
+                    startActivity(LoginActivity.class);
+                }
             }
         });
         adapter = new IndexAdapter();

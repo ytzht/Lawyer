@@ -52,6 +52,15 @@ public class ChatList {
         private String status;
         private String serviceContent;
         private String lastServiceTime;
+        private double serviceAmount;
+
+        public double getServiceAmount() {
+            return serviceAmount;
+        }
+
+        public void setServiceAmount(double serviceAmount) {
+            this.serviceAmount = serviceAmount;
+        }
 
         public String getServiceId() {
             return serviceId;

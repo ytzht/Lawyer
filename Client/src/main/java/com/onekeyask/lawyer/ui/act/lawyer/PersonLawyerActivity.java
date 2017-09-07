@@ -38,6 +38,7 @@ import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
+import com.onekeyask.lawyer.ui.act.consulting.TalkingActivity;
 import com.onekeyask.lawyer.utils.UserService;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -192,7 +193,7 @@ public class PersonLawyerActivity extends BaseToolBarActivity {
             }
         });
     }
-
+    AliPayResult result;
     private void goPay() {
 
         OkGo.<String>get(Apis.MakeOrderAndGetPayInfo)
@@ -206,7 +207,7 @@ public class PersonLawyerActivity extends BaseToolBarActivity {
                     public void onSuccess(Response<String> response) {
 
 
-                        AliPayResult result = (new Gson()).fromJson(response.body(), AliPayResult.class);
+                        result = (new Gson()).fromJson(response.body(), AliPayResult.class);
                         if (result.getCode() == 0) {
 
                             if (payType == 1){
@@ -234,6 +235,7 @@ public class PersonLawyerActivity extends BaseToolBarActivity {
                                 if (balance < price){
                                     showShort("余额不足");
                                 }else {
+                                    goNext();
                                     showShort("支付成功");
                                 }
                             }
@@ -257,7 +259,7 @@ public class PersonLawyerActivity extends BaseToolBarActivity {
             if (TextUtils.equals(resultStatus, "9000")) {
                 // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                 showShort("支付成功");
-                finish();
+                goNext();
 //                goNext(oid + "", fid + "");
 
             } else {
@@ -266,6 +268,15 @@ public class PersonLawyerActivity extends BaseToolBarActivity {
             }
         }
     };
+
+    private void goNext() {
+        Intent intent = new Intent(PersonLawyerActivity.this, TalkingActivity.class);
+        intent.putExtra("cid", "0");
+        intent.putExtra("lawyerId", lawyerId);
+        intent.putExtra("oid", result.getData().getOrderId()+"");
+        startActivity(intent);
+        finish();
+    }
 
 
     private void WePay(AliPayResult.DataBean.WxBean wx) {
@@ -305,7 +316,7 @@ public class PersonLawyerActivity extends BaseToolBarActivity {
                     break;
                 case 0:
                     showShort("支付成功");
-                    finish();
+                    goNext();
                     break;
                 case -1:
                     showShort("-1\t错误\t可能的原因：签名错误、未注册APPID、项目设置APPID不正确、注册的APPID与设置的不匹配、其他异常等。");
