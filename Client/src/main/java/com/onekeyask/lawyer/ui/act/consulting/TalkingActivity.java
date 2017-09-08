@@ -105,7 +105,7 @@ public class TalkingActivity extends BaseActivity {
     private TextView tv_send_msg, talk_toolbar_title, tv_time_step;
     private EditText et_send_msg;
     private Handler mHandler = new Handler();
-//    private Menu menu;
+    //    private Menu menu;
     private Toolbar talk_toolbar;
     private boolean hasMore = true;
     private HandlerThread mCheckMsgThread;
@@ -326,8 +326,29 @@ public class TalkingActivity extends BaseActivity {
 
     }
 
+    private LinearLayout ll_eva, ll_com;
+
     private void initView() {
-        contentViews = LayoutInflater.from(getBaseContext()).inflate(R.layout.service_type, null);
+        contentViews = LayoutInflater.from(getBaseContext()).inflate(R.layout.talking_menu, null);
+        ll_eva = (LinearLayout) contentViews.findViewById(R.id.ll_eva);
+        ll_com = (LinearLayout) contentViews.findViewById(R.id.ll_com);
+        ll_eva.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TalkingActivity.this, EvaluateLawyerActivity.class);
+                intent.putExtra("userServiceId", userServiceId);
+                intent.putExtra("lawyerId", lawyerId);
+                startActivity(intent);
+                popupWindow.dismiss();
+            }
+        });
+        ll_com.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(ComplaintLawyerActivity.class, "lawyerId", lawyerId + "", "sid", userServiceId);
+                popupWindow.dismiss();
+            }
+        });
         HideUtil.init(this);
         if (getIntent().hasExtra("lawyerId")) {
             lawyerId = getIntent().getStringExtra("lawyerId");
@@ -794,13 +815,15 @@ public class TalkingActivity extends BaseActivity {
     private void hideMenu() {
 //        if (menu != null)
 //            menu.getItem(0).setVisible(false);
+        ll_eva.setVisibility(View.GONE);
     }
 
     private void showMenu() {
 //        if (menu != null)
 //            menu.getItem(0).setVisible(true);
-    }
+        ll_eva.setVisibility(View.VISIBLE);
 
+    }
 
 
 //    @Override
@@ -841,6 +864,7 @@ public class TalkingActivity extends BaseActivity {
 
     private PopupWindow popupWindows = null;
     private View contentViews;
+
     //跳出选项框
     public PopupWindow getMenuPopwindow(View view) {
         PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -870,12 +894,14 @@ public class TalkingActivity extends BaseActivity {
 
     ImageView menuView;
     private BadgeActionProvider mActionProvider;
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         menuView = mActionProvider.getImageView();
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.custommenu, menu);

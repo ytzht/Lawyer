@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:background="@drawable/pop_bg"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_eva"
+            android:layout_width="164dp"
+            android:gravity="center_vertical"
+            android:layout_height="48dp">
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="18dp"
+                android:src="@drawable/evaluation"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="评价"
+                android:textSize="16sp"
+                android:textColor="#343434"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_com"
+            android:layout_width="164dp"
+            android:gravity="center_vertical"
+            android:layout_height="48dp">
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="18dp"
+                android:src="@drawable/complaints"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="投诉"
+                android:textSize="16sp"
+                android:textColor="#343434"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>
