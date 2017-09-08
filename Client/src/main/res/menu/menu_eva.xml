@@ -8,17 +8,9 @@
         android:title="@string/evaluate"
         app:showAsAction="never" />
     <item
-        android:id="@+id/tousu"
+        android:id="@+id/complaint"
         android:orderInCategory="80"
         android:icon="@drawable/complaints"
         android:title="投诉"
         app:showAsAction="never" />
-
-    <item
-        android:id="@+id/law_share"
-        android:orderInCategory="80"
-        android:visible="false"
-        app:actionLayout="@layout/menu_share_action"
-        app:showAsAction="never"
-        android:title="分享" />
 </menu>

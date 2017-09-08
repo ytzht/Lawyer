@@ -30,6 +30,7 @@ import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.ui.act.consulting.ConsultingDetailActivity;
 import com.onekeyask.lawyer.ui.act.lawyer.AskDetailActivity;
+import com.onekeyask.lawyer.ui.act.lawyer.FindLawyerActivity;
 import com.onekeyask.lawyer.ui.act.search.SearchContentActivity;
 import com.onekeyask.lawyer.ui.act.search.SearchLawActivity;
 import com.onekeyask.lawyer.ui.act.user.LoginActivity;
@@ -363,6 +364,31 @@ public class HomeIndexFragment extends BaseFragment {
                     @Override
                     public void onClick(View v) {
                         EventBus.getDefault().post(BaseEvent.event(BaseEvent.GO_DISCOVER));
+                    }
+                });
+                ((IndexViewHolder) holder).rl_project_one.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(FindLawyerActivity.class, "position", "3", "special", "婚姻继承");
+
+                    }
+                });
+                ((IndexViewHolder) holder).rl_project_two.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(FindLawyerActivity.class, "position", "1", "special", "合同纠纷");
+                    }
+                });
+                ((IndexViewHolder) holder).rl_project_three.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(FindLawyerActivity.class, "position", "5", "special", "劳动争议");
+                    }
+                });
+                ((IndexViewHolder) holder).rl_project_four.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(FindLawyerActivity.class, "position", "9", "special", "交通事故");
                     }
                 });
 

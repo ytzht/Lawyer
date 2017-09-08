@@ -106,7 +106,8 @@ public class MyPushIntentService extends UmengMessageService {
                 intent = new Intent(MyPushIntentService.this, TalkingActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("cid", msgPoints.getData().getChatId());
-                intent.putExtra("lawyerId", msgPoints.getData().getLawyerId());
+                L.d("=====push cid ", msgPoints.getData().getChatId());
+                intent.putExtra("lawyerId", msgPoints.getData().getLawyerId()+"");
                 intent.putExtra("oid", "0");
                 break;
             case "UserServiceInfoNotification":

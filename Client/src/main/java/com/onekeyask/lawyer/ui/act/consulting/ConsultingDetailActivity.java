@@ -57,7 +57,7 @@ public class ConsultingDetailActivity extends BaseToolBarActivity {
     private ConTagAdapter tagAdapter;
     private int categoryId = -1;
     //    private String payType, money;
-        private int maxPicNum = 3;
+    private int maxPicNum = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

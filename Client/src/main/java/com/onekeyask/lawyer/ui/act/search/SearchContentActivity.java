@@ -161,6 +161,7 @@ public class SearchContentActivity extends BaseActivity {
                     //实现自己的搜索逻辑
 
                     keyword = searchet.getText().toString();
+                    searchet.setText(keyword);
                     sp_history = service.getSearchHistory();
                     if (!keyword.equals("")) {
                         if (TextUtils.isEmpty(sp_history)) {
@@ -267,6 +268,7 @@ public class SearchContentActivity extends BaseActivity {
 
                     startSearchContent(history_list.get(position));
                     keyword = history_list.get(position);
+                    searchet.setText(keyword);
                 }
             });
         }

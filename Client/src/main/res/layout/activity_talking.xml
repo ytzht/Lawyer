@@ -295,7 +295,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:background="@color/burro_primary_ext"
+                    android:background="@color/baseColor"
                     android:layout_height="match_parent">
 
                         <TextView
@@ -324,76 +324,21 @@
             android:id="@+id/ll_lawyer_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/divider"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:gravity="center"
+            android:visibility="visible">
 
-            <LinearLayout
-                android:id="@+id/ll_law_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/law_img"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_margin="12dp"
-                    android:src="@drawable/ic_member_avatar" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/law_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="6dp"
-                        android:textColor="#343434"
-                        android:textSize="16sp"
-                        tools:text="张晓平" />
-
-                    <TextView
-                        android:id="@+id/law_office"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#aeaeae"
-                        android:textSize="13sp"
-                        tools:text="北京大成律师事务所" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:background="@color/divider">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:id="@+id/tv_time_step"
+                    android:padding="10dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
                     android:layout_weight="1"
                     android:text="23小时或19次对话后问题关闭"
                     android:textColor="#8a8a8a"
                     android:textSize="12sp" />
-
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/complaint" />
-
-                <TextView
-                    android:id="@+id/complaint"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginRight="12dp"
-                    android:gravity="center"
-                    android:text="投诉"
-                    android:textColor="@color/burro_primary_ext" />
-            </LinearLayout>
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

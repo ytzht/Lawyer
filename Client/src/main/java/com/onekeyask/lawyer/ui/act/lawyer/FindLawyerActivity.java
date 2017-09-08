@@ -96,11 +96,18 @@ public class FindLawyerActivity extends BaseToolBarActivity implements OnFilterD
         initView();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        searchEt.setText(keyword);
+    }
+
     private void initView() {
 
 
         if (getIntent().hasExtra("keyword")) {
             keyword = getIntent().getStringExtra("keyword");
+            searchEt.setText(keyword);
         }
 
         refreshLayout.setRefreshHeader(new ClassicsHeader(getBaseContext()));
@@ -167,7 +174,7 @@ public class FindLawyerActivity extends BaseToolBarActivity implements OnFilterD
                             if (hud.isShowing()) hud.dismiss();
                         }
                     });
-        }else if (!keyword.equals("")) {
+        } else if (!keyword.equals("")) {
             searchEt.setText(keyword);
             OkGo.<String>post(url)
                     .params("userId", UserService.service(getBaseContext()).getUserId())
@@ -276,11 +283,11 @@ public class FindLawyerActivity extends BaseToolBarActivity implements OnFilterD
             }
             holder.find_num.setText(lawyerList.get(position).getFavoriteNum() + "人购买");
             holder.find_name.setText(lawyerList.get(position).getName());
-            if (lawyerList.get(position).getTelPrice() > lawyerList.get(position).getTextPrice()) {
-                holder.find_price.setText(lawyerList.get(position).getTextPrice() + "");
-            } else {
-                holder.find_price.setText("￥" + lawyerList.get(position).getTelPrice() + "元起");
-            }
+//            if (lawyerList.get(position).getTelPrice() > lawyerList.get(position).getTextPrice()) {
+            holder.find_price.setText(lawyerList.get(position).getTextPrice() + "");
+//            } else {
+//                holder.find_price.setText("￥" + lawyerList.get(position).getTelPrice() + "元起");
+//            }
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

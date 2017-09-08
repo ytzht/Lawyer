@@ -48,6 +48,12 @@ public class SearchFindActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        searchet.setText(keyword);
+    }
+
     private void initView() {
         this.llhistory = (LinearLayout) findViewById(R.id.ll_history);
         this.rlvhistory = (RecyclerView) findViewById(R.id.rlv_history);
@@ -102,6 +108,7 @@ public class SearchFindActivity extends BaseActivity {
                     //实现自己的搜索逻辑
 
                     keyword = searchet.getText().toString();
+                    searchet.setText(keyword);
                     sp_history = service.getSearchHistorys();
                     if (!keyword.equals("")) {
                         if (TextUtils.isEmpty(sp_history)) {
@@ -170,6 +177,7 @@ public class SearchFindActivity extends BaseActivity {
                 public void onClick(View v) {
                     ((InputMethodManager) searchet.getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     keyword = history_list.get(position);
+                    searchet.setText(keyword);
                     if (type.equals("content"))
                         startActivity(DiscoverSearchActivity.class, "keyword", keyword);
                     if (type.equals("lawyer"))

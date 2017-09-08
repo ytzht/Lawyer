@@ -42,6 +42,16 @@ public class ConversationList {
     private String status;
     private String userId;
     private String lawyerId;
+    private String expireDate;
+
+    public String getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(String expireDate) {
+        this.expireDate = expireDate;
+    }
+
     private int fromType;
     private int rounds;
     private boolean hasMore;

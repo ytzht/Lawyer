@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,7 +45,6 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.ConversationList;
-import com.onekeyask.lawyer.entity.LawyerBasic;
 import com.onekeyask.lawyer.entity.ResultData;
 import com.onekeyask.lawyer.entity.SendMsg;
 import com.onekeyask.lawyer.global.Apis;
@@ -54,6 +54,7 @@ import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.ui.act.lawyer.LawyerDetailActivity;
+import com.onekeyask.lawyer.utils.BadgeActionProvider;
 import com.onekeyask.lawyer.utils.DiffCallTalkingBack;
 import com.onekeyask.lawyer.utils.HideUtil;
 import com.onekeyask.lawyer.utils.UserService;
@@ -96,15 +97,15 @@ public class TalkingActivity extends BaseActivity {
     private long firstConversationId, lastConversationId, conversationId;
     private String cid = "0";
     private ConversationList getList;
-    private LinearLayout ll_input_send, ll_bottom_menu, ll_eva_comp, ll_lawyer_info, ll_law_detail, ll_share;
+    private LinearLayout ll_input_send, ll_bottom_menu, ll_eva_comp, ll_share;
     private RelativeLayout rl_give_money, rl_again;
     private int LEFT = 1;
     private int size = 10;
     private String orderId = "";
-    private TextView tv_send_msg, talk_toolbar_title;
+    private TextView tv_send_msg, talk_toolbar_title, tv_time_step;
     private EditText et_send_msg;
     private Handler mHandler = new Handler();
-    private Menu menu;
+//    private Menu menu;
     private Toolbar talk_toolbar;
     private boolean hasMore = true;
     private HandlerThread mCheckMsgThread;
@@ -125,8 +126,6 @@ public class TalkingActivity extends BaseActivity {
     private TextView tv_cancel_popup;
     private TextView tv_yes_popup;
     private EditText et_money_popup, et_desc_popup;
-    private CircleImageView law_img;
-    private TextView law_name, law_office, complaint;
 
     private PhotoView mPhotoView;
     View mParent;
@@ -155,9 +154,9 @@ public class TalkingActivity extends BaseActivity {
                         web.setDescription(shareSummary);//描述
                         shareMedia = share_media;
 
-                        if (share_media == SHARE_MEDIA.SINA){
+                        if (share_media == SHARE_MEDIA.SINA) {
                             showShort("敬请期待");
-                        }else {
+                        } else {
                             new ShareAction(TalkingActivity.this).withMedia(web)
                                     .setCallback(umShareListener).setPlatform(share_media).share();
                         }
@@ -209,11 +208,11 @@ public class TalkingActivity extends BaseActivity {
     private void goShareSuccess() {
 
         String targetPlat;
-        if (shareMedia == SHARE_MEDIA.SINA){
+        if (shareMedia == SHARE_MEDIA.SINA) {
             targetPlat = "3";
-        }else if (shareMedia == SHARE_MEDIA.WEIXIN){
+        } else if (shareMedia == SHARE_MEDIA.WEIXIN) {
             targetPlat = "1";
-        }else {
+        } else {
             targetPlat = "2";
         }
         OkGo.<String>post(Apis.SaveShare).params("userId", UserService.service(getBaseContext()).getUserId())
@@ -225,7 +224,7 @@ public class TalkingActivity extends BaseActivity {
                     @Override
                     public void onSuccess(Response<String> response) {
                         ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
-                        if (data.getCode() != 0){
+                        if (data.getCode() != 0) {
                             showShort(data.getMsg());
                         }
                     }
@@ -328,23 +327,25 @@ public class TalkingActivity extends BaseActivity {
     }
 
     private void initView() {
+        contentViews = LayoutInflater.from(getBaseContext()).inflate(R.layout.service_type, null);
         HideUtil.init(this);
-        if (getIntent().hasExtra("lawyerId")){
+        if (getIntent().hasExtra("lawyerId")) {
             lawyerId = getIntent().getStringExtra("lawyerId");
         }
         userId = UserService.service(getBaseContext()).getUserId();
         userServiceId = getIntent().getStringExtra("sid");
         orderId = getIntent().getStringExtra("oid");
         talk_toolbar_title = (TextView) findViewById(R.id.talk_toolbar_title);
+        tv_time_step = (TextView) findViewById(R.id.tv_time_step);
         talk_toolbar_title.setText("聊天页面");
         talk_toolbar = (Toolbar) findViewById(R.id.talk_toolbar);
         setSupportActionBar(talk_toolbar);
         cid = getIntent().getStringExtra("cid");
+        L.d("=====TalkingAct,cid ", getIntent().getStringExtra("cid"));
         ll_input_send = (LinearLayout) findViewById(R.id.ll_input_send);
         ll_share = (LinearLayout) findViewById(R.id.ll_share);
         ll_bottom_menu = (LinearLayout) findViewById(R.id.ll_bottom_menu);
         ll_eva_comp = (LinearLayout) findViewById(R.id.ll_eva_comp);
-        ll_lawyer_info = (LinearLayout) findViewById(R.id.ll_lawyer_info);
         rl_give_money = (RelativeLayout) findViewById(R.id.rl_give_money);
         rl_again = (RelativeLayout) findViewById(R.id.rl_again);
         rlv_talking = (RecyclerView) findViewById(R.id.rlv_talking);
@@ -535,7 +536,6 @@ public class TalkingActivity extends BaseActivity {
                     }
 
 
-
                 }
             }
         });
@@ -648,9 +648,11 @@ public class TalkingActivity extends BaseActivity {
                 ll_bottom_menu.setVisibility(View.VISIBLE);
                 ll_input_send.setVisibility(View.VISIBLE);
                 getList = o;
-                if (!getList.getLawyerId().equals("")){
+                if (!getList.getLawyerId().equals("")) {
                     lawyerId = getList.getLawyerId();
                 }
+
+                tv_time_step.setText("聊天将在" + getList.getExpireDate() + "或" + getList.getRounds() + "轮对话后问题关闭");
                 rlv_talking.setVisibility(View.VISIBLE);
                 cid = String.valueOf(getList.getChatId());
                 userServiceId = String.valueOf(getList.getUserServiceId());
@@ -676,9 +678,6 @@ public class TalkingActivity extends BaseActivity {
                         ll_input_send.setVisibility(View.GONE);
                         ll_bottom_menu.setVisibility(View.GONE);
                         ll_eva_comp.setVisibility(View.VISIBLE);
-                        ll_lawyer_info.setVisibility(View.VISIBLE);
-                        showLawyerAndComplaint();
-                        showShareMenu();
                         break;
                 }
                 if (!getList.getStatus().equals("0")) {
@@ -748,9 +747,12 @@ public class TalkingActivity extends BaseActivity {
                     talkingAdapter = new TalkingAdapter();
                     listBean.add(0, bean);
                     talkingAdapter.setList(listBean);
-                    if (listBean.size() > 0) {// TODO: 2017/9/7 111111
+                    if (listBean.size() > 1) {
                         firstConversationId = listBean.get(1).getConversationId();
                         lastConversationId = listBean.get(listBean.size() - 1).getConversationId();
+                    } else {
+                        firstConversationId = 0;
+                        lastConversationId = 0;
                     }
                     rlv_talking.scrollToPosition(talkingAdapter.getItemCount() - 1);
                     rlv_talking.setAdapter(talkingAdapter);
@@ -781,47 +783,6 @@ public class TalkingActivity extends BaseActivity {
 
     }
 
-    private void showLawyerAndComplaint() {
-        ll_law_detail = (LinearLayout) findViewById(R.id.ll_law_detail);
-        law_img = (CircleImageView) findViewById(R.id.law_img);
-        law_name = (TextView) findViewById(R.id.law_name);
-        law_office = (TextView) findViewById(R.id.law_office);
-        complaint = (TextView) findViewById(R.id.complaint);
-        ll_law_detail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TalkingActivity.this, LawyerDetailActivity.class);
-                intent.putExtra("lawyerId", Integer.parseInt(lawyerId));
-                startActivity(intent);
-            }
-        });
-
-        SubscriberOnNextListener<LawyerBasic> listener = new SubscriberOnNextListener<LawyerBasic>() {
-            @Override
-            public void onNext(LawyerBasic lawyerBasic) {
-                law_name.setText(lawyerBasic.getLawyer().getName());
-                law_office.setText(lawyerBasic.getLawyer().getOfficeName());
-                Picasso.with(TalkingActivity.this).load(lawyerBasic.getLawyer().getHeadURL())
-                        .into(law_img);
-            }
-
-            @Override
-            public void onError(int code, String message) {
-                showShort(message);
-            }
-        };
-        L.d("=====TalkingAct", lawyerId);
-        retrofitUtil.getLawyerBasic(Integer.parseInt(lawyerId), new ProgressSubscriber<LawyerBasic>(listener, TalkingActivity.this, false));
-
-        complaint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startActivity(ComplaintLawyerActivity.class, "lawyerId", lawyerId+"", "sid", userServiceId);
-            }
-        });
-    }
-
     private void getAskDetail() {
         rlv_talking.setVisibility(View.VISIBLE);
         ll_bottom_menu.setVisibility(View.GONE);
@@ -831,53 +792,105 @@ public class TalkingActivity extends BaseActivity {
 
 
     private void hideMenu() {
-        if (menu != null)
-            menu.getItem(0).setVisible(false);
+//        if (menu != null)
+//            menu.getItem(0).setVisible(false);
     }
 
     private void showMenu() {
-        if (menu != null)
-            menu.getItem(0).setVisible(true);
-    }
-    private void showShareMenu() {
-        if (menu != null) {
-            L.d("showShareMenu: ");
-            menu.getItem(0).setVisible(false);
-            menu.getItem(1).setVisible(true);
-        }
+//        if (menu != null)
+//            menu.getItem(0).setVisible(true);
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        this.menu = menu;
-        getMenuInflater().inflate(R.menu.menu_eva, this.menu);
-        this.menu.getItem(0).setVisible(false);
-        MenuItem item = this.menu.findItem(R.id.law_share);
-        item.getActionView().setOnClickListener(new View.OnClickListener() {
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        this.menu = menu;
+//        getMenuInflater().inflate(R.menu.menu_eva, this.menu);
+//        this.menu.getItem(0).setVisible(false);
+//        MenuItem item = this.menu.findItem(R.id.law_share);
+//        item.getActionView().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                goShare();
+//            }
+//        });
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (item.getItemId() == R.id.evaluate) {
+//            Intent intent = new Intent(TalkingActivity.this, EvaluateLawyerActivity.class);
+//            intent.putExtra("userServiceId", userServiceId);
+//            intent.putExtra("lawyerId", lawyerId);
+//            startActivity(intent);
+//            return true;
+//        }
+//        if (item.getItemId() == android.R.id.home) {
+//            finish();
+//            return true;
+//        }
+//
+//        if (item.getItemId() == R.id.complaint) {
+//            startActivity(ComplaintLawyerActivity.class, "lawyerId", lawyerId + "", "sid", userServiceId);
+//        }
+//
+//        return false;
+//    }
+
+    private PopupWindow popupWindows = null;
+    private View contentViews;
+    //跳出选项框
+    public PopupWindow getMenuPopwindow(View view) {
+        PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(true);
+        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+//        layoutParams.alpha = 1f;
+        getWindow().setAttributes(layoutParams);
+        popupWindow.setBackgroundDrawable(new ColorDrawable());
+//        popupWindow.showAtLocation(getActivity().findViewById(R.id.rl_ser_list), Gravity.BOTTOM, 0, 0);
+        popupWindow.showAsDropDown(menuView);
+        popupWindow.setAnimationStyle(R.style.anim_menu_bottombar);
+//        popupWindow.setAnimationStyle(android.R.style.Animation_InputMethod);
+        popupWindow.update();
+        popupWindow.setTouchable(true);
+
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
-            public void onClick(View v) {
-                goShare();
+            public void onDismiss() {
+                WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+//                layoutParams.alpha = 1f;
+                getWindow().setAttributes(layoutParams);
             }
         });
-        return true;
+        return popupWindow;
     }
 
+    ImageView menuView;
+    private BadgeActionProvider mActionProvider;
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.evaluate) {
-            Intent intent = new Intent(TalkingActivity.this, EvaluateLawyerActivity.class);
-            intent.putExtra("userServiceId", userServiceId);
-            intent.putExtra("lawyerId", lawyerId);
-            startActivity(intent);
-            return true;
-        }
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        menuView = mActionProvider.getImageView();
 
-        return false;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.custommenu, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.menu_pic);
+        mActionProvider = (BadgeActionProvider) MenuItemCompat.getActionProvider(menuItem);
+        mActionProvider.setOnClickListener(0, new BadgeActionProvider.OnClickListener() {
+            @Override
+            public void onClick(int what) {
+                popupWindows = getMenuPopwindow(contentViews);
+                popupWindows.showAsDropDown(menuView);
+
+            }
+        });// 设置点击监听。
+        return true;
     }
 
     private class TalkingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -924,14 +937,16 @@ public class TalkingActivity extends BaseActivity {
                     ((MoreViewHolder) holder).progress_bar_more.setVisibility(View.GONE);
                     ((MoreViewHolder) holder).tv_progress_more.setVisibility(View.VISIBLE);
                     ((MoreViewHolder) holder).tv_progress_more.setText("已全部加载，没有更多消息了");
-                    if (isAskDetail) ((MoreViewHolder) holder).detail_tv.setVisibility(View.VISIBLE);
+                    if (isAskDetail)
+                        ((MoreViewHolder) holder).detail_tv.setVisibility(View.VISIBLE);
                 }
 
                 if (list.size() < size) {
                     ((MoreViewHolder) holder).progress_bar_more.setVisibility(View.GONE);
                     ((MoreViewHolder) holder).tv_progress_more.setVisibility(View.VISIBLE);
                     ((MoreViewHolder) holder).tv_progress_more.setText("已全部加载，没有更多消息了");
-                    if (isAskDetail) ((MoreViewHolder) holder).detail_tv.setVisibility(View.VISIBLE);
+                    if (isAskDetail)
+                        ((MoreViewHolder) holder).detail_tv.setVisibility(View.VISIBLE);
                 }
             } else {
                 ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
@@ -956,7 +971,7 @@ public class TalkingActivity extends BaseActivity {
                         }
                     });
                     lawName = list.get(position).getName();
-                    lawyerId = list.get(position).getLawyerId()+"";
+                    lawyerId = list.get(position).getLawyerId() + "";
                 }
                 if (list.get(position).isIsPicture()) {
                     ((ViewHolder) holder).tv_talking_msg.setVisibility(View.GONE);
@@ -1069,7 +1084,7 @@ public class TalkingActivity extends BaseActivity {
 
                         Map<String, RequestBody> map = new HashMap<>();
                         map.clear();
-                        map.put("userId", RequestBody.create(null, UserService.service(getBaseContext()).getUserId()+""));
+                        map.put("userId", RequestBody.create(null, UserService.service(getBaseContext()).getUserId() + ""));
                         map.put("chatId", RequestBody.create(null, cid));
                         String key = "picture\"; filename=\"picture";
                         map.put(key, RequestBody.create(MediaType.parse("multipart/form-data"), file));
