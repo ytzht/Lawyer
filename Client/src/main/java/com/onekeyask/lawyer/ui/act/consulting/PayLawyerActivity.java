@@ -18,6 +18,7 @@ import com.alipay.sdk.app.EnvUtils;
 import com.alipay.sdk.app.PayTask;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.GiveMoneyOrderAndGetPayInfo;
+import com.onekeyask.lawyer.entity.LawyerBasic;
 import com.onekeyask.lawyer.entity.PayResult;
 import com.onekeyask.lawyer.entity.PriceList;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
@@ -85,14 +86,14 @@ public class PayLawyerActivity extends BaseToolBarActivity {
         money = getIntent().getDoubleExtra("money", 0);
         userServiceId = getIntent().getStringExtra("userServiceId");
         service = UserService.service(getBaseContext());
-        tvNameGive.setText(getIntent().getStringExtra("name") + "律师-送心意");
+
         tvMoneyGive.setText(String.valueOf(money + "元"));
 
         //获取本地广播实例。
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
 
         //新建intentFilter并给其action标签赋值。
-        intentFilter=new IntentFilter();
+        intentFilter = new IntentFilter();
         intentFilter.addAction(WECHAT_PAY_RESULT_ACTION);
 
         //创建广播接收器实例，并注册。将其接收器与action标签进行绑定。
@@ -103,6 +104,7 @@ public class PayLawyerActivity extends BaseToolBarActivity {
         initBalance();
     }
 
+    private String name;
     private void initBalance() {
         SubscriberOnNextListener getResultOnNext = new SubscriberOnNextListener<PriceList>() {
             @Override
@@ -119,6 +121,23 @@ public class PayLawyerActivity extends BaseToolBarActivity {
         };
 
         retrofitUtil.getPriceList(service.getUserId(), new ProgressSubscriber<PriceList>(getResultOnNext, PayLawyerActivity.this, true));
+
+
+        SubscriberOnNextListener<LawyerBasic> listener = new SubscriberOnNextListener<LawyerBasic>() {
+            @Override
+            public void onNext(LawyerBasic lawyerBasic) {
+                name = lawyerBasic.getLawyer().getName();
+                tvNameGive.setText(lawyerBasic.getLawyer().getName() + "律师-送心意");
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                showShort(message);
+            }
+        };
+        lawyerId = getIntent().getIntExtra("lawyerId", 0);
+        retrofitUtil.getLawyerBasic(lawyerId, new ProgressSubscriber<LawyerBasic>(listener, PayLawyerActivity.this, true));
+
 
     }
 
@@ -151,7 +170,7 @@ public class PayLawyerActivity extends BaseToolBarActivity {
                     } else {
                         goPay();
                     }
-                }else {
+                } else {
                     goPay();
                 }
                 break;
@@ -172,15 +191,15 @@ public class PayLawyerActivity extends BaseToolBarActivity {
             @Override
             public void onNext(GiveMoneyOrderAndGetPayInfo payInfo) {
 
-                if (payType == 1){
+                if (payType == 1) {
                     ZfbPay(payInfo.getZfbNew().getOrderPayInfoString());
                 }
 
-                if (payType == 2){
+                if (payType == 2) {
                     WePay(payInfo.getWx());
                 }
 
-                if (payType == 3){
+                if (payType == 3) {
                     goNextActivity();
                 }
 
@@ -198,16 +217,12 @@ public class PayLawyerActivity extends BaseToolBarActivity {
     private void goNextActivity() {
         Intent intent = new Intent(PayLawyerActivity.this, EvaluateCompleteActivity.class);
         intent.putExtra("giveMoney", false);
+        intent.putExtra("name", name);
+        intent.putExtra("score", money * 5 + "");
         intent.putExtra("lawyerId", lawyerId);
-        if (getIntent().getStringExtra("start").equals("eva")) {
-            startActivity(intent);
-        }else {
-            showShort("成功赠送心意");
-        }
+        startActivity(intent);
         finish();
     }
-
-
 
 
     //进行支付宝调起支付
@@ -284,7 +299,7 @@ public class PayLawyerActivity extends BaseToolBarActivity {
 //            0	成功	展示成功页面
 //            -1	错误	可能的原因：签名错误、未注册APPID、项目设置APPID不正确、注册的APPID与设置的不匹配、其他异常等。
 //            -2	用户取消	无需处理。发生场景：用户不支付了，点击取消，返回APP
-            switch (intent.getIntExtra(WECHAT_PAY_RESULT_EXTRA, 1)){
+            switch (intent.getIntExtra(WECHAT_PAY_RESULT_EXTRA, 1)) {
                 case 1:
                     showShort("未知错误");
                     break;
@@ -304,7 +319,7 @@ public class PayLawyerActivity extends BaseToolBarActivity {
     }
 
     @Override
-    public void onDestroy(){//在onDestroy()方法中取消注册。
+    public void onDestroy() {//在onDestroy()方法中取消注册。
         super.onDestroy();
         //取消注册调用的是unregisterReceiver()方法，并传入接收器实例。
         localBroadcastManager.unregisterReceiver(localReceiver);

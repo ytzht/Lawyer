@@ -110,9 +110,9 @@ public class MyLawyerFragment extends BaseFragment {
                     @Override
                     public void onSuccess(Response<String> response) {
                         MyLawyer myLawyer = (new Gson()).fromJson(response.body(), MyLawyer.class);
-                        hasMore = myLawyer.getData().isHasMore();
-                        if (myLawyer.getCode() == 0) {
 
+                        if (myLawyer.getCode() == 0) {
+                            hasMore = myLawyer.getData().isHasMore();
                             if (index == 1) {
                                 data.clear();
                                 data.addAll(myLawyer.getData().getLawyerList());

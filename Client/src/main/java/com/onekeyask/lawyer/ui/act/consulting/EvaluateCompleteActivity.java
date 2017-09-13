@@ -10,8 +10,6 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -25,7 +23,7 @@ import com.bumptech.glide.Glide;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.HomePage;
 import com.onekeyask.lawyer.entity.IsFavorite;
-import com.onekeyask.lawyer.global.BaseToolBarActivity;
+import com.onekeyask.lawyer.global.BaseActivity;
 import com.onekeyask.lawyer.global.Constant;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
@@ -36,7 +34,7 @@ import java.text.DecimalFormat;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class EvaluateCompleteActivity extends BaseToolBarActivity {
+public class EvaluateCompleteActivity extends BaseActivity {
 
     @BindView(R.id.iv_top_comp)
     ImageView ivTopComp;
@@ -54,12 +52,15 @@ public class EvaluateCompleteActivity extends BaseToolBarActivity {
     TextView btnComp;
     @BindView(R.id.tv_favorite)
     TextView tvFavorite;
+    @BindView(R.id.toolbar_title)
+    TextView toolbar_title;
 
 
     private TextView tv_sel_2;
     private TextView tv_sel_4;
     private TextView tv_sel_6;
     private TextView tv_sel_8;
+    private TextView tv_comp;
     private TextView tv_cancel_popup;
     private TextView tv_yes_popup;
 
@@ -77,9 +78,13 @@ public class EvaluateCompleteActivity extends BaseToolBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluate_complete);
-        setToolbarText("评价律师");
-
-
+        tv_comp = (TextView) findViewById(R.id.tv_comp);
+        tv_comp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         initView();
 
 
@@ -111,20 +116,23 @@ public class EvaluateCompleteActivity extends BaseToolBarActivity {
         retrofitUtil.getHomePage(new ProgressSubscriber<HomePage>(listener, EvaluateCompleteActivity.this, false));
 
 
-        tvScoreComp.setText(Html.fromHtml("感谢您的评价，赠送给您 <font color='#f79f0a'>30</font> 积分"));
+
 
         giveMoney = getIntent().getBooleanExtra("giveMoney", true);
 
         if (giveMoney) {
-
+            toolbar_title.setText("评价律师");
+            tvScoreComp.setText(Html.fromHtml("感谢您的评价，赠送给您 <font color='#f79f0a'>50</font> 积分"));
             tvHintComp.setHint("用户的好评就是对律师最大的鼓励，我们会做得更好");
             llGiveBtn.setVisibility(View.VISIBLE);
             btnComp.setVisibility(View.GONE);
 
         } else {
+            toolbar_title.setText("送心意");
+            tvScoreComp.setText(Html.fromHtml("感谢您的心意，赠送给您 <font color='#f79f0a'>"+getIntent().getStringExtra("score")+"</font> 积分"));
             btnComp.setVisibility(View.VISIBLE);
             llGiveBtn.setVisibility(View.GONE);
-            tvHintComp.setText(Html.fromHtml("<font color='#5A5A5A'>感谢您对</font><font color='#3491e9'>张晓律师</font><font color='#5A5A5A'>的支持，您的留言已留在心意墙上！</font>"));
+            tvHintComp.setText(Html.fromHtml("<font color='#5A5A5A'>感谢您对</font><font color='#3491e9'>"+getIntent().getStringExtra("name")+"律师</font><font color='#5A5A5A'>的支持，您的留言已留在心意墙上！</font>"));
         }
         popupView = LayoutInflater.from(this).inflate(R.layout.popup_select_money, null);
 
@@ -138,6 +146,7 @@ public class EvaluateCompleteActivity extends BaseToolBarActivity {
 
 
         et_money_popup = (EditText) popupView.findViewById(R.id.et_money_popup);
+        et_money_popup.setText(selectMoney);
         et_desc_popup = (EditText) popupView.findViewById(R.id.et_desc_popup);
         et_money_popup.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
@@ -217,27 +226,6 @@ public class EvaluateCompleteActivity extends BaseToolBarActivity {
 
         retrofitUtil.getFavoriteLawyer(service.getUserId(), lawyerId, !(isFavorite.isFavorite()), new ProgressSubscriber<IsFavorite>(getResultOnNext, EvaluateCompleteActivity.this, true));
 
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_complete, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_complete) {
-            finish();
-            return true;
-        }
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
-
-        return false;
     }
 
     @OnClick({R.id.rl_give_money, R.id.rl_add_focus, R.id.btn_complete_comp})

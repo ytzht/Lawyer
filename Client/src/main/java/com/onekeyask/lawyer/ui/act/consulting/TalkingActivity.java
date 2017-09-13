@@ -339,14 +339,16 @@ public class TalkingActivity extends BaseActivity {
                 intent.putExtra("userServiceId", userServiceId);
                 intent.putExtra("lawyerId", lawyerId);
                 startActivity(intent);
-                popupWindow.dismiss();
+                if (popupWindows.isShowing())
+                    popupWindows.dismiss();
             }
         });
         ll_com.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(ComplaintLawyerActivity.class, "lawyerId", lawyerId + "", "sid", userServiceId);
-                popupWindow.dismiss();
+                if (popupWindows.isShowing())
+                    popupWindows.dismiss();
             }
         });
         HideUtil.init(this);
@@ -522,7 +524,7 @@ public class TalkingActivity extends BaseActivity {
         tv_cancel_popup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupWindow.dismiss();
+                if (popupWindow.isShowing()) popupWindow.dismiss();
             }
         });
         tv_yes_popup.setOnClickListener(new View.OnClickListener() {
@@ -540,13 +542,13 @@ public class TalkingActivity extends BaseActivity {
                         if (input > 200) {
                             showShort("输入金额不能大于200元");
                         } else {
-                            popupWindow.dismiss();
+                            if (popupWindow.isShowing())
+                                popupWindow.dismiss();
 //                    showShort("选择" + selectMoney + "元并说" + et_desc_popup.getText().toString());
 
                             Intent intent = new Intent(TalkingActivity.this, PayLawyerActivity.class);
                             intent.putExtra("name", lawName);
-                            intent.putExtra("lawyerId", lawyerId);
-                            intent.putExtra("start", "over");
+                            intent.putExtra("lawyerId", Integer.parseInt(lawyerId));
                             intent.putExtra("type", "2");
                             intent.putExtra("money", Double.parseDouble(selectMoney));
                             intent.putExtra("summary", et_desc_popup.getText().toString());
@@ -673,7 +675,7 @@ public class TalkingActivity extends BaseActivity {
                     lawyerId = getList.getLawyerId();
                 }
 
-                tv_time_step.setText("聊天将在" + getList.getExpireDate() + "或" + getList.getRounds() + "轮对话后问题关闭");
+
                 rlv_talking.setVisibility(View.VISIBLE);
                 cid = String.valueOf(getList.getChatId());
                 userServiceId = String.valueOf(getList.getUserServiceId());
@@ -709,8 +711,11 @@ public class TalkingActivity extends BaseActivity {
                         showMenu();
                     }
                 }
-                getList.getFromType();//订单类型 1图文咨询 2免费提问
-
+                if (getList.getFromType() == 1) {//订单类型 1图文咨询 2免费提问
+                    tv_time_step.setText("聊天将在" + getList.getExpireDate() + "后关闭");
+                } else {
+                    tv_time_step.setText("聊天将在" + getList.getExpireDate() + "或" + getList.getRounds() + "轮对话后问题关闭");
+                }
                 ConversationList.ConversationListBean bean = new ConversationList.ConversationListBean
                         (3, (int) conversationId, 1, 2, "12", "12", "content", false, "00:00");
 

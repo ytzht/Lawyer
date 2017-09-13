@@ -166,7 +166,7 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
                 progressDialog.setMessage("正在支付...");
                 progressDialog.setCancelable(false);
                 progressDialog.show();
-                showShort("确认支付" + selectMoney + "支付方式" + payType);
+//                showShort("确认支付" + selectMoney + "支付方式" + payType);
                 if (payType == 1) {
                     //PayWay.ALiPay
 
@@ -181,7 +181,7 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
                     // 这就可能会导致用户付款成功而信息上传失败，失败后如何处理？
 
                     if (balance >= selectMoney/100) {
-                        showShort("payType " + payType + "money" + selectMoney);
+//                        showShort("payType " + payType + "money" + selectMoney);
 
                         upLoadInfo();
                     } else {

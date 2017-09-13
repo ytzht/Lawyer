@@ -13,6 +13,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
+import com.onekeyask.lawyer.app.MyApplication;
 import com.onekeyask.lawyer.entity.Login;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
@@ -118,6 +119,7 @@ public class LoginActivity extends BaseToolBarActivity {
                                     service.setUserId(login.getData().getUser().getUserId());
                                     service.setPhone(phoneNo);
                                     service.setPassword(password);
+                                    MyApplication.initOkGo(MyApplication.instance());
                                     finish();
                                 }else {
                                     showShort(login.getMsg());

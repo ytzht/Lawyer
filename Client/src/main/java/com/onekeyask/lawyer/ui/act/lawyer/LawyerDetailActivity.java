@@ -168,7 +168,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         et_money_popup = (EditText) popupView.findViewById(R.id.et_money_popup);
         et_desc_popup = (EditText) popupView.findViewById(R.id.et_desc_popup);
         et_money_popup.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-
+        et_money_popup.setText(selectMoney);
         et_money_popup.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

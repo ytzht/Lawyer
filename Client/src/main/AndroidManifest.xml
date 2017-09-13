@@ -145,7 +145,6 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".ui.act.consulting.EvaluateCompleteActivity"
-            android:launchMode="singleTask"
             android:theme="@style/PopupTheme" />
         <activity
             android:name=".ui.act.consulting.PayLawyerActivity"
@@ -156,7 +155,6 @@
         <activity
             android:name=".ui.act.consulting.TalkingActivity"
             android:label=""
-            android:launchMode="singleTask"
             android:theme="@style/PopupTheme" />
         <activity
             android:name=".ui.act.me.MyIntegralActivity"

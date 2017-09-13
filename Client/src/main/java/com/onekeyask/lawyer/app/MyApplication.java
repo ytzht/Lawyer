@@ -49,20 +49,17 @@ import okhttp3.OkHttpClient;
 public class MyApplication extends MultiDexApplication {
 
     private static final String TAG = "app=====";
-    public static Context aContext;
+
 
 
     @Override
     public void onCreate() {
         super.onCreate();
-
+        instance = this;
 //        com.wanjian.sak.LayoutManager.init(this);
-
         initCLog();
 
         initAnalytics();
-
-        initRetrofit();
 
         initPush();
 
@@ -133,11 +130,9 @@ public class MyApplication extends MultiDexApplication {
     }
 
 
-    private void initRetrofit() {
-
-        aContext = this;
+    public static void initRetrofit(Application aContext) {
         //初始化网络请求工具
-        APIFactory.getInstance().init(this);
+        APIFactory.getInstance().init(aContext);
 
     }
 
@@ -170,10 +165,15 @@ public class MyApplication extends MultiDexApplication {
         Cube.onCreate(this);
 
     }
+    private static MyApplication instance;
+    public static MyApplication instance() {
+        return instance;
+    }
+
 
     public static void initOkGo(Application context) {
 //        OkGo.getInstance().init(this);
-
+        initRetrofit(context);
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor("OkGo=====");
 //log打印级别，决定了log显示的详细程度
@@ -218,7 +218,8 @@ public class MyApplication extends MultiDexApplication {
 //        headers.put("Authorization", "Bearer " + UserService.service(context).getToken());
         HttpParams params = new HttpParams();
 //        params.put("commonParamsKey1", "commonParamsValue1");     //param支持中文,直接传,不要自己编码
-//        params.put("commonParamsKey2", "这里支持中文参数");
+        if (!UserService.service(context).getToken().equals(""))
+        params.put("token", UserService.service(context).getToken());
 //-------------------------------------------------------------------------------------//
 
         OkGo.getInstance().init(context)                       //必须调用初始化

@@ -9,6 +9,7 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/law_img"
         android:layout_width="44dp"
+        android:src="@drawable/ic_member_avatar"
         android:layout_height="44dp"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="14dp"
@@ -23,7 +24,7 @@
         android:layout_marginTop="12dp"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -39,18 +40,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_alignBottom="@id/law_name"
+                android:layout_toRightOf="@id/law_name"
                 android:text="   律师"
                 android:textColor="@color/blackModule"
                 android:textSize="14sp" />
 
             <TextView
+                android:layout_alignParentRight="true"
                 android:id="@+id/law_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="购买过"
                 android:textColor="@color/burro_primary_ext" />
-        </LinearLayout>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/law_office"

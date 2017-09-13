@@ -190,10 +190,10 @@ public class NowServerFragment extends BaseFragment {
                         .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
                         .into(((ViewHolder) holder).civ_avatar_now);
                 ((ViewHolder) holder).status.setText(listBeen.get(position).getStatus());
-                if (((ViewHolder) holder).status.getText().equals("未评价") || ((ViewHolder) holder).status.getText().equals("新问题")){
-                    ((ViewHolder) holder).status.setTextColor(ContextCompat.getColor(getActivity(), R.color.baseOrange));
-                }else {
+                if (((ViewHolder) holder).status.getText().equals("律师未回复")){
                     ((ViewHolder) holder).status.setTextColor(ContextCompat.getColor(getActivity(), R.color.blackHint));
+                }else {
+                    ((ViewHolder) holder).status.setTextColor(ContextCompat.getColor(getActivity(), R.color.baseOrange));
                 }
                 ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
