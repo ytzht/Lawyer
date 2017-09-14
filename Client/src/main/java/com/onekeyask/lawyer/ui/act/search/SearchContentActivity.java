@@ -86,11 +86,12 @@ public class SearchContentActivity extends BaseActivity {
         sp_history = service.getSearchHistory();
 
         String[] split = sp_history.split("&");
-        for (int i = 0; i < split.length; i++) {
-            if (split.length != 1)
-            history_list.add(split[i]);
+        if (split.length > 0) {
+            for (int i = split.length; i > 0; i--) {
+                if (split.length != 1)
+                history_list.add(split[i - 1]);
+            }
         }
-
         this.rlvhistory = (RecyclerView) findViewById(R.id.rlv_history);
         this.abouthistory = (RecyclerView) findViewById(R.id.about_history);
         this.aboutlawyer = (RecyclerView) findViewById(R.id.about_lawyer);
@@ -166,23 +167,23 @@ public class SearchContentActivity extends BaseActivity {
                     if (!keyword.equals("")) {
                         if (TextUtils.isEmpty(sp_history)) {
                             service.saveSearchHistory(keyword);
-                            history_list.add(keyword);
+                            history_list.add(0, keyword);
                         } else {
                             sp_history = service.getSearchHistory();
                             String[] split = sp_history.split("&");
                             boolean hasHis = false;
                             for (int i = 0; i < split.length; i++) {
-                                if (split[i].equals(keyword)){
+                                if (split[i].equals(keyword)) {
                                     hasHis = true;
                                 }
                             }
                             if (!hasHis) {
                                 service.saveSearchHistory(sp_history + "&" + keyword);
-                                history_list.add(keyword);
+                                history_list.add(0, keyword);
                             }
                         }
                         historyAdapter.notifyDataSetChanged();
-                        searchet.setText("");
+//                        searchet.setText("");
                         searchOver();
                         startSearchContent(keyword);
                     }
@@ -208,7 +209,7 @@ public class SearchContentActivity extends BaseActivity {
                         } else {
                             //软键盘隐藏
                             searchOver();
-                            if (discoverData.size() == 0 && lawyerList.size() == 0){
+                            if (discoverData.size() == 0 && lawyerList.size() == 0) {
                                 ll_about.setVisibility(View.GONE);
                                 ll_lawyer.setVisibility(View.GONE);
                                 rl_no_content.setVisibility(View.VISIBLE);
@@ -229,10 +230,10 @@ public class SearchContentActivity extends BaseActivity {
 
     private void searchOver() {
         ll_history.setVisibility(View.GONE);
-        if (discoverData.size()>0)
-        ll_about.setVisibility(View.VISIBLE);
-        if (lawyerList.size()>0)
-        ll_lawyer.setVisibility(View.VISIBLE);
+        if (discoverData.size() > 0)
+            ll_about.setVisibility(View.VISIBLE);
+        if (lawyerList.size() > 0)
+            ll_lawyer.setVisibility(View.VISIBLE);
         rl_no_content.setVisibility(View.GONE);
     }
 
@@ -309,9 +310,9 @@ public class SearchContentActivity extends BaseActivity {
                             discoverData.addAll(discoveries.getData().getUserDiscoveries());
                             aboutAdapter = new AboutAdapter();
                             abouthistory.setAdapter(aboutAdapter);
-                            if (discoverData.size() == 0){
+                            if (discoverData.size() == 0) {
                                 ll_about.setVisibility(View.GONE);
-                            }else {
+                            } else {
                                 ll_about.setVisibility(View.VISIBLE);
                             }
 
@@ -339,13 +340,13 @@ public class SearchContentActivity extends BaseActivity {
                             lawyerList = list.getData().getLawyerList();
                             lawyerAdapter = new LawyerAdapter();
                             aboutlawyer.setAdapter(lawyerAdapter);
-                            if (lawyerList.size() == 0){
+                            if (lawyerList.size() == 0) {
                                 ll_lawyer.setVisibility(View.GONE);
-                            }else {
+                            } else {
                                 ll_lawyer.setVisibility(View.VISIBLE);
                             }
 
-                            if (lawyerList.size() == 0 && discoverData.size() == 0){
+                            if (lawyerList.size() == 0 && discoverData.size() == 0) {
 
                                 rl_no_content.setVisibility(View.VISIBLE);
                             }
@@ -399,7 +400,7 @@ public class SearchContentActivity extends BaseActivity {
         }
     }
 
-    private class LawyerAdapter extends RecyclerView.Adapter<LawyerAdapter.ViewHolder>{
+    private class LawyerAdapter extends RecyclerView.Adapter<LawyerAdapter.ViewHolder> {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

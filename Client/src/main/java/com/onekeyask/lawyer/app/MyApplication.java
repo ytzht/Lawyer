@@ -218,9 +218,8 @@ public class MyApplication extends MultiDexApplication {
 //        headers.put("Authorization", "Bearer " + UserService.service(context).getToken());
         HttpParams params = new HttpParams();
 //        params.put("commonParamsKey1", "commonParamsValue1");     //param支持中文,直接传,不要自己编码
-        if (!UserService.service(context).getToken().equals(""))
+        if (!UserService.service(context).getToken().equals("-1"))
         params.put("token", UserService.service(context).getToken());
-//-------------------------------------------------------------------------------------//
 
         OkGo.getInstance().init(context)                       //必须调用初始化
                 .setOkHttpClient(builder.build())               //建议设置OkHttpClient，不设置将使用默认的
@@ -237,6 +236,5 @@ public class MyApplication extends MultiDexApplication {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
-
 
 }

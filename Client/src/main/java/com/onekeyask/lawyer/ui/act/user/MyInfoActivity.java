@@ -14,7 +14,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -74,8 +73,8 @@ public class MyInfoActivity extends BaseToolBarActivity {
         if (service.getHeadURL().equals("")){
             civ_head.setImageResource(R.drawable.ic_member_avatar);
         }else {
-            Glide.with(this).load(service.getHeadURL()).skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE).into(civ_head);
+            Glide.with(this).load(service.getHeadURL())
+                    .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(civ_head);
         }
 //        Picasso.with(this).load(service.getHeadURL()).into(civ_head);
 
@@ -202,8 +201,8 @@ public class MyInfoActivity extends BaseToolBarActivity {
                             if (service.getHeadURL().equals("")){
                                 civ_head.setImageResource(R.drawable.ic_member_avatar);
                             }else {
-                                Glide.with(getBaseContext()).load(service.getHeadURL()).skipMemoryCache(true)
-                                        .diskCacheStrategy(DiskCacheStrategy.NONE).into(civ_head);
+                                Glide.with(getBaseContext()).load(service.getHeadURL())
+                                        .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(civ_head);
                             }
                         } else {
                             showShort(pic.getMsg());

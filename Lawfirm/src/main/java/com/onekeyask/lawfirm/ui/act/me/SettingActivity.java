@@ -17,6 +17,7 @@ import com.onekeyask.lawfirm.entity.ResultData;
 import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.ui.act.user.ResetPasswordActivity;
+import com.onekeyask.lawfirm.utils.GlideCacheUtil;
 import com.onekeyask.lawfirm.utils.UserService;
 
 import butterknife.BindView;
@@ -95,7 +96,8 @@ public class SettingActivity extends BaseToolBarActivity {
 
                 break;
             case R.id.clean_cache:
-                showShort("缓存清理成功");
+                showShort("成功清理" + GlideCacheUtil.getInstance().getCacheSize(getBaseContext()) + "缓存");
+                GlideCacheUtil.getInstance().clearImageAllCache(getBaseContext());
                 break;
             case R.id.statement:
                 startActivity(StatementActivity.class);
@@ -113,7 +115,7 @@ public class SettingActivity extends BaseToolBarActivity {
                                 ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
                                 if (data.getCode() == 0) {
                                     service.setUserName("");
-                                    service.setToken("");
+                                    service.setToken("-1");
                                     service.setHeadURL("");
                                     service.setLawyerId(0);
                                     finish();

@@ -90,7 +90,7 @@ public class ResetPasswordActivity extends BaseToolBarActivity {
                     service.setPassword("");
                     service.setLawyerId(0);
                     service.setUserName("");
-                    service.setToken("");
+                    service.setToken("-1");
                     finish();
                 }else {
                     showShort(data.getMsg());

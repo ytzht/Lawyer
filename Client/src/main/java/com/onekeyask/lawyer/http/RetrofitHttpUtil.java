@@ -103,12 +103,12 @@ public class RetrofitHttpUtil {
                             .build();
 //                    Log.d("OkHttp", "网络不可用请求拦截");
                 } else if (AppUtil.isNetworkConnected(mContext) && !isUseCache) {//网络可用
-                    if (!UserService.service(mContext).getToken().equals(""))
-                    request = request.newBuilder()
-                            .url(authorizedUrlBuilder.build())
-                            .cacheControl(CacheControl.FORCE_NETWORK)
-                            .build();
-                    else {
+                    if (!UserService.service(mContext).getToken().equals("-1")) {
+                        request = request.newBuilder()
+                                .url(authorizedUrlBuilder.build())
+                                .cacheControl(CacheControl.FORCE_NETWORK)
+                                .build();
+                    }else {
                         request = request.newBuilder()
                                 .cacheControl(CacheControl.FORCE_NETWORK)
                                 .build();

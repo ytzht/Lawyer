@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.PointsInfo;
 import com.onekeyask.lawyer.global.BaseFragment;
@@ -108,8 +107,8 @@ public class HomeInfoFragment extends BaseFragment {
             if (userService.getHeadURL().equals("")) {
                 userHeader.setImageResource(R.drawable.ic_member_avatar);
             } else {
-                Glide.with(getActivity()).load(userService.getHeadURL()).skipMemoryCache(true)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE).into(userHeader);
+                Glide.with(getActivity()).load(userService.getHeadURL())
+                        .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(userHeader);
             }
             initView();
             ll_score.setVisibility(View.VISIBLE);

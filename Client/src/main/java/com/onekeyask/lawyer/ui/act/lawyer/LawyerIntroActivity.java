@@ -7,7 +7,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.LawyerBasic;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
@@ -58,8 +57,7 @@ public class LawyerIntroActivity extends BaseToolBarActivity {
             public void onNext(LawyerBasic lawyerBasic) {
                 lawyerName.setText(lawyerBasic.getLawyer().getName());
                 Glide.with(LawyerIntroActivity.this).load(lawyerBasic.getLawyer().getHeadURL())
-                        .skipMemoryCache(true)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
                         .into(lawyerHeader);
 
                 if (lawyerBasic.getLawyer().getSpecial().size() > 0) {

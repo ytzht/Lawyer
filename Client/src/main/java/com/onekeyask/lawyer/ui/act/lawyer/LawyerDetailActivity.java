@@ -26,7 +26,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -346,8 +345,8 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
             data.getLawyer().getServiceList().get(0).setCheck(true);
             service_notes.setText(data.getLawyer().getServiceList().get(0).getNotes());
         }
-        Glide.with(this).load(data.getLawyer().getHeadURL()).skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE).into(lawyerHeader);
+        Glide.with(this).load(data.getLawyer().getHeadURL())
+                .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(lawyerHeader);
         lawyerName.setText(data.getLawyer().getName());
         setToolbarText(data.getLawyer().getName());
         lawyerOffice.setText(data.getLawyer().getLawyerOfficeName());
@@ -686,6 +685,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         public void onBindViewHolder(ViewHolder holder, final int position) {
 
             Glide.with(LawyerDetailActivity.this).load(data.getLawyer().getServiceList().get(position).getImgURL())
+                    .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
                     .into(holder.service_pic);
             holder.service_name.setText(data.getLawyer().getServiceList().get(position).getServiceName());
 

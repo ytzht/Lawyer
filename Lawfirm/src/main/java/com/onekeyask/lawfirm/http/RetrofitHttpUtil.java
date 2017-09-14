@@ -2,10 +2,10 @@ package com.onekeyask.lawfirm.http;
 
 import android.content.Context;
 
-
 import com.onekeyask.lawfirm.global.APIService;
 import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.global.BuildConfig;
+import com.onekeyask.lawfirm.utils.UserService;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.CacheControl;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -87,15 +88,29 @@ public class RetrofitHttpUtil {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
+
+                HttpUrl.Builder authorizedUrlBuilder = request.url()
+                        .newBuilder()
+                        .scheme(request.url().scheme())
+                        .host(request.url().host())
+                        .addQueryParameter("token", UserService.service(mContext).getToken());
+
                 if (!AppUtil.isNetworkConnected(mContext) || isUseCache) {//如果网络不可用或者设置只用网络
                     request = request.newBuilder()
                             .cacheControl(CacheControl.FORCE_CACHE)
                             .build();
 //                    Log.d("OkHttp", "网络不可用请求拦截");
                 } else if (AppUtil.isNetworkConnected(mContext) && !isUseCache) {//网络可用
-                    request = request.newBuilder()
-                            .cacheControl(CacheControl.FORCE_NETWORK)
-                            .build();
+                    if (!UserService.service(mContext).getToken().equals("-1")) {
+                        request = request.newBuilder()
+                                .url(authorizedUrlBuilder.build())
+                                .cacheControl(CacheControl.FORCE_NETWORK)
+                                .build();
+                    }else {
+                        request = request.newBuilder()
+                                .cacheControl(CacheControl.FORCE_NETWORK)
+                                .build();
+                    }
 //                    Log.d("OkHttp", "网络可用请求拦截");
                 }
                 Response response = chain.proceed(request);

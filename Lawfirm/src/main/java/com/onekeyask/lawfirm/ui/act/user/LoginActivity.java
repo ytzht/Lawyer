@@ -13,9 +13,10 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
+import com.onekeyask.lawfirm.app.MyApplication;
 import com.onekeyask.lawfirm.entity.Login;
-import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.global.Apis;
+import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.utils.Forms;
 import com.onekeyask.lawfirm.utils.UserService;
 
@@ -121,7 +122,7 @@ public class LoginActivity extends BaseToolBarActivity {
                                     service.setPhone(phoneNo);
                                     service.setPassword(password);
                                     service.setLawyerId(login.getData().getLawyer().getLawyerId());
-
+                                    MyApplication.initOkGo(MyApplication.instance());
                                     switch (login.getData().getLawyer().getStatus()){
                                         case "0"://正常
                                             showShort("正常");

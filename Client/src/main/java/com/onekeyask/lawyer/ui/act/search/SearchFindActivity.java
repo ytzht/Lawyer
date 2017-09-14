@@ -64,20 +64,22 @@ public class SearchFindActivity extends BaseActivity {
 
         type = getIntent().getStringExtra("type");
 
-        if (type.equals("lawyer")){
+        if (type.equals("lawyer")) {
             searchet.setHint("输入律师名、律所、擅长领域");
         }
 
-        if (type.equals("content")){
+        if (type.equals("content")) {
             searchet.setHint("搜索相关法律内容");
         }
         history_list.clear();
         service = new UserService(getBaseContext());
         sp_history = service.getSearchHistorys();
         String[] split = sp_history.split("&");
-        for (int i = 0; i < split.length; i++) {
-            if (split.length != 1)
-                history_list.add(split[i]);
+        if (split.length > 0) {
+            for (int i = split.length; i > 0; i--) {
+                if (split.length != 1)
+                history_list.add(split[i - 1]);
+            }
         }
         rlvhistory.setLayoutManager(new LinearLayoutManager(this));
         historyAdapter = new SearchHistoryAdapter();
@@ -85,7 +87,7 @@ public class SearchFindActivity extends BaseActivity {
         searchcancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getIntent().hasExtra("start")){
+                if (getIntent().hasExtra("start")) {
                     startActivity(FindLawyerActivity.class);
                 }
                 finish();
@@ -113,23 +115,23 @@ public class SearchFindActivity extends BaseActivity {
                     if (!keyword.equals("")) {
                         if (TextUtils.isEmpty(sp_history)) {
                             service.saveSearchHistorys(keyword);
-                            history_list.add(keyword);
+                            history_list.add(0, keyword);
                         } else {
                             sp_history = service.getSearchHistorys();
                             String[] split = sp_history.split("&");
                             boolean hasHis = false;
                             for (int i = 0; i < split.length; i++) {
-                                if (split[i].equals(keyword)){
+                                if (split[i].equals(keyword)) {
                                     hasHis = true;
                                 }
                             }
                             if (!hasHis) {
                                 service.saveSearchHistorys(sp_history + "&" + keyword);
-                                history_list.add(keyword);
+                                history_list.add(0, keyword);
                             }
                         }
                         historyAdapter.notifyDataSetChanged();
-                        searchet.setText("");
+//                        searchet.setText("");
 
                         if (type.equals("content"))
                             startActivity(DiscoverSearchActivity.class, "keyword", keyword);

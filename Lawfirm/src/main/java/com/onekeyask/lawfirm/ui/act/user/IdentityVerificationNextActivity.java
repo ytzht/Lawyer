@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.ResultData;
 import com.onekeyask.lawfirm.global.BaseToolBarActivity;
@@ -123,8 +122,7 @@ public class IdentityVerificationNextActivity extends BaseToolBarActivity {
                     public void onSuccess(File file) {
                         files = file;
                         if (dialog.isShowing()) dialog.dismiss();
-                        Glide.with(getBaseContext()).load(files).skipMemoryCache(true)
-                                .diskCacheStrategy(DiskCacheStrategy.NONE).into(ivpic);
+                        Glide.with(getBaseContext()).load(files).into(ivpic);
                     }
 
                     @Override

@@ -21,7 +21,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -197,8 +196,7 @@ public class AskDetailActivity extends BaseActivity {
 
         lawName.setText(getIntent().getStringExtra("lawyerName"));
         lawOffice.setText(getIntent().getStringExtra("officeName"));
-        Glide.with(this).load(getIntent().getStringExtra("headUrl")).skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE).into(lawIv);
+        Glide.with(this).load(getIntent().getStringExtra("headUrl")).into(lawIv);
         cid = getIntent().getIntExtra("cid", 0);
         sid = getIntent().getIntExtra("sid", 0);
 
@@ -329,8 +327,8 @@ public class AskDetailActivity extends BaseActivity {
                         L.d(beanList.get(position).getContent());
                     }
                 });
-                Glide.with(AskDetailActivity.this).load(beanList.get(position).getHeadURL()).skipMemoryCache(true)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE).into(((ViewHolder) holder).civ_talking_avatar);
+                Glide.with(AskDetailActivity.this).load(beanList.get(position).getHeadURL())
+                        .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(((ViewHolder) holder).civ_talking_avatar);
                 if (beanList.get(position).getFrom() == LEFT)
                 ((ViewHolder) holder).civ_talking_avatar.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -344,8 +342,7 @@ public class AskDetailActivity extends BaseActivity {
                     ((ViewHolder) holder).tv_talking_msg.setVisibility(View.GONE);
                     ((ViewHolder) holder).ll_iv_msg.setVisibility(View.VISIBLE);
                     ((ViewHolder) holder).iv_talking_msg.disenable();
-                    Glide.with(AskDetailActivity.this).load(beanList.get(position).getContent()).skipMemoryCache(true)
-                            .diskCacheStrategy(DiskCacheStrategy.NONE).into(((ViewHolder) holder).iv_talking_msg);
+                    Glide.with(AskDetailActivity.this).load(beanList.get(position).getContent()).into(((ViewHolder) holder).iv_talking_msg);
 //                Picasso.with(AskDetailActivity.this).load(list.get(position).getContent()).into(holder.iv_talking_msg);
 
                     ((ViewHolder) holder).iv_talking_msg.setOnClickListener(new View.OnClickListener() {

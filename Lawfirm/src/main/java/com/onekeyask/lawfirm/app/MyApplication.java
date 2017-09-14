@@ -49,12 +49,10 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        instance = this;
         initCLog();
 
         initUMeng();
-
-        initRetrofit();
 
         initPush();
 
@@ -64,11 +62,12 @@ public class MyApplication extends Application {
         Utils.init(this);
     }
 
-//    private void initShare() {
-//        UMShareAPI.get(this);
-//        PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
-//        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
-//    }
+    private static MyApplication instance;
+
+    public static MyApplication instance() {
+        return instance;
+    }
+
     private void initPush() {
         //如需手动获取device token，可以调用mPushAgent.getRegistrationId()方法
         PushAgent mPushAgent = PushAgent.getInstance(this);
@@ -91,10 +90,9 @@ public class MyApplication extends Application {
         mPushAgent.setPushIntentServiceClass(MyPushIntentService.class);
     }
 
-    private void initRetrofit() {
-        aContext = this;
-        //初始化网络请求工具
-        APIFactory.getInstance().init(this);
+    public static void initRetrofit(Application aContext) {
+
+        APIFactory.getInstance().init(aContext);
     }
 
     private void initUMeng() {
@@ -128,10 +126,9 @@ public class MyApplication extends Application {
     }
 
 
-
     public static void initOkGo(Application context) {
 //        OkGo.getInstance().init(this);
-
+        initRetrofit(context);
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor("OkGo=====");
 //log打印级别，决定了log显示的详细程度
@@ -176,8 +173,8 @@ public class MyApplication extends Application {
 //        headers.put("Authorization", "Bearer " + UserService.service(context).getToken());
         HttpParams params = new HttpParams();
 //        params.put("commonParamsKey1", "commonParamsValue1");     //param支持中文,直接传,不要自己编码
-//        params.put("commonParamsKey2", "这里支持中文参数");
-//-------------------------------------------------------------------------------------//
+        if (!UserService.service(context).getToken().equals("-1"))
+            params.put("token", UserService.service(context).getToken());
 
         OkGo.getInstance().init(context)                       //必须调用初始化
                 .setOkHttpClient(builder.build())               //建议设置OkHttpClient，不设置将使用默认的

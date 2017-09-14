@@ -1,6 +1,7 @@
 package com.onekeyask.lawyer.ui.act.lawyer.filter;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -18,6 +19,7 @@ import com.baiiu.filter.util.UIUtil;
 import com.baiiu.filter.view.FilterCheckedTextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.CityList;
 import com.onekeyask.lawyer.entity.SpecialBeanString;
@@ -40,6 +42,8 @@ public class DropMenuAdapter implements MenuAdapter {
         this.titles = titles;
         this.special = special;
         this.onFilterDoneListener = onFilterDoneListener;
+        hud = KProgressHUD.create(context).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(true);
     }
 
     @Override
@@ -121,7 +125,7 @@ public class DropMenuAdapter implements MenuAdapter {
 
         return singleListView;
     }
-
+    KProgressHUD hud;
 
     private View createDoubleListView() {
         DoubleListView<FilterType, String> comTypeDoubleListView = new DoubleListView<FilterType, String>(mContext)
@@ -161,6 +165,18 @@ public class DropMenuAdapter implements MenuAdapter {
 
                             onFilterDone();
                         }
+
+                        hud.show();
+                        new Handler().postDelayed(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                if (hud.isShowing()) hud.dismiss();
+                            }
+                        }, 500);
+
+
+
 
                         return child;
                     }

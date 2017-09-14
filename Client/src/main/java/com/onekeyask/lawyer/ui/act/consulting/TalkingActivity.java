@@ -20,6 +20,7 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,7 +39,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -53,6 +53,7 @@ import com.onekeyask.lawyer.global.BaseEvent;
 import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
+import com.onekeyask.lawyer.ui.act.MainActivity;
 import com.onekeyask.lawyer.ui.act.lawyer.LawyerDetailActivity;
 import com.onekeyask.lawyer.utils.BadgeActionProvider;
 import com.onekeyask.lawyer.utils.DiffCallTalkingBack;
@@ -990,8 +991,8 @@ public class TalkingActivity extends BaseActivity {
                         L.d(list.get(position).getContent());
                     }
                 });
-                Glide.with(TalkingActivity.this).load(list.get(position).getHeadURL()).skipMemoryCache(true)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE).into(((ViewHolder) holder).civ_talking_avatar);
+                Glide.with(TalkingActivity.this).load(list.get(position).getHeadURL())
+                        .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(((ViewHolder) holder).civ_talking_avatar);
                 if (list.get(position).getFrom() == LEFT) {
                     ((ViewHolder) holder).civ_talking_avatar.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -1008,8 +1009,8 @@ public class TalkingActivity extends BaseActivity {
                     ((ViewHolder) holder).tv_talking_msg.setVisibility(View.GONE);
                     ((ViewHolder) holder).ll_iv_msg.setVisibility(View.VISIBLE);
                     ((ViewHolder) holder).iv_talking_msg.disenable();
-                    Glide.with(TalkingActivity.this).load(list.get(position).getContent()).skipMemoryCache(true)
-                            .diskCacheStrategy(DiskCacheStrategy.NONE).into(((ViewHolder) holder).iv_talking_msg);
+                    Glide.with(TalkingActivity.this).load(list.get(position).getContent())
+                            .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(((ViewHolder) holder).iv_talking_msg);
 //                Picasso.with(TalkingActivity.this).load(list.get(position).getContent()).into(holder.iv_talking_msg);
 
                     ((ViewHolder) holder).iv_talking_msg.setOnClickListener(new View.OnClickListener() {
@@ -1190,5 +1191,25 @@ public class TalkingActivity extends BaseActivity {
         return popupWindow;
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+
+            startActivity(MainActivity.class);
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==android.R.id.home){
+            startActivity(MainActivity.class);
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }

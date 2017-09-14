@@ -164,12 +164,29 @@ public class MainActivity extends BaseActivity {
 
         if (event.getCode() == BaseEvent.GO_SERVICE) {
             index = 1;
-            goTag();
+            if (currentTabIndex != 1) {
+                if (UserService.service(getBaseContext()).isLogin()) {
+                    goServiceFragment();
+                } else {
+                    startActivity(LoginActivity.class);
+                }
+            } else {
+                goTag();
+            }
         } else if (event.getCode() == BaseEvent.GO_DISCOVER) {
             index = 2;
-            goTag();
+            if (currentTabIndex != 2) {
+                if (UserService.service(getBaseContext()).isLogin()) {
+                    goFoundFragment();
+                } else {
+                    startActivity(LoginActivity.class);
+                }
+            } else {
+                goTag();
+            }
         }
     }
+
     HomeIndexFragment indexFragment;
     HomeServiceFragment serviceFragment;
     HomeFoundFragment foundFragment;
@@ -219,9 +236,13 @@ public class MainActivity extends BaseActivity {
         if (index == 1 && currentTabIndex != 1) {
             if (UserService.service(getBaseContext()).isLogin()) {
                 goServiceFragment();
-            }else if (index == 2 && currentTabIndex != 2) {
+            } else {
+                startActivity(LoginActivity.class);
+            }
+        } else if (index == 2 && currentTabIndex != 2) {
+            if (UserService.service(getBaseContext()).isLogin()) {
                 goFoundFragment();
-            }else {
+            } else {
                 startActivity(LoginActivity.class);
             }
         } else {

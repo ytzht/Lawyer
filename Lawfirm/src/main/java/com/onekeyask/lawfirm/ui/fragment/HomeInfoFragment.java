@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.global.BaseFragment;
 import com.onekeyask.lawfirm.ui.act.me.MyWalletActivity;
@@ -68,13 +67,13 @@ public class HomeInfoFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (!userService.getToken().equals("")) {
+        if (!userService.getToken().equals("-1")) {
             userName.setText(userService.getUserName());
             if (userService.getHeadURL().equals("")){
                 userHeader.setImageResource(R.drawable.no_portrait_b);
             }else {
-                Glide.with(getActivity()).load(userService.getHeadURL()).skipMemoryCache(true)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE).into(userHeader);
+                Glide.with(getActivity()).load(userService.getHeadURL())
+                        .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(userHeader);
             }
         }else {
             userName.setText("登录/注册");
@@ -108,7 +107,7 @@ public class HomeInfoFragment extends BaseFragment {
                 break;
             case R.id.my_header://头部登录
 
-                if (userService.getToken().equals("")) {
+                if (userService.getToken().equals("-1")) {
                     startActivity(LoginActivity.class);
                 }else {
                     startActivity(MyInfoActivity.class);
