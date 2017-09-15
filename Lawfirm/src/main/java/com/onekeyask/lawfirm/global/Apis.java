@@ -5,7 +5,8 @@ package com.onekeyask.lawfirm.global;
  */
 
 public interface Apis {
-    String Base = "http://api.zhimalawyer.com/mylawyer/";
+//    String Base = "http://api.zhimalawyer.com/mylawyer/";
+    String Base = "http://139.198.13.26/mylawyer/";
 //    String Base = "http://139.198.11.78:8080/mylawyer/";
 
     String SMSCode = Apis.Base + "l/SMSCode";//1.1获取手机验证码(注册)

@@ -14,11 +14,15 @@ import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.GetSwitch;
 import com.onekeyask.lawfirm.entity.ResultData;
-import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.global.Apis;
+import com.onekeyask.lawfirm.global.BaseEvent;
+import com.onekeyask.lawfirm.global.BaseToolBarActivity;
+import com.onekeyask.lawfirm.ui.act.user.LoginActivity;
 import com.onekeyask.lawfirm.ui.act.user.ResetPasswordActivity;
 import com.onekeyask.lawfirm.utils.GlideCacheUtil;
 import com.onekeyask.lawfirm.utils.UserService;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,6 +58,16 @@ public class SettingActivity extends BaseToolBarActivity {
         setToolbarText("设置与帮助");
         service = new UserService(getBaseContext());
         initSwitch();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (UserService.service(getBaseContext()).getToken().equals("-1")){
+            returnMy.setVisibility(View.GONE);
+        }
     }
 
     private void initSwitch() {
@@ -119,6 +133,8 @@ public class SettingActivity extends BaseToolBarActivity {
                                     service.setHeadURL("");
                                     service.setLawyerId(0);
                                     finish();
+                                    startActivity(LoginActivity.class);
+                                    EventBus.getDefault().post(BaseEvent.event(BaseEvent.FINISH_MAIN));
                                 } else {
                                     showShort(data.getMsg());
                                 }

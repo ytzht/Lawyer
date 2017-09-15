@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alipay.sdk.app.EnvUtils;
 import com.alipay.sdk.app.PayTask;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -98,7 +97,7 @@ public class TxtPicAskActivity extends BaseToolBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
+//        EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_txt_pic_ask);
         ButterKnife.bind(this);

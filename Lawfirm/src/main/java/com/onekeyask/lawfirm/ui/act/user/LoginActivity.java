@@ -17,6 +17,7 @@ import com.onekeyask.lawfirm.app.MyApplication;
 import com.onekeyask.lawfirm.entity.Login;
 import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.global.BaseToolBarActivity;
+import com.onekeyask.lawfirm.ui.act.MainActivity;
 import com.onekeyask.lawfirm.utils.Forms;
 import com.onekeyask.lawfirm.utils.UserService;
 
@@ -120,6 +121,7 @@ public class LoginActivity extends BaseToolBarActivity {
                                     service.setToken(login.getData().getToken());
 
                                     service.setPhone(phoneNo);
+                                    service.setHeadURL(login.getData().getLawyer().getHeadURL());
                                     service.setPassword(password);
                                     service.setLawyerId(login.getData().getLawyer().getLawyerId());
                                     MyApplication.initOkGo(MyApplication.instance());
@@ -127,6 +129,7 @@ public class LoginActivity extends BaseToolBarActivity {
                                         case "0"://正常
                                             showShort("正常");
                                             finish();
+                                            startActivity(MainActivity.class);
                                             break;
                                         case "1"://冻结
                                             showShort("冻结");

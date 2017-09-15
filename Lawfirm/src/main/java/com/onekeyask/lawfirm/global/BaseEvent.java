@@ -7,6 +7,7 @@ package com.onekeyask.lawfirm.global;
 public class BaseEvent {
 
     public static final int GO_SERVICE = 100;//由聊天页面back回main
+    public static final int FINISH_MAIN = 200;//mainActivity finish();
 
 
 

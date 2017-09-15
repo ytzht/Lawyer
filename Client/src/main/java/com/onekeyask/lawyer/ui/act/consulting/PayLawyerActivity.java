@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alipay.sdk.app.EnvUtils;
 import com.alipay.sdk.app.PayTask;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.GiveMoneyOrderAndGetPayInfo;
@@ -75,7 +74,7 @@ public class PayLawyerActivity extends BaseToolBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
+//        EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_lawyer);
         setToolbarText("送心意");

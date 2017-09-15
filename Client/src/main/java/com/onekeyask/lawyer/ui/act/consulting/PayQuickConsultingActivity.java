@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alipay.sdk.app.EnvUtils;
 import com.alipay.sdk.app.PayTask;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.AskResult;
@@ -95,7 +94,7 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
+//        EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_quick_consulting);
         ButterKnife.bind(this);

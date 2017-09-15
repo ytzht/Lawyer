@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.global.BaseActivity;
+import com.onekeyask.lawfirm.ui.act.user.LoginActivity;
+import com.onekeyask.lawfirm.utils.UserService;
 
 
 public class AppLauncherActivity extends BaseActivity {
@@ -95,7 +97,11 @@ public class AppLauncherActivity extends BaseActivity {
     }
 
     public void superFinish() {
-        startActivity(MainActivity.class);
+        if (UserService.service(getBaseContext()).getToken().equals("-1")){
+            startActivity(LoginActivity.class);
+        }else {
+            startActivity(MainActivity.class);
+        }
         super.finish();
     }
 

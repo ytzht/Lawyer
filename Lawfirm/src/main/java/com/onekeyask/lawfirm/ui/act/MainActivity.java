@@ -160,6 +160,8 @@ public class MainActivity extends BaseActivity {
         if (event.getCode() == BaseEvent.GO_SERVICE){
             index = 1;
             goTag();
+        } else if (event.getCode() == BaseEvent.FINISH_MAIN){
+            finish();
         }
     }
 
