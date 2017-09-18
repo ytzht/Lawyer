@@ -21,6 +21,8 @@ import com.onekeyask.lawfirm.utils.dialog.MDEditDialog;
 
 import org.nutz.lang.Strings;
 
+import java.text.DecimalFormat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -131,14 +133,14 @@ public class PhoneConsultActivity extends BaseToolBarActivity {
                         if (Strings.isBlank(text)) {
                             showShort("请输入");
                         } else {
-
-                            if (Long.parseLong(text) == 0) {
+                            double money = Double.parseDouble((new DecimalFormat("#.00")).format(Double.parseDouble(text)));
+                            if (money == 0) {
                                 showShort("请输入金额");
                             } else {
 
                                 dialog.dismiss();
 
-                                SavePrice(3, setting.getData().getServiceInfo().getPriceList().get(0).getPriceId(), Long.parseLong(text));
+                                SavePrice(3, setting.getData().getServiceInfo().getPriceList().get(0).getPriceId(), money+"");
 
                             }
                         }
@@ -150,7 +152,7 @@ public class PhoneConsultActivity extends BaseToolBarActivity {
         dialog.show();
     }
 
-    private void SavePrice(int i, int priceId, long l) {
+    private void SavePrice(int i, int priceId, String l) {
         OkGo.<String>post(Apis.Saveprice).params("priceId", priceId)
                 .params("serviceType", i)
                 .params("price", l)

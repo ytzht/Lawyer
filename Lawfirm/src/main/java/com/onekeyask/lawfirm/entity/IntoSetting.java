@@ -151,7 +151,7 @@ public class IntoSetting {
 
                 private int priceId;
                 private String cycle;
-                private int price;
+                private double price;
                 private boolean isOpen;
 
                 public int getPriceId() {
@@ -170,11 +170,11 @@ public class IntoSetting {
                     this.cycle = cycle;
                 }
 
-                public int getPrice() {
+                public double getPrice() {
                     return price;
                 }
 
-                public void setPrice(int price) {
+                public void setPrice(double price) {
                     this.price = price;
                 }
 

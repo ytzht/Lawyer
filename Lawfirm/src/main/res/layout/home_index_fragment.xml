@@ -204,84 +204,19 @@
                     </RelativeLayout>
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/divider"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="27dp"
-                    android:visibility="gone">
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp">
 
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/divider_" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/divider_" />
-
-                    <ImageView
-                        android:id="@+id/iv_tv_a"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:src="@drawable/income" />
-
-                    <TextView
-                        android:id="@+id/tv_monthIncome_index"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"
-                        android:layout_toRightOf="@id/iv_tv_a"
-                        android:textSize="17dp"
-                        tools:text="本月收入：￥134元" />
-
-                    <ImageView
-                        android:id="@+id/iv_arrow_index1"
-                        android:layout_width="22dp"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:padding="4dp"
-                        android:src="@drawable/arrow_r_g" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@id/iv_arrow_index1"
-                        android:text="收入详情"
-                        android:textColor="@color/burro_primary_ext"
-                        android:textSize="17dp" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="40dp">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/divider_" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/divider_" />
-
-
-                    <ImageView
+                       <ImageView
                         android:id="@+id/iv_input_index"
                         android:layout_width="44dp"
                         android:layout_height="44dp"
@@ -299,27 +234,11 @@
                         android:layout_toRightOf="@+id/iv_input_index"
                         android:textSize="17dp"
                         tools:text="我的钱包：￥2066元" />
-
-
-                    <ImageView
-                        android:id="@+id/iv_arrow_index2"
-                        android:layout_width="22dp"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:padding="4dp"
-                        android:src="@drawable/arrow_r_g" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@id/iv_arrow_index2"
-                        android:text="提现"
-                        android:textColor="@color/burro_primary_ext"
-                        android:textSize="17dp"
-                        android:visibility="gone" />
                 </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

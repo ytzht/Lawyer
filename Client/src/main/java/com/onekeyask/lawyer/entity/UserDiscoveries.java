@@ -89,7 +89,7 @@ public class UserDiscoveries {
             private String headURL;
             private String officeName;
             private int supportCount;
-            private long createDate;
+            private String createDate;
 
             public int getChatId() {
                 return chatId;
@@ -163,11 +163,11 @@ public class UserDiscoveries {
                 this.supportCount = supportCount;
             }
 
-            public long getCreateDate() {
+            public String getCreateDate() {
                 return createDate;
             }
 
-            public void setCreateDate(long createDate) {
+            public void setCreateDate(String createDate) {
                 this.createDate = createDate;
             }
         }

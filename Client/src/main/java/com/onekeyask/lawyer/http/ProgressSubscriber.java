@@ -1,9 +1,11 @@
 package com.onekeyask.lawyer.http;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.onekeyask.lawyer.global.Constant;
 import com.onekeyask.lawyer.global.L;
+import com.onekeyask.lawyer.ui.act.user.LoginActivity;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -76,8 +78,14 @@ public class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCanc
                 mSubscriberOnNextListener.onError(Constant.NETERROR, "网络中断，请检查您的网络状态");
             }
         } else if (e instanceof APIException) {
+            L.e(((APIException) e).getCode()+" code");
+            L.e(e.getMessage()+" msg");
             if (mSubscriberOnNextListener != null) {
-                mSubscriberOnNextListener.onError(((APIException) e).getCode(), e.getMessage());
+                if (((APIException) e).getCode() == -106){
+                    context.startActivity(new Intent(context, LoginActivity.class));
+                }else {
+                    mSubscriberOnNextListener.onError(((APIException) e).getCode(), e.getMessage());
+                }
             }
         } else {
             if (mSubscriberOnNextListener != null) {

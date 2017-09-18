@@ -12,13 +12,13 @@
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/tv_type_1"
-            android:layout_width="92dp"
+            android:layout_width="93dp"
             android:layout_height="35dp"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:textColor="#333333"
             android:textSize="14sp"
-            android:text="全部" />
+            android:text="全部服务" />
 
         <TextView
             android:id="@+id/tv_type_2"
@@ -28,7 +28,7 @@
             android:paddingLeft="10dp"
             android:textColor="#333333"
             android:textSize="14sp"
-            android:text="图文订单" />
+            android:text="快速咨询" />
 
         <TextView
             android:id="@+id/tv_type_3"
@@ -38,7 +38,7 @@
             android:paddingLeft="10dp"
             android:textColor="#333333"
             android:textSize="14sp"
-            android:text="免费提问" />
+            android:text="图文咨询" />
 
         <TextView
             android:id="@+id/tv_type_4"
@@ -48,7 +48,7 @@
             android:paddingLeft="10dp"
             android:textColor="#333333"
             android:textSize="14sp"
-            android:text="打赏咨询" />
+            android:text="私人律师" />
 
     </LinearLayout>
 

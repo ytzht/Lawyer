@@ -30,6 +30,7 @@ import com.onekeyask.lawfirm.ui.act.index.PersonConsultActivity;
 import com.onekeyask.lawfirm.ui.act.index.PhoneConsultActivity;
 import com.onekeyask.lawfirm.ui.act.me.WithdrawalActivity;
 import com.onekeyask.lawfirm.ui.act.user.IncomeDetailActivity;
+import com.onekeyask.lawfirm.ui.act.user.LoginActivity;
 import com.onekeyask.lawfirm.ui.act.user.TopMsgActivity;
 import com.onekeyask.lawfirm.utils.UserService;
 import com.youth.banner.Banner;
@@ -101,7 +102,6 @@ public class HomeIndexFragment extends BaseFragment {
     private void initView(View view) {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         search_et = (TextView) view.findViewById(R.id.search_et);
-        tv_monthIncome_index = (TextView) view.findViewById(R.id.tv_monthIncome_index);
         tv_tx = (TextView) view.findViewById(R.id.tv_tx);
         tv_detail = (TextView) view.findViewById(R.id.tv_detail);
         tv_balance_index = (TextView) view.findViewById(R.id.tv_balance_index);
@@ -293,9 +293,13 @@ public class HomeIndexFragment extends BaseFragment {
 
             @Override
             public void onError(int code, String message) {
-                showShort(message);
-                image_url.clear();
-                banner.setImages(banner_img).start();
+                if (code == -106){
+                    startActivity(LoginActivity.class);
+                    getActivity().finish();
+                }else {
+                    image_url.clear();
+                    banner.setImages(banner_img).start();
+                }
             }
         };
 

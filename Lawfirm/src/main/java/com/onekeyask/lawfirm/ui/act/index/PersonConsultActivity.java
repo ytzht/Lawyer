@@ -21,6 +21,8 @@ import com.onekeyask.lawfirm.utils.dialog.MDEditDialog;
 
 import org.nutz.lang.Strings;
 
+import java.text.DecimalFormat;
+
 public class PersonConsultActivity extends BaseToolBarActivity {
 
 
@@ -164,14 +166,14 @@ public class PersonConsultActivity extends BaseToolBarActivity {
                         if (Strings.isBlank(text)) {
                             showShort("请输入");
                         } else {
-
-                            if (Long.parseLong(text) == 0) {
+                            double money = Double.parseDouble((new DecimalFormat("#.00")).format(Double.parseDouble(text)));
+                            if (money == 0) {
                                 showShort("请输入金额");
                             } else {
 
                                 dialog.dismiss();
 
-                                SavePrice(1, setting.getData().getServiceInfo().getPriceList().get(i).getPriceId(), Long.parseLong(text));
+                                SavePrice(1, setting.getData().getServiceInfo().getPriceList().get(i).getPriceId(), money+"");
 
                             }
                         }
@@ -183,7 +185,7 @@ public class PersonConsultActivity extends BaseToolBarActivity {
         dialog.show();
     }
 
-    private void SavePrice(int i, int priceId, long l) {
+    private void SavePrice(int i, int priceId, String l) {
 
         OkGo.<String>post(Apis.Saveprice).params("priceId", priceId)
                 .params("serviceType", i)

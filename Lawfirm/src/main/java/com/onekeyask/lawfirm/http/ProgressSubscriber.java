@@ -73,6 +73,8 @@ public class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCanc
                 mSubscriberOnNextListener.onError(Constant.NETERROR,"网络中断，请检查您的网络状态");
             }
         } else if(e instanceof APIException){
+            L.e(((APIException) e).getCode()+" code");
+            L.e(e.getMessage()+" msg");
             if (mSubscriberOnNextListener != null) {
                 mSubscriberOnNextListener.onError(((APIException) e).getCode(),e.getMessage());
             }
