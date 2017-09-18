@@ -121,6 +121,7 @@ public class LoginActivity extends BaseToolBarActivity {
                                     service.setToken(login.getData().getToken());
 
                                     service.setPhone(phoneNo);
+                                    service.setUserName(login.getData().getLawyer().getName());
                                     service.setHeadURL(login.getData().getLawyer().getHeadURL());
                                     service.setPassword(password);
                                     service.setLawyerId(login.getData().getLawyer().getLawyerId());

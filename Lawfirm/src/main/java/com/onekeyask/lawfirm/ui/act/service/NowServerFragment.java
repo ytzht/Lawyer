@@ -2,6 +2,7 @@ package com.onekeyask.lawfirm.ui.act.service;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.ConversationChatList;
 import com.onekeyask.lawfirm.global.BaseFragment;
@@ -18,7 +20,6 @@ import com.onekeyask.lawfirm.http.ProgressSubscriber;
 import com.onekeyask.lawfirm.http.SubscriberOnNextListener;
 import com.onekeyask.lawfirm.utils.MyDecoration;
 import com.onekeyask.lawfirm.utils.UserService;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -168,6 +169,11 @@ public class NowServerFragment extends BaseFragment {
             if (position + 1 != getItemCount()) {
                 L.d("=====getLastServiceTime", list.get(position).getLastServiceTime());
                 ((ViewHolder) holder).tv_content_now.setText(list.get(position).getServiceContent());
+                if (list.get(position).getLawyer().getLawyerId().equals("")){
+                    ((ViewHolder) holder).tv_name_now.setTextColor(ContextCompat.getColor(getActivity(), R.color.now_service_no_name));
+                }else {
+                    ((ViewHolder) holder).tv_name_now.setTextColor(ContextCompat.getColor(getActivity(), R.color.now_service_name));
+                }
                 ((ViewHolder) holder).tv_name_now.setText(list.get(position).getUser().getName());
                 ((ViewHolder) holder).tv_time_now.setText(list.get(position).getLastServiceTime());
                 switch (list.get(position).getType()) {
@@ -188,11 +194,14 @@ public class NowServerFragment extends BaseFragment {
                         break;
                 }
                 L.d("=====getHeadURL()", list.get(position).getUser().getHeadURL());
-                Picasso.with(getActivity()).load(Uri.parse(list.get(position).getUser().getHeadURL()))
-//                        .skipMemoryCache(true)
-//                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                Glide.with(getActivity()).load(Uri.parse(list.get(position).getUser().getHeadURL()))
                         .into(((ViewHolder) holder).civ_avatar_now);
-
+                ((ViewHolder) holder).status.setText(list.get(position).getStatus());
+                if (((ViewHolder) holder).status.getText().equals("律师未回复")){
+                    ((ViewHolder) holder).status.setTextColor(ContextCompat.getColor(getActivity(), R.color.blackHint));
+                }else {
+                    ((ViewHolder) holder).status.setTextColor(ContextCompat.getColor(getActivity(), R.color.baseOrange));
+                }
                 ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -217,7 +226,7 @@ public class NowServerFragment extends BaseFragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            private TextView tv_content_now, tv_tag_now, tv_time_now, tv_name_now;
+            private TextView tv_content_now, tv_tag_now, tv_time_now, tv_name_now, status;
             private CircleImageView civ_avatar_now;
 
             private ViewHolder(View itemView) {
@@ -226,6 +235,7 @@ public class NowServerFragment extends BaseFragment {
                 tv_tag_now = (TextView) itemView.findViewById(R.id.tv_tag_now);
                 tv_time_now = (TextView) itemView.findViewById(R.id.tv_time_now);
                 tv_name_now = (TextView) itemView.findViewById(R.id.tv_name_now);
+                status = (TextView) itemView.findViewById(R.id.status);
                 civ_avatar_now = (CircleImageView) itemView.findViewById(R.id.civ_avatar_now);
 
 

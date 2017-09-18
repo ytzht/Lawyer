@@ -1011,7 +1011,6 @@ public class TalkingActivity extends BaseActivity {
                     ((ViewHolder) holder).iv_talking_msg.disenable();
                     Glide.with(TalkingActivity.this).load(list.get(position).getContent())
                             .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(((ViewHolder) holder).iv_talking_msg);
-//                Picasso.with(TalkingActivity.this).load(list.get(position).getContent()).into(holder.iv_talking_msg);
 
                     ((ViewHolder) holder).iv_talking_msg.setOnClickListener(new View.OnClickListener() {
                         @Override

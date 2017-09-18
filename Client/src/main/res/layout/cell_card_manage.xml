@@ -12,6 +12,7 @@
     <ImageView
         android:id="@+id/card_img"
         android:layout_width="24dp"
+        android:visibility="gone"
         android:layout_height="24dp"
         android:src="@drawable/bank_ccb" />
 

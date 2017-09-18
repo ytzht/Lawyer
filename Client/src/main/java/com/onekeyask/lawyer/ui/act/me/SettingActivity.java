@@ -19,6 +19,7 @@ import com.onekeyask.lawyer.entity.ResultData;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.ui.act.user.ResetPasswordActivity;
+import com.onekeyask.lawyer.utils.GlideCacheUtil;
 import com.onekeyask.lawyer.utils.UserService;
 
 import butterknife.BindView;
@@ -97,7 +98,8 @@ public class SettingActivity extends BaseToolBarActivity {
 
                 break;
             case R.id.clean_cache:
-                showShort("缓存清理成功");
+                showShort("成功清理" + GlideCacheUtil.getInstance().getCacheSize(getBaseContext()) + "缓存");
+                GlideCacheUtil.getInstance().clearImageAllCache(getBaseContext());
                 break;
             case R.id.statement:
                 startActivity(StatementActivity.class);

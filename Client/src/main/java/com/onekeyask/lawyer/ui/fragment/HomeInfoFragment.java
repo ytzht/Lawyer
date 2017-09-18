@@ -118,7 +118,6 @@ public class HomeInfoFragment extends BaseFragment {
             userHeader.setImageResource(R.drawable.ic_member_avatar);
         }
 
-//        Picasso.with(getActivity()).load(userService.getHeadURL()).into(userHeader);
     }
 
     @Override

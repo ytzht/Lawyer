@@ -1,6 +1,8 @@
 package com.onekeyask.lawfirm.ui.act.user;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -33,18 +35,18 @@ public class MsgDetailActivity extends BaseToolBarActivity {
         ButterKnife.bind(this);
         setToolbarText("消息详情");
 
-        msgDetailTv = (TextView)findViewById(R.id.msg_detail);
-        msgTimeDetail = (TextView)findViewById(R.id.msg_time_detail);
+        msgDetailTv = (TextView) findViewById(R.id.msg_detail);
+        msgTimeDetail = (TextView) findViewById(R.id.msg_time_detail);
         OkGo.<String>get(Apis.MessageDetail).params("lawyerId", UserService.service(getBaseContext()).getLawyerId())
                 .params("messageId", getIntent().getStringExtra("id")).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 MsgDetail msgDetail = JSON.parseObject(response.body(), MsgDetail.class);
-                if (msgDetail.getCode() == 0){
+                if (msgDetail.getCode() == 0) {
                     msgDetailTv.setText(msgDetail.getData().getContent());
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
                     msgTimeDetail.setText(format.format(msgDetail.getData().getCreateTime()));
-                }else {
+                } else {
                     showShort(msgDetail.getMsg());
                     finish();
                 }
@@ -63,20 +65,31 @@ public class MsgDetailActivity extends BaseToolBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.msg_detail) {
-            //注册
-            OkGo.<String>get(Apis.MsgDelete).params("lawyerId", UserService.service(getBaseContext()).getLawyerId())
-                    .params("messageId", getIntent().getStringExtra("id")).execute(new StringCallback() {
+            new AlertDialog.Builder(MsgDetailActivity.this)
+                    .setTitle("注意").setMessage("确定要删除此条消息吗？").setCancelable(true).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                 @Override
-                public void onSuccess(Response<String> response) {
-                    ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
-                    if (data.getCode() == 0){
-                        showShort("删除成功");
-                        finish();
-                    }else {
-                        showShort(data.getMsg());
-                    }
+                public void onClick(DialogInterface dialog, int which) {
+
                 }
-            });
+            }).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    OkGo.<String>get(Apis.MsgDelete).params("lawyerId", UserService.service(getBaseContext()).getLawyerId())
+                            .params("messageId", getIntent().getStringExtra("id")).execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
+                            if (data.getCode() == 0) {
+                                showShort("删除成功");
+                                finish();
+                            } else {
+                                showShort(data.getMsg());
+                            }
+                        }
+                    });
+                }
+            }).show();
+            //注册
 
             return true;
         }

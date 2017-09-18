@@ -1,5 +1,7 @@
 package com.onekeyask.lawfirm.ui.fragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -80,7 +82,6 @@ public class HomeInfoFragment extends BaseFragment {
             userHeader.setImageResource(R.drawable.no_portrait);
         }
 
-//        Picasso.with(getActivity()).load(userService.getHeadURL()).into(userHeader);
     }
 
 
@@ -123,10 +124,19 @@ public class HomeInfoFragment extends BaseFragment {
         dialog = new AlertDialog.Builder(getActivity()).setView(view1).setCancelable(true).show();
 
         ImageView iv_close = (ImageView) view1.findViewById(R.id.iv_close);
+        LinearLayout call_ll = (LinearLayout) view1.findViewById(R.id.call_ll);
         iv_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (dialog.isShowing()) dialog.dismiss();
+            }
+        });
+        call_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:010-62886288"));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
     }

@@ -343,7 +343,6 @@ public class AskDetailActivity extends BaseActivity {
                     ((ViewHolder) holder).ll_iv_msg.setVisibility(View.VISIBLE);
                     ((ViewHolder) holder).iv_talking_msg.disenable();
                     Glide.with(AskDetailActivity.this).load(beanList.get(position).getContent()).into(((ViewHolder) holder).iv_talking_msg);
-//                Picasso.with(AskDetailActivity.this).load(list.get(position).getContent()).into(holder.iv_talking_msg);
 
                     ((ViewHolder) holder).iv_talking_msg.setOnClickListener(new View.OnClickListener() {
                         @Override

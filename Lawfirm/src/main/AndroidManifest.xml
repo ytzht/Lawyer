@@ -156,6 +156,7 @@
         <activity
             android:name=".ui.act.user.IncomeDetailActivity"
             android:launchMode="singleTask" />
+        <activity android:name=".ui.act.me.AboutUsActivity"></activity>
     </application>
 
 </manifest>

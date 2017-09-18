@@ -87,7 +87,6 @@ public class MyInfoActivity extends BaseToolBarActivity {
             Glide.with(this).load(service.getHeadURL())
                     .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(civ_head);
         }
-//        Picasso.with(this).load(service.getHeadURL()).into(civ_head);
 
         dialog = new ProgressDialog(this);
         dialog.setMessage("正在上传...");

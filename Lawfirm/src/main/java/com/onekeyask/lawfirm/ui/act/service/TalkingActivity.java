@@ -414,9 +414,12 @@ public class TalkingActivity extends BaseActivity {
                     talkingAdapter = new TalkingAdapter();
                     listBean.add(0, bean);
                     talkingAdapter.setList(listBean);
-                    if (listBean.size() > 0) {
+                    if (listBean.size() > 1) {
                         firstConversationId = listBean.get(1).getConversationId();
                         lastConversationId = listBean.get(listBean.size() - 1).getConversationId();
+                    }else {
+                        firstConversationId = 0;
+                        lastConversationId = 0;
                     }
                     rlv_talking.scrollToPosition(talkingAdapter.getItemCount() - 1);
                     rlv_talking.setAdapter(talkingAdapter);
@@ -521,7 +524,6 @@ public class TalkingActivity extends BaseActivity {
                     ((ViewHolder) holder).tv_talking_msg.setVisibility(View.GONE);
                     ((ViewHolder) holder).ll_iv_msg.setVisibility(View.VISIBLE);
                     Glide.with(TalkingActivity.this).load(list.get(position).getContent()).into(((ViewHolder) holder).iv_talking_msg);
-//                Picasso.with(TalkingActivity.this).load(list.get(position).getContent()).into(holder.iv_talking_msg);
                     ((ViewHolder) holder).iv_talking_msg.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

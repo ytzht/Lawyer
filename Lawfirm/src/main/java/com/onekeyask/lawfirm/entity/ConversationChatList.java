@@ -53,6 +53,15 @@ public class ConversationChatList {
         private String status;
         private String serviceContent;
         private String lastServiceTime;
+        private String serviceAmount;
+
+        public String getServiceAmount() {
+            return serviceAmount;
+        }
+
+        public void setServiceAmount(String serviceAmount) {
+            this.serviceAmount = serviceAmount;
+        }
 
         public String getServiceId() {
             return serviceId;

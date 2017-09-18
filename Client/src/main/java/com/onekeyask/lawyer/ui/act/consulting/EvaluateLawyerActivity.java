@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.BaseResult;
 import com.onekeyask.lawyer.entity.CommonTagList;
@@ -21,7 +22,6 @@ import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.utils.UserService;
-import com.squareup.picasso.Picasso;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -96,7 +96,7 @@ public class EvaluateLawyerActivity extends BaseToolBarActivity {
             @Override
             public void onNext(LawyerBasic lawyerBasic) {
                 tvNameEva.setText(lawyerBasic.getLawyer().getName());
-                Picasso.with(EvaluateLawyerActivity.this).load(lawyerBasic.getLawyer().getHeadURL())
+                Glide.with(EvaluateLawyerActivity.this).load(lawyerBasic.getLawyer().getHeadURL())
                         .into(civEvaLawyer);
                 String skilled = "专业领域：";
                 for (int i = 0; i < lawyerBasic.getLawyer().getSpecial().size(); i++) {

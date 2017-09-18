@@ -238,7 +238,7 @@ public class CompleteServiceFragment extends BaseFragment {
             if (getItemCount() == position + 1) {
                 return R.layout.cell_load_more;
             } else {
-                return R.layout.cell_now_server;
+                return R.layout.cell_complete_server;
             }
 
         }
@@ -246,7 +246,7 @@ public class CompleteServiceFragment extends BaseFragment {
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getActivity()).inflate(viewType, parent, false);
-            if (viewType == R.layout.cell_now_server) {
+            if (viewType == R.layout.cell_complete_server) {
                 return new ViewHolder(view);
             } else {
                 return new ViewHolderMore(view);
@@ -259,6 +259,7 @@ public class CompleteServiceFragment extends BaseFragment {
                 ((ViewHolder) holder).tv_content_now.setText(list.get(position).getServiceContent());
                 ((ViewHolder) holder).tv_name_now.setText(list.get(position).getUser().getName());
                 ((ViewHolder) holder).tv_time_now.setText(list.get(position).getLastServiceTime());
+                ((ViewHolder) holder).com_price.setText("￥"+list.get(position).getServiceAmount());
                 switch (list.get(position).getType()) {
                     case "1":
                         ((ViewHolder) holder).tv_tag_now.setText("快速咨询");
@@ -276,6 +277,7 @@ public class CompleteServiceFragment extends BaseFragment {
                         ((ViewHolder) holder).tv_tag_now.setText(list.get(position).getType());
                         break;
                 }
+                ((ViewHolder) holder).status.setText(list.get(position).getStatus());
                 Glide.with(getActivity()).load(Uri.parse(list.get(position).getUser().getHeadURL()))
                         .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
                         .into(((ViewHolder) holder).civ_avatar_now);
@@ -304,7 +306,7 @@ public class CompleteServiceFragment extends BaseFragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            private TextView tv_content_now, tv_tag_now, tv_time_now, tv_name_now;
+            private TextView tv_content_now, tv_tag_now, tv_time_now, tv_name_now, status, com_price;
             private CircleImageView civ_avatar_now;
 
             private ViewHolder(View itemView) {
@@ -312,7 +314,9 @@ public class CompleteServiceFragment extends BaseFragment {
                 tv_content_now = (TextView) itemView.findViewById(R.id.tv_content_now);
                 tv_tag_now = (TextView) itemView.findViewById(R.id.tv_tag_now);
                 tv_time_now = (TextView) itemView.findViewById(R.id.tv_time_now);
+                status = (TextView) itemView.findViewById(R.id.status);
                 tv_name_now = (TextView) itemView.findViewById(R.id.tv_name_now);
+                com_price = (TextView) itemView.findViewById(R.id.com_price);
                 civ_avatar_now = (CircleImageView) itemView.findViewById(R.id.civ_avatar_now);
 
 

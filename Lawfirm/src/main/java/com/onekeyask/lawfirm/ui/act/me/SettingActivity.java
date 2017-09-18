@@ -1,6 +1,8 @@
 package com.onekeyask.lawfirm.ui.act.me;
 
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -65,7 +67,7 @@ public class SettingActivity extends BaseToolBarActivity {
     protected void onResume() {
         super.onResume();
 
-        if (UserService.service(getBaseContext()).getToken().equals("-1")){
+        if (UserService.service(getBaseContext()).getToken().equals("-1")) {
             returnMy.setVisibility(View.GONE);
         }
     }
@@ -82,6 +84,8 @@ public class SettingActivity extends BaseToolBarActivity {
             }
         });
     }
+
+    private AlertDialog alert;
 
     @OnClick({R.id.check_update, R.id.re_pwd, R.id.sb_phone, R.id.notice_set, R.id.clean_cache, R.id.statement, R.id.about_us, R.id.return_my})
     public void onViewClicked(View view) {
@@ -117,29 +121,48 @@ public class SettingActivity extends BaseToolBarActivity {
                 startActivity(StatementActivity.class);
                 break;
             case R.id.about_us:
+                startActivity(AboutUsActivity.class);
                 break;
             case R.id.return_my:
-
-                OkGo.<String>get(Apis.Logout)
-                        .params("lawyerId", service.getLawyerId())
-                        .params("deviceToken", service.getDeviceToken())
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
-                                ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
-                                if (data.getCode() == 0) {
-                                    service.setUserName("");
-                                    service.setToken("-1");
-                                    service.setHeadURL("");
-                                    service.setLawyerId(0);
-                                    finish();
-                                    startActivity(LoginActivity.class);
-                                    EventBus.getDefault().post(BaseEvent.event(BaseEvent.FINISH_MAIN));
-                                } else {
-                                    showShort(data.getMsg());
-                                }
-                            }
-                        });
+                View view1 = LayoutInflater.from(this).inflate(R.layout.custom_dialog_share, null, false);
+                alert = new AlertDialog.Builder(this).setView(view1).setCancelable(false).show();
+                TextView tvMsg = (TextView) view1.findViewById(R.id.tv_msg);
+                TextView cancel = (TextView) view1.findViewById(R.id.tv_cancel);
+                TextView next = (TextView) view1.findViewById(R.id.tv_share_con);
+                cancel.setVisibility(View.VISIBLE);
+                tvMsg.setText("确定退出当前账号吗？");
+                next.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        OkGo.<String>get(Apis.Logout)
+                                .params("lawyerId", service.getLawyerId())
+                                .params("deviceToken", service.getDeviceToken())
+                                .execute(new StringCallback() {
+                                    @Override
+                                    public void onSuccess(Response<String> response) {
+                                        ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
+                                        if (data.getCode() == 0) {
+                                            service.setUserName("");
+                                            service.setToken("-1");
+                                            service.setHeadURL("");
+                                            service.setLawyerId(0);
+                                            finish();
+                                            startActivity(LoginActivity.class);
+                                            EventBus.getDefault().post(BaseEvent.event(BaseEvent.FINISH_MAIN));
+                                        } else {
+                                            showShort(data.getMsg());
+                                        }
+                                    }
+                                });
+                        if (alert.isShowing()) alert.dismiss();
+                    }
+                });
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (alert.isShowing()) alert.dismiss();
+                    }
+                });
                 break;
         }
     }

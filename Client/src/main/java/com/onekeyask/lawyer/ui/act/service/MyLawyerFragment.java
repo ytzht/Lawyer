@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -28,7 +29,6 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -160,7 +160,7 @@ public class MyLawyerFragment extends BaseFragment {
                 }
             });
 
-            Picasso.with(getActivity()).load(data.get(position).getHeadURL()).into(holder.law_img);
+            Glide.with(getActivity()).load(data.get(position).getHeadURL()).into(holder.law_img);
             holder.law_name.setText(data.get(position).getName());
             holder.law_office.setText(data.get(position).getLawyerOfficeName());
             if (data.get(position).isServiced()) {
