@@ -80,7 +80,9 @@ public class GraphicConsultActivity extends BaseToolBarActivity {
         });
 
     }
+
     IntoSetting setting;
+
     private void initIntoSetting() {
         OkGo.<String>get(Apis.IntoSetting)
                 .params("lawyerId", UserService.service(getBaseContext()).getLawyerId())
@@ -101,7 +103,7 @@ public class GraphicConsultActivity extends BaseToolBarActivity {
                             rl.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                   showAlert();
+                                    showAlert();
                                 }
                             });
                         } else {
@@ -112,7 +114,8 @@ public class GraphicConsultActivity extends BaseToolBarActivity {
                     }
                 });
     }
-    private void showAlert(){
+
+    private void showAlert() {
         dialog = new MDEditDialog.Builder(GraphicConsultActivity.this)
                 .setTitleVisible(false)
                 .setHintText("请输入自定义价格")
@@ -133,13 +136,15 @@ public class GraphicConsultActivity extends BaseToolBarActivity {
                             showShort("请输入");
                         } else {
                             double money = Double.parseDouble((new DecimalFormat("#.00")).format(Double.parseDouble(text)));
-                            if (money == 0) {
-                                showShort("请输入金额");
+                            if (money < 1) {
+                                showShort("不能低于1元");
+                            } else if (money > 100000) {
+                                showShort("不能高于十万元");
                             } else {
 
                                 dialog.dismiss();
 
-                                SavePrice(2, setting.getData().getServiceInfo().getPriceList().get(0).getPriceId(), money+"");
+                                SavePrice(2, setting.getData().getServiceInfo().getPriceList().get(0).getPriceId(), money + "");
 
                             }
                         }
@@ -160,10 +165,10 @@ public class GraphicConsultActivity extends BaseToolBarActivity {
                     @Override
                     public void onSuccess(Response<String> response) {
                         ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
-                        if (data.getCode() == 0){
+                        if (data.getCode() == 0) {
                             showShort("保存成功");
                             initIntoSetting();
-                        }else {
+                        } else {
                             showShort(data.getMsg());
                         }
                     }

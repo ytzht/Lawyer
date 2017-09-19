@@ -349,7 +349,7 @@ public class LawyerDetail {
                     private int priceId;
                     private boolean isOpen;
                     private String cycle;
-                    private int price;
+                    private String price;
 
                     public int getPriceId() {
                         return priceId;
@@ -375,11 +375,11 @@ public class LawyerDetail {
                         this.cycle = cycle;
                     }
 
-                    public int getPrice() {
+                    public String getPrice() {
                         return price;
                     }
 
-                    public void setPrice(int price) {
+                    public void setPrice(String price) {
                         this.price = price;
                     }
                 }

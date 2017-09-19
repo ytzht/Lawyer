@@ -28,7 +28,6 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,7 +151,7 @@ public class BillingDetailsActivity extends BaseToolBarActivity {
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
 
-            holder.detail_time.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(data.get(position).getCreateTime()));
+            holder.detail_time.setText(data.get(position).getCreateTime());
             holder.detail_title.setText("提现");
             holder.detail_score.setText("-" + data.get(position).getMoney());
             holder.itemView.setOnClickListener(new View.OnClickListener() {

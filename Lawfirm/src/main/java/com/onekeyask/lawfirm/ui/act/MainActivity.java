@@ -30,7 +30,7 @@ import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.global.BaseActivity;
 import com.onekeyask.lawfirm.global.BaseEvent;
 import com.onekeyask.lawfirm.global.DownLoadAPK;
-import com.onekeyask.lawfirm.ui.fragment.HomeFoundFragment;
+import com.onekeyask.lawfirm.ui.fragment.HomeFoundsFragment;
 import com.onekeyask.lawfirm.ui.fragment.HomeIndexFragment;
 import com.onekeyask.lawfirm.ui.fragment.HomeInfoFragment;
 import com.onekeyask.lawfirm.ui.fragment.HomeServiceFragment;
@@ -168,7 +168,7 @@ public class MainActivity extends BaseActivity {
     private void initBottom() {
         HomeIndexFragment indexFragment = new HomeIndexFragment();
         HomeServiceFragment serviceFragment = new HomeServiceFragment();
-        HomeFoundFragment foundFragment = new HomeFoundFragment();
+        HomeFoundsFragment foundFragment = new HomeFoundsFragment();
         HomeInfoFragment infoFragment = new HomeInfoFragment();
 
         mTabs = new RelativeLayout[4];

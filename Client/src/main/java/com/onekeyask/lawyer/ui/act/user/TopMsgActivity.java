@@ -155,7 +155,7 @@ public class TopMsgActivity extends BaseToolBarActivity {
 
             holder.msg_title.setText(data.get(position).getContent());
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            holder.type_time.setText(format.format(data.get(position).getCreateTime()));
+            holder.type_time.setText(data.get(position).getCreateTime());
 
         }
 

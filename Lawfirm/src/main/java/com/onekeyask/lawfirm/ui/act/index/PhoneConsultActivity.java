@@ -134,8 +134,10 @@ public class PhoneConsultActivity extends BaseToolBarActivity {
                             showShort("请输入");
                         } else {
                             double money = Double.parseDouble((new DecimalFormat("#.00")).format(Double.parseDouble(text)));
-                            if (money == 0) {
-                                showShort("请输入金额");
+                            if (money < 1) {
+                                showShort("不能低于1元");
+                            } else if (money > 100000) {
+                                showShort("不能高于十万元");
                             } else {
 
                                 dialog.dismiss();

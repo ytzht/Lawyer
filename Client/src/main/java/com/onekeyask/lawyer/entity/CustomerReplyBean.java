@@ -25,7 +25,7 @@ public class CustomerReplyBean {
     private String headURL;
     private int serviceType;
     private String serviceName;
-    private long commentDate;
+    private String commentDate;
 
     public int getCommentId() {
         return commentId;
@@ -91,11 +91,11 @@ public class CustomerReplyBean {
         this.serviceName = serviceName;
     }
 
-    public long getCommentDate() {
+    public String getCommentDate() {
         return commentDate;
     }
 
-    public void setCommentDate(long commentDate) {
+    public void setCommentDate(String commentDate) {
         this.commentDate = commentDate;
     }
 }

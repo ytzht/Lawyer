@@ -30,7 +30,6 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -164,7 +163,7 @@ public class MyIntegralActivity extends BaseToolBarActivity {
         public void onBindViewHolder(ViewHolder holder, int position) {
 
             holder.title_in.setText(data.get(position).getSummary());
-            holder.tv_in_time.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(data.get(position).getTranTime()));
+            holder.tv_in_time.setText(data.get(position).getTranTime());
             if (data.get(position).getTranType().equals("7")) {
                 holder.tv_integral.setText("-" + data.get(position).getNumber());
             }else {

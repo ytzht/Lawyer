@@ -89,7 +89,7 @@ public class BillingDetails {
             private String applyName;
             private double money;
             private int status;
-            private long createTime;
+            private String createTime;
             private LawyerBean lawyer;
             private int userType;
             private int userId;
@@ -150,11 +150,11 @@ public class BillingDetails {
                 this.status = status;
             }
 
-            public long getCreateTime() {
+            public String getCreateTime() {
                 return createTime;
             }
 
-            public void setCreateTime(long createTime) {
+            public void setCreateTime(String createTime) {
                 this.createTime = createTime;
             }
 

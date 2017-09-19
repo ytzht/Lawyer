@@ -81,7 +81,7 @@ public class GiveMoneyList {
             private int type;
             private String money;
             private String summary;
-            private long giveTime;
+            private String giveTime;
 
             public int getUserId() {
                 return userId;
@@ -123,11 +123,11 @@ public class GiveMoneyList {
                 this.summary = summary;
             }
 
-            public long getGiveTime() {
+            public String getGiveTime() {
                 return giveTime;
             }
 
-            public void setGiveTime(long giveTime) {
+            public void setGiveTime(String giveTime) {
                 this.giveTime = giveTime;
             }
         }

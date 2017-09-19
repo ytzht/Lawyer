@@ -57,7 +57,6 @@ import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.ShareBoardlistener;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,7 +124,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
     private List<GiveMoneyList.DataBean.GiveMoneyBean> moneyData = new ArrayList<>();
     private IsFavorite isFavorite = new IsFavorite();
     private int type = 1;//图文咨询、电话咨询、私人律师
-    private int price;
+    private String price;
     private String cycle;
     private PopupWindow popupWindow = null;
     private View popupView;
@@ -601,7 +600,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
 
             holder.comName.setText(comData.get(position).getPhoneNo());
             holder.comContent.setText(comData.get(position).getContent());
-            holder.comTime.setText(new SimpleDateFormat("yyyy-MM-dd").format(comData.get(position).getCommentDate()));
+            holder.comTime.setText(comData.get(position).getCommentDate());
             holder.comType.setText(comData.get(position).getServiceName());
             holder.comTxt.setText(comData.get(position).getNotes());
 
@@ -644,7 +643,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         public void onBindViewHolder(ViewHolder holder, int position) {
 
             holder.comName.setText(moneyData.get(position).getPhoneNo());
-            holder.comTime.setText(new SimpleDateFormat("yyyy-MM-dd").format(moneyData.get(position).getGiveTime()));
+            holder.comTime.setText(moneyData.get(position).getGiveTime());
             holder.comMoney.setText(moneyData.get(position).getMoney() + "元");
             holder.comTxt.setText(moneyData.get(position).getSummary());
 

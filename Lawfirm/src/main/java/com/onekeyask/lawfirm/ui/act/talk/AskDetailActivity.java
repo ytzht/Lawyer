@@ -137,7 +137,7 @@ public class AskDetailActivity extends BaseActivity {
                 showShort("抢单成功！");
                 finish();
 
-                startActivity(TalkingActivity.class, "chatId", order.getChatId() + "");
+                startActivity(TalkingActivity.class, "chatId", order.getData().getChatId() + "");
             }
 
             @Override

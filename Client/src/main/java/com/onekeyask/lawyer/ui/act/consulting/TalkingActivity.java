@@ -964,21 +964,21 @@ public class TalkingActivity extends BaseActivity {
                     ((MoreViewHolder) holder).progress_bar_more.setVisibility(View.GONE);
                     ((MoreViewHolder) holder).tv_progress_more.setVisibility(View.VISIBLE);
                     ((MoreViewHolder) holder).tv_progress_more.setText("   ");
-                    if (isAskDetail) ((MoreViewHolder) holder).detail_tv.setVisibility(View.GONE);
+//                    if (isAskDetail) ((MoreViewHolder) holder).detail_tv.setVisibility(View.GONE);
                 } else {
                     ((MoreViewHolder) holder).progress_bar_more.setVisibility(View.GONE);
                     ((MoreViewHolder) holder).tv_progress_more.setVisibility(View.VISIBLE);
                     ((MoreViewHolder) holder).tv_progress_more.setText("已全部加载，没有更多消息了");
-                    if (isAskDetail)
-                        ((MoreViewHolder) holder).detail_tv.setVisibility(View.VISIBLE);
+//                    if (isAskDetail)
+//                        ((MoreViewHolder) holder).detail_tv.setVisibility(View.VISIBLE);
                 }
 
                 if (list.size() < size) {
                     ((MoreViewHolder) holder).progress_bar_more.setVisibility(View.GONE);
                     ((MoreViewHolder) holder).tv_progress_more.setVisibility(View.VISIBLE);
                     ((MoreViewHolder) holder).tv_progress_more.setText("已全部加载，没有更多消息了");
-                    if (isAskDetail)
-                        ((MoreViewHolder) holder).detail_tv.setVisibility(View.VISIBLE);
+//                    if (isAskDetail)
+//                        ((MoreViewHolder) holder).detail_tv.setVisibility(View.VISIBLE);
                 }
             } else {
                 ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {

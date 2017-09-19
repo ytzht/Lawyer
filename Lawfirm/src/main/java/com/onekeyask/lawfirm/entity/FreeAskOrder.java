@@ -6,63 +6,64 @@ package com.onekeyask.lawfirm.entity;
 
 public class FreeAskOrder {
 
+
     /**
-     * err : {"code":0,"msg":"正常","eventid":"xxxx-xxxx-xxxx"}
-     * chatId : 1
+     * code : 0
+     * msg : 正常
+     * eventId :
+     * data : {"chatId":717}
      */
 
-    private ErrBean err;
-    private int chatId;
+    private int code;
+    private String msg;
+    private String eventId;
+    private DataBean data;
 
-    public ErrBean getErr() {
-        return err;
+    public int getCode() {
+        return code;
     }
 
-    public void setErr(ErrBean err) {
-        this.err = err;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public int getChatId() {
-        return chatId;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setChatId(int chatId) {
-        this.chatId = chatId;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public static class ErrBean {
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
+    }
+
+    public DataBean getData() {
+        return data;
+    }
+
+    public void setData(DataBean data) {
+        this.data = data;
+    }
+
+    public static class DataBean {
         /**
-         * code : 0
-         * msg : 正常
-         * eventid : xxxx-xxxx-xxxx
+         * chatId : 717
          */
 
-        private int code;
-        private String msg;
-        private String eventid;
+        private int chatId;
 
-        public int getCode() {
-            return code;
+        public int getChatId() {
+            return chatId;
         }
 
-        public void setCode(int code) {
-            this.code = code;
-        }
-
-        public String getMsg() {
-            return msg;
-        }
-
-        public void setMsg(String msg) {
-            this.msg = msg;
-        }
-
-        public String getEventid() {
-            return eventid;
-        }
-
-        public void setEventid(String eventid) {
-            this.eventid = eventid;
+        public void setChatId(int chatId) {
+            this.chatId = chatId;
         }
     }
 }

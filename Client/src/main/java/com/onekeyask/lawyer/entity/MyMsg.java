@@ -77,7 +77,7 @@ public class MyMsg {
             private int messageId;
             private String content;
             private int status;
-            private long createTime;
+            private String createTime;
 
             public int getMessageId() {
                 return messageId;
@@ -103,11 +103,11 @@ public class MyMsg {
                 this.status = status;
             }
 
-            public long getCreateTime() {
+            public String getCreateTime() {
                 return createTime;
             }
 
-            public void setCreateTime(long createTime) {
+            public void setCreateTime(String createTime) {
                 this.createTime = createTime;
             }
         }

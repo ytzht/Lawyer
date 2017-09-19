@@ -42,18 +42,6 @@ public interface Apis {
     String GetRed = Apis.Base + "c/getRed";//1.42 小红点
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    String FreeAskOrder = Apis.Base + "l/freeask/order";
+    String FoundFragList = Apis.Base + "l/freeask/list";
 }
