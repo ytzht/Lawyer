@@ -28,7 +28,6 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,7 +146,7 @@ public class BillingDetailsActivity extends BaseToolBarActivity {
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
 
-            holder.detail_time.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(data.get(position).getTranTime()));
+            holder.detail_time.setText(data.get(position).getTranTime());
             holder.detail_title.setText(data.get(position).getSummary());
 
             switch (data.get(position).getTranType()){

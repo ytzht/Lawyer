@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -25,6 +24,7 @@ import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.utils.UserService;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
@@ -73,7 +73,7 @@ public class MyInfoActivity extends BaseToolBarActivity {
         if (service.getHeadURL().equals("")){
             civ_head.setImageResource(R.drawable.ic_member_avatar);
         }else {
-            Glide.with(this).load(service.getHeadURL())
+            Picasso.with(this).load(service.getHeadURL())
                     .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(civ_head);
         }
 
@@ -98,7 +98,7 @@ public class MyInfoActivity extends BaseToolBarActivity {
             public void onClick(View v) {
                 final String name = et_name.getText().toString();
                 if (name.length() > 5 && name.length() < 13) {
-                    OkGo.<String>get(Apis.ChangeName).params("userId", service.getUserId()).params("name", name).execute(new StringCallback() {
+                    OkGo.<String>post(Apis.ChangeName).params("userId", service.getUserId()).params("name", name).execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
 
@@ -200,7 +200,7 @@ public class MyInfoActivity extends BaseToolBarActivity {
                             if (service.getHeadURL().equals("")){
                                 civ_head.setImageResource(R.drawable.ic_member_avatar);
                             }else {
-                                Glide.with(getBaseContext()).load(service.getHeadURL())
+                                Picasso.with(getBaseContext()).load(service.getHeadURL())
                                         .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(civ_head);
                             }
                         } else {

@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.global.BaseFragment;
 import com.onekeyask.lawfirm.ui.act.me.MyWalletActivity;
@@ -20,6 +19,7 @@ import com.onekeyask.lawfirm.ui.act.me.SettingActivity;
 import com.onekeyask.lawfirm.ui.act.user.LoginActivity;
 import com.onekeyask.lawfirm.ui.act.user.MyInfoActivity;
 import com.onekeyask.lawfirm.utils.UserService;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,7 +74,7 @@ public class HomeInfoFragment extends BaseFragment {
             if (userService.getHeadURL().equals("")){
                 userHeader.setImageResource(R.drawable.no_portrait_b);
             }else {
-                Glide.with(getActivity()).load(userService.getHeadURL())
+                Picasso.with(getActivity()).load(userService.getHeadURL())
                         .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(userHeader);
             }
         }else {

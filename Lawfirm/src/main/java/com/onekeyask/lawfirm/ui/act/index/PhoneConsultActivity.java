@@ -14,14 +14,12 @@ import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.IntoSetting;
 import com.onekeyask.lawfirm.entity.ResultData;
-import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.global.Apis;
+import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.utils.UserService;
 import com.onekeyask.lawfirm.utils.dialog.MDEditDialog;
 
 import org.nutz.lang.Strings;
-
-import java.text.DecimalFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -133,16 +131,15 @@ public class PhoneConsultActivity extends BaseToolBarActivity {
                         if (Strings.isBlank(text)) {
                             showShort("请输入");
                         } else {
-                            double money = Double.parseDouble((new DecimalFormat("#.00")).format(Double.parseDouble(text)));
-                            if (money < 1) {
+                            if (Double.parseDouble(text) < 1) {
                                 showShort("不能低于1元");
-                            } else if (money > 100000) {
+                            } else if (Double.parseDouble(text) > 100000) {
                                 showShort("不能高于十万元");
                             } else {
 
                                 dialog.dismiss();
 
-                                SavePrice(3, setting.getData().getServiceInfo().getPriceList().get(0).getPriceId(), money+"");
+                                SavePrice(3, setting.getData().getServiceInfo().getPriceList().get(0).getPriceId(), Double.parseDouble(text)+"");
 
                             }
                         }

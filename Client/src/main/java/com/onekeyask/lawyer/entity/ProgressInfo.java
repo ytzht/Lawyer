@@ -26,20 +26,10 @@ public class ProgressInfo implements Serializable {
     private String cardNum;
     private String bankName;
     private String applyName;
-    private long passTime;
-
-    public long getPassTime() {
-        return passTime;
-    }
-
-    public void setPassTime(long passTime) {
-        this.passTime = passTime;
-    }
-
     private int money;
     private int status;
-    private long createTime;
-    private int userType;
+    private String createTime;
+
     private int userId;
 
     public int getId() {
@@ -98,20 +88,12 @@ public class ProgressInfo implements Serializable {
         this.status = status;
     }
 
-    public long getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(long createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
-    }
-
-    public int getUserType() {
-        return userType;
-    }
-
-    public void setUserType(int userType) {
-        this.userType = userType;
     }
 
     public int getUserId() {

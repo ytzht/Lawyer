@@ -30,6 +30,7 @@ import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.global.L;
 import com.onekeyask.lawfirm.utils.UserService;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -79,7 +80,7 @@ public class MyInfoActivity extends BaseToolBarActivity {
         userName.setText(service.getUserName());
         tv_intro.setText(service.getIntroduce());
 
-        userPhone.setText(service.getPhone());
+        userPhone.setText(service.getOfficeName());
         L.d(service.getHeadURL());
         if (service.getHeadURL().equals("")){
             civ_head.setImageResource(R.drawable.ic_member_avatar);
@@ -115,7 +116,7 @@ public class MyInfoActivity extends BaseToolBarActivity {
             public void onClick(View v) {
                 final String introduce = et_intro.getText().toString();
                 if (introduce.length() > 5 ) {
-                    OkGo.<String>get(Apis.SaveIntroduce).params("lawyerId", service.getLawyerId()).params("introduce", introduce).execute(new StringCallback() {
+                    OkGo.<String>post(Apis.SaveIntroduce).params("lawyerId", service.getLawyerId()).params("introduce", introduce).execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
 
@@ -205,7 +206,7 @@ public class MyInfoActivity extends BaseToolBarActivity {
 
     }
 
-    private void goSubmit(File file) {
+    private void goSubmit(final File file) {
         OkGo.<String>post(Apis.HeadPic)
                 .params("lawyerId", service.getLawyerId())
                 .params("headPic", file)
@@ -218,9 +219,11 @@ public class MyInfoActivity extends BaseToolBarActivity {
                         if (pic.getCode() == 0) {
                             service.setHeadURL(pic.getData().getHeadUrl());
                             if (service.getHeadURL().equals("")){
+                                L.d("onSuccess: getHeadURL");
                                 civ_head.setImageResource(R.drawable.ic_member_avatar);
                             }else {
-                                Glide.with(getBaseContext()).load(service.getHeadURL())
+                                L.d("onSuccess: getHeadUrl " + pic.getData().getHeadUrl());
+                                Picasso.with(getBaseContext()).load(file)
                                         .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(civ_head);
                             }
                         } else {

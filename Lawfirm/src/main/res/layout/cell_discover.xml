@@ -91,12 +91,14 @@
                     android:layout_marginRight="4dp"
                     android:layout_marginTop="3dp"
                     android:text="33"
+                    android:visibility="gone"
                     android:textColor="#aeaeae"
                     android:textSize="12sp" />
 
                 <ImageView
                     android:id="@+id/dis_praise"
                     android:layout_width="14dp"
+                    android:visibility="gone"
                     android:layout_height="14dp"
                     android:src="@drawable/praise_c" />
 

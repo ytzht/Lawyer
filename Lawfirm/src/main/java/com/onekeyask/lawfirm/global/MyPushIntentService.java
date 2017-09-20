@@ -91,6 +91,8 @@ public class MyPushIntentService extends UmengMessageService {
 
     }
 
+    private boolean isChat = false;
+
     private void sendNotific(UMessage msg) {
 
         MsgPoints msgPoints = (new Gson()).fromJson(msg.custom, MsgPoints.class);
@@ -98,6 +100,7 @@ public class MyPushIntentService extends UmengMessageService {
         PendingIntent pi;
         switch (msgPoints.getActivity()) {
             case "ChatInfoNotification":
+                isChat = true;
                 //跳转到聊天详情    “chatId”:聊天Id
                 intent = new Intent(MyPushIntentService.this, TalkingActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -121,6 +124,7 @@ public class MyPushIntentService extends UmengMessageService {
 //                intent.putExtra("lawyerId",  msgPoints.getData().getLawyerId());
 //                break;
             case "VerifyNotification":
+                isChat = false;
                 //“messageId”:””
                 //参数值为对应的消息中心的Id,
                 //点击跳转到积分明细，且同时请求1.50接口
@@ -130,6 +134,7 @@ public class MyPushIntentService extends UmengMessageService {
 
                 break;
             case "BalanceChangeNotification":
+                isChat = false;
                 //“messageId”:””
                 //参数值为空，跳转到余额明细，且同时请求1.50接口。
                 intent = new Intent(MyPushIntentService.this, BillingDetailsActivity.class);
@@ -137,6 +142,7 @@ public class MyPushIntentService extends UmengMessageService {
                 intent.putExtra("id", msgPoints.getData().getMessageId());
                 break;
             default:
+                isChat = false;
                 intent = new Intent(MyPushIntentService.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -154,7 +160,11 @@ public class MyPushIntentService extends UmengMessageService {
                 .setWhen(System.currentTimeMillis())
                 .setContentIntent(pi)
                 .build();
-        nm.notify(NOTIFICATION_ID, notify);
+        if (isChat) {
+            nm.notify(msgPoints.getData().getLawyerId(), notify);
+        } else {
+            nm.notify(NOTIFICATION_ID, notify);
+        }
 
     }
 

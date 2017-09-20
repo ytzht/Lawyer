@@ -26,12 +26,14 @@ public class GotoVerifyActivity extends BaseToolBarActivity {
     private LinearLayout llunpass;
     private TextView tvre;
     private LinearLayout llpass;
+    private LinearLayout ll_freeze;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goto_verify);
         this.llpass = (LinearLayout) findViewById(R.id.ll_pass);
+        this.ll_freeze = (LinearLayout) findViewById(R.id.ll_freeze);
         this.tvre = (TextView) findViewById(R.id.tv_re);
         this.llunpass = (LinearLayout) findViewById(R.id.ll_un_pass);
         this.tvunre = (TextView) findViewById(R.id.tv_un_re);
@@ -66,32 +68,34 @@ public class GotoVerifyActivity extends BaseToolBarActivity {
                         GotoVerify verify = (new Gson()).fromJson(response.body(), GotoVerify.class);
                         if (verify.getCode() == 0) {
                             switch (verify.getData().getLawyer().getStatus()) {
-                                case "0"://正常
+                                case "0"://正常1
                                     showShort("正常");
                                     llpass.setVisibility(View.VISIBLE);
                                     llunpass.setVisibility(View.GONE);
+                                    ll_freeze.setVisibility(View.GONE);
                                     break;
-                                case "1"://冻结
-                                    showShort("冻结");
+                                case "1"://冻结3
+                                    llpass.setVisibility(View.GONE);
+                                    llunpass.setVisibility(View.GONE);
+                                    ll_freeze.setVisibility(View.VISIBLE);
+                                    break;
+                                case "2"://未提交审核2
                                     llpass.setVisibility(View.GONE);
                                     llunpass.setVisibility(View.VISIBLE);
-                                    break;
-                                case "2"://未提交审核
-                                    llpass.setVisibility(View.GONE);
-                                    llunpass.setVisibility(View.VISIBLE);
+                                    ll_freeze.setVisibility(View.GONE);
                                     UserService.service(getBaseContext()).setLawyerId(verify.getData().getLawyer().getLawyerId());
                                     startActivity(IdentityVerificationActivity.class);
 
                                     break;
-                                case "3"://等待审核
-                                    showShort("等待审核");
+                                case "3"://等待审核1
                                     llpass.setVisibility(View.VISIBLE);
                                     llunpass.setVisibility(View.GONE);
+                                    ll_freeze.setVisibility(View.GONE);
                                     break;
-                                case "4"://审核不通过
-                                    showShort("审核不通过");
+                                case "4"://审核不通过2
                                     llpass.setVisibility(View.GONE);
                                     llunpass.setVisibility(View.VISIBLE);
+                                    ll_freeze.setVisibility(View.GONE);
                                     break;
 
                             }

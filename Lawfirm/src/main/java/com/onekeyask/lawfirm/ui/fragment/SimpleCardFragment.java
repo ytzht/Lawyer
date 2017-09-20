@@ -167,7 +167,8 @@ public class SimpleCardFragment extends BaseFragment {
             holder.dis_name.setText(data.get(position).getName());
 //            holder.dis_office.setText(data.get(position).get());
 //            holder.dis_count.setText(String.valueOf(data.get(position).getSupportCount()));
-            Glide.with(getActivity()).load(data.get(position).getHeadURL()).into(holder.dis_img);
+            Glide.with(getActivity()).load(data.get(position).getHeadURL())
+                    .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(holder.dis_img);
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

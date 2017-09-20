@@ -687,15 +687,24 @@ public class TalkingActivity extends BaseActivity {
                         ll_is_detail.setVisibility(View.VISIBLE);
                         isUpdateInfo = true;
                         hideMenu();
+                        tv_time_step.setText("未接单");
                         getAskDetail();
                         break;
                     case "1"://进行中
                         L.d("进行中");
+                        ll_is_detail.setVisibility(View.GONE);
                         isUpdateInfo = true;
                         showMenu();
+                        if (getList.getFromType() == 1) {//订单类型 1图文咨询 2免费提问
+                            tv_time_step.setText("聊天将在" + getList.getExpireDate() + "后关闭");
+                        } else {
+                            tv_time_step.setText("聊天将在" + getList.getExpireDate() + "或" + getList.getRounds() + "轮对话后问题关闭");
+                        }
                         break;
                     case "2"://已结束
+                        ll_is_detail.setVisibility(View.GONE);
                         L.d("已结束");
+                        tv_time_step.setText("聊天已结束");
                         isUpdateInfo = false;
                         hideMenu();
                         //出现略表心意、和再次咨询按钮布局，隐藏输入框
@@ -712,11 +721,7 @@ public class TalkingActivity extends BaseActivity {
                         showMenu();
                     }
                 }
-                if (getList.getFromType() == 1) {//订单类型 1图文咨询 2免费提问
-                    tv_time_step.setText("聊天将在" + getList.getExpireDate() + "后关闭");
-                } else {
-                    tv_time_step.setText("聊天将在" + getList.getExpireDate() + "或" + getList.getRounds() + "轮对话后问题关闭");
-                }
+
                 ConversationList.ConversationListBean bean = new ConversationList.ConversationListBean
                         (3, (int) conversationId, 1, 2, "12", "12", "content", false, "00:00");
 

@@ -17,8 +17,6 @@ import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.utils.UserService;
 
-import java.text.SimpleDateFormat;
-
 public class WithStateActivity extends BaseToolBarActivity {
 
     private TextView bankname;
@@ -93,8 +91,8 @@ public class WithStateActivity extends BaseToolBarActivity {
         bankname.setText(info.getBankName());
 
         money.setText(info.getMoney()+"");
-        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm");
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm");
+//        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         if (info.getStatus() == 1){
             img3.setImageResource(R.drawable.select_g);
             passtime.setVisibility(View.GONE);
@@ -102,11 +100,11 @@ public class WithStateActivity extends BaseToolBarActivity {
         }else {
             img3.setImageResource(R.drawable.select_c);
             passtime.setVisibility(View.VISIBLE);
-            passtime.setText(sdf.format(info.getPassTime()));
+            passtime.setText(info.getCreateTime());
             status.setText("已完成");
         }
 
-        createtime1.setText(sdf1.format(info.getCreateTime()));
-        createtime.setText(sdf.format(info.getCreateTime()));
+        createtime1.setText(info.getCreateTime());
+        createtime.setText(info.getCreateTime());
     }
 }

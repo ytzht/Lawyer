@@ -195,6 +195,7 @@ public class NowServerFragment extends BaseFragment {
                 }
                 L.d("=====getHeadURL()", list.get(position).getUser().getHeadURL());
                 Glide.with(getActivity()).load(Uri.parse(list.get(position).getUser().getHeadURL()))
+                        .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
                         .into(((ViewHolder) holder).civ_avatar_now);
                 ((ViewHolder) holder).status.setText(list.get(position).getStatus());
                 if (((ViewHolder) holder).status.getText().equals("律师未回复")){

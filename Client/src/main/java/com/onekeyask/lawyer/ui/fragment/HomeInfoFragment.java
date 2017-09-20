@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.PointsInfo;
 import com.onekeyask.lawyer.global.BaseFragment;
@@ -25,6 +24,7 @@ import com.onekeyask.lawyer.ui.act.me.SettingActivity;
 import com.onekeyask.lawyer.ui.act.user.LoginActivity;
 import com.onekeyask.lawyer.ui.act.user.MyInfoActivity;
 import com.onekeyask.lawyer.utils.UserService;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -107,7 +107,7 @@ public class HomeInfoFragment extends BaseFragment {
             if (userService.getHeadURL().equals("")) {
                 userHeader.setImageResource(R.drawable.ic_member_avatar);
             } else {
-                Glide.with(getActivity()).load(userService.getHeadURL())
+                Picasso.with(getActivity()).load(userService.getHeadURL())
                         .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(userHeader);
             }
             initView();

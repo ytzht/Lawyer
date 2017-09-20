@@ -44,13 +44,13 @@ public class MyMoney {
          * myMoney : 0
          */
 
-        private int myMoney;
+        private String myMoney;
 
-        public int getMyMoney() {
+        public String getMyMoney() {
             return myMoney;
         }
 
-        public void setMyMoney(int myMoney) {
+        public void setMyMoney(String myMoney) {
             this.myMoney = myMoney;
         }
     }

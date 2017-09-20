@@ -518,12 +518,14 @@ public class TalkingActivity extends BaseActivity {
                         L.d(list.get(position).getContent());
                     }
                 });
-                Glide.with(TalkingActivity.this).load(list.get(position).getHeadURL()).into(((ViewHolder) holder).civ_talking_avatar);
+                Glide.with(TalkingActivity.this).load(list.get(position).getHeadURL())
+                        .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(((ViewHolder) holder).civ_talking_avatar);
 
                 if (list.get(position).isIsPicture()) {
                     ((ViewHolder) holder).tv_talking_msg.setVisibility(View.GONE);
                     ((ViewHolder) holder).ll_iv_msg.setVisibility(View.VISIBLE);
-                    Glide.with(TalkingActivity.this).load(list.get(position).getContent()).into(((ViewHolder) holder).iv_talking_msg);
+                    Glide.with(TalkingActivity.this).load(list.get(position).getContent())
+                            .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(((ViewHolder) holder).iv_talking_msg);
                     ((ViewHolder) holder).iv_talking_msg.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

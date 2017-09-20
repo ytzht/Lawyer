@@ -13,8 +13,15 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
+import com.onekeyask.lawfirm.entity.GotoVerify;
+import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.global.BaseActivity;
+import com.onekeyask.lawfirm.ui.act.user.GotoVerifyActivity;
 import com.onekeyask.lawfirm.ui.act.user.LoginActivity;
 import com.onekeyask.lawfirm.utils.UserService;
 
@@ -99,69 +106,56 @@ public class AppLauncherActivity extends BaseActivity {
     public void superFinish() {
         if (UserService.service(getBaseContext()).getToken().equals("-1")){
             startActivity(LoginActivity.class);
+            finishA();
         }else {
-            startActivity(MainActivity.class);
+
+            OkGo.<String>get(Apis.GotoVerify).params("lawyerId", UserService.service(getBaseContext()).getLawyerId())
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            GotoVerify verify = (new Gson()).fromJson(response.body(), GotoVerify.class);
+                            if (verify.getCode() == 0) {
+                                switch (verify.getData().getLawyer().getStatus()) {
+                                    case "0"://正常
+                                        startActivity(MainActivity.class);
+                                        break;
+                                    case "1"://冻结
+                                        startActivity(GotoVerifyActivity.class);
+                                        break;
+                                    case "2"://未提交审核
+//                                        UserService.service(getBaseContext()).setLawyerId(verify.getData().getLawyer().getLawyerId());
+                                        startActivity(LoginActivity.class);
+
+                                        break;
+                                    case "3"://等待审核
+                                        startActivity(GotoVerifyActivity.class);
+                                        break;
+                                    case "4"://审核不通过
+                                        startActivity(GotoVerifyActivity.class);
+                                        break;
+                                }
+                            } else {
+                                startActivity(LoginActivity.class);
+                            }
+                            finishA();
+                        }
+
+                        @Override
+                        public void onError(Response<String> response) {
+                            super.onError(response);
+                            finishA();
+                            startActivity(LoginActivity.class);
+                        }
+                    });
+
+
+
         }
+
+    }
+
+    public void finishA() {
         super.finish();
     }
 
-
-    @Override
-    public void finish() {
-    }
-
-
-//    private class SamplePagerAdapter extends PagerAdapter {
-//        private int mSize;
-//        private Context context;
-//
-//        public SamplePagerAdapter(Context context) {
-//            this.context = context;
-//            mSize = 2;
-//        }
-//
-//        @Override
-//        public int getCount() {
-//            return mSize;
-//        }
-//
-//        @Override
-//        public boolean isViewFromObject(View view, Object object) {
-//            return view == object;
-//        }
-//
-//        @Override
-//        public void destroyItem(ViewGroup view, int position, Object object) {
-//            view.removeView((View) object);
-//        }
-//
-//        @Override
-//        public Object instantiateItem(ViewGroup view, int position) {
-//            ImageView imageView = new ImageView(view.getContext());
-//            if (position == 0) {
-//                imageView.setImageResource(R.drawable.launcher_01);
-//            } else if (position == 1) {
-//                imageView.setImageResource(R.drawable.launcher_02);
-//            }
-//
-//            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-//
-//            if (position == 1) {
-//                imageView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Intent intent = new Intent();
-//                        intent.setClass(view.getContext(), MainActivity.class);
-//                        view.getContext().startActivity(intent);
-//                        context.getApplicationContext();
-//                        superFinish();
-//                    }
-//                });
-//            }
-//            view.addView(imageView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
-//                    .MATCH_PARENT);
-//            return imageView;
-//        }
-//
-//    }
 }

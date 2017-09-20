@@ -106,7 +106,7 @@ public class MainActivity extends BaseActivity {
                         tv_red.setVisibility(View.GONE);
                     }
                 }else {
-                    showShort(red.getMsg());
+//                    showShort(red.getMsg());
                 }
             }
         });

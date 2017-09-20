@@ -21,6 +21,7 @@ public class UserService {
     private static final String HeadURL = "_headURL";
     private static final String SearchHistory = "_searchHistory";
     private static final String Introduce = "_introduce";
+    private static final String OfficeName = "_lawyerOfficeName";
     private Context context;
 
     public static UserService service(Context context) {
@@ -140,5 +141,15 @@ public class UserService {
     }
 
 
+    public void setOfficeName(String lawyerOfficeName) {
+        SharedPreferences memberPrefs = context.getSharedPreferences(
+                OfficeName, Context.MODE_PRIVATE);
+        memberPrefs.edit().putString(OfficeName, lawyerOfficeName).apply();
+    }
 
+    public String getOfficeName() {
+        SharedPreferences memberPrefs = context.getSharedPreferences(
+                OfficeName, Context.MODE_PRIVATE);
+        return memberPrefs.getString(OfficeName, "");
+    }
 }

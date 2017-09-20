@@ -92,7 +92,7 @@ public class HomeIndexFragment extends BaseFragment {
                     }
 
                 } else {
-                    showShort(red.getMsg());
+//                    showShort(red.getMsg());
                 }
             }
         });

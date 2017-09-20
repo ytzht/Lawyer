@@ -92,7 +92,7 @@ public class BillingDetails {
                 this.withDrawInfoId = withDrawInfoId;
             }
 
-            private long tranTime;
+            private String tranTime;
 
             public int getId() {
                 return id;
@@ -134,11 +134,11 @@ public class BillingDetails {
                 this.summary = summary;
             }
 
-            public long getTranTime() {
+            public String getTranTime() {
                 return tranTime;
             }
 
-            public void setTranTime(long tranTime) {
+            public void setTranTime(String tranTime) {
                 this.tranTime = tranTime;
             }
         }

@@ -14,6 +14,7 @@ import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
+import com.onekeyask.lawyer.ui.act.user.LoginActivity;
 import com.onekeyask.lawyer.utils.UserService;
 
 import java.io.File;
@@ -34,14 +35,14 @@ public class QuickConsultingActivity extends BaseToolBarActivity {
     private ArrayList<String> photos;
     private String content;
     private int category = -1;
-
+    private UserService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quick_consulting);
         setToolbarText("咨询");
-
+        service = UserService.service(getBaseContext());
         initView();
     }
 
@@ -73,26 +74,33 @@ public class QuickConsultingActivity extends BaseToolBarActivity {
         rl_free_con.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (points > askPrice) {
-                    photoMap.clear();
-                    i = 0;
-                    k = 0;
-                    if (photos.size() > 0) {
-                        hud = KProgressHUD.create(QuickConsultingActivity.this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                                .setCancellable(true)
-                                .show();
-                        i = 0;
-                        for (int j = 0; j < photos.size(); j++) {
 
-                            goLuban();
-
-                        }
-                    } else {
-                        goSubmit();
-                    }
-
+                if (!service.isLogin()) {
+                    startActivity(LoginActivity.class);
                 } else {
-                    showShort("金币不足");
+
+
+                    if (points > askPrice) {
+                        photoMap.clear();
+                        i = 0;
+                        k = 0;
+                        if (photos.size() > 0) {
+                            hud = KProgressHUD.create(QuickConsultingActivity.this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                                    .setCancellable(true)
+                                    .show();
+                            i = 0;
+                            for (int j = 0; j < photos.size(); j++) {
+
+                                goLuban();
+
+                            }
+                        } else {
+                            goSubmit();
+                        }
+
+                    } else {
+                        showShort("金币不足");
+                    }
                 }
             }
         });
@@ -100,11 +108,16 @@ public class QuickConsultingActivity extends BaseToolBarActivity {
         rl_pay_con.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QuickConsultingActivity.this, PayQuickConsultingActivity.class);
-                intent.putExtra("content", content);
-                intent.putExtra("category", category);
-                intent.putStringArrayListExtra("photos", photos);
-                startActivity(intent);
+
+                if (!service.isLogin()) {
+                    startActivity(LoginActivity.class);
+                } else {
+                    Intent intent = new Intent(QuickConsultingActivity.this, PayQuickConsultingActivity.class);
+                    intent.putExtra("content", content);
+                    intent.putExtra("category", category);
+                    intent.putStringArrayListExtra("photos", photos);
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -153,7 +166,7 @@ public class QuickConsultingActivity extends BaseToolBarActivity {
     }
 
     private void goSubmit() {
-        photoMap.put("userId", RequestBody.create(null, UserService.service(getBaseContext()).getUserId()+""));
+        photoMap.put("userId", RequestBody.create(null, UserService.service(getBaseContext()).getUserId() + ""));
         photoMap.put("content", RequestBody.create(null, content));
         photoMap.put("category", RequestBody.create(null, category + ""));
 
@@ -162,7 +175,8 @@ public class QuickConsultingActivity extends BaseToolBarActivity {
         getResultOnNext = new SubscriberOnNextListener<FreeaskBean>() {
             @Override
             public void onNext(FreeaskBean askResult) {
-                startActivity(TalkingActivity.class, "fid", askResult.getFreeaskId()+"", "cid", askResult.getChatId()+"");
+
+                startActivity(TalkingActivity.class, "fid", askResult.getFreeaskId() + "", "cid", askResult.getChatId() + "");
                 finish();
             }
 

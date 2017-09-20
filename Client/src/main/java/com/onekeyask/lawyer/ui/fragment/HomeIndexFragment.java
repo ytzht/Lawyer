@@ -162,7 +162,7 @@ public class HomeIndexFragment extends BaseFragment {
                     }
 
                 } else {
-                    showShort(red.getMsg());
+//                    showShort(red.getMsg());
                 }
             }
         });
@@ -343,21 +343,13 @@ public class HomeIndexFragment extends BaseFragment {
                 ((IndexViewHolder) holder).rl_quick_consulting.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (service.isLogin()) {
                             startActivity(ConsultingDetailActivity.class);
-                        }else {
-                            startActivity(LoginActivity.class);
-                        }
                     }
                 });
                 ((IndexViewHolder) holder).rl_look_lawyer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (service.isLogin()) {
                             startActivity(SearchLawActivity.class);
-                        }else {
-                            startActivity(LoginActivity.class);
-                        }
                     }
                 });
                 ((IndexViewHolder) holder).tv_more_solutions.setOnClickListener(new View.OnClickListener() {

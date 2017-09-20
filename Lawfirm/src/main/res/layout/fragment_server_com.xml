@@ -7,37 +7,35 @@
 
     <RelativeLayout
         android:id="@+id/rl_ser_list"
-        android:layout_gravity="end"
-        android:gravity="center"
         android:layout_width="100dp"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        android:layout_gravity="end"
+        android:gravity="center">
 
         <TextView
             android:id="@+id/tv_spinner_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="全部"
             android:layout_centerInParent="true"
-            android:textSize="14dp"
+            android:text="全部服务"
             android:textColor="#6f6f6f"
+            android:textSize="14dp" />
 
-            />
         <ImageView
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:layout_toRightOf="@id/tv_spinner_type"
             android:layout_centerInParent="true"
-            android:src="@drawable/service_list"
-            />
+            android:layout_toRightOf="@id/tv_spinner_type"
+            android:src="@drawable/service_list" />
 
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="@color/viewDivider"/>
+        android:background="@color/viewDivider" />
 
-    <in.srain.cube.views.ptr.PtrClassicFrameLayout
-        xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/fragment_ptr_service"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -53,8 +51,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rlv_now_ser"
             android:layout_width="match_parent"
-            android:background="@color/white"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
         </android.support.v7.widget.RecyclerView>
 

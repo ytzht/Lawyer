@@ -40,7 +40,7 @@ public class WithdrawalActivity extends BaseToolBarActivity {
             public void onSuccess(Response<String> response) {
                 MyMoney myMoney = (new Gson()).fromJson(response.body(), MyMoney.class);
                 if (myMoney.getCode() == 0){
-                    balance = myMoney.getData().getMyMoney();
+                    balance = Double.parseDouble(myMoney.getData().getMyMoney());
                     canWith.setText(myMoney.getData().getMyMoney()+"元");
                 }else {
                     showShort(myMoney.getMsg());

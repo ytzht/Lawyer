@@ -156,6 +156,7 @@ public class IdentityVerificationNextActivity extends BaseToolBarActivity {
             @Override
             public void onNext(ResultData result) {
 
+                UserService.service(getBaseContext()).setOfficeName(lawyerOfficeName);
                 if (result.getCode() == 0){
                     startActivity(GotoVerifyActivity.class);
                 }else if (result.getCode() == -101){

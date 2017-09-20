@@ -24,7 +24,6 @@ import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.HomePage;
 import com.onekeyask.lawyer.entity.IsFavorite;
 import com.onekeyask.lawyer.global.BaseActivity;
-import com.onekeyask.lawyer.global.Constant;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.utils.UserService;
@@ -95,7 +94,7 @@ public class EvaluateCompleteActivity extends BaseActivity {
         service = new UserService(getBaseContext());
         userServiceId = getIntent().getStringExtra("userServiceId");
         lawName = getIntent().getStringExtra("lawName");
-        lawyerId = getIntent().getIntExtra("lawyerId", Constant.lawyerId);
+        lawyerId = Integer.parseInt(getIntent().getStringExtra("lawyerId"));
 
         initIsFavorite();
 
