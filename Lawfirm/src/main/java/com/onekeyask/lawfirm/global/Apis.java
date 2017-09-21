@@ -40,8 +40,13 @@ public interface Apis {
     String SaveSpecialService = Apis.Base + "l/service/saveSpecialService";//1.39专长类别设置
     String Checkupdate = Apis.Base + "pub/c/checkupdate";//1.41系统检查更新
     String GetRed = Apis.Base + "c/getRed";//1.42 小红点
+    String getPersonalInfo = Apis.Base + "l/getPersonalInfo";//1.43 获取律师个人信息
+    String GetIntroduce = Apis.Base + "l/getIntroduce";//1.44 获取律师介绍
+    String ChangeSex = Apis.Base + "l/changeSex";//1.45 修改律师性别
+    String changeCityDistrict = Apis.Base + "l/changeCityDistrict";//1.46 修改律师所在地区
 
 
     String FreeAskOrder = Apis.Base + "l/freeask/order";
     String FoundFragList = Apis.Base + "l/freeask/list";
+
 }

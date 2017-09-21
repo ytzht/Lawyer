@@ -32,6 +32,7 @@ import com.onekeyask.lawyer.entity.TalkingConversationList;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseActivity;
 import com.onekeyask.lawyer.global.L;
+import com.onekeyask.lawyer.ui.act.user.LoginActivity;
 import com.onekeyask.lawyer.utils.HideUtil;
 import com.onekeyask.lawyer.utils.UserService;
 import com.onekeyask.lawyer.utils.photo.Info;
@@ -96,29 +97,36 @@ public class AskDetailActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_share:
-                goShare();
+                if (UserService.service(getBaseContext()).isLogin()) {
+                    goShare();
+                } else {
+                    startActivity(LoginActivity.class);
+                }
                 break;
             case R.id.ll_praise:
-                OkGo.<String>get(Apis.SupportUserService)
-                        .params("userId", UserService.service(getBaseContext()).getUserId())
-                        .params("userServiceId", sid)
-                        .params("up", !isSupported).execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        PraiseSupported supported = (new Gson()).fromJson(response.body(), PraiseSupported.class);
-                        if (supported.getCode() == 0) {
-                            isSupported = supported.getData().isSupported();
-                            if (isSupported) {
-                                ivPraise.setImageResource(R.drawable.praise_c);
+                if (UserService.service(getBaseContext()).isLogin()) {
+                    OkGo.<String>get(Apis.SupportUserService)
+                            .params("userId", UserService.service(getBaseContext()).getUserId())
+                            .params("userServiceId", sid)
+                            .params("up", !isSupported).execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            PraiseSupported supported = (new Gson()).fromJson(response.body(), PraiseSupported.class);
+                            if (supported.getCode() == 0) {
+                                isSupported = supported.getData().isSupported();
+                                if (isSupported) {
+                                    ivPraise.setImageResource(R.drawable.praise_c);
+                                } else {
+                                    ivPraise.setImageResource(R.drawable.praise_g);
+                                }
                             } else {
-                                ivPraise.setImageResource(R.drawable.praise_g);
+                                showShort(supported.getMsg());
                             }
-                        } else {
-                            showShort(supported.getMsg());
                         }
-                    }
-                });
-
+                    });
+                } else {
+                    startActivity(LoginActivity.class);
+                }
                 break;
             case R.id.ll_consult:
                 Intent intent = new Intent(AskDetailActivity.this, LawyerDetailActivity.class);
@@ -330,14 +338,14 @@ public class AskDetailActivity extends BaseActivity {
                 Glide.with(AskDetailActivity.this).load(beanList.get(position).getHeadURL())
                         .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(((ViewHolder) holder).civ_talking_avatar);
                 if (beanList.get(position).getFrom() == LEFT)
-                ((ViewHolder) holder).civ_talking_avatar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(AskDetailActivity.this, LawyerDetailActivity.class);
-                        intent.putExtra("lawyerId", beanList.get(position).getLawyerId());
-                        startActivity(intent);
-                    }
-                });
+                    ((ViewHolder) holder).civ_talking_avatar.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(AskDetailActivity.this, LawyerDetailActivity.class);
+                            intent.putExtra("lawyerId", beanList.get(position).getLawyerId());
+                            startActivity(intent);
+                        }
+                    });
                 if (beanList.get(position).isIsPicture()) {
                     ((ViewHolder) holder).tv_talking_msg.setVisibility(View.GONE);
                     ((ViewHolder) holder).ll_iv_msg.setVisibility(View.VISIBLE);
@@ -438,9 +446,9 @@ public class AskDetailActivity extends BaseActivity {
                         web.setDescription(shareSummary);//描述
                         shareMedia = share_media;
 
-                        if (share_media == SHARE_MEDIA.SINA){
+                        if (share_media == SHARE_MEDIA.SINA) {
                             showShort("敬请期待");
-                        }else {
+                        } else {
                             new ShareAction(AskDetailActivity.this).withMedia(web)
                                     .setCallback(umShareListener).setPlatform(share_media).share();
                         }
@@ -456,6 +464,7 @@ public class AskDetailActivity extends BaseActivity {
 //                config.setShareboardBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.divider));
         action.open(config);
     }
+
     private AlertDialog alertDialog;
     private UMShareListener umShareListener = new UMShareListener() {
         @Override
@@ -492,11 +501,11 @@ public class AskDetailActivity extends BaseActivity {
     private void goShareSuccess() {
 
         String targetPlat;
-        if (shareMedia == SHARE_MEDIA.SINA){
+        if (shareMedia == SHARE_MEDIA.SINA) {
             targetPlat = "3";
-        }else if (shareMedia == SHARE_MEDIA.WEIXIN){
+        } else if (shareMedia == SHARE_MEDIA.WEIXIN) {
             targetPlat = "1";
-        }else {
+        } else {
             targetPlat = "2";
         }
         OkGo.<String>post(Apis.SaveShare).params("userId", UserService.service(getBaseContext()).getUserId())
@@ -508,7 +517,7 @@ public class AskDetailActivity extends BaseActivity {
                     @Override
                     public void onSuccess(Response<String> response) {
                         ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
-                        if (data.getCode() != 0){
+                        if (data.getCode() != 0) {
                             showShort(data.getMsg());
                         }
                     }

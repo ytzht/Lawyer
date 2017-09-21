@@ -47,6 +47,7 @@ import com.onekeyask.lawyer.ui.act.consulting.PayLawyerActivity;
 import com.onekeyask.lawyer.ui.act.user.LoginActivity;
 import com.onekeyask.lawyer.utils.MyDecoration;
 import com.onekeyask.lawyer.utils.UserService;
+import com.squareup.picasso.Picasso;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -108,6 +109,8 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
 //    SmartRefreshLayout refreshLayout;
     @BindView(R.id.header_more)
     ImageView headerMore;
+    @BindView(R.id.iv_service)
+    ImageView iv_service;
     @BindView(R.id.service_notes)
     TextView service_notes;
     private int lawyerId;
@@ -201,7 +204,11 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         llSendMoney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupWindow = getPopwindow(popupView);
+                if (UserService.service(getBaseContext()).isLogin()) {
+                    popupWindow = getPopwindow(popupView);
+                }else {
+                    startActivity(LoginActivity.class);
+                }
             }
         });
 
@@ -344,7 +351,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
             data.getLawyer().getServiceList().get(0).setCheck(true);
             service_notes.setText(data.getLawyer().getServiceList().get(0).getNotes());
         }
-        Glide.with(this).load(data.getLawyer().getHeadURL())
+        Picasso.with(this).load(data.getLawyer().getHeadURL())
                 .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(lawyerHeader);
         lawyerName.setText(data.getLawyer().getName());
         setToolbarText(data.getLawyer().getName());
@@ -390,7 +397,11 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         llFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toFavorite();
+                if (UserService.service(getBaseContext()).isLogin()) {
+                    toFavorite();
+                }else {
+                    startActivity(LoginActivity.class);
+                }
             }
         });
 
@@ -681,7 +692,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, final int position) {
+        public void onBindViewHolder(final ViewHolder holder, final int position) {
 
             Glide.with(LawyerDetailActivity.this).load(data.getLawyer().getServiceList().get(position).getImgURL())
                     .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
@@ -712,6 +723,13 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
                         serviceTypeAdapter.notifyDataSetChanged();
                     }
                     service_notes.setText(data.getLawyer().getServiceList().get(position).getNotes());
+                    if (position == 0){
+                        Glide.with(LawyerDetailActivity.this).load(R.drawable.commonly_tag1).into(iv_service);
+                    }else if (position == 1){
+                        Glide.with(LawyerDetailActivity.this).load(R.drawable.commonly_tag2).into(iv_service);
+                    }else {
+                        Glide.with(LawyerDetailActivity.this).load(R.drawable.commonly_tag3).into(iv_service);
+                    }
                 }
             });
 
@@ -728,11 +746,13 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
             private CircleImageView service_pic;
             private TextView service_name;
 
+
             public ViewHolder(View itemView) {
                 super(itemView);
                 ll_type = (LinearLayout) itemView.findViewById(R.id.ll_type);
                 service_pic = (CircleImageView) itemView.findViewById(R.id.service_pic);
                 service_name = (TextView) itemView.findViewById(R.id.service_name);
+
             }
         }
     }
@@ -850,7 +870,11 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         item.getActionView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goShare();
+                if (UserService.service(getBaseContext()).isLogin()) {
+                    goShare();
+                }else {
+                    startActivity(LoginActivity.class);
+                }
             }
         });
 

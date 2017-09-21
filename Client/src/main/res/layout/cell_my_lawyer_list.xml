@@ -108,25 +108,15 @@
                 tools:text="服务速度好" />
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:gravity="center_vertical">
 
-            <ImageView
-                android:layout_width="11dp"
-                android:layout_height="11dp"
-                android:src="@drawable/buy_user" />
-
-            <TextView
-                android:id="@+id/find_num"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:layout_weight="1"
-                android:textColor="#aeaeae"
-                android:textSize="12sp"
-                tools:text="4221人购买" />
 
             <TextView
                 android:id="@+id/find_price"
@@ -135,6 +125,16 @@
                 android:textColor="@color/org"
                 android:textSize="12sp"
                 tools:text="￥1元起" />
+
+            <TextView
+                android:id="@+id/find_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textColor="#6f6f6f"
+                android:textSize="12sp"
+                tools:text="4221人购买" />
+
         </LinearLayout>
     </LinearLayout>
 

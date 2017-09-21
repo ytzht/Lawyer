@@ -22,7 +22,7 @@
             android:layout_marginLeft="19dp"
             android:layout_marginRight="15dp"
             android:padding="2dp"
-            android:src="@drawable/tips_n" />
+            android:src="@drawable/tips" />
 
         <ImageView
             android:id="@+id/search_main"

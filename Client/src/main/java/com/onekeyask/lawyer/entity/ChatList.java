@@ -135,6 +135,25 @@ public class ChatList {
 
             private String name;
             private String lawyerId;
+            private String lawfirm;
+            private String phoneNo;
+
+            public String getLawfirm() {
+                return lawfirm;
+            }
+
+            public void setLawfirm(String lawfirm) {
+                this.lawfirm = lawfirm;
+            }
+
+            public String getPhoneNo() {
+                return phoneNo;
+            }
+
+            public void setPhoneNo(String phoneNo) {
+                this.phoneNo = phoneNo;
+            }
+
             private String headURL;
 
             public String getName() {

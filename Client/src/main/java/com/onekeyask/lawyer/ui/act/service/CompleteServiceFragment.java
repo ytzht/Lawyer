@@ -64,8 +64,11 @@ public class CompleteServiceFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        type = 0;
         index = 1;
         initView(view);
+        initData();
+        tv_spinner_type.setText(tv_1.getText());
     }
 
 
@@ -241,7 +244,7 @@ public class CompleteServiceFragment extends BaseFragment {
             if (getItemCount() == position + 1) {
                 return R.layout.cell_load_more;
             } else {
-                return R.layout.cell_complete_server;
+                return R.layout.cell_now_server;
             }
 
         }
@@ -249,7 +252,7 @@ public class CompleteServiceFragment extends BaseFragment {
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getActivity()).inflate(viewType, parent, false);
-            if (viewType == R.layout.cell_complete_server) {
+            if (viewType == R.layout.cell_now_server) {
                 return new ViewHolder(view);
             } else {
                 return new ViewHolderMore(view);
@@ -259,6 +262,8 @@ public class CompleteServiceFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             if (position + 1 != getItemCount()) {
+                ((ViewHolder) holder).com_price.setVisibility(View.VISIBLE);
+                ((ViewHolder) holder).tv_office.setText(listBeen.get(position).getLawyer().getLawfirm());
                 ((ViewHolder) holder).tv_content_now.setText(listBeen.get(position).getServiceContent());
                 ((ViewHolder) holder).tv_name_now.setText(listBeen.get(position).getLawyer().getName());
                 ((ViewHolder) holder).tv_time_now.setText(listBeen.get(position).getLastServiceTime());
@@ -308,12 +313,13 @@ public class CompleteServiceFragment extends BaseFragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            private TextView tv_content_now, tv_tag_now, tv_time_now, tv_name_now, status, com_price;
+            private TextView tv_content_now, tv_tag_now, tv_time_now, tv_name_now, status, com_price, tv_office;
             private CircleImageView civ_avatar_now;
 
             private ViewHolder(View itemView) {
                 super(itemView);
                 tv_content_now = (TextView) itemView.findViewById(R.id.tv_content_now);
+                tv_office = (TextView) itemView.findViewById(R.id.tv_office);
                 tv_tag_now = (TextView) itemView.findViewById(R.id.tv_tag_now);
                 tv_time_now = (TextView) itemView.findViewById(R.id.tv_time_now);
                 status = (TextView) itemView.findViewById(R.id.status);

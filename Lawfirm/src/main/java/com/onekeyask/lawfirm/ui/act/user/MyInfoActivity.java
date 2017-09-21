@@ -17,18 +17,23 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.bigkoo.pickerview.OptionsPickerView;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
+import com.onekeyask.lawfirm.entity.CityList;
 import com.onekeyask.lawfirm.entity.GetSpecialInfoList;
 import com.onekeyask.lawfirm.entity.HeaderPic;
+import com.onekeyask.lawfirm.entity.PersonalInfo;
+import com.onekeyask.lawfirm.entity.ProvinceBean;
 import com.onekeyask.lawfirm.entity.ResultData;
 import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.global.L;
+import com.onekeyask.lawfirm.utils.AssetsUtils;
 import com.onekeyask.lawfirm.utils.UserService;
 import com.squareup.picasso.Picasso;
 
@@ -50,24 +55,41 @@ public class MyInfoActivity extends BaseToolBarActivity {
     LinearLayout llImage;
     @BindView(R.id.tv_introduce)
     TextView tv_intro;
+    @BindView(R.id.ll_sex)
+    LinearLayout ll_sex;
+    @BindView(R.id.ll_area)
+    LinearLayout ll_area;
     @BindView(R.id.ll_phone)
     LinearLayout llPhone;
     @BindView(R.id.user_name)
     TextView userName;
-    @BindView(R.id.user_phone)
-    TextView userPhone;
+    @BindView(R.id.user_sex)
+    TextView user_sex;
+    @BindView(R.id.user_area)
+    TextView user_area;
+    @BindView(R.id.user_office)
+    TextView user_office;
     @BindView(R.id.civ_head)
     CircleImageView civ_head;
     private RecyclerView rlvcan;
     private UserService service;
     private PopupWindow popupWindow = null;
+    private PopupWindow popupWindowSex = null;
     private View popupView;
+    private View popupViewSex;
     private TextView tv_cancel_popup;
     private TextView tv_yes_popup;
+    private TextView tv_cancel_popup_sex;
+    private TextView tv_yes_popup_sex;
+    private TextView tv_boy;
+    private TextView tv_girl;
     private EditText et_intro;
     private int lawyerId;
     private ConTagAdapter tagAdapter;
     private List<GetSpecialInfoList.DataBean.SpecialListBean> beanList = new ArrayList<>();
+    private String sex = "1";
+    private String selectSex;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,46 +98,65 @@ public class MyInfoActivity extends BaseToolBarActivity {
         setToolbarText("个人信息");
 
         service = new UserService(this);
-
-        userName.setText(service.getUserName());
-        tv_intro.setText(service.getIntroduce());
-
-        userPhone.setText(service.getOfficeName());
-        L.d(service.getHeadURL());
-        if (service.getHeadURL().equals("")){
-            civ_head.setImageResource(R.drawable.ic_member_avatar);
-        }else {
-            Glide.with(this).load(service.getHeadURL())
-                    .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(civ_head);
-        }
-
+        getOptionData();
         dialog = new ProgressDialog(this);
         dialog.setMessage("正在上传...");
         dialog.setCancelable(false);
 
         popupView = LayoutInflater.from(this).inflate(R.layout.popup_change_name, null);
+        popupViewSex = LayoutInflater.from(this).inflate(R.layout.popup_change_sex, null);
         rlvcan = (RecyclerView) findViewById(R.id.rlv_can);
         rlvcan.setLayoutManager(new GridLayoutManager(this, 4));
         tv_cancel_popup = (TextView) popupView.findViewById(R.id.tv_cancel_popup);
         tv_yes_popup = (TextView) popupView.findViewById(R.id.tv_yes_popup);
+        tv_cancel_popup_sex = (TextView) popupViewSex.findViewById(R.id.tv_cancel_popup);
+        tv_yes_popup_sex = (TextView) popupViewSex.findViewById(R.id.tv_yes_popup);
+        tv_boy = (TextView) popupViewSex.findViewById(R.id.tv_boy);
+        tv_girl = (TextView) popupViewSex.findViewById(R.id.tv_girl);
         et_intro = (EditText) popupView.findViewById(R.id.et_name);
-        et_intro.setText(service.getIntroduce());
+        tv_boy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectSex = "1";
+                tv_boy.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.burro_primary_ext));
+                tv_girl.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackModule));
+            }
+        });
+        tv_girl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectSex = "2";
+                tv_boy.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackModule));
+                tv_girl.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.burro_primary_ext));
+            }
+        });
         tv_cancel_popup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popupWindow.dismiss();
             }
         });
+        tv_cancel_popup_sex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindowSex.dismiss();
+            }
+        });
+        tv_yes_popup_sex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                changeSex();
+            }
+        });
         lawyerId = UserService.service(getBaseContext()).getLawyerId();
-
 
 
         tv_yes_popup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String introduce = et_intro.getText().toString();
-                if (introduce.length() > 5 ) {
+                if (introduce.length() > 5) {
                     OkGo.<String>post(Apis.SaveIntroduce).params("lawyerId", service.getLawyerId()).params("introduce", introduce).execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
@@ -132,7 +173,7 @@ public class MyInfoActivity extends BaseToolBarActivity {
                             }
                         }
                     });
-                }else {
+                } else {
                     showShort("不能少于五个字符");
                 }
 
@@ -143,8 +184,39 @@ public class MyInfoActivity extends BaseToolBarActivity {
 
     }
 
+    private void changeSex() {
 
-    @OnClick({R.id.ll_image, R.id.tv_introduce, R.id.ll_phone})
+        OkGo.<String>post(Apis.ChangeSex).params("lawyerId", service.getLawyerId()).params("sex", selectSex).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                popupWindowSex.dismiss();
+                ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
+                if (data.getCode() == 0) {
+                    sex = selectSex;
+                    if (sex.equals("1")) {
+                        user_sex.setText("男");
+                        tv_boy.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.burro_primary_ext));
+                        tv_girl.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackModule));
+                    } else {
+                        user_sex.setText("女");
+                        tv_boy.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackModule));
+                        tv_girl.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.burro_primary_ext));
+                    }
+                } else {
+                    showShort(data.getMsg());
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                popupWindowSex.dismiss();
+            }
+        });
+    }
+
+
+    @OnClick({R.id.ll_image, R.id.tv_introduce, R.id.ll_sex, R.id.ll_area})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_image:
@@ -160,9 +232,69 @@ public class MyInfoActivity extends BaseToolBarActivity {
                 popupWindow = getPopwindow(popupView);
 
                 break;
-            case R.id.ll_phone:
+            case R.id.ll_area:
+                initOptionPicker();
+                break;
+
+            case R.id.ll_sex:
+                popupWindowSex = getPopwindow(popupViewSex);
                 break;
         }
+    }
+
+    private ArrayList<ProvinceBean> options1Items = new ArrayList<>();
+    private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
+    private String city = "", district = "";
+    private void getOptionData() {
+
+        String json = AssetsUtils.readText(getBaseContext(), "city.json");
+        List<CityList> cityList = new Gson().fromJson(json, new TypeToken<ArrayList<CityList>>(){}.getType());
+        for (int i = 0; i < cityList.size(); i++) {
+            options1Items.add(new ProvinceBean(i, cityList.get(i).getAreaName(), "描述部分", "其他数据"));
+            ArrayList<String> options2Items_0 = new ArrayList<>();
+            for (int j = 0; j < cityList.get(i).getCities().size(); j++) {
+
+                options2Items_0.add(cityList.get(i).getCities().get(j).getAreaName());
+            }
+            options2Items.add(options2Items_0);
+        }
+    }
+    private void initOptionPicker() {//条件选择器初始化
+        OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+
+                city = options1Items.get(options1).getPickerViewText();
+                district = options2Items.get(options1).get(options2);
+                changeArea(city, district);
+
+            }
+        })
+                .setTitleText("所在地区选择")
+                .setContentTextSize(20)//设置滚轮文字大小
+                .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
+                .setLabels("", "", "")
+                .build();
+
+        pvOptions.setPicker(options1Items, options2Items);//二级选择器
+        pvOptions.show();
+    }
+
+    private void changeArea(final String city, final String district) {
+        OkGo.<String>post(Apis.changeCityDistrict).params("lawyerId", service.getLawyerId())
+                .params("city", city)
+                .params("district", district)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
+                        if (data.getCode() == 0) {
+                            user_area.setText(city + "-" + district);
+                        } else {
+                            showShort(data.getMsg());
+                        }
+                    }
+                });
     }
 
     private ProgressDialog dialog;
@@ -218,10 +350,10 @@ public class MyInfoActivity extends BaseToolBarActivity {
                         HeaderPic pic = (new Gson()).fromJson(response.body(), HeaderPic.class);
                         if (pic.getCode() == 0) {
                             service.setHeadURL(pic.getData().getHeadUrl());
-                            if (service.getHeadURL().equals("")){
+                            if (service.getHeadURL().equals("")) {
                                 L.d("onSuccess: getHeadURL");
                                 civ_head.setImageResource(R.drawable.ic_member_avatar);
-                            }else {
+                            } else {
                                 L.d("onSuccess: getHeadUrl " + pic.getData().getHeadUrl());
                                 Picasso.with(getBaseContext()).load(file)
                                         .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(civ_head);
@@ -263,6 +395,7 @@ public class MyInfoActivity extends BaseToolBarActivity {
         });
         return popupWindow;
     }
+
     private class ConTagAdapter extends RecyclerView.Adapter<ConTagAdapter.ViewHolder> {
 
         @Override
@@ -298,7 +431,7 @@ public class MyInfoActivity extends BaseToolBarActivity {
                                     if (dialog.isShowing()) dialog.dismiss();
 
                                     ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
-                                    if(data.getCode() != 0){
+                                    if (data.getCode() != 0) {
                                         showShort(data.getMsg());
                                     }
                                 }
@@ -353,7 +486,7 @@ public class MyInfoActivity extends BaseToolBarActivity {
                     @Override
                     public void onSuccess(Response<String> response) {
                         GetSpecialInfoList list = (new Gson()).fromJson(response.body(), GetSpecialInfoList.class);
-                        if (list.getCode() == 0){
+                        if (list.getCode() == 0) {
                             beanList = list.getData().getSpecialList();
                             tagAdapter = new ConTagAdapter();
                             rlvcan.setAdapter(tagAdapter);
@@ -362,6 +495,46 @@ public class MyInfoActivity extends BaseToolBarActivity {
 
                     }
                 });
+
+        OkGo.<String>get(Apis.getPersonalInfo).params("lawyerId", service.getLawyerId())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        PersonalInfo info = (new Gson()).fromJson(response.body(), PersonalInfo.class);
+                        if (info.getCode() == 0) {
+
+                            userName.setText(info.getData().getLawyerName());
+                            Picasso.with(getBaseContext()).load(info.getData().getHeadURL())
+                                    .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
+                                    .into(civ_head);
+                            if (info.getData().getSex() == 1) {
+                                sex = "1";
+                                user_sex.setText("男");
+                                tv_boy.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.burro_primary_ext));
+                                tv_girl.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackModule));
+                            } else {
+                                sex = "2";
+                                user_sex.setText("女");
+                                tv_boy.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackModule));
+                                tv_girl.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.burro_primary_ext));
+                            }
+                            selectSex = sex;
+                            user_area.setText(info.getData().getCity() + "-" + info.getData().getDistrict());
+                            tv_intro.setText(info.getData().getIntroduce());
+                            et_intro.setText(info.getData().getIntroduce());
+                            user_office.setText(info.getData().getOfficeName());
+                        } else {
+                            startActivity(LoginActivity.class);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                    }
+                });
+
 
     }
 

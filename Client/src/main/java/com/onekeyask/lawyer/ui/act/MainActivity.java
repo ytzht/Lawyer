@@ -176,11 +176,7 @@ public class MainActivity extends BaseActivity {
         } else if (event.getCode() == BaseEvent.GO_DISCOVER) {
             index = 2;
             if (currentTabIndex != 2) {
-                if (UserService.service(getBaseContext()).isLogin()) {
-                    goFoundFragment();
-                } else {
-                    startActivity(LoginActivity.class);
-                }
+                goFoundFragment();
             } else {
                 goTag();
             }
@@ -240,11 +236,7 @@ public class MainActivity extends BaseActivity {
                 startActivity(LoginActivity.class);
             }
         } else if (index == 2 && currentTabIndex != 2) {
-            if (UserService.service(getBaseContext()).isLogin()) {
-                goFoundFragment();
-            } else {
-                startActivity(LoginActivity.class);
-            }
+            goFoundFragment();
         } else {
             goTag();
         }

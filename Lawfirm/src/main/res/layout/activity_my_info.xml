@@ -66,7 +66,74 @@
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#6F6F6F"
                     tools:text="Jack" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/viewDivider" />
+
+            <LinearLayout
+                android:id="@+id/ll_sex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="1"
+                    android:text="性别" />
+
+                <TextView
+                    android:id="@+id/user_sex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:textColor="#6F6F6F"
+                    tools:text="男" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/arrow_r_g" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/viewDivider" />
+
+            <LinearLayout
+                android:id="@+id/ll_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="1"
+                    android:text="所在地区" />
+
+                <TextView
+                    android:id="@+id/user_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:textColor="#6F6F6F"
+                    tools:text="北京市" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/arrow_r_g" />
             </LinearLayout>
 
             <View
@@ -89,9 +156,10 @@
                     android:text="律所" />
 
                 <TextView
-                    android:id="@+id/user_phone"
+                    android:id="@+id/user_office"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#6F6F6F"
                     tools:text="北京大成律师事务所" />
             </LinearLayout>
 
@@ -126,9 +194,9 @@
             android:textColor="#343434" />
 
         <TextView
+            android:id="@+id/tv_introduce"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_introduce"
             android:layout_margin="12dp"
             android:background="@drawable/intro_tv"
             android:minHeight="60dp"

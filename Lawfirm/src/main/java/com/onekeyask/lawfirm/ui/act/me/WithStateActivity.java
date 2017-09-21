@@ -105,7 +105,7 @@ public class WithStateActivity extends BaseToolBarActivity {
             status.setText("已完成");
         }
 
-        createtime1.setText(sdf1.format(info.getCreateTime()));
-        createtime.setText(sdf.format(info.getCreateTime()));
+        createtime1.setText(info.getCreateTime());
+        createtime.setText(info.getCreateTime());
     }
 }

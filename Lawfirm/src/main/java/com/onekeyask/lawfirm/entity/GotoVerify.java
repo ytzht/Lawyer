@@ -5,14 +5,17 @@ package com.onekeyask.lawfirm.entity;
  */
 
 public class GotoVerify {
+
     /**
      * code : 0
      * msg : 正常
-     * data : {"lawyer":{"name":"测试","headURL":"","sex":0,"status":"3","lawyerId":119},"lawyerReviewInfo":{"lawyerOfficeName":"测试","lawyerOfficeTel":"13280933112","lisencePicURL":"http://139.198.11.78:8080/mylawyer/pic/2261","city":"北京市","district":"北京市市辖区"}}
+     * eventId :
+     * data : {"lawyer":{"name":"安卓测试","headURL":"http://139.198.13.26:80/mylawyer/pic/1662?r=null","sex":1,"status":"0","lawyerId":238},"lawyerReviewInfo":{"lawyerOfficeName":"安卓测试律所","lawyerOfficeTel":"13280933117","lisencePicURL":"http://139.198.13.26:80/mylawyer/pic/1661","city":"北京市","district":"北京市市辖区"}}
      */
 
     private int code;
     private String msg;
+    private String eventId;
     private DataBean data;
 
     public int getCode() {
@@ -31,6 +34,14 @@ public class GotoVerify {
         this.msg = msg;
     }
 
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
+    }
+
     public DataBean getData() {
         return data;
     }
@@ -41,8 +52,8 @@ public class GotoVerify {
 
     public static class DataBean {
         /**
-         * lawyer : {"name":"测试","headURL":"","sex":0,"status":"3","lawyerId":119}
-         * lawyerReviewInfo : {"lawyerOfficeName":"测试","lawyerOfficeTel":"13280933112","lisencePicURL":"http://139.198.11.78:8080/mylawyer/pic/2261","city":"北京市","district":"北京市市辖区"}
+         * lawyer : {"name":"安卓测试","headURL":"http://139.198.13.26:80/mylawyer/pic/1662?r=null","sex":1,"status":"0","lawyerId":238}
+         * lawyerReviewInfo : {"lawyerOfficeName":"安卓测试律所","lawyerOfficeTel":"13280933117","lisencePicURL":"http://139.198.13.26:80/mylawyer/pic/1661","city":"北京市","district":"北京市市辖区"}
          */
 
         private LawyerBean lawyer;
@@ -66,11 +77,11 @@ public class GotoVerify {
 
         public static class LawyerBean {
             /**
-             * name : 测试
-             * headURL :
-             * sex : 0
-             * status : 3
-             * lawyerId : 119
+             * name : 安卓测试
+             * headURL : http://139.198.13.26:80/mylawyer/pic/1662?r=null
+             * sex : 1
+             * status : 0
+             * lawyerId : 238
              */
 
             private String name;
@@ -122,9 +133,9 @@ public class GotoVerify {
 
         public static class LawyerReviewInfoBean {
             /**
-             * lawyerOfficeName : 测试
-             * lawyerOfficeTel : 13280933112
-             * lisencePicURL : http://139.198.11.78:8080/mylawyer/pic/2261
+             * lawyerOfficeName : 安卓测试律所
+             * lawyerOfficeTel : 13280933117
+             * lisencePicURL : http://139.198.13.26:80/mylawyer/pic/1661
              * city : 北京市
              * district : 北京市市辖区
              */

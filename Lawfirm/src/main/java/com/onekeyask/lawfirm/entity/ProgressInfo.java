@@ -38,7 +38,7 @@ public class ProgressInfo implements Serializable{
 
     private int money;
     private int status;
-    private long createTime;
+    private String createTime;
     private int userType;
     private int userId;
 
@@ -98,11 +98,11 @@ public class ProgressInfo implements Serializable{
         this.status = status;
     }
 
-    public long getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(long createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 

@@ -168,7 +168,20 @@ public class NowServerFragment extends BaseFragment {
                 }else {
                     ((ViewHolder) holder).tv_name_now.setTextColor(ContextCompat.getColor(getActivity(), R.color.now_service_name));
                 }
+
+                if (listBeen.get(position).getLawyer().getLawyerId().equals("")){
+                    ((ViewHolder) holder).lawyer_txt.setVisibility(View.GONE);
+                }else {
+                    ((ViewHolder) holder).lawyer_txt.setVisibility(View.VISIBLE);
+                }
+
                 ((ViewHolder) holder).tv_name_now.setText(listBeen.get(position).getLawyer().getName());
+                if (listBeen.get(position).getLawyer().getLawfirm().equals("")){
+                    ((ViewHolder) holder).tv_office.setVisibility(View.GONE);
+                }else {
+                    ((ViewHolder) holder).tv_office.setVisibility(View.VISIBLE);
+                    ((ViewHolder) holder).tv_office.setText(listBeen.get(position).getLawyer().getLawfirm());
+                }
                 ((ViewHolder) holder).tv_time_now.setText(listBeen.get(position).getLastServiceTime());
                 switch (listBeen.get(position).getType()) {
                     case "1":
@@ -219,11 +232,13 @@ public class NowServerFragment extends BaseFragment {
 
         class ViewHolder extends RecyclerView.ViewHolder{
 
-            private TextView tv_content_now, tv_tag_now, tv_time_now, tv_name_now, status;
+            private TextView tv_content_now, tv_tag_now, tv_time_now, tv_name_now, status, tv_office, lawyer_txt;
             private CircleImageView civ_avatar_now;
             private ViewHolder(View itemView) {
                 super(itemView);
+                lawyer_txt = (TextView) itemView.findViewById(R.id.lawyer_txt);
                 tv_content_now = (TextView) itemView.findViewById(R.id.tv_content_now);
+                tv_office = (TextView) itemView.findViewById(R.id.tv_office);
                 tv_tag_now = (TextView) itemView.findViewById(R.id.tv_tag_now);
                 tv_time_now = (TextView) itemView.findViewById(R.id.tv_time_now);
                 tv_name_now = (TextView) itemView.findViewById(R.id.tv_name_now);

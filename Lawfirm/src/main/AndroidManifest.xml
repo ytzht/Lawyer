@@ -94,7 +94,8 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".ui.act.user.IdentityVerificationActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:theme="@style/PopupTheme" />
         <activity
             android:name=".ui.act.user.IdentityVerificationNextActivity"
             android:launchMode="singleTask" />

@@ -32,6 +32,8 @@ public class IdentityVerificationNextActivity extends BaseToolBarActivity {
     private TextView tvbefore;
     private TextView tvsubmitid;
     private ProgressDialog dialog;
+    private String sex = "1";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +84,7 @@ public class IdentityVerificationNextActivity extends BaseToolBarActivity {
         lawyerOfficeName = getIntent().getStringExtra("lawyerOfficeName");
         lawyerOfficeTel = getIntent().getStringExtra("lawyerOfficeTel");
         city = getIntent().getStringExtra("city");
+        sex = getIntent().getStringExtra("sex");
         district = getIntent().getStringExtra("district");
         lawyerName = getIntent().getStringExtra("lawyerName");
 
@@ -146,6 +149,7 @@ public class IdentityVerificationNextActivity extends BaseToolBarActivity {
         map.put("lawyerOfficeName", RequestBody.create(null, lawyerOfficeName));
         map.put("lawyerOfficeTel", RequestBody.create(null, lawyerOfficeTel));
         map.put("city", RequestBody.create(null, city));
+        map.put("sex", RequestBody.create(null, sex));
         map.put("district", RequestBody.create(null, district));
         map.put("token", RequestBody.create(null, UserService.service(getBaseContext()).getToken()));
         map.put("lawyerName", RequestBody.create(null, lawyerName));

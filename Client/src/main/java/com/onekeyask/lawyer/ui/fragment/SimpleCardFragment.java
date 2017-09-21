@@ -21,7 +21,6 @@ import com.onekeyask.lawyer.entity.UserDiscoveries;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseFragment;
 import com.onekeyask.lawyer.ui.act.lawyer.AskDetailActivity;
-import com.onekeyask.lawyer.ui.act.user.LoginActivity;
 import com.onekeyask.lawyer.utils.MyDecoration;
 import com.onekeyask.lawyer.utils.UserService;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -72,7 +71,7 @@ public class SimpleCardFragment extends BaseFragment {
         index = 1;
         data.clear();
         rl_no_content = (RelativeLayout) view.findViewById(R.id.rl_no_content);
-        refreshLayout = (SmartRefreshLayout)view.findViewById(R.id.discover_refreshLayout);
+        refreshLayout = (SmartRefreshLayout) view.findViewById(R.id.discover_refreshLayout);
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
         refreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -95,7 +94,7 @@ public class SimpleCardFragment extends BaseFragment {
         });
 
 
-        discover_list = (RecyclerView)view.findViewById(R.id.discover_list);
+        discover_list = (RecyclerView) view.findViewById(R.id.discover_list);
         discover_list.setLayoutManager(new LinearLayoutManager(getActivity()));
         discover_list.addItemDecoration(new MyDecoration(getActivity(), MyDecoration.VERTICAL_LIST));
         adapter = new DiscoverAdapter();
@@ -122,9 +121,9 @@ public class SimpleCardFragment extends BaseFragment {
                                 discover_list.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
 
-                                if (data.size() == 0){
+                                if (data.size() == 0) {
                                     rl_no_content.setVisibility(View.VISIBLE);
-                                }else {
+                                } else {
                                     rl_no_content.setVisibility(View.GONE);
                                 }
 
@@ -139,7 +138,7 @@ public class SimpleCardFragment extends BaseFragment {
                 });
     }
 
-    private class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHolder>{
+    private class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHolder> {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -160,17 +159,13 @@ public class SimpleCardFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
 
-                    if (UserService.service(getActivity()).isLogin()) {
-                        Intent intent = new Intent(getActivity(), AskDetailActivity.class);
-                        intent.putExtra("cid", data.get(position).getChatId());
-                        intent.putExtra("lawyerName", data.get(position).getLawyerName());
-                        intent.putExtra("officeName", data.get(position).getOfficeName());
-                        intent.putExtra("headUrl", data.get(position).getHeadURL());
-                        intent.putExtra("sid", data.get(position).getUserServiceId());
-                        startActivity(intent);
-                    }else {
-                        startActivity(LoginActivity.class);
-                    }
+                    Intent intent = new Intent(getActivity(), AskDetailActivity.class);
+                    intent.putExtra("cid", data.get(position).getChatId());
+                    intent.putExtra("lawyerName", data.get(position).getLawyerName());
+                    intent.putExtra("officeName", data.get(position).getOfficeName());
+                    intent.putExtra("headUrl", data.get(position).getHeadURL());
+                    intent.putExtra("sid", data.get(position).getUserServiceId());
+                    startActivity(intent);
                 }
             });
 
@@ -181,7 +176,7 @@ public class SimpleCardFragment extends BaseFragment {
             return data.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder{
+        class ViewHolder extends RecyclerView.ViewHolder {
 
             private TextView dis_type, dis_context, dis_name, dis_office, dis_count;
             private ImageView dis_praise;
@@ -194,7 +189,7 @@ public class SimpleCardFragment extends BaseFragment {
                 dis_name = (TextView) itemView.findViewById(R.id.dis_name);
                 dis_office = (TextView) itemView.findViewById(R.id.dis_office);
                 dis_count = (TextView) itemView.findViewById(R.id.dis_count);
-                dis_praise = (ImageView)  itemView.findViewById(R.id.dis_praise);
+                dis_praise = (ImageView) itemView.findViewById(R.id.dis_praise);
                 dis_img = (CircleImageView) itemView.findViewById(R.id.dis_img);
             }
         }

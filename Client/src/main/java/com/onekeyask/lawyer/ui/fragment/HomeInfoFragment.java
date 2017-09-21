@@ -156,14 +156,15 @@ public class HomeInfoFragment extends BaseFragment {
                 showAlert();
                 break;
             case R.id.opinion://意见反馈
-                startActivity(OpinionActivity.class);
-                break;
-            case R.id.setting:
                 if (userService.isLogin()) {
-                    startActivity(SettingActivity.class);
+                    startActivity(OpinionActivity.class);
                 } else {
                     startActivity(LoginActivity.class);
                 }
+                break;
+            case R.id.setting:
+                startActivity(SettingActivity.class);
+
 
                 break;
             case R.id.my_header://头部登录

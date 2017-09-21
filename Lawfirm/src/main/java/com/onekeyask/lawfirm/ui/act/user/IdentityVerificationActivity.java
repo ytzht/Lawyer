@@ -2,15 +2,19 @@ package com.onekeyask.lawfirm.ui.act.user;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.OptionsPickerView;
@@ -24,8 +28,8 @@ import com.onekeyask.lawfirm.entity.CityList;
 import com.onekeyask.lawfirm.entity.GetSpecialInfoList;
 import com.onekeyask.lawfirm.entity.ProvinceBean;
 import com.onekeyask.lawfirm.entity.ResultData;
-import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.global.Apis;
+import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.utils.AssetsUtils;
 import com.onekeyask.lawfirm.utils.UserService;
 
@@ -38,15 +42,24 @@ public class IdentityVerificationActivity extends BaseToolBarActivity {
     private EditText etname;
     private TextView tvarea;
     private LinearLayout llarea;
+    private LinearLayout ll_sex;
     private EditText etoffice;
     private EditText etphone;
     private RecyclerView rlvcan;
     private TextView nextsubmit;
+    private TextView tv_sex;
     private ConTagAdapter tagAdapter;
     private int lawyerId;
     private UserService service;
     private ArrayList<ProvinceBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
+    private PopupWindow popupWindowSex = null;
+    private View popupViewSex;
+    private TextView tv_cancel_popup_sex;
+    private TextView tv_yes_popup_sex;
+    private TextView tv_boy;
+    private TextView tv_girl;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +97,13 @@ public class IdentityVerificationActivity extends BaseToolBarActivity {
                     }
                 });
     }
-
+    private String sex = "";
+    private String selectSex;
     private void initClick() {
+        selectSex = "1";
+        tv_boy.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.burro_primary_ext));
+        tv_girl.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackModule));
+
         llarea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,10 +112,52 @@ public class IdentityVerificationActivity extends BaseToolBarActivity {
             }
         });
 
+        ll_sex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindowSex = getPopwindow(popupViewSex);
+            }
+        });
         nextsubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkInfo();
+            }
+        });
+
+        tv_boy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectSex = "1";
+                tv_boy.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.burro_primary_ext));
+                tv_girl.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackModule));
+            }
+        });
+        tv_girl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectSex = "2";
+                tv_boy.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.blackModule));
+                tv_girl.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.burro_primary_ext));
+            }
+        });
+        tv_cancel_popup_sex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindowSex.dismiss();
+            }
+        });
+        tv_yes_popup_sex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindowSex.dismiss();
+                sex = selectSex;
+                if (sex.equals("1")){
+                    tv_sex.setText("男");
+                }else {
+                    tv_sex.setText("女");
+                }
+
             }
         });
     }
@@ -126,11 +186,17 @@ public class IdentityVerificationActivity extends BaseToolBarActivity {
             return;
         }
 
+        if (tv_sex.getText().toString().equals("")){
+            showShort("请选择性别");
+            return;
+        }
+
 
         Intent intent = new Intent(IdentityVerificationActivity.this, IdentityVerificationNextActivity.class);
         intent.putExtra("lawyerOfficeName", etoffice.getText().toString());
         intent.putExtra("lawyerOfficeTel", etphone.getText().toString());
         intent.putExtra("city", city);
+        intent.putExtra("sex", sex);// TODO: 2017/9/21
         intent.putExtra("district", district);
         intent.putExtra("lawyerName", etname.getText().toString());
         startActivity(intent);
@@ -144,7 +210,9 @@ public class IdentityVerificationActivity extends BaseToolBarActivity {
         this.etphone = (EditText) findViewById(R.id.et_phone);
         this.etoffice = (EditText) findViewById(R.id.et_office);
         this.llarea = (LinearLayout) findViewById(R.id.ll_area);
+        this.ll_sex = (LinearLayout) findViewById(R.id.ll_sex);
         this.tvarea = (TextView) findViewById(R.id.tv_area);
+        this.tv_sex = (TextView) findViewById(R.id.tv_sex);
         this.etname = (EditText) findViewById(R.id.et_name);
 
         rlvcan.setLayoutManager(new GridLayoutManager(this, 4));
@@ -154,6 +222,14 @@ public class IdentityVerificationActivity extends BaseToolBarActivity {
         dialog = new ProgressDialog(this);
         dialog.setCancelable(false);
         dialog.setMessage("正在设置...");
+
+        popupViewSex = LayoutInflater.from(this).inflate(R.layout.popup_change_sex, null);
+        tv_cancel_popup_sex = (TextView) popupViewSex.findViewById(R.id.tv_cancel_popup);
+        tv_yes_popup_sex = (TextView) popupViewSex.findViewById(R.id.tv_yes_popup);
+        tv_boy = (TextView) popupViewSex.findViewById(R.id.tv_boy);
+        tv_girl = (TextView) popupViewSex.findViewById(R.id.tv_girl);
+
+
     }
 
     private ProgressDialog dialog;
@@ -277,6 +353,36 @@ public class IdentityVerificationActivity extends BaseToolBarActivity {
             }
             options2Items.add(options2Items_0);
         }
+    }
+
+    //跳出选项框
+    public PopupWindow getPopwindow(View view) {
+        PopupWindow popupWindow = new PopupWindow(view,
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(true);
+        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+        layoutParams.alpha = 0.6f;
+        getWindow().setAttributes(layoutParams);
+        popupWindow.setBackgroundDrawable(new ColorDrawable());
+        popupWindow.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
+        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        popupWindow.showAtLocation(ll_sex, Gravity.BOTTOM, 0, 0);
+//        popupWindow.showAsDropDown(rlGiveMoney);
+//        popupWindow.setAnimationStyle(R.style.anim_menu_bottombar);
+        popupWindow.setAnimationStyle(android.R.style.Animation_InputMethod);
+        popupWindow.update();
+        popupWindow.setTouchable(true);
+
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+                layoutParams.alpha = 1f;
+                getWindow().setAttributes(layoutParams);
+            }
+        });
+        return popupWindow;
     }
 
 }
