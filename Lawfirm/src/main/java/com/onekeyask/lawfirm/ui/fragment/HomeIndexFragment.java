@@ -3,12 +3,12 @@ package com.onekeyask.lawfirm.ui.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -28,7 +28,6 @@ import com.onekeyask.lawfirm.http.SubscriberOnNextListener;
 import com.onekeyask.lawfirm.ui.act.index.GraphicConsultActivity;
 import com.onekeyask.lawfirm.ui.act.index.PersonConsultActivity;
 import com.onekeyask.lawfirm.ui.act.index.PhoneConsultActivity;
-import com.onekeyask.lawfirm.ui.act.me.WithdrawalActivity;
 import com.onekeyask.lawfirm.ui.act.user.IncomeDetailActivity;
 import com.onekeyask.lawfirm.ui.act.user.LoginActivity;
 import com.onekeyask.lawfirm.ui.act.user.TopMsgActivity;
@@ -56,7 +55,8 @@ public class HomeIndexFragment extends BaseFragment {
     private Banner banner;
     private HomePage homePage;
     private Subscriber subscriber;
-    private TextView tv_monthIncome_index, tv_balance_index, tv_tx, tv_detail;
+    private TextView tv_monthIncome_index, tv_balance_index;
+    private LinearLayout tv_detail, quick_ll, pic_ll, phone_ll, lawyer_ll, money_ll;
     private List<String> image_url = new ArrayList<>();
     private List<String> banner_img = new ArrayList<>();
     private RelativeLayout rl_project_one, rl_project_two, rl_project_three, rl_project_four;
@@ -65,6 +65,7 @@ public class HomeIndexFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.home_index_fragment, container, false);
+
         initView(view);
         return view;
     }
@@ -100,10 +101,14 @@ public class HomeIndexFragment extends BaseFragment {
 
     private AlertDialog alert;
     private void initView(View view) {
+        quick_ll = (LinearLayout) view.findViewById(R.id.quick_ll);
+        pic_ll = (LinearLayout) view.findViewById(R.id.pic_ll);
+        phone_ll = (LinearLayout) view.findViewById(R.id.phone_ll);
+        lawyer_ll = (LinearLayout) view.findViewById(R.id.lawyer_ll);
+        money_ll = (LinearLayout) view.findViewById(R.id.money_ll);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         search_et = (TextView) view.findViewById(R.id.search_et);
-        tv_tx = (TextView) view.findViewById(R.id.tv_tx);
-        tv_detail = (TextView) view.findViewById(R.id.tv_detail);
+        tv_detail = (LinearLayout) view.findViewById(R.id.tv_detail);
         tv_balance_index = (TextView) view.findViewById(R.id.tv_balance_index);
         rl_project_one = (RelativeLayout) view.findViewById(R.id.rl_project_one);
         rl_project_two = (RelativeLayout) view.findViewById(R.id.rl_project_two);
@@ -116,31 +121,31 @@ public class HomeIndexFragment extends BaseFragment {
                 startActivity(TopMsgActivity.class);
             }
         });
-        tv_tx.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.custom_dialog_share, null, false);
-                alert = new AlertDialog.Builder(getActivity()).setView(view1).setCancelable(false).show();
-                TextView tvMsg = (TextView) view1.findViewById(R.id.tv_msg);
-                TextView cancel = (TextView) view1.findViewById(R.id.tv_cancel);
-                TextView next = (TextView) view1.findViewById(R.id.tv_share_con);
-                cancel.setVisibility(View.VISIBLE);
-                tvMsg.setText("提现需十个工作日的时间才能到账，您是否需要继续？");
-                next.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(WithdrawalActivity.class);
-                        if (alert.isShowing()) alert.dismiss();
-                    }
-                });
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (alert.isShowing()) alert.dismiss();
-                    }
-                });
-            }
-        });
+//        tv_tx.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.custom_dialog_share, null, false);
+//                alert = new AlertDialog.Builder(getActivity()).setView(view1).setCancelable(false).show();
+//                TextView tvMsg = (TextView) view1.findViewById(R.id.tv_msg);
+//                TextView cancel = (TextView) view1.findViewById(R.id.tv_cancel);
+//                TextView next = (TextView) view1.findViewById(R.id.tv_share_con);
+//                cancel.setVisibility(View.VISIBLE);
+//                tvMsg.setText("提现需十个工作日的时间才能到账，您是否需要继续？");
+//                next.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        startActivity(WithdrawalActivity.class);
+//                        if (alert.isShowing()) alert.dismiss();
+//                    }
+//                });
+//                cancel.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        if (alert.isShowing()) alert.dismiss();
+//                    }
+//                });
+//            }
+//        });
 
         tv_detail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,7 +233,7 @@ public class HomeIndexFragment extends BaseFragment {
                 homePage = page;
 
 //                tv_monthIncome_index.setText(Html.fromHtml("本月收入: <font color='#f79f0a'>￥" + homePage.getMonthIncome() + "元</font>"));
-                tv_balance_index.setText(Html.fromHtml("我的钱包: <font color='#f79f0a'>￥" + homePage.getBalance() + "元</font>"));
+                tv_balance_index.setText("￥" + homePage.getBalance() + "元");
 
                 for (int i = 0; i < homePage.getServiceList().size(); i++) {
                     final int finalI = i;

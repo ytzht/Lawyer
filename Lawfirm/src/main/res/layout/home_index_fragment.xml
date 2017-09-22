@@ -22,7 +22,7 @@
             android:layout_marginLeft="19dp"
             android:layout_marginRight="15dp"
             android:padding="2dp"
-            android:src="@drawable/tips_n" />
+            android:src="@drawable/tips_" />
 
         <ImageView
             android:id="@+id/search_main"
@@ -207,16 +207,16 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
-                    android:background="@color/divider"/>
+                    android:background="@color/divider" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
                     android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp">
+                    android:paddingRight="15dp">
 
-                       <ImageView
+                    <ImageView
                         android:id="@+id/iv_input_index"
                         android:layout_width="44dp"
                         android:layout_height="44dp"
@@ -226,51 +226,214 @@
                         android:src="@drawable/wallet" />
 
                     <TextView
-                        android:id="@+id/tv_balance_index"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/iv_input_index"
-                        android:textSize="17dp"
-                        tools:text="我的钱包：￥2066元" />
+                        android:textSize="16sp"
+                        tools:text="我的钱包" />
+
+                    <ImageView
+                        android:id="@+id/iv_arr_index"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/arrow_r_g" />
+
+                    <TextView
+                        android:id="@+id/tv_balance_index"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/iv_arr_index"
+                        android:text="￥50.00"
+                        android:textColor="@color/baseOrange"
+                        android:textSize="16sp" />
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/divider"/>
+                    android:layout_height="10dp"
+                    android:background="@color/divider" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="40dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="17dp">
+                    android:background="@color/divider"
+                    android:orientation="vertical"
+                    android:paddingBottom="40dp">
 
-                    <TextView
-                        android:id="@+id/tv_tx"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/full_green_four"
-                        android:gravity="center"
-                        android:text="提现"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-
-                    <TextView
+                    <LinearLayout
                         android:id="@+id/tv_detail"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="收入详情"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/arrow_r_g" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/quick_ll"
+                        android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/empty_green_four"
-                        android:gravity="center"
-                        android:text="收入详情"
-                        android:textColor="@color/baseColor"
-                        android:textSize="18sp" />
+                        android:layout_marginTop="1dp"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/contult_private_e" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="快速咨询" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/blackModule"
+                            tools:text="￥87.00" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/pic_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="1dp"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/consult_pic_a" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="图文咨询" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/blackModule"
+                            tools:text="￥87.00" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/phone_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="1dp"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/contult_tel_b" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="电话咨询" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/blackModule"
+                            tools:text="￥87.00" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lawyer_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="1dp"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/contult_private_c" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="私人律师" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/blackModule"
+                            tools:text="￥87.00" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/money_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="1dp"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/heart_d" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="送心意" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/blackModule"
+                            tools:text="￥87.00" />
+                    </LinearLayout>
 
 
                 </LinearLayout>

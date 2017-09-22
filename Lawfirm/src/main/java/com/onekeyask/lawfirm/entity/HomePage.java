@@ -8,21 +8,22 @@ import java.util.List;
 
 public class HomePage {
 
+
     /**
-     * err : {"code":0,"msg":"正常","eventid":""}
-     * lawyer : {"name":"律师之家","lawyerId":3,"headURL":"http://139.198.11.78:8080/mylawyer/pic/1543","status":0}
-     * adList : [{"adId":"2","picURL":"http://139.198.11.78:8080/mylawyer/pic/7","innerPicUrl":"http://139.198.11.78:8080/mylawyer/pic/7","content":"这是律师端的！！！！！！猎鹰私人律师平台秉持\u201c个人平等享受司法保护\u201d的原则，免费为部分经济困难、急需法律帮助的刑事犯罪嫌疑人、刑事被告人、刑事被害人提供法律援助。 如有迫切需要法律援助的当事人，可将您的相关情况介绍和材料及您的联系方式，发到平台的免费法律援助专门联系邮箱：falvyuanzhu@mylawyerchina.com。私人律师平台将对相关情况予以评估，如决定免费提供法律援助，将按照您留下的联系方式和您联系。"}]
-     * serviceList : [{"serviceName":"私人律师","serviceType":1,"isOn":true},{"serviceName":"图文咨询","serviceType":2,"isOn":true},{"serviceName":"电话咨询","serviceType":3,"isOn":true},{"serviceName":"现场律师","serviceType":4,"isOn":true},{"serviceName":"诉讼代理","serviceType":5,"isOn":true},{"serviceName":"非诉（合同）服务","serviceType":6,"isOn":true}]
-     * monthIncome : 150
-     * balance : 1000
+     * lawyer : {"name":"安卓测试","lawyerId":238,"headURL":"http://139.198.13.26:80/mylawyer/pic/1662?r=1505886328","status":0,"serviceCount":31,"favoriteNum":2,"serviceScore":100,"notes":"123669555588回来咯土著","city":"山东省","district":"烟台市","phoneNo":"13280933117","sex":1}
+     * adList : [{"adId":"33","picURL":"http://139.198.13.26:80/mylawyer/pic/1660","innerPicUrl":"http://139.198.13.26:80/mylawyer/pic/1660","content":"律师端广告"}]
+     * serviceList : [{"serviceName":"图文咨询","serviceType":2,"isOn":true},{"serviceName":"电话咨询","serviceType":3,"isOn":true},{"serviceName":"私人律师","serviceType":1,"isOn":true}]
+     * monthIncome : 0
+     * balance : 11187.51
+     * incomeSum : [{"serviceName":"快速咨询","amountSum":259.51},{"serviceName":"图文咨询","amountSum":449},{"serviceName":"电话咨询","amountSum":0},{"serviceName":"私人律师","amountSum":500},{"serviceName":"送心意","amountSum":32}]
      */
-    
+
     private LawyerBean lawyer;
-    private String monthIncome;
-    private String balance;
+    private int monthIncome;
+    private double balance;
     private List<AdListBean> adList;
     private List<ServiceListBean> serviceList;
-
+    private List<IncomeSumBean> incomeSum;
 
     public LawyerBean getLawyer() {
         return lawyer;
@@ -32,19 +33,19 @@ public class HomePage {
         this.lawyer = lawyer;
     }
 
-    public String getMonthIncome() {
+    public int getMonthIncome() {
         return monthIncome;
     }
 
-    public void setMonthIncome(String monthIncome) {
+    public void setMonthIncome(int monthIncome) {
         this.monthIncome = monthIncome;
     }
 
-    public String getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(String balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
@@ -64,18 +65,42 @@ public class HomePage {
         this.serviceList = serviceList;
     }
 
+    public List<IncomeSumBean> getIncomeSum() {
+        return incomeSum;
+    }
+
+    public void setIncomeSum(List<IncomeSumBean> incomeSum) {
+        this.incomeSum = incomeSum;
+    }
+
     public static class LawyerBean {
         /**
-         * name : 律师之家
-         * lawyerId : 3
-         * headURL : http://139.198.11.78:8080/mylawyer/pic/1543
+         * name : 安卓测试
+         * lawyerId : 238
+         * headURL : http://139.198.13.26:80/mylawyer/pic/1662?r=1505886328
          * status : 0
+         * serviceCount : 31
+         * favoriteNum : 2
+         * serviceScore : 100
+         * notes : 123669555588回来咯土著
+         * city : 山东省
+         * district : 烟台市
+         * phoneNo : 13280933117
+         * sex : 1
          */
 
         private String name;
         private int lawyerId;
         private String headURL;
         private int status;
+        private int serviceCount;
+        private int favoriteNum;
+        private int serviceScore;
+        private String notes;
+        private String city;
+        private String district;
+        private String phoneNo;
+        private int sex;
 
         public String getName() {
             return name;
@@ -108,14 +133,78 @@ public class HomePage {
         public void setStatus(int status) {
             this.status = status;
         }
+
+        public int getServiceCount() {
+            return serviceCount;
+        }
+
+        public void setServiceCount(int serviceCount) {
+            this.serviceCount = serviceCount;
+        }
+
+        public int getFavoriteNum() {
+            return favoriteNum;
+        }
+
+        public void setFavoriteNum(int favoriteNum) {
+            this.favoriteNum = favoriteNum;
+        }
+
+        public int getServiceScore() {
+            return serviceScore;
+        }
+
+        public void setServiceScore(int serviceScore) {
+            this.serviceScore = serviceScore;
+        }
+
+        public String getNotes() {
+            return notes;
+        }
+
+        public void setNotes(String notes) {
+            this.notes = notes;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        public String getDistrict() {
+            return district;
+        }
+
+        public void setDistrict(String district) {
+            this.district = district;
+        }
+
+        public String getPhoneNo() {
+            return phoneNo;
+        }
+
+        public void setPhoneNo(String phoneNo) {
+            this.phoneNo = phoneNo;
+        }
+
+        public int getSex() {
+            return sex;
+        }
+
+        public void setSex(int sex) {
+            this.sex = sex;
+        }
     }
 
     public static class AdListBean {
         /**
-         * adId : 2
-         * picURL : http://139.198.11.78:8080/mylawyer/pic/7
-         * innerPicUrl : http://139.198.11.78:8080/mylawyer/pic/7
-         * content : 这是律师端的！！！！！！猎鹰私人律师平台秉持“个人平等享受司法保护”的原则，免费为部分经济困难、急需法律帮助的刑事犯罪嫌疑人、刑事被告人、刑事被害人提供法律援助。 如有迫切需要法律援助的当事人，可将您的相关情况介绍和材料及您的联系方式，发到平台的免费法律援助专门联系邮箱：falvyuanzhu@mylawyerchina.com。私人律师平台将对相关情况予以评估，如决定免费提供法律援助，将按照您留下的联系方式和您联系。
+         * adId : 33
+         * picURL : http://139.198.13.26:80/mylawyer/pic/1660
+         * innerPicUrl : http://139.198.13.26:80/mylawyer/pic/1660
+         * content : 律师端广告
          */
 
         private String adId;
@@ -158,8 +247,8 @@ public class HomePage {
 
     public static class ServiceListBean {
         /**
-         * serviceName : 私人律师
-         * serviceType : 1
+         * serviceName : 图文咨询
+         * serviceType : 2
          * isOn : true
          */
 
@@ -191,4 +280,31 @@ public class HomePage {
             this.isOn = isOn;
         }
     }
+
+    public static class IncomeSumBean {
+        /**
+         * serviceName : 快速咨询
+         * amountSum : 259.51
+         */
+
+        private String serviceName;
+        private double amountSum;
+
+        public String getServiceName() {
+            return serviceName;
+        }
+
+        public void setServiceName(String serviceName) {
+            this.serviceName = serviceName;
+        }
+
+        public double getAmountSum() {
+            return amountSum;
+        }
+
+        public void setAmountSum(double amountSum) {
+            this.amountSum = amountSum;
+        }
+    }
+
 }

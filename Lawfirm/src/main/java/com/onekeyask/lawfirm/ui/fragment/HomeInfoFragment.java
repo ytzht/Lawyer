@@ -11,7 +11,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
+import com.onekeyask.lawfirm.entity.PersonalInfo;
+import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.global.BaseFragment;
 import com.onekeyask.lawfirm.ui.act.me.MyWalletActivity;
 import com.onekeyask.lawfirm.ui.act.me.OpinionActivity;
@@ -44,6 +50,10 @@ public class HomeInfoFragment extends BaseFragment {
     LinearLayout opinion;
     @BindView(R.id.my_money)
     TextView myMoney;
+    @BindView(R.id.service_count)
+    TextView service_count;
+    @BindView(R.id.service_score)
+    TextView service_score;
     @BindView(R.id.my_wallet)
     LinearLayout myWallet;
     @BindView(R.id.customer_server)
@@ -69,6 +79,7 @@ public class HomeInfoFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+
         if (!userService.getToken().equals("-1")) {
             userName.setText(userService.getUserName());
             if (userService.getHeadURL().equals("")){
@@ -81,6 +92,22 @@ public class HomeInfoFragment extends BaseFragment {
             userName.setText("登录/注册");
             userHeader.setImageResource(R.drawable.no_portrait);
         }
+
+        OkGo.<String>get(Apis.getPersonalInfo).params("lawyerId", userService.getLawyerId()).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                PersonalInfo info = (new Gson()).fromJson(response.body(), PersonalInfo.class);
+                if (info.getCode() == 0) {
+                    service_count.setText(info.getData().getServiceCount()+"");
+                    service_score.setText(info.getData().getServiceScore() + "%");
+                    userName.setText(info.getData().getLawyerName());
+                    Picasso.with(getActivity()).load(info.getData().getHeadURL())
+                            .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(userHeader);
+
+                }
+            }
+        });
+
 
     }
 

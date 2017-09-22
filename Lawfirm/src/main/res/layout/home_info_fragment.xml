@@ -60,6 +60,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/service_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
@@ -86,6 +87,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/service_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
@@ -95,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="评价人数"
+                android:text="好评率"
                 android:textColor="@color/blackModule" />
         </LinearLayout>
     </LinearLayout>
