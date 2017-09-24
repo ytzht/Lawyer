@@ -157,7 +157,15 @@
         <activity
             android:name=".ui.act.user.IncomeDetailActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.act.me.AboutUsActivity"></activity>
+        <activity android:name=".ui.act.me.AboutUsActivity" />
+        <activity
+            android:name=".ui.act.user.MyIntroduceActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/PopupTheme" />
+        <activity android:name=".ui.act.user.MySpecialActivity" />
+        <activity android:name=".ui.act.user.MyInfoSubmitActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/PopupTheme"/>
     </application>
 
 </manifest>

@@ -30,7 +30,6 @@ import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.ui.act.consulting.ConsultingDetailActivity;
 import com.onekeyask.lawyer.ui.act.lawyer.AskDetailActivity;
-import com.onekeyask.lawyer.ui.act.lawyer.FindLawyerActivity;
 import com.onekeyask.lawyer.ui.act.search.SearchContentActivity;
 import com.onekeyask.lawyer.ui.act.search.SearchLawActivity;
 import com.onekeyask.lawyer.ui.act.user.LoginActivity;
@@ -358,31 +357,11 @@ public class HomeIndexFragment extends BaseFragment {
                         EventBus.getDefault().post(BaseEvent.event(BaseEvent.GO_DISCOVER));
                     }
                 });
-                ((IndexViewHolder) holder).rl_project_one.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(FindLawyerActivity.class, "position", "3", "special", "婚姻继承");
 
-                    }
-                });
-                ((IndexViewHolder) holder).rl_project_two.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(FindLawyerActivity.class, "position", "1", "special", "合同纠纷");
-                    }
-                });
-                ((IndexViewHolder) holder).rl_project_three.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(FindLawyerActivity.class, "position", "5", "special", "劳动争议");
-                    }
-                });
-                ((IndexViewHolder) holder).rl_project_four.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(FindLawyerActivity.class, "position", "9", "special", "交通事故");
-                    }
-                });
+                ((IndexViewHolder) holder).special_rlv.setAdapter(new SpecialAdapter(getActivity()));
+                LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+                manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                ((IndexViewHolder) holder).special_rlv.setLayoutManager(manager);
 
             } else {
 
@@ -441,26 +420,21 @@ public class HomeIndexFragment extends BaseFragment {
         }
 
         public class IndexViewHolder extends RecyclerView.ViewHolder {
-            private RelativeLayout rl_quick_consulting, rl_look_lawyer, rl_project_one, rl_project_two, rl_project_three, rl_project_four;
+            private RelativeLayout rl_quick_consulting, rl_look_lawyer;
             private Banner banner;
             private TextView tv_more_solutions;
+            private RecyclerView special_rlv;
 
             public IndexViewHolder(View itemView) {
                 super(itemView);
+
+                special_rlv = (RecyclerView) itemView.findViewById(R.id.special_rlv);
 
                 banner = (Banner) itemView.findViewById(R.id.banner_index);
 
                 rl_quick_consulting = (RelativeLayout) itemView.findViewById(R.id.rl_quick_consulting);
 
                 rl_look_lawyer = (RelativeLayout) itemView.findViewById(R.id.rl_look_lawyer);
-
-                rl_project_one = (RelativeLayout) itemView.findViewById(R.id.rl_project_one);
-
-                rl_project_two = (RelativeLayout) itemView.findViewById(R.id.rl_project_two);
-
-                rl_project_three = (RelativeLayout) itemView.findViewById(R.id.rl_project_three);
-
-                rl_project_four = (RelativeLayout) itemView.findViewById(R.id.rl_project_four);
 
                 tv_more_solutions = (TextView) itemView.findViewById(R.id.tv_more_solutions);
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/viewDivider"
+    tools:context="com.onekeyask.lawfirm.ui.act.user.MyIntroduceActivity">
+
+    <TextView
+        android:id="@+id/tv_introduce"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_margin="12dp"
+        android:background="@drawable/full_white_ten"
+        android:minHeight="60dp"
+        android:padding="10dp"
+        tools:text="谁谁谁谁谁谁谁谁谁谁谁谁谁谁谁谁所多撒多撒多撒大所大所过付所发所多风所谁谁谁谁谁谁谁谁谁所多撒多撒多撒大所大所过付所发所多风所谁谁谁谁谁谁谁谁谁所多撒多撒多撒大所大所过付所发所多风所谁谁所多撒多撒多撒大所大所过付所发所多风所" />
+
+
+
+
+</LinearLayout>

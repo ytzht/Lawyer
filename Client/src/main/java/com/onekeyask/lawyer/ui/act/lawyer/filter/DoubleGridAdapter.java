@@ -18,14 +18,14 @@ public class DoubleGridAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
     private Context mContext;
     private List<String> topGridData;
     private List<String> midGridData;
-    private List<String> bottomGridData;
+//    private List<String> bottomGridData;
     private View.OnClickListener mListener;
 
-    public DoubleGridAdapter(Context context, List<String> topGridData, List<String> midGridData, List<String> bottomGridList, View.OnClickListener listener) {
+    public DoubleGridAdapter(Context context, List<String> topGridData, List<String> midGridData, View.OnClickListener listener) {
         this.mContext = context;
         this.topGridData = topGridData;
         this.midGridData = midGridData;
-        this.bottomGridData = bottomGridList;
+//        this.bottomGridData = bottomGridList;
         this.mListener = listener;
     }
 
@@ -65,8 +65,8 @@ public class DoubleGridAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
                     titleViewHolder.bind("服务类型");
                 } else if (position == topGridData.size() + 1) {
                     titleViewHolder.bind("价格区间");
-                }else {
-                    titleViewHolder.bind("执业年限");
+//                }else {
+//                    title、ViewHolder.bind("执业年限");
                 }
                 break;
             case TYPE_ITEM:
@@ -76,7 +76,7 @@ public class DoubleGridAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
                 } else  if (position < topGridData.size() + 1 + midGridData.size() + 1) {
                     itemViewHolder.bind(midGridData.get(position - topGridData.size() - 2));
                 }else {
-                    itemViewHolder.bind(bottomGridData.get(position - topGridData.size() - midGridData.size() - 3));
+//                    itemViewHolder.bind(bottomGridData.get(position - topGridData.size() - midGridData.size() - 3));
                 }
                 break;
         }
@@ -84,6 +84,6 @@ public class DoubleGridAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return topGridData.size() + midGridData.size() + bottomGridData.size() + 3;
+        return topGridData.size() + midGridData.size() + 2;
     }
 }

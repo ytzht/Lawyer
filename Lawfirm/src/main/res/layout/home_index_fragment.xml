@@ -210,6 +210,7 @@
                     android:background="@color/divider" />
 
                 <RelativeLayout
+                    android:id="@+id/my_wallet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -232,7 +233,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/iv_input_index"
                         android:textSize="16sp"
-                        tools:text="我的钱包" />
+                        android:text="我的钱包" />
 
                     <ImageView
                         android:id="@+id/iv_arr_index"
@@ -249,7 +250,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@id/iv_arr_index"
-                        android:text="￥50.00"
+                        tools:text="￥50.00"
                         android:textColor="@color/baseOrange"
                         android:textSize="16sp" />
                 </RelativeLayout>
@@ -313,6 +314,7 @@
                             android:text="快速咨询" />
 
                         <TextView
+                            android:id="@+id/tv_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/blackModule"
@@ -342,6 +344,7 @@
                             android:text="图文咨询" />
 
                         <TextView
+                            android:id="@+id/tv_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/blackModule"
@@ -371,6 +374,7 @@
                             android:text="电话咨询" />
 
                         <TextView
+                            android:id="@+id/tv_3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/blackModule"
@@ -400,6 +404,7 @@
                             android:text="私人律师" />
 
                         <TextView
+                            android:id="@+id/tv_4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/blackModule"
@@ -429,6 +434,7 @@
                             android:text="送心意" />
 
                         <TextView
+                            android:id="@+id/tv_5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/blackModule"

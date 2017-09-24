@@ -218,7 +218,8 @@ public class PayLawyerActivity extends BaseToolBarActivity {
         intent.putExtra("giveMoney", false);
         intent.putExtra("name", name);
         intent.putExtra("score", money * 5 + "");
-        intent.putExtra("lawyerId", lawyerId);
+        intent.putExtra("lawyerId", ""+lawyerId);
+        L.d("lawyerId=====", lawyerId+"");
         startActivity(intent);
         finish();
     }

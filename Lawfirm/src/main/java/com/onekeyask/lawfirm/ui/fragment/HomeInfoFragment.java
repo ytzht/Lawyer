@@ -16,6 +16,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
+import com.onekeyask.lawfirm.entity.MyMoney;
 import com.onekeyask.lawfirm.entity.PersonalInfo;
 import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.global.BaseFragment;
@@ -54,6 +55,8 @@ public class HomeInfoFragment extends BaseFragment {
     TextView service_count;
     @BindView(R.id.service_score)
     TextView service_score;
+    @BindView(R.id.tv_office)
+    TextView tv_office;
     @BindView(R.id.my_wallet)
     LinearLayout myWallet;
     @BindView(R.id.customer_server)
@@ -80,30 +83,31 @@ public class HomeInfoFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
 
-        if (!userService.getToken().equals("-1")) {
-            userName.setText(userService.getUserName());
-            if (userService.getHeadURL().equals("")){
-                userHeader.setImageResource(R.drawable.no_portrait_b);
-            }else {
-                Picasso.with(getActivity()).load(userService.getHeadURL())
-                        .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(userHeader);
-            }
-        }else {
-            userName.setText("登录/注册");
-            userHeader.setImageResource(R.drawable.no_portrait);
-        }
 
         OkGo.<String>get(Apis.getPersonalInfo).params("lawyerId", userService.getLawyerId()).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 PersonalInfo info = (new Gson()).fromJson(response.body(), PersonalInfo.class);
                 if (info.getCode() == 0) {
-                    service_count.setText(info.getData().getServiceCount()+"");
+                    service_count.setText(info.getData().getServiceCount());
                     service_score.setText(info.getData().getServiceScore() + "%");
                     userName.setText(info.getData().getLawyerName());
                     Picasso.with(getActivity()).load(info.getData().getHeadURL())
                             .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(userHeader);
+                    tv_office.setText(info.getData().getOfficeName());
 
+                }
+            }
+        });
+
+        OkGo.<String>get(Apis.MyWallet).params("lawyerId", UserService.service(getActivity()).getLawyerId()).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                MyMoney money = (new Gson()).fromJson(response.body(), MyMoney.class);
+                if (money.getCode() == 0){
+                    myMoney.setText("￥"+String.valueOf(money.getData().getMyMoney()));
+                }else {
+                    showShort(money.getMsg());
                 }
             }
         });

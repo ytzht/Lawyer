@@ -12,59 +12,70 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civ_avatar_now"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="17dp"
             android:src="@drawable/ic_member_avatar" />
 
         <TextView
             android:id="@+id/tv_name_now"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="18dp"
             android:layout_toRightOf="@id/civ_avatar_now"
-            android:text="132*******7"
-            android:textColor="#333333"
-            android:textSize="14dp" />
+            android:text="张晓平"
+            android:textColor="#010111"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_tag_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_name_now"
+            android:layout_marginTop="6dp"
+            android:layout_toRightOf="@id/civ_avatar_now"
+            android:gravity="center"
+            android:textColor="#8a8a8a"
+            android:textSize="13sp"
+            tools:text="图文咨询" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_tag_now"
+            android:layout_marginTop="6dp"
+            android:layout_toRightOf="@id/civ_avatar_now"
+            android:textColor="#8a8a8a"
+            android:textSize="13sp"
+            tools:text="15.00元" />
+
 
         <TextView
             android:id="@+id/tv_time_now"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_name_now"
-            android:layout_marginTop="9dp"
+            android:layout_below="@id/tv_price"
+            android:layout_marginBottom="18dp"
+            android:layout_marginTop="6dp"
             android:layout_toRightOf="@id/civ_avatar_now"
             android:text="2017/03/03 08:17"
-            android:textColor="@color/grey"
-            android:textSize="12dp" />
-
-
-        <TextView
-            android:id="@+id/tv_tag_now"
-            android:layout_width="64dp"
-            android:layout_height="19dp"
-            android:layout_toRightOf="@id/tv_name_now"
-            android:layout_marginLeft="8dp"
-            android:layout_alignTop="@id/tv_name_now"
-            android:background="@drawable/service_tag"
-            android:gravity="center"
-            android:textColor="@color/burro_primary_ext"
-            android:textSize="12dp"
-            tools:text="图文咨询" />
+            android:textColor="@color/ser_grey"
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/status"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="未评价"
-            android:textSize="13dp"
-            android:textColor="@color/blackHint"
-            android:layout_marginTop="18dp"
             android:layout_marginRight="12dp"
-            android:layout_height="wrap_content" />
+            android:layout_marginTop="18dp"
+            android:text="未评价"
+            android:textColor="#aeaeae"
+            android:textSize="13dp" />
 
         <TextView
             android:id="@+id/tv_content_now"
@@ -74,9 +85,10 @@
             android:layout_below="@id/tv_time_now"
             android:layout_marginBottom="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
             android:text="赵先生是一家网络公司的程序员，赵先生是一家网络公司的程序员，赵先生是一家网络公司的程序员，赵先生是一家网络公司的程序员，赵先生是一家网络公司的程序员。"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            android:visibility="gone" />
     </RelativeLayout>
 
 

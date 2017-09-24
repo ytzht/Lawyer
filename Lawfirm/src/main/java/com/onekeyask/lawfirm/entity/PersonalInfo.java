@@ -10,7 +10,7 @@ public class PersonalInfo {
      * code : 0
      * msg : 正常
      * eventId :
-     * data : {"HeadURL":"http://139.198.13.26:80/mylawyer/pic/1662?r=1505886328","OfficeName":"安卓测试律所","Sex":2,"city":"北京市","district":"北京市市辖区","favoriteNum":2,"giveMoneyCount":13,"introduce":"123669555588","lawyerName":"安卓测试","serviceCount":31,"serviceScore":100}
+     * data : {"HeadURL":"http://139.198.13.26:80/mylawyer/pic/1662?r=1506150986","OfficeName":"安卓测试律所","Sex":1,"city":"山东省","district":"烟台市","favoriteNum":2,"giveMoneyCount":13,"introduce":"123669555588回来咯土","lawyerName":"安卓测试","serviceCount":31,"serviceScore":100}
      */
 
     private int code;
@@ -52,14 +52,14 @@ public class PersonalInfo {
 
     public static class DataBean {
         /**
-         * HeadURL : http://139.198.13.26:80/mylawyer/pic/1662?r=1505886328
+         * HeadURL : http://139.198.13.26:80/mylawyer/pic/1662?r=1506150986
          * OfficeName : 安卓测试律所
-         * Sex : 2
-         * city : 北京市
-         * district : 北京市市辖区
+         * Sex : 1
+         * city : 山东省
+         * district : 烟台市
          * favoriteNum : 2
          * giveMoneyCount : 13
-         * introduce : 123669555588
+         * introduce : 123669555588回来咯土
          * lawyerName : 安卓测试
          * serviceCount : 31
          * serviceScore : 100
@@ -74,8 +74,8 @@ public class PersonalInfo {
         private int giveMoneyCount;
         private String introduce;
         private String lawyerName;
-        private int serviceCount;
-        private int serviceScore;
+        private String serviceCount;
+        private String serviceScore;
 
         public String getHeadURL() {
             return HeadURL;
@@ -149,19 +149,19 @@ public class PersonalInfo {
             this.lawyerName = lawyerName;
         }
 
-        public int getServiceCount() {
+        public String getServiceCount() {
             return serviceCount;
         }
 
-        public void setServiceCount(int serviceCount) {
+        public void setServiceCount(String serviceCount) {
             this.serviceCount = serviceCount;
         }
 
-        public int getServiceScore() {
+        public String getServiceScore() {
             return serviceScore;
         }
 
-        public void setServiceScore(int serviceScore) {
+        public void setServiceScore(String serviceScore) {
             this.serviceScore = serviceScore;
         }
     }

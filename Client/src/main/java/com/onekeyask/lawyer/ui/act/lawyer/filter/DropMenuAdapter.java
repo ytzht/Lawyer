@@ -74,7 +74,8 @@ public class DropMenuAdapter implements MenuAdapter {
                 view = createSingleGridView();
                 break;
             case 1:
-                view = createDoubleListView();
+//                view = createDoubleListView();
+                view = createSingleYearListView();
                 break;
             case 2:
                 view = createSingleListView();
@@ -86,6 +87,42 @@ public class DropMenuAdapter implements MenuAdapter {
         }
 
         return view;
+    }
+
+    private View createSingleYearListView() {
+        SingleListView<String> singleListView = new SingleListView<String>(mContext)
+                .adapter(new SimpleExtTextAdapter<String>(null, mContext) {
+                    @Override
+                    public String provideText(String string) {
+                        return string;
+                    }
+
+                    @Override
+                    protected void initCheckedTextView(FilterCheckedTextView checkedTextView) {
+                        int dp = UIUtil.dp(mContext, 15);
+                        checkedTextView.setPadding(dp, dp, 0, dp);
+                    }
+                })
+                .onItemClick(new OnFilterItemClickListener<String>() {
+                    @Override
+                    public void onItemClick(String item) {
+                        FilterUrl.instance().singleYearListPosition = item;
+
+                        FilterUrl.instance().position = 1;
+                        FilterUrl.instance().positionTitle = item;
+
+                        onFilterDone();
+                    }
+                });
+
+        List<String> list = new ArrayList<>();
+        list.add("1-3年");
+        list.add("3-5年");
+        list.add("5-10年");
+        list.add("10年以上");
+        singleListView.setList(list, -1);
+
+        return singleListView;
     }
 
     private View createSingleListView() {
@@ -306,7 +343,7 @@ public class DropMenuAdapter implements MenuAdapter {
         return new BetterDoubleGridView(mContext)
                 .setmTopGridData(phases)
                 .setmMidGridData(mides)
-                .setmBottomGridList(areas)
+//                .setmBottomGridList(areas)
                 .setOnFilterDoneListener(onFilterDoneListener)
                 .build();
     }

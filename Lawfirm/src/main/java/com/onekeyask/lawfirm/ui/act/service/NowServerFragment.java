@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.ConversationChatList;
 import com.onekeyask.lawfirm.global.BaseFragment;
@@ -20,6 +19,7 @@ import com.onekeyask.lawfirm.http.ProgressSubscriber;
 import com.onekeyask.lawfirm.http.SubscriberOnNextListener;
 import com.onekeyask.lawfirm.utils.MyDecoration;
 import com.onekeyask.lawfirm.utils.UserService;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -169,12 +169,12 @@ public class NowServerFragment extends BaseFragment {
             if (position + 1 != getItemCount()) {
                 L.d("=====getLastServiceTime", list.get(position).getLastServiceTime());
                 ((ViewHolder) holder).tv_content_now.setText(list.get(position).getServiceContent());
-                if (list.get(position).getLawyer().getLawyerId().equals("")){
-                    ((ViewHolder) holder).tv_name_now.setTextColor(ContextCompat.getColor(getActivity(), R.color.now_service_no_name));
-                }else {
-                    ((ViewHolder) holder).tv_name_now.setTextColor(ContextCompat.getColor(getActivity(), R.color.now_service_name));
-                }
-                ((ViewHolder) holder).tv_name_now.setText(list.get(position).getUser().getName());
+//                if (list.get(position).getLawyer().getLawyerId().equals("")){
+//                    ((ViewHolder) holder).tv_name_now.setTextColor(ContextCompat.getColor(getActivity(), R.color.now_service_no_name));
+//                }else {
+//                    ((ViewHolder) holder).tv_name_now.setTextColor(ContextCompat.getColor(getActivity(), R.color.now_service_name));
+//                }
+                ((ViewHolder) holder).tv_name_now.setText(list.get(position).getUser().getPhoneNo());
                 ((ViewHolder) holder).tv_time_now.setText(list.get(position).getLastServiceTime());
                 switch (list.get(position).getType()) {
                     case "1":
@@ -194,13 +194,14 @@ public class NowServerFragment extends BaseFragment {
                         break;
                 }
                 L.d("=====getHeadURL()", list.get(position).getUser().getHeadURL());
-                Glide.with(getActivity()).load(Uri.parse(list.get(position).getUser().getHeadURL()))
+                Picasso.with(getActivity()).load(Uri.parse(list.get(position).getUser().getHeadURL()))
                         .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
                         .into(((ViewHolder) holder).civ_avatar_now);
                 ((ViewHolder) holder).status.setText(list.get(position).getStatus());
-                if (((ViewHolder) holder).status.getText().equals("律师未回复")){
+                ((ViewHolder) holder).price.setText(list.get(position).getServiceAmount() + "元");
+                if (((ViewHolder) holder).status.getText().equals("律师未回复")) {
                     ((ViewHolder) holder).status.setTextColor(ContextCompat.getColor(getActivity(), R.color.blackHint));
-                }else {
+                } else {
                     ((ViewHolder) holder).status.setTextColor(ContextCompat.getColor(getActivity(), R.color.baseOrange));
                 }
                 ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
@@ -227,7 +228,7 @@ public class NowServerFragment extends BaseFragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            private TextView tv_content_now, tv_tag_now, tv_time_now, tv_name_now, status;
+            private TextView tv_content_now, tv_tag_now, tv_time_now, tv_name_now, status, price;
             private CircleImageView civ_avatar_now;
 
             private ViewHolder(View itemView) {
@@ -235,6 +236,7 @@ public class NowServerFragment extends BaseFragment {
                 tv_content_now = (TextView) itemView.findViewById(R.id.tv_content_now);
                 tv_tag_now = (TextView) itemView.findViewById(R.id.tv_tag_now);
                 tv_time_now = (TextView) itemView.findViewById(R.id.tv_time_now);
+                price = (TextView) itemView.findViewById(R.id.tv_price);
                 tv_name_now = (TextView) itemView.findViewById(R.id.tv_name_now);
                 status = (TextView) itemView.findViewById(R.id.status);
                 civ_avatar_now = (CircleImageView) itemView.findViewById(R.id.civ_avatar_now);

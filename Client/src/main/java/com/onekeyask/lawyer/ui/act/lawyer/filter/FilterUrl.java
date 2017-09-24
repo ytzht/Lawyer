@@ -26,6 +26,7 @@ public class FilterUrl {
     }
 
     public String singleListPosition;
+    public String singleYearListPosition;
     public String doubleListLeft;
     public String doubleListRight;
     public String singleGridPosition;
@@ -80,6 +81,28 @@ public class FilterUrl {
                     buffer.append("&sort=6");
                     break;
 
+            }
+
+        }
+
+        if (!TextUtils.isEmpty(singleYearListPosition)) {
+            switch (singleYearListPosition){
+                case "1-3年":
+                    buffer.append("&yearfrom=1");
+                    buffer.append(("&yearto=3"));
+                    break;
+                case "3-5年":
+                    buffer.append("&yearfrom=3");
+                    buffer.append(("&yearto=5"));
+                    break;
+                case "5-10年":
+                    buffer.append("&yearfrom=5");
+                    buffer.append(("&yearto=10"));
+                    break;
+                case "10年以上":
+                    buffer.append("&yearfrom=10");
+                    buffer.append(("&yearto=100"));
+                    break;
             }
 
         }

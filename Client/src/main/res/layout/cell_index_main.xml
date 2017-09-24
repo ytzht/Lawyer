@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:item="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:background="@color/white"
@@ -83,123 +84,14 @@
                 android:textSize="14dp" />
         </RelativeLayout>
 
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/special_rlv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:id="@+id/rl_project_one"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?listChoiceBackgroundIndicator">
 
-                <ImageView
-                    android:id="@+id/iv_sub1"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:src="@drawable/subject_1" />
+        </android.support.v7.widget.RecyclerView>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/iv_sub1"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="7dp"
-                    android:gravity="center"
-                    android:text="@string/project_1"
-                    android:textColor="@color/blackModule"
-                    android:textSize="13dp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_project_two"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?listChoiceBackgroundIndicator">
-
-                <ImageView
-                    android:id="@+id/iv_sub2"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:src="@drawable/subject_2" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:gravity="center"
-                    android:text="@string/project_2"
-                    android:layout_below="@id/iv_sub2"
-                    android:layout_marginTop="7dp"
-                    android:textColor="@color/blackModule"
-                    android:textSize="13dp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_project_three"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?listChoiceBackgroundIndicator">
-
-                <ImageView
-                    android:id="@+id/iv_sub3"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:src="@drawable/subject_3" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_below="@id/iv_sub3"
-                    android:layout_marginTop="7dp"
-                    android:gravity="center"
-                    android:text="@string/project_3"
-                    android:textColor="@color/blackModule"
-                    android:textSize="13dp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_project_four"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?listChoiceBackgroundIndicator">
-
-                <ImageView
-                    android:id="@+id/iv_sub4"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:src="@drawable/subject_4" />
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/iv_sub4"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginBottom="20dp"
-                    android:gravity="center"
-                    android:text="@string/project_4"
-                    android:textColor="@color/blackModule"
-                    android:textSize="13dp" />
-            </RelativeLayout>
-        </LinearLayout>
 
         <View
             android:layout_width="match_parent"

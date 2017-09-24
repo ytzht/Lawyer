@@ -28,8 +28,17 @@ public class ConversationGetList {
     private int rounds;
     private boolean hasMore;
     private boolean evaStatus;
+    private String expireDate;
     private EvaluationBean evaluation;
     private List<ConversationListBean> conversationList;
+
+    public String getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(String expireDate) {
+        this.expireDate = expireDate;
+    }
 
     public int getChatId() {
         return chatId;

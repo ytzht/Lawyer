@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/divider"
     tools:context="com.onekeyask.lawfirm.ui.act.user.MyInfoActivity">
 
     <LinearLayout
@@ -32,7 +32,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="头像" />
+                    android:text="头像"
+                    android:textSize="16sp" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/civ_head"
@@ -43,32 +44,7 @@
                     app:civ_border_width="2dp" />
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/viewDivider" />
 
-            <LinearLayout
-                android:id="@+id/ll_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_weight="1"
-                    android:text="姓名" />
-
-                <TextView
-                    android:id="@+id/user_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#6F6F6F"
-                    tools:text="Jack" />
-            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -76,26 +52,18 @@
                 android:background="@color/viewDivider" />
 
             <LinearLayout
-                android:id="@+id/ll_sex"
+                android:id="@+id/ll_special"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginTop="16dp"
                     android:layout_weight="1"
-                    android:text="性别" />
+                    android:text="擅长领域"
+                    android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/user_sex"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:textColor="#6F6F6F"
-                    tools:text="男" />
 
                 <ImageView
                     android:layout_width="16dp"
@@ -111,16 +79,15 @@
             <LinearLayout
                 android:id="@+id/ll_area"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginTop="16dp"
                     android:layout_weight="1"
-                    android:text="所在地区" />
+                    android:text="所在地区"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/user_area"
@@ -128,6 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
                     android:textColor="#6F6F6F"
+                    android:textSize="13sp"
                     tools:text="北京市" />
 
                 <ImageView
@@ -136,77 +104,54 @@
                     android:src="@drawable/arrow_r_g" />
             </LinearLayout>
 
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/viewDivider" />
 
             <LinearLayout
-                android:id="@+id/ll_phone"
+                android:id="@+id/ll_intro"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginTop="16dp"
                     android:layout_weight="1"
-                    android:text="律所" />
+                    android:text=" 简介"
+                    android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/user_office"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#6F6F6F"
-                    tools:text="北京大成律师事务所" />
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/arrow_r_g" />
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/viewDivider" />
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="17dp"
-            android:text="擅长领域"
-            android:textColor="#343434" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rlv_can"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="7dp">
-
-        </android.support.v7.widget.RecyclerView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="17dp"
-            android:text="简介"
-            android:textColor="#343434" />
-
-        <TextView
-            android:id="@+id/tv_introduce"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:background="@drawable/intro_tv"
-            android:minHeight="60dp"
-            android:padding="10dp"
-            tools:text="谁谁谁谁谁谁谁谁谁谁谁谁谁谁谁谁所多撒多撒多撒大所大所过付所发所多风所谁谁谁谁谁谁谁谁谁所多撒多撒多撒大所大所过付所发所多风所谁谁谁谁谁谁谁谁谁所多撒多撒多撒大所大所过付所发所多风所谁谁所多撒多撒多撒大所大所过付所发所多风所" />
-
         <LinearLayout
+            android:id="@+id/ll_info"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/viewDivider">
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:text="更改审核信息"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/arrow_r_g" />
 
         </LinearLayout>
     </LinearLayout>

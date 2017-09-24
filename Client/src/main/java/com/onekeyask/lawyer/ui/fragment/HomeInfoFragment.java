@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.PointsInfo;
+import com.onekeyask.lawyer.entity.PriceList;
 import com.onekeyask.lawyer.global.BaseFragment;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
@@ -112,6 +113,23 @@ public class HomeInfoFragment extends BaseFragment {
             }
             initView();
             ll_score.setVisibility(View.VISIBLE);
+
+            SubscriberOnNextListener getResultOnNext = new SubscriberOnNextListener<PriceList>() {
+                @Override
+                public void onNext(PriceList list) {
+                    myMoney.setText("￥"+String.valueOf(list.getBalance()));
+                }
+
+                @Override
+                public void onError(int code, String message) {
+                    myMoney.setText("");
+                }
+            };
+
+            retrofitUtil.getPriceList(UserService.service(getActivity()).getUserId(), new ProgressSubscriber<PriceList>(getResultOnNext, getActivity(), false));
+
+
+
         } else {
             ll_score.setVisibility(View.GONE);
             userName.setText("登录/注册");

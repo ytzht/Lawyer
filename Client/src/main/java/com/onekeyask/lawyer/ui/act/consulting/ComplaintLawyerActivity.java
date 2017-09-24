@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.BaseResult;
+import com.onekeyask.lawyer.entity.LawyerBasic;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
@@ -37,7 +38,7 @@ public class ComplaintLawyerActivity extends BaseToolBarActivity {
 
     private EditText etcontent;
     private ImageView addpic;
-    private TextView tvaddtxt;
+    private TextView tvaddtxt, tv_law;
     private RecyclerView rlvaddpic;
     private EditText etphone;
     private TextView submitcomplaint;
@@ -65,6 +66,7 @@ public class ComplaintLawyerActivity extends BaseToolBarActivity {
         this.etphone = (EditText) findViewById(R.id.et_phone);
         this.rlvaddpic = (RecyclerView) findViewById(R.id.rlv_add_pic);
         this.tvaddtxt = (TextView) findViewById(R.id.tv_add_txt);
+        this.tv_law = (TextView) findViewById(R.id.tv_law);
         this.addpic = (ImageView) findViewById(R.id.add_pic);
         this.etcontent = (EditText) findViewById(R.id.et_content);
 
@@ -97,8 +99,25 @@ public class ComplaintLawyerActivity extends BaseToolBarActivity {
             }
         });
 
+        SubscriberOnNextListener<LawyerBasic> listener = new SubscriberOnNextListener<LawyerBasic>() {
+            @Override
+            public void onNext(LawyerBasic lawyerBasic) {
+                tv_law.setText(lawyerBasic.getLawyer().getName() + "律师的咨询");
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                showShort(message);
+            }
+        };
+
+        retrofitUtil.getLawyerBasic(Integer.parseInt(getIntent().getStringExtra("lawyerId")), new ProgressSubscriber<LawyerBasic>(listener, ComplaintLawyerActivity.this, true));
+
+
     }
+
     private ProgressDialog progressDialog;
+
     private void checkMsg() {
         photoMap.clear();
         i = 0;
@@ -122,7 +141,7 @@ public class ComplaintLawyerActivity extends BaseToolBarActivity {
                 goLuban();
 
             }
-        }else {
+        } else {
             goSubmit();
         }
     }
@@ -130,6 +149,7 @@ public class ComplaintLawyerActivity extends BaseToolBarActivity {
     private Map<String, RequestBody> photoMap = new HashMap<>();
     private int i = 0;
     private int k = 0;
+
     private void goLuban() {
         i += 1;
         File file = new File(photos.get(i - 1));
@@ -145,7 +165,7 @@ public class ComplaintLawyerActivity extends BaseToolBarActivity {
                     @Override
                     public void onSuccess(File file) {
                         k += 1;
-                        L.d(k+"");
+                        L.d(k + "");
                         String key = "pic" + k + "\"; filename=\"pic" + k + photos.get(k - 1).substring(photos.get(k - 1).lastIndexOf("."));
                         photoMap.put(key, RequestBody.create(MediaType.parse("multipart/form-data"), file));
                         L.d(key);
@@ -166,6 +186,7 @@ public class ComplaintLawyerActivity extends BaseToolBarActivity {
                     }
                 }).launch();    //启动压缩
     }
+
     private void goSubmit() {
 
         if (!etphone.getText().toString().equals("")) {
@@ -178,7 +199,7 @@ public class ComplaintLawyerActivity extends BaseToolBarActivity {
             }
         }
 
-        photoMap.put("userId", RequestBody.create(null, UserService.service(getBaseContext()).getUserId()+""));
+        photoMap.put("userId", RequestBody.create(null, UserService.service(getBaseContext()).getUserId() + ""));
         photoMap.put("lawyerId", RequestBody.create(null, getIntent().getStringExtra("lawyerId")));
         photoMap.put("userServiceId", RequestBody.create(null, getIntent().getStringExtra("sid")));
         photoMap.put("content", RequestBody.create(null, etcontent.getText().toString()));
@@ -186,12 +207,12 @@ public class ComplaintLawyerActivity extends BaseToolBarActivity {
         getResultOnNext = new SubscriberOnNextListener<BaseResult>() {
             @Override
             public void onNext(BaseResult baseResult) {
-                if (baseResult.getCode() == 0){
+                if (baseResult.getCode() == 0) {
 
                     Intent intent = new Intent(ComplaintLawyerActivity.this, ComplaintFinishActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
+                } else {
                     showShort(baseResult.getMsg());
                 }
 

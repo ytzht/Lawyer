@@ -44,6 +44,8 @@ public interface Apis {
     String GetIntroduce = Apis.Base + "l/getIntroduce";//1.44 获取律师介绍
     String ChangeSex = Apis.Base + "l/changeSex";//1.45 修改律师性别
     String changeCityDistrict = Apis.Base + "l/changeCityDistrict";//1.46 修改律师所在地区
+    String GotoModifyReviewInfo = Apis.Base + "l/gotoModifyReviewInfo";//1.47 律师二次认证审核信息查看（律师个人中心页二级页面中修改审核信息
+    String ModifyReviewInfo = Apis.Base + "l/modifyReviewInfo";//1.48 律师二次认证提交审核
 
 
     String FreeAskOrder = Apis.Base + "l/freeask/order";

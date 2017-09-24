@@ -75,6 +75,7 @@ public class HomeFoundsFragment extends BaseFragment implements OnTabSelectListe
                         GetSpecialInfoList list = (new Gson()).fromJson(response.body(), GetSpecialInfoList.class);
                         if (list.getCode() == 0){
                             beanList = list.getData().getSpecialList();
+                            beanList.add(0, new GetSpecialInfoList.DataBean.SpecialListBean(0, "全部", false));
 //                            tagAdapter = new ConTagAdapter();
 //                            rlvcan.setAdapter(tagAdapter);
                             initView();

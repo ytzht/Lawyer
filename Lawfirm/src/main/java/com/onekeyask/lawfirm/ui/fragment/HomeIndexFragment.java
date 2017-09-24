@@ -28,6 +28,7 @@ import com.onekeyask.lawfirm.http.SubscriberOnNextListener;
 import com.onekeyask.lawfirm.ui.act.index.GraphicConsultActivity;
 import com.onekeyask.lawfirm.ui.act.index.PersonConsultActivity;
 import com.onekeyask.lawfirm.ui.act.index.PhoneConsultActivity;
+import com.onekeyask.lawfirm.ui.act.me.MyWalletActivity;
 import com.onekeyask.lawfirm.ui.act.user.IncomeDetailActivity;
 import com.onekeyask.lawfirm.ui.act.user.LoginActivity;
 import com.onekeyask.lawfirm.ui.act.user.TopMsgActivity;
@@ -55,11 +56,11 @@ public class HomeIndexFragment extends BaseFragment {
     private Banner banner;
     private HomePage homePage;
     private Subscriber subscriber;
-    private TextView tv_monthIncome_index, tv_balance_index;
+    private TextView tv_monthIncome_index, tv_balance_index, tv_1, tv_2, tv_3, tv_4, tv_5;
     private LinearLayout tv_detail, quick_ll, pic_ll, phone_ll, lawyer_ll, money_ll;
     private List<String> image_url = new ArrayList<>();
     private List<String> banner_img = new ArrayList<>();
-    private RelativeLayout rl_project_one, rl_project_two, rl_project_three, rl_project_four;
+    private RelativeLayout rl_project_one, rl_project_two, rl_project_three, rl_project_four, my_wallet;
     private ImageView iv_top_msg;
 
     @Override
@@ -100,6 +101,7 @@ public class HomeIndexFragment extends BaseFragment {
     }
 
     private AlertDialog alert;
+
     private void initView(View view) {
         quick_ll = (LinearLayout) view.findViewById(R.id.quick_ll);
         pic_ll = (LinearLayout) view.findViewById(R.id.pic_ll);
@@ -110,15 +112,28 @@ public class HomeIndexFragment extends BaseFragment {
         search_et = (TextView) view.findViewById(R.id.search_et);
         tv_detail = (LinearLayout) view.findViewById(R.id.tv_detail);
         tv_balance_index = (TextView) view.findViewById(R.id.tv_balance_index);
+        tv_1 = (TextView) view.findViewById(R.id.tv_1);
+        tv_2 = (TextView) view.findViewById(R.id.tv_2);
+        tv_3 = (TextView) view.findViewById(R.id.tv_3);
+        tv_4 = (TextView) view.findViewById(R.id.tv_4);
+        tv_5 = (TextView) view.findViewById(R.id.tv_5);
         rl_project_one = (RelativeLayout) view.findViewById(R.id.rl_project_one);
         rl_project_two = (RelativeLayout) view.findViewById(R.id.rl_project_two);
         rl_project_three = (RelativeLayout) view.findViewById(R.id.rl_project_three);
         rl_project_four = (RelativeLayout) view.findViewById(R.id.rl_project_four);
+        my_wallet = (RelativeLayout) view.findViewById(R.id.my_wallet);
         iv_top_msg = (ImageView) view.findViewById(R.id.iv_top_msg);
         iv_top_msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(TopMsgActivity.class);
+            }
+        });
+
+        my_wallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(MyWalletActivity.class);
             }
         });
 //        tv_tx.setOnClickListener(new View.OnClickListener() {
@@ -158,6 +173,7 @@ public class HomeIndexFragment extends BaseFragment {
         initBanner(view);
 
     }
+
     private void initBanner(View view) {
         banner = (Banner) view.findViewById(R.id.banner_index);
 
@@ -284,7 +300,7 @@ public class HomeIndexFragment extends BaseFragment {
                     banner.setOnBannerListener(new OnBannerListener() {
                         @Override
                         public void OnBannerClick(int position) {
-                            L.d(position+"");
+                            L.d(position + "");
                             showShort(homePage.getAdList().get(position).getContent());
                         }
                     });
@@ -294,14 +310,20 @@ public class HomeIndexFragment extends BaseFragment {
                     banner.setImages(banner_img).start();
                 }
 
+                tv_1.setText("￥" + homePage.getIncomeSum().get(0).getAmountSum());
+                tv_2.setText("￥" + homePage.getIncomeSum().get(1).getAmountSum());
+                tv_3.setText("￥" + homePage.getIncomeSum().get(2).getAmountSum());
+                tv_4.setText("￥" + homePage.getIncomeSum().get(3).getAmountSum());
+                tv_5.setText("￥" + homePage.getIncomeSum().get(4).getAmountSum());
+
             }
 
             @Override
             public void onError(int code, String message) {
-                if (code == -106){
+                if (code == -106) {
                     startActivity(LoginActivity.class);
                     getActivity().finish();
-                }else {
+                } else {
                     image_url.clear();
                     banner.setImages(banner_img).start();
                 }

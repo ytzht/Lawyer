@@ -166,4 +166,12 @@ public class SettingActivity extends BaseToolBarActivity {
                 break;
         }
     }
+
+    @Override
+    public void onEventMainThread(BaseEvent event) {
+        super.onEventMainThread(event);
+        if (event.getCode() == BaseEvent.FINISH_SETTING){
+            finish();
+        }
+    }
 }

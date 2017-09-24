@@ -63,6 +63,12 @@ public class GetSpecialInfoList {
             private String specialName;
             private boolean isSelected;
 
+            public SpecialListBean(int specialId, String specialName, boolean isSelected) {
+                this.specialId = specialId;
+                this.specialName = specialName;
+                this.isSelected = isSelected;
+            }
+
             public int getSpecialId() {
                 return specialId;
             }

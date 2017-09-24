@@ -11,9 +11,12 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.ResultData;
-import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.global.Apis;
+import com.onekeyask.lawfirm.global.BaseEvent;
+import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.utils.UserService;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -92,6 +95,9 @@ public class ResetPasswordActivity extends BaseToolBarActivity {
                     service.setUserName("");
                     service.setToken("-1");
                     finish();
+                    startActivity(LoginActivity.class);
+                    EventBus.getDefault().post(BaseEvent.event(BaseEvent.FINISH_SETTING));
+                    EventBus.getDefault().post(BaseEvent.event(BaseEvent.FINISH_MAIN));
                 }else {
                     showShort(data.getMsg());
                 }

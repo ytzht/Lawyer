@@ -93,9 +93,9 @@ public class HomePage {
         private int lawyerId;
         private String headURL;
         private int status;
-        private int serviceCount;
+        private String serviceCount;
         private int favoriteNum;
-        private int serviceScore;
+        private String serviceScore;
         private String notes;
         private String city;
         private String district;
@@ -134,11 +134,11 @@ public class HomePage {
             this.status = status;
         }
 
-        public int getServiceCount() {
+        public String getServiceCount() {
             return serviceCount;
         }
 
-        public void setServiceCount(int serviceCount) {
+        public void setServiceCount(String serviceCount) {
             this.serviceCount = serviceCount;
         }
 
@@ -150,11 +150,11 @@ public class HomePage {
             this.favoriteNum = favoriteNum;
         }
 
-        public int getServiceScore() {
+        public String getServiceScore() {
             return serviceScore;
         }
 
-        public void setServiceScore(int serviceScore) {
+        public void setServiceScore(String serviceScore) {
             this.serviceScore = serviceScore;
         }
 

@@ -34,6 +34,7 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +77,7 @@ public class FindLawyerActivity extends BaseToolBarActivity implements OnFilterD
         hud = KProgressHUD.create(FindLawyerActivity.this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setCancellable(true);
 
-        titleList = new String[]{"擅长领域", "区域", "排序", "筛选"};
+        titleList = new String[]{"擅长领域", "执业年限", "排序", "筛选"};
         if (getIntent().hasExtra("position")) {
             specialPos = Integer.parseInt(getIntent().getStringExtra("position"));
         }
@@ -244,7 +245,14 @@ public class FindLawyerActivity extends BaseToolBarActivity implements OnFilterD
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
 
-            Glide.with(getBaseContext()).load(lawyerList.get(position).getHeadURL()).into(holder.find_civ);
+            if (lawyerList.get(position).getHeadURL().equals("")) {
+                Glide.with(getBaseContext()).load(lawyerList.get(position).getHeadURL())
+                        .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(holder.find_civ);
+            }else {
+                Picasso.with(getBaseContext()).load(lawyerList.get(position).getHeadURL())
+                        .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(holder.find_civ);
+
+            }
             holder.find_office.setText(lawyerList.get(position).getLawyerOfficeName());
 
             String s = "";
@@ -284,7 +292,7 @@ public class FindLawyerActivity extends BaseToolBarActivity implements OnFilterD
             holder.find_num.setText(lawyerList.get(position).getFavoriteNum() + "人购买");
             holder.find_name.setText(lawyerList.get(position).getName());
 //            if (lawyerList.get(position).getTelPrice() > lawyerList.get(position).getTextPrice()) {
-            holder.find_price.setText(lawyerList.get(position).getTextPrice() + "");
+            holder.find_price.setText("￥"+lawyerList.get(position).getTextPrice() + "元起");
 //            } else {
 //                holder.find_price.setText("￥" + lawyerList.get(position).getTelPrice() + "元起");
 //            }

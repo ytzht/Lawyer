@@ -149,6 +149,11 @@ public class BillingDetailsActivity extends BaseToolBarActivity {
             holder.detail_time.setText(data.get(position).getTranTime());
             holder.detail_title.setText(data.get(position).getSummary());
 
+            if (data.get(position).getTranType().equals("3")){
+                holder.iv_arrow.setVisibility(View.VISIBLE);
+            }else {
+                holder.iv_arrow.setVisibility(View.GONE);
+            }
             switch (data.get(position).getTranType()){
                 case "1":
                     holder.detail_score.setText("+"+data.get(position).getAmount());
@@ -164,6 +169,7 @@ public class BillingDetailsActivity extends BaseToolBarActivity {
                             startActivity(WithStateActivity.class, "id", data.get(position).getWithDrawInfoId());
                         }
                     });
+
                     break;
                 case "4":
                     holder.detail_score.setText("+"+data.get(position).getAmount());

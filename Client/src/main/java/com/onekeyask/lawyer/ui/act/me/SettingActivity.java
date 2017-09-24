@@ -56,11 +56,21 @@ public class SettingActivity extends BaseToolBarActivity {
         setToolbarText("设置与帮助");
         service = new UserService(getBaseContext());
         initSwitch();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        service = new UserService(getBaseContext());
 
         if (!service.isLogin()){
             returnMy.setVisibility(View.GONE);
             noticeSet.setVisibility(View.GONE);
             rePwd.setVisibility(View.GONE);
+        }else {
+            returnMy.setVisibility(View.VISIBLE);
+            noticeSet.setVisibility(View.VISIBLE);
+            rePwd.setVisibility(View.VISIBLE);
         }
     }
 

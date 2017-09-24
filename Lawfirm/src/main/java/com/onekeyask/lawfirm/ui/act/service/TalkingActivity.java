@@ -60,6 +60,8 @@ import okhttp3.RequestBody;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
+
+
 public class TalkingActivity extends BaseActivity {
 
     private RecyclerView rlv_talking;
@@ -69,7 +71,7 @@ public class TalkingActivity extends BaseActivity {
     private ConversationGetList getList;
     private long firstConversationId, lastConversationId, conversationId;
     private List<ConversationGetList.ConversationListBean> listBean;
-    private TextView tv_send_msg;
+    private TextView tv_send_msg, tv_time_step;
     private EditText et_send_msg;
     private TextView tv_no_eva, tv_satisfied, tv_speak_eva, talk_toolbar_title;
     private Toolbar talk_toolbar;
@@ -187,6 +189,7 @@ public class TalkingActivity extends BaseActivity {
         tag_flow = (TagFlowLayout) findViewById(R.id.tag_flow);
         tv_no_eva = (TextView) findViewById(R.id.tv_no_eva);
         tv_satisfied = (TextView) findViewById(R.id.tv_satisfied);
+        tv_time_step = (TextView) findViewById(R.id.tv_time_step);
         tv_speak_eva = (TextView) findViewById(R.id.tv_speak_eva);
         rlv_talking = (RecyclerView) findViewById(R.id.rlv_talking);
         ll_bottom_menu = (LinearLayout) findViewById(R.id.ll_bottom_menu);
@@ -320,10 +323,17 @@ public class TalkingActivity extends BaseActivity {
                     case "1"://进行中
                         isUpdateInfo = true;
                         L.d("进行中");
+                        if (getList.getFromType() == 1) {//订单类型 1图文咨询 2免费提问
+                            tv_time_step.setText("聊天将在" + getList.getExpireDate() + "后关闭");
+                        } else {
+                            tv_time_step.setText("聊天将在" + getList.getExpireDate() + "或" + getList.getRounds() + "轮对话后问题关闭");
+                        }
+
                         break;
                     case "2"://已结束
                         isUpdateInfo = false;
                         L.d("已结束");
+                        tv_time_step.setText("聊天已结束");
                         if (getList.isEvaStatus()) {
                             //已评价
                             ll_eva.setVisibility(View.VISIBLE);
@@ -340,7 +350,7 @@ public class TalkingActivity extends BaseActivity {
                             tag_flow.setAdapter(new TagAdapter<String>(mValues) {
                                 @Override
                                 public View getView(FlowLayout parent, int position, String s) {
-                                    TextView tv = (TextView) LayoutInflater.from(TalkingActivity.this).inflate(R.layout.tag_tv, tag_flow, false);
+                                    TextView tv = (TextView) LayoutInflater.from(TalkingActivity.this).inflate(R.layout.tag_tv_ext, tag_flow, false);
                                     tv.setText(s);
                                     return tv;
                                 }

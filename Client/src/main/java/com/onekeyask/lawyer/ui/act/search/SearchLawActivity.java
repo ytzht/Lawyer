@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.AllSpecial;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
+import com.onekeyask.lawyer.global.Constant;
 import com.onekeyask.lawyer.ui.act.lawyer.FindLawyerActivity;
 import com.onekeyask.lawyer.utils.RecyclerSpace;
 
@@ -36,23 +37,6 @@ public class SearchLawActivity extends BaseToolBarActivity {
     ImageView law_pic_3;
     @BindView(R.id.law_pic_4)
     ImageView law_pic_4;
-    String tags = "{\"allSpecial\":[" +
-            "{\"id\":1,\"name\":\"合同纠纷\"}," +
-            "{\"id\":2,\"name\":\"房产纠纷\"}," +
-            "{\"id\":3,\"name\":\"婚姻继承\"}," +
-            "{\"id\":4,\"name\":\"人身损害\"}," +
-            "{\"id\":5,\"name\":\"劳动争议\"}," +
-            "{\"id\":6,\"name\":\"债权债务\"}," +
-            "{\"id\":7,\"name\":\"侵权纠纷\"}," +
-            "{\"id\":8,\"name\":\"消费维权\"}," +
-            "{\"id\":9,\"name\":\"交通事故\"}," +
-            "{\"id\":10,\"name\":\"刑事辩护\"}," +
-            "{\"id\":12,\"name\":\"投资\"}," +
-            "{\"id\":13,\"name\":\"融资\"}," +
-            "{\"id\":14,\"name\":\"兼并收购\"}," +
-            "{\"id\":15,\"name\":\"上市\"}," +
-            "{\"id\":16,\"name\":\"知识产权\"}," +
-            "{\"id\":17,\"name\":\"新三板\"}]}";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +52,7 @@ public class SearchLawActivity extends BaseToolBarActivity {
             }
         });
         rlvIcon.addItemDecoration(new RecyclerSpace(2, ContextCompat.getColor(getBaseContext(), R.color.divider)));
-        AllSpecial special = (new Gson()).fromJson(tags, AllSpecial.class);
+        AllSpecial special = (new Gson()).fromJson(Constant.tags, AllSpecial.class);
         beanList = special.getAllSpecial();
         rlvIcon.setAdapter(new IconRlvAdapter());
 
@@ -110,10 +94,6 @@ public class SearchLawActivity extends BaseToolBarActivity {
 
     List<AllSpecial.AllSpecialBean> beanList;
 
-    private void initData() {
-
-
-    }
 
     private class IconRlvAdapter extends RecyclerView.Adapter<IconRlvAdapter.ViewHolder> {
 

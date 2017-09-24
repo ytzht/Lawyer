@@ -193,7 +193,7 @@ public class ConsultingDetailActivity extends BaseToolBarActivity {
         private List<FreeAskCategory.AllSpecialBean> beanList = new ArrayList<>();
 
         public ConTagAdapter(List<FreeAskCategory.AllSpecialBean> beanList) {
-            this.beanList = beanList;
+                this.beanList = beanList;
         }
 
         @Override

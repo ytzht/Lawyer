@@ -137,6 +137,24 @@ public class ConversationChatList {
             private String name;
             private String lawyerId;
             private String headURL;
+            private String lawfirm;
+            private String phoneNo;
+
+            public String getLawfirm() {
+                return lawfirm;
+            }
+
+            public void setLawfirm(String lawfirm) {
+                this.lawfirm = lawfirm;
+            }
+
+            public String getPhoneNo() {
+                return phoneNo;
+            }
+
+            public void setPhoneNo(String phoneNo) {
+                this.phoneNo = phoneNo;
+            }
 
             public String getName() {
                 return name;
@@ -173,6 +191,15 @@ public class ConversationChatList {
             private String name;
             private String userId;
             private String headURL;
+            private String phoneNo;
+
+            public String getPhoneNo() {
+                return phoneNo;
+            }
+
+            public void setPhoneNo(String phoneNo) {
+                this.phoneNo = phoneNo;
+            }
 
             public String getName() {
                 return name;

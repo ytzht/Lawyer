@@ -15,7 +15,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.ConversationChatList;
 import com.onekeyask.lawfirm.global.BaseFragment;
@@ -23,6 +22,7 @@ import com.onekeyask.lawfirm.http.ProgressSubscriber;
 import com.onekeyask.lawfirm.http.SubscriberOnNextListener;
 import com.onekeyask.lawfirm.utils.MyDecoration;
 import com.onekeyask.lawfirm.utils.UserService;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -257,7 +257,7 @@ public class CompleteServiceFragment extends BaseFragment {
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             if (position + 1 != getItemCount()) {
                 ((ViewHolder) holder).tv_content_now.setText(list.get(position).getServiceContent());
-                ((ViewHolder) holder).tv_name_now.setText(list.get(position).getUser().getName());
+                ((ViewHolder) holder).tv_name_now.setText(list.get(position).getUser().getPhoneNo());
                 ((ViewHolder) holder).tv_time_now.setText(list.get(position).getLastServiceTime());
                 ((ViewHolder) holder).com_price.setText("￥"+list.get(position).getServiceAmount());
                 switch (list.get(position).getType()) {
@@ -278,7 +278,7 @@ public class CompleteServiceFragment extends BaseFragment {
                         break;
                 }
                 ((ViewHolder) holder).status.setText(list.get(position).getStatus());
-                Glide.with(getActivity()).load(Uri.parse(list.get(position).getUser().getHeadURL()))
+                Picasso.with(getActivity()).load(Uri.parse(list.get(position).getUser().getHeadURL()))
                         .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
                         .into(((ViewHolder) holder).civ_avatar_now);
 

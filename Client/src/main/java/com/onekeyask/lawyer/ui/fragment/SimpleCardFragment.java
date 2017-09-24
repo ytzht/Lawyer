@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -21,7 +20,6 @@ import com.onekeyask.lawyer.entity.UserDiscoveries;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseFragment;
 import com.onekeyask.lawyer.ui.act.lawyer.AskDetailActivity;
-import com.onekeyask.lawyer.utils.MyDecoration;
 import com.onekeyask.lawyer.utils.UserService;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -29,6 +27,7 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +95,6 @@ public class SimpleCardFragment extends BaseFragment {
 
         discover_list = (RecyclerView) view.findViewById(R.id.discover_list);
         discover_list.setLayoutManager(new LinearLayoutManager(getActivity()));
-        discover_list.addItemDecoration(new MyDecoration(getActivity(), MyDecoration.VERTICAL_LIST));
         adapter = new DiscoverAdapter();
         discover_list.setAdapter(adapter);
         initData();
@@ -153,7 +151,7 @@ public class SimpleCardFragment extends BaseFragment {
             holder.dis_name.setText(data.get(position).getLawyerName());
             holder.dis_office.setText(data.get(position).getOfficeName());
             holder.dis_count.setText(String.valueOf(data.get(position).getSupportCount()));
-            Glide.with(getActivity()).load(data.get(position).getHeadURL()).into(holder.dis_img);
+            Picasso.with(getActivity()).load(data.get(position).getHeadURL()).into(holder.dis_img);
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

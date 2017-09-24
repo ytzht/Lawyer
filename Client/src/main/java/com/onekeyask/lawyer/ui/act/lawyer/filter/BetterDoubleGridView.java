@@ -33,7 +33,7 @@ public class BetterDoubleGridView extends LinearLayout implements View.OnClickLi
 
     private List<String> mTopGridData;
     private List<String> mMidGridData;
-    private List<String> mBottomGridList;
+//    private List<String> mBottomGridList;
     private OnFilterDoneListener mOnFilterDoneListener;
 
 
@@ -75,10 +75,10 @@ public class BetterDoubleGridView extends LinearLayout implements View.OnClickLi
         return this;
     }
 
-    public BetterDoubleGridView setmBottomGridList(List<String> mBottomGridList) {
-        this.mBottomGridList = mBottomGridList;
-        return this;
-    }
+//    public BetterDoubleGridView setmBottomGridList(List<String> mBottomGridList) {
+//        this.mBottomGridList = mBottomGridList;
+//        return this;
+//    }
 
     public BetterDoubleGridView build() {
 
@@ -93,7 +93,7 @@ public class BetterDoubleGridView extends LinearLayout implements View.OnClickLi
             }
         });
         recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.setAdapter(new DoubleGridAdapter(getContext(), mTopGridData, mMidGridData, mBottomGridList, this));
+        recyclerView.setAdapter(new DoubleGridAdapter(getContext(), mTopGridData, mMidGridData, this));
 
         return this;
     }
@@ -102,7 +102,7 @@ public class BetterDoubleGridView extends LinearLayout implements View.OnClickLi
     private TextView mTopSelectedTextView2;
     private TextView mTopSelectedTextView3;
     private TextView mMidSelectedTextView;
-    private TextView mBottomSelectedTextView;
+//    private TextView mBottomSelectedTextView;
 
     private List<String> mTopString = new ArrayList<>();
 
@@ -127,9 +127,9 @@ public class BetterDoubleGridView extends LinearLayout implements View.OnClickLi
         } else if (textView == mMidSelectedTextView) {
             mMidSelectedTextView = null;
             textView.setSelected(false);
-        }else if (textView == mBottomSelectedTextView) {
-            mBottomSelectedTextView = null;
-            textView.setSelected(false);
+//        }else if (textView == mBottomSelectedTextView) {
+//            mBottomSelectedTextView = null;
+//            textView.setSelected(false);
         } else if (mTopGridData.contains(text)) {
             if (text.contains("私人律师")){
                 mTopSelectedTextView1 = textView;
@@ -150,11 +150,11 @@ public class BetterDoubleGridView extends LinearLayout implements View.OnClickLi
             mMidSelectedTextView = textView;
             textView.setSelected(true);
         } else {
-            if (mBottomSelectedTextView != null) {
-                mBottomSelectedTextView.setSelected(false);
-            }
-            mBottomSelectedTextView = textView;
-            textView.setSelected(true);
+//            if (mBottomSelectedTextView != null) {
+//                mBottomSelectedTextView.setSelected(false);
+//            }
+//            mBottomSelectedTextView = textView;
+//            textView.setSelected(true);
         }
     }
 
@@ -181,7 +181,7 @@ public class BetterDoubleGridView extends LinearLayout implements View.OnClickLi
         FilterUrl.instance().doubleGridTop = mTop;
 //        FilterUrl.instance().doubleGridTop = mTopSelectedTextView == null ? "" : (String) mTopSelectedTextView.getTag();
         FilterUrl.instance().doubleGridMid = mMidSelectedTextView == null ? "" : (String) mMidSelectedTextView.getTag();
-        FilterUrl.instance().doubleGridBottom = mBottomSelectedTextView == null ? "" : (String) mBottomSelectedTextView.getTag();
+//        FilterUrl.instance().doubleGridBottom = mBottomSelectedTextView == null ? "" : (String) mBottomSelectedTextView.getTag();
 
         if (mOnFilterDoneListener != null) {
             mOnFilterDoneListener.onFilterDone(3, "", "");
@@ -206,14 +206,14 @@ public class BetterDoubleGridView extends LinearLayout implements View.OnClickLi
             mMidSelectedTextView.setSelected(false);
             mMidSelectedTextView = null;
         }
-        if (mBottomSelectedTextView != null) {
-            mBottomSelectedTextView.setSelected(false);
-            mBottomSelectedTextView = null;
-        }
+//        if (mBottomSelectedTextView != null) {
+//            mBottomSelectedTextView.setSelected(false);
+//            mBottomSelectedTextView = null;
+//        }
 
         FilterUrl.instance().doubleGridTop = "";
         FilterUrl.instance().doubleGridMid = "";
-        FilterUrl.instance().doubleGridBottom = "";
+//        FilterUrl.instance().doubleGridBottom = "";
 
         if (mOnFilterDoneListener != null) {
             mOnFilterDoneListener.onFilterDone(3, "", "");

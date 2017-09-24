@@ -347,7 +347,12 @@ public class TalkingActivity extends BaseActivity {
         ll_com.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(ComplaintLawyerActivity.class, "lawyerId", lawyerId + "", "sid", userServiceId);
+                L.d("=====lawyerId", lawyerId+"=====");
+                if (lawyerId.equals("")){
+                    showShort("尚未有律师接单");
+                }else {
+                    startActivity(ComplaintLawyerActivity.class, "lawyerId", lawyerId + "", "sid", userServiceId);
+                }
                 if (popupWindows.isShowing())
                     popupWindows.dismiss();
             }
