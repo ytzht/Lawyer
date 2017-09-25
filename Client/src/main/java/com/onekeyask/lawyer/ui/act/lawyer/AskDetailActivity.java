@@ -203,11 +203,14 @@ public class AskDetailActivity extends BaseActivity {
 
 
         lawName.setText(getIntent().getStringExtra("lawyerName"));
+        shareTitle = getIntent().getStringExtra("lawyerName") + "律师的咨询";
         lawOffice.setText(getIntent().getStringExtra("officeName"));
+        shareSummary = getIntent().getStringExtra("officeName");
         Glide.with(this).load(getIntent().getStringExtra("headUrl")).into(lawIv);
+        shareImg = getIntent().getStringExtra("headUrl");
         cid = getIntent().getIntExtra("cid", 0);
         sid = getIntent().getIntExtra("sid", 0);
-
+        shareUrl = Apis.ShareChatUrl + cid;
         OkGo.<String>get(Apis.IsSupportUserService)
                 .params("userId", UserService.service(getBaseContext()).getUserId())
                 .params("userServiceId", sid)
@@ -431,6 +434,7 @@ public class AskDetailActivity extends BaseActivity {
     private String shareUrl = "http://www.baidu.com";
     private String shareTitle = "shareTitle";
     private String shareSummary = "shareSummary";
+    private String shareImg = "shareImg";
 
     private void goShare() {
         InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -442,7 +446,7 @@ public class AskDetailActivity extends BaseActivity {
                     public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
                         UMWeb web = new UMWeb(shareUrl);
                         web.setTitle(shareTitle);//标题
-                        web.setThumb(new UMImage(getBaseContext(), R.mipmap.ic_launcher));  //缩略图
+                        web.setThumb(new UMImage(getBaseContext(), shareImg));  //缩略图
                         web.setDescription(shareSummary);//描述
                         shareMedia = share_media;
 

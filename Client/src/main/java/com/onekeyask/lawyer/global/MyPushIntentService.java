@@ -105,8 +105,8 @@ public class MyPushIntentService extends UmengMessageService {
                 //跳转到聊天详情    “chatId”:聊天Id
                 intent = new Intent(MyPushIntentService.this, TalkingActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("cid", msgPoints.getData().getChatId());
-                L.d("=====push cid ", msgPoints.getData().getChatId());
+                intent.putExtra("cid", msgPoints.getData().getChatId()+"");
+                L.d("=====push cid ", msgPoints.getData().getChatId()+"");
                 intent.putExtra("lawyerId", msgPoints.getData().getLawyerId()+"");
                 intent.putExtra("oid", "0");
                 break;
@@ -155,7 +155,7 @@ public class MyPushIntentService extends UmengMessageService {
 
                 break;
         }
-        pi = PendingIntent.getActivity(MyPushIntentService.this, 0, intent, 0);
+        pi = PendingIntent.getActivity(MyPushIntentService.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification notify = new Notification.Builder(this)
                 .setAutoCancel(true)
@@ -164,12 +164,13 @@ public class MyPushIntentService extends UmengMessageService {
                 .setContentTitle(msg.title)
                 .setContentText(msg.text)
                 .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS)
-//                .setSound(Uri.parse("android.resource://com.onekeyask.lawyer/" + R.raw.msg))
                 .setWhen(System.currentTimeMillis())
                 .setContentIntent(pi)
                 .build();
         if (isChat) {
-            nm.notify(msgPoints.getData().getLawyerId(), notify);
+            if (Constant.ChatId.equals("") || !Constant.ChatId.equals(msgPoints.getData().getChatId()+"")) {
+                nm.notify(msgPoints.getData().getChatId(), notify);
+            }
         } else {
             nm.notify(NOTIFICATION_ID, notify);
         }

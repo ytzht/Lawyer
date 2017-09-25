@@ -32,6 +32,7 @@ import com.onekeyask.lawfirm.entity.ConversationGetList;
 import com.onekeyask.lawfirm.entity.SendCon;
 import com.onekeyask.lawfirm.global.BaseActivity;
 import com.onekeyask.lawfirm.global.BaseEvent;
+import com.onekeyask.lawfirm.global.Constant;
 import com.onekeyask.lawfirm.global.L;
 import com.onekeyask.lawfirm.http.ProgressSubscriber;
 import com.onekeyask.lawfirm.http.SubscriberOnNextListener;
@@ -185,7 +186,14 @@ public class TalkingActivity extends BaseActivity {
         talk_toolbar_title.setText("聊天页面");
         talk_toolbar = (Toolbar) findViewById(R.id.talk_toolbar);
         setSupportActionBar(talk_toolbar);
-        cid = getIntent().getStringExtra("chatId");
+        Intent intent = getIntent();
+        cid = intent.getStringExtra("chatId");
+        if (getIntent().hasExtra("cid")){
+            L.d("custom==="+cid);
+            cid = intent.getStringExtra("cid");
+        }
+        L.d("custom==="+cid);
+        Constant.ChatId = cid;
         tag_flow = (TagFlowLayout) findViewById(R.id.tag_flow);
         tv_no_eva = (TextView) findViewById(R.id.tv_no_eva);
         tv_satisfied = (TextView) findViewById(R.id.tv_satisfied);
@@ -302,6 +310,8 @@ public class TalkingActivity extends BaseActivity {
         //停止查询
         isUpdateInfo = false;
         mCheckMsgHandler.removeMessages(MSG_UPDATE_INFO);
+        Constant.ChatId = "";
+        finish();
     }
 
     @Override
@@ -309,6 +319,7 @@ public class TalkingActivity extends BaseActivity {
         super.onDestroy();
         //释放资源
         mCheckMsgThread.quit();
+        Constant.ChatId = "";
     }
 
     private void initConversation(final String direction) {
@@ -319,6 +330,7 @@ public class TalkingActivity extends BaseActivity {
                 getList = o;
 
                 cid = String.valueOf(getList.getChatId());
+                Constant.ChatId = cid;
                 switch (getList.getStatus()) {
                     case "1"://进行中
                         isUpdateInfo = true;

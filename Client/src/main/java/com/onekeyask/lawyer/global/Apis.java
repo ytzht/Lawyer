@@ -8,6 +8,8 @@ public interface Apis {
 
     //    String Base = "http://api.zhimalawyer.com/mylawyer/";
     String Base = "http://139.198.13.26/mylawyer/";
+    String ShareLawyerUrl = "http://139.198.13.26/lawyer.html?id=";
+    String ShareChatUrl = "http://139.198.13.26/chat.html?id=";
 
     String FreeAskCategory = Apis.Base + "c/freeAskCategory";//1.4快速咨询类别
 
@@ -80,4 +82,5 @@ public interface Apis {
     String GetRed = Apis.Base + "c/getRed";//1.56 小红点
 
     String MsgDelete = Apis.Base + "c/message/delete";//删除消息
+
 }

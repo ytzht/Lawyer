@@ -38,6 +38,7 @@ public class Constant {
     public static final String WECHAT_PAY_RESULT_EXTRA = "com.tencent.mm.opensdk.WECHAT_PAY_RESULT_EXTRA";
 
     public static String WeChatAppID;
+    public static String ChatId = "";
 
     public static String tags = "{\"allSpecial\":[" +
             "{\"id\":1,\"name\":\"合同纠纷\"}," +

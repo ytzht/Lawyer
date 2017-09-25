@@ -140,6 +140,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
     private EditText et_money_popup, et_desc_popup;
     private String selectMoney = "2.00";
     private int score = 0;
+    private String LawyerImg = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -351,6 +352,8 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
             data.getLawyer().getServiceList().get(0).setCheck(true);
             service_notes.setText(data.getLawyer().getServiceList().get(0).getNotes());
         }
+        shareUrl = Apis.ShareLawyerUrl+lawyerId;
+        LawyerImg = data.getLawyer().getHeadURL();
         if (data.getLawyer().getHeadURL().equals("")){
             Glide.with(this).load(data.getLawyer().getHeadURL())
                     .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(lawyerHeader);
@@ -360,9 +363,10 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
 
         }
         lawyerName.setText(data.getLawyer().getName());
+        shareTitle = data.getLawyer().getName();
         setToolbarText(data.getLawyer().getName());
         lawyerOffice.setText(data.getLawyer().getLawyerOfficeName());
-
+        shareSummary = data.getLawyer().getLawyerOfficeName();
         if (data.getLawyer().getTags().size() > 0) {
             tvTag1.setVisibility(View.VISIBLE);
             tvTag1.setText(data.getLawyer().getTags().get(0));
@@ -902,7 +906,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
     }
 
     private SHARE_MEDIA shareMedia;
-    private String shareUrl = "http://www.baidu.com";
+    private String shareUrl = "http://www.zhimalawyer.com";
     private String shareTitle = "shareTitle";
     private String shareSummary = "shareSummary";
 
@@ -914,7 +918,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
                     public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
                         UMWeb web = new UMWeb(shareUrl);
                         web.setTitle(shareTitle);//标题
-                        web.setThumb(new UMImage(getBaseContext(), R.mipmap.ic_launcher));  //缩略图
+                        web.setThumb(new UMImage(getBaseContext(), LawyerImg));  //缩略图
                         web.setDescription(shareSummary);//描述
                         shareMedia = share_media;
 

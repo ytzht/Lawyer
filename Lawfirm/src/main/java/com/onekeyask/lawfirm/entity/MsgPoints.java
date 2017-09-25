@@ -36,13 +36,13 @@ public class MsgPoints {
 
         private int messageId;
 
-        private String chatId;
+        private int chatId;
 
-        public String getChatId() {
+        public int getChatId() {
             return chatId;
         }
 
-        public void setChatId(String chatId) {
+        public void setChatId(int chatId) {
             this.chatId = chatId;
         }
 

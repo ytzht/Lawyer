@@ -50,6 +50,7 @@ import com.onekeyask.lawyer.entity.SendMsg;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseActivity;
 import com.onekeyask.lawyer.global.BaseEvent;
+import com.onekeyask.lawyer.global.Constant;
 import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
@@ -138,8 +139,9 @@ public class TalkingActivity extends BaseActivity {
 
     private SHARE_MEDIA shareMedia;
     private String shareUrl = "http://www.baidu.com";
-    private String shareTitle = "shareTitle";
-    private String shareSummary = "shareSummary";
+    private String shareTitle = "";
+    private String shareSummary = "";
+    private String shareImg = "";
 
     private void goShare() {
         InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -151,7 +153,7 @@ public class TalkingActivity extends BaseActivity {
                     public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
                         UMWeb web = new UMWeb(shareUrl);
                         web.setTitle(shareTitle);//标题
-                        web.setThumb(new UMImage(getBaseContext(), R.mipmap.ic_launcher));  //缩略图
+                        web.setThumb(new UMImage(getBaseContext(), shareImg));  //缩略图
                         web.setDescription(shareSummary);//描述
                         shareMedia = share_media;
 
@@ -285,6 +287,7 @@ public class TalkingActivity extends BaseActivity {
         super.onDestroy();
         //释放资源
         mCheckMsgThread.quit();
+        Constant.ChatId = "";
     }
 
     private void initPhotoView() {
@@ -370,6 +373,8 @@ public class TalkingActivity extends BaseActivity {
         talk_toolbar = (Toolbar) findViewById(R.id.talk_toolbar);
         setSupportActionBar(talk_toolbar);
         cid = getIntent().getStringExtra("cid");
+        Constant.ChatId = cid;
+        shareUrl = Apis.ShareChatUrl + cid;
         L.d("=====TalkingAct,cid ", getIntent().getStringExtra("cid"));
         ll_input_send = (LinearLayout) findViewById(R.id.ll_input_send);
         ll_share = (LinearLayout) findViewById(R.id.ll_share);
@@ -667,6 +672,8 @@ public class TalkingActivity extends BaseActivity {
         //停止查询
         isUpdateInfo = false;
         mCheckMsgHandler.removeMessages(MSG_UPDATE_INFO);
+        Constant.ChatId = "";
+        finish();
     }
 
     private void initConversation(final String direction) {
@@ -684,6 +691,8 @@ public class TalkingActivity extends BaseActivity {
 
                 rlv_talking.setVisibility(View.VISIBLE);
                 cid = String.valueOf(getList.getChatId());
+                Constant.ChatId = cid;
+                shareUrl = Apis.ShareChatUrl + cid;
                 userServiceId = String.valueOf(getList.getUserServiceId());
                 switch (getList.getStatus()) {
                     case "0"://未接单
@@ -1013,6 +1022,8 @@ public class TalkingActivity extends BaseActivity {
                         }
                     });
                     lawName = list.get(position).getName();
+                    shareTitle = lawName + "律师的咨询";
+                    shareImg = list.get(position).getHeadURL();
                     lawyerId = list.get(position).getLawyerId() + "";
                 }
                 if (list.get(position).isIsPicture()) {

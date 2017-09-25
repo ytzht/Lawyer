@@ -55,4 +55,5 @@ public class Constant {
             "{\"id\":17,\"name\":\"新三板\"}]}";
 
 
+    public static String ChatId = "";
 }
