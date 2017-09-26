@@ -32,10 +32,6 @@
 
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/viewDivider"/>
     <in.srain.cube.views.ptr.PtrClassicFrameLayout
         xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ptr_now_ser"
@@ -52,7 +48,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rlv_now_ser"
             android:layout_width="match_parent"
-            android:background="@color/white"
+            android:background="#f4f4f4"
             android:layout_height="match_parent">
 
         </android.support.v7.widget.RecyclerView>

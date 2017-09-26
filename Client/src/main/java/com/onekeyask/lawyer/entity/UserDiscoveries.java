@@ -84,6 +84,16 @@ public class UserDiscoveries {
             private int userServiceId;
             private int category;
             private String categoryName;
+            private String userPhoneNo;
+
+            public String getUserPhoneNo() {
+                return userPhoneNo;
+            }
+
+            public void setUserPhoneNo(String userPhoneNo) {
+                this.userPhoneNo = userPhoneNo;
+            }
+
             private String content;
             private String lawyerName;
             private String headURL;

@@ -228,6 +228,13 @@ public class MyInfoSubmitActivity extends BaseToolBarActivity {
                             selectSex = sex;
                             lawyerOfficeTel = info.getData().getLawyerReviewInfo().getLawyerOfficeTel();
                             useroffice.setText(info.getData().getLawyerReviewInfo().getLawyerOfficeName());
+                            if (!info.getData().getLawyerReviewInfo().getStatus().equals("1")){
+                                complaint_over.setEnabled(false);
+                                complaint_over.setText("正在审核");
+                                complaint_over.setClickable(false);
+                                complaint_over.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.green_));
+                            }
+
                         } else {
                             startActivity(LoginActivity.class);
                         }

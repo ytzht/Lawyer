@@ -91,12 +91,12 @@ public class HomeFoundsFragment extends BaseFragment implements OnTabSelectListe
 
 
         search_main = (ImageView) view.findViewById(R.id.search_main);
-        search_main.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                startActivity(SearchFindActivity.class, "type", "content");
-            }
-        });
+//        search_main.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                startActivity(SearchFindActivity.class, "type", "content");
+//            }
+//        });
 
     }
 

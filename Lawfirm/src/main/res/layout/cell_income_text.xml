@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="温馨提示："
+        android:visibility="gone"
         android:textColor="#6f6f6f"
         android:textSize="14sp" />
 
@@ -18,6 +19,7 @@
         android:layout_marginTop="10dp"
         android:textSize="14sp"
         android:textColor="#aeaeae"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="一、代扣费用" />
@@ -25,6 +27,7 @@
         android:textColor="#999999"
         android:textSize="12sp"
         android:layout_marginTop="10dp"
+        android:visibility="gone"
         android:lineSpacingExtra="6dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,6 +36,7 @@
     <TextView
         android:layout_marginTop="10dp"
         android:textSize="14sp"
+        android:visibility="gone"
         android:textColor="#aeaeae"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,6 +44,7 @@
     <TextView
         android:textColor="#999999"
         android:textSize="12sp"
+        android:visibility="gone"
         android:layout_marginTop="10dp"
         android:lineSpacingExtra="6dp"
         android:layout_width="match_parent"

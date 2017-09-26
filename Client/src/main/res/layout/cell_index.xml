@@ -27,14 +27,6 @@
                 android:textColor="@color/grey_"
                 android:textSize="14dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:layout_toRightOf="@id/tv_name"
-                android:text="提问"
-                android:textColor="@color/grey_"
-                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/tv_tag_now"
@@ -57,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_name"
                 android:layout_marginLeft="15dp"
+                android:textColor="#585858"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="13dp"
                 android:text="您好，我和我妻子在结婚前买的房子，现在我们离婚，我们的房子..."

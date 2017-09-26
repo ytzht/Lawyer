@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:gravity="center_vertical"
-            android:text="关闭此项服务将不能收到用户信息，正常使用不可关闭"
+            android:text="以文字和图片沟通的方式为客户提供咨询服务"
             android:textColor="@color/blackSec"
             android:textSize="14dp" />
 
@@ -86,40 +86,7 @@
 
         </RelativeLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="20dp"
-            android:text="温馨提示"
-            android:textColor="#6f6f6f"
-            android:textSize="14sp"
-            />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
-            android:text="费用使用说明"
-            android:textSize="14sp"
-            android:textColor="#8e8e8e"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="12dp"
-            android:textSize="12dp"
-            android:text="1、婚姻关系存续期间，以夫妻双方的名义，为夫妻共同生活所负的债务; \n   2、婚姻关系存续期间夫妻一方以个人名义所负债务，一般是按夫妻共同债务处理，但夫妻一方能够证明债权人与债务人明确约定为个人债务，或者能够证明夫妻对婚姻关系存续期间所得的财产约定归各自所有，且债权人知道该约定的，为夫妻一方的个人债务;  \n   3、一方婚前所负个人债务，一般为个人债务，但是债权人能够证明一方婚前所负债务用于婚后家庭共同生活的，为夫妻共同债务。"
-            android:lineSpacingExtra="6dp"
-            android:textColor="#8e8e8e"
-
-            />
 
     </LinearLayout>
 

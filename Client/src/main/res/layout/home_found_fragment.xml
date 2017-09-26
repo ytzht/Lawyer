@@ -39,7 +39,7 @@
             android:background="@null"
             android:cursorVisible="false"
             android:gravity="center_vertical"
-            android:hint="@string/Search_for_related_legal_content"
+            android:hint="搜索优质解答"
             android:singleLine="true"
             android:textSize="14dp" />
     </RelativeLayout>

@@ -80,7 +80,7 @@ public class ResetPasswordActivity extends BaseToolBarActivity {
         }
 
         dialog.show();
-        OkGo.<String>get(Apis.ChangePwd).params("userId", service.getLawyerId())
+        OkGo.<String>post(Apis.ChangePwd).params("lawyerId", service.getLawyerId())
                 .params("oldPassword", old)
                 .params("password", password).execute(new StringCallback() {
             @Override

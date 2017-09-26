@@ -3,6 +3,7 @@ package com.onekeyask.lawyer.ui.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -368,9 +369,11 @@ public class HomeIndexFragment extends BaseFragment {
                 ((ViewHolder) holder).dis_type.setText(data.get(position - 1).getCategoryName());
                 ((ViewHolder) holder).dis_context.setText(data.get(position - 1).getContent());
                 ((ViewHolder) holder).dis_name.setText(data.get(position - 1).getLawyerName());
+                ((ViewHolder) holder).tv_name.setText(data.get(position - 1).getUserPhoneNo());
                 ((ViewHolder) holder).dis_office.setText(data.get(position - 1).getOfficeName());
                 ((ViewHolder) holder).dis_count.setText(String.valueOf(data.get(position - 1).getSupportCount()));
                 Glide.with(getActivity()).load(data.get(position - 1).getHeadURL()).into(((ViewHolder) holder).dis_img);
+                ((ViewHolder) holder).dis_praise.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.praise_g));
 
                 ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -402,7 +405,7 @@ public class HomeIndexFragment extends BaseFragment {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            private TextView dis_type, dis_context, dis_name, dis_office, dis_count;
+            private TextView dis_type, dis_context, dis_name, dis_office, dis_count, tv_name;
             private ImageView dis_praise;
             private CircleImageView dis_img;
 
@@ -412,6 +415,7 @@ public class HomeIndexFragment extends BaseFragment {
                 dis_type = (TextView) itemView.findViewById(R.id.tv_tag_now);
                 dis_context = (TextView) itemView.findViewById(R.id.tv_content_index);
                 dis_name = (TextView) itemView.findViewById(R.id.tv_law_name);
+                tv_name = (TextView) itemView.findViewById(R.id.tv_name);
                 dis_office = (TextView) itemView.findViewById(R.id.lawyer_office);
                 dis_count = (TextView) itemView.findViewById(R.id.count_zan);
                 dis_praise = (ImageView) itemView.findViewById(R.id.iv_like);
@@ -422,7 +426,7 @@ public class HomeIndexFragment extends BaseFragment {
         public class IndexViewHolder extends RecyclerView.ViewHolder {
             private RelativeLayout rl_quick_consulting, rl_look_lawyer;
             private Banner banner;
-            private TextView tv_more_solutions;
+            private ImageView tv_more_solutions;
             private RecyclerView special_rlv;
 
             public IndexViewHolder(View itemView) {
@@ -436,7 +440,7 @@ public class HomeIndexFragment extends BaseFragment {
 
                 rl_look_lawyer = (RelativeLayout) itemView.findViewById(R.id.rl_look_lawyer);
 
-                tv_more_solutions = (TextView) itemView.findViewById(R.id.tv_more_solutions);
+                tv_more_solutions = (ImageView) itemView.findViewById(R.id.tv_more_solutions);
 
 
             }

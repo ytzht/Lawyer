@@ -108,6 +108,7 @@
             android:hint="说点感谢律师的话"
             android:maxLines="6"
             android:minLines="2"
+            android:maxLength="50"
             android:padding="7dp"
             android:textColor="@color/blackHint"
             android:textSize="12dp" />

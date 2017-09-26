@@ -4,14 +4,14 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.onekeyask.lawyer.R;
-import com.onekeyask.lawyer.global.BaseToolBarActivity;
+import com.onekeyask.lawyer.global.BaseActivity;
 import com.onekeyask.lawyer.ui.act.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SubmitOpinionActivity extends BaseToolBarActivity {
+public class SubmitOpinionActivity extends BaseActivity {
 
     @BindView(R.id.return_my)
     TextView returnMy;
@@ -21,7 +21,6 @@ public class SubmitOpinionActivity extends BaseToolBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit_opinion);
         ButterKnife.bind(this);
-        setToolbarText("提交问题");
 
 
     }

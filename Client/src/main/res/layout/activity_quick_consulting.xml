@@ -58,12 +58,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_free_title"
-            android:layout_marginTop="5dp"
+            android:gravity="bottom"
+            android:layout_alignBottom="@id/iv_free_con"
             android:layout_toLeftOf="@id/iv_arrow_con"
             android:layout_toRightOf="@id/iv_free_con"
             android:textColor="@color/blackSec_"
+            android:layout_marginBottom="4dp"
             android:textSize="12dp"
-            tools:text="年限两年以上的律师限20次对话小号200金币（现有340）" />
+            tools:text="消耗200积分(当前积分xx)" />
     </RelativeLayout>
 
     <View
@@ -107,10 +109,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_pay_title"
-            android:layout_marginTop="5dp"
+            android:gravity="bottom"
+            android:layout_alignBottom="@id/iv_pay_con"
             android:layout_toLeftOf="@id/iv_arrow_con2"
             android:layout_toRightOf="@id/iv_pay_con"
-            android:text="选择一定金额，然后有20次对话并在24小时内结束"
+            android:text="对您的问题进行悬赏，以便律师更快速的抢答"
             android:textColor="@color/blackSec_"
             android:textSize="12dp" />
     </RelativeLayout>

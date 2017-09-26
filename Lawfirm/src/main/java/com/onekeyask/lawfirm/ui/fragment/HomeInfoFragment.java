@@ -129,7 +129,7 @@ public class HomeInfoFragment extends BaseFragment {
                 startActivity(MyWalletActivity.class);
                 break;
             case R.id.customer_server://客服
-                showAlert();
+//                showAlert();
                 break;
             case R.id.opinion://意见反馈
                 startActivity(OpinionActivity.class);

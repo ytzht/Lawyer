@@ -28,7 +28,7 @@
             android:layout_marginTop="7dp"
             android:gravity="center"
             android:text="@string/project_1"
-            android:textColor="@color/blackModule"
+            android:textColor="#646464"
             android:textSize="13dp" />
     </RelativeLayout>
 </LinearLayout>

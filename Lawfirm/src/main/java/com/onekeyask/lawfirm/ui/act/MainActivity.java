@@ -228,10 +228,10 @@ public class MainActivity extends BaseActivity {
     }
 
     public void setBottomBg(int index) {
-        TextView textView1 = (TextView) findViewById(R.id.tv_1);
-        TextView textView2 = (TextView) findViewById(R.id.tv_2);
-        TextView textView3 = (TextView) findViewById(R.id.tv_3);
-        TextView textView4 = (TextView) findViewById(R.id.tv_4);
+        TextView textView1 = (TextView) findViewById(R.id.tv_11);
+        TextView textView2 = (TextView) findViewById(R.id.tv_22);
+        TextView textView3 = (TextView) findViewById(R.id.tv_33);
+        TextView textView4 = (TextView) findViewById(R.id.tv_44);
         ImageView imageView1 = (ImageView) findViewById(R.id.btn_1);
         ImageView imageView2 = (ImageView) findViewById(R.id.btn_2);
         ImageView imageView3 = (ImageView) findViewById(R.id.btn_3);

@@ -363,7 +363,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp"
-                android:text="请您耐心等待律师的回答，现在问题已经抛到问题池中，等待律师来抢答！"
+                android:text="您的问题已提交，请等待律师回答"
                 android:textColor="#aeaeae" />
 
             <View

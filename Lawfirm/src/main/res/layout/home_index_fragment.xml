@@ -54,7 +54,7 @@
             android:background="@null"
             android:cursorVisible="false"
             android:gravity="center_vertical"
-            android:hint="@string/Search_for_related_legal_content"
+            android:hint="搜索法律法规"
             android:singleLine="true"
             android:textSize="14dp" />
     </RelativeLayout>
@@ -74,10 +74,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/banner"/>
                 <com.youth.banner.Banner
                     android:id="@+id/banner_index"
                     android:layout_width="match_parent"
                     android:layout_height="124dp"
+                    android:visibility="gone"
                     app:image_scale_type="fit_xy"
                     app:indicator_drawable_selected="@drawable/banner_select"
                     app:indicator_drawable_unselected="@drawable/banner_unselect"

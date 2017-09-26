@@ -118,7 +118,7 @@ public class SettingActivity extends BaseToolBarActivity {
                 GlideCacheUtil.getInstance().clearImageAllCache(getBaseContext());
                 break;
             case R.id.statement:
-                startActivity(StatementActivity.class);
+//                startActivity(StatementActivity.class);
                 break;
             case R.id.about_us:
                 startActivity(AboutUsActivity.class);

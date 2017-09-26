@@ -19,7 +19,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rlv_now_ser"
             android:layout_width="match_parent"
-            android:background="@color/white"
+            android:background="#f4f4f4"
             android:layout_height="match_parent">
 
         </android.support.v7.widget.RecyclerView>

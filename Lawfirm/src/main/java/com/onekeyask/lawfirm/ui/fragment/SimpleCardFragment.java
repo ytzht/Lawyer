@@ -183,7 +183,7 @@ public class SimpleCardFragment extends BaseFragment {
                     TextView cancel_tv = (TextView) dialogView.findViewById(R.id.dialog_cancel_tv);
                     TextView next_tv = (TextView) dialogView.findViewById(R.id.dialog_next_tv);
 
-                    tv_msg.setText("您是否要确认回答客户：" + data.get(position).getName() + "的问题，如果回答请点击继续，钱自动打到您的账户，如果不是请点击取消！");
+                    tv_msg.setText("您是否确认要回答客户问题");
                     cancel_tv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

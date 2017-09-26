@@ -176,7 +176,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:text="法宝客服"
+            android:text="客服电话"
             android:textSize="16sp" />
 
         <ImageView

@@ -203,9 +203,9 @@ public class AskDetailActivity extends BaseActivity {
 
 
         lawName.setText(getIntent().getStringExtra("lawyerName"));
-        shareTitle = getIntent().getStringExtra("lawyerName") + "律师的咨询";
+
         lawOffice.setText(getIntent().getStringExtra("officeName"));
-        shareSummary = getIntent().getStringExtra("officeName");
+
         Glide.with(this).load(getIntent().getStringExtra("headUrl")).into(lawIv);
         shareImg = getIntent().getStringExtra("headUrl");
         cid = getIntent().getIntExtra("cid", 0);
@@ -275,6 +275,8 @@ public class AskDetailActivity extends BaseActivity {
                             List<TalkingConversationList.DataBean.ConversationListBean> listBeen = conversationList.getData().getConversationList();
 //                            conversationId = listBeen.get(listBeen.size() - 1).getConversationId();
 
+                            if (conversationList.getData().getConversationList().size()>0)
+                            shareSummary = "问题："+conversationList.getData().getConversationList().get(0).getContent();
                             beanList.addAll(listBeen);
 
                             adapter.notifyDataSetChanged();
@@ -432,7 +434,7 @@ public class AskDetailActivity extends BaseActivity {
 
     private SHARE_MEDIA shareMedia;
     private String shareUrl = "http://www.baidu.com";
-    private String shareTitle = "shareTitle";
+    private String shareTitle = "芝麻律师 问答分享";
     private String shareSummary = "shareSummary";
     private String shareImg = "shareImg";
 
@@ -446,7 +448,7 @@ public class AskDetailActivity extends BaseActivity {
                     public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
                         UMWeb web = new UMWeb(shareUrl);
                         web.setTitle(shareTitle);//标题
-                        web.setThumb(new UMImage(getBaseContext(), shareImg));  //缩略图
+                        web.setThumb(new UMImage(getBaseContext(), R.drawable.ic_launcher));  //缩略图
                         web.setDescription(shareSummary);//描述
                         shareMedia = share_media;
 

@@ -77,7 +77,7 @@ public class ResetPasswordActivity extends BaseToolBarActivity {
         }
 
         dialog.show();
-        OkGo.<String>get(Apis.ChangePwd).params("userId", service.getUserId())
+        OkGo.<String>post(Apis.ChangePwd).params("userId", service.getUserId())
                 .params("oldPassword", old)
                 .params("password", password).execute(new StringCallback() {
             @Override

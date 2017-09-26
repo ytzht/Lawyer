@@ -43,8 +43,8 @@
                 android:layout_marginBottom="0dp"
                 android:layout_toRightOf="@id/iv_quick_consulting"
                 android:maxLines="1"
-                android:text="@string/quick_consulting_intro"
-                android:textColor="@color/blackModule"
+                android:text="快速提问获得专业律师解答"
+                android:textColor="#8f8f8f"
                 android:textSize="14dp" />
         </RelativeLayout>
 
@@ -79,8 +79,8 @@
                 android:layout_marginBottom="0dp"
                 android:layout_toRightOf="@id/iv_look_lawyer"
                 android:maxLines="1"
-                android:text="律师秒回任你选，专业对号入座"
-                android:textColor="@color/blackModule"
+                android:text="根据专长选择律师 精准咨询"
+                android:textColor="#8f8f8f"
                 android:textSize="14dp" />
         </RelativeLayout>
 
@@ -102,6 +102,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="54dp"
+            android:visibility="gone"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -134,11 +135,16 @@
                 android:textSize="13dp" />
         </LinearLayout>
 
-
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/banner_l"/>
         <com.youth.banner.Banner
             android:id="@+id/banner_index"
             android:layout_width="match_parent"
             android:layout_height="110dp"
+            android:visibility="gone"
             app:image_scale_type="fit_xy"
             app:indicator_drawable_selected="@drawable/banner_select"
             app:indicator_drawable_unselected="@drawable/banner_unselect"
@@ -169,20 +175,17 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="47dp"
                 android:text="@string/high_quality_solutions"
-                android:textColor="@color/black"
+                android:textColor="#444444"
                 android:textSize="16dp" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/tv_more_solutions"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:gravity="center"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:text="@string/more"
-                android:textColor="@color/burro_primary_ext"
-                android:textSize="12dp" />
+                android:padding="14dp"
+                android:src="@drawable/arrow_r_g" />
 
         </RelativeLayout>
 

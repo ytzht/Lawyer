@@ -20,7 +20,6 @@ import com.onekeyask.lawfirm.entity.ConversationChatList;
 import com.onekeyask.lawfirm.global.BaseFragment;
 import com.onekeyask.lawfirm.http.ProgressSubscriber;
 import com.onekeyask.lawfirm.http.SubscriberOnNextListener;
-import com.onekeyask.lawfirm.utils.MyDecoration;
 import com.onekeyask.lawfirm.utils.UserService;
 import com.squareup.picasso.Picasso;
 
@@ -104,7 +103,6 @@ public class CompleteServiceFragment extends BaseFragment {
         ptrFrameLayout = (PtrClassicFrameLayout) view.findViewById(R.id.fragment_ptr_service);
         rlv_now_ser = (RecyclerView) view.findViewById(R.id.rlv_now_ser);
         rlv_now_ser.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rlv_now_ser.addItemDecoration(new MyDecoration(getActivity(), MyDecoration.VERTICAL_LIST));
         adapter = new NowServerAdapter();
         ptrFrameLayout.setDurationToCloseHeader(1500);
         ptrFrameLayout.setPtrHandler(new PtrHandler() {

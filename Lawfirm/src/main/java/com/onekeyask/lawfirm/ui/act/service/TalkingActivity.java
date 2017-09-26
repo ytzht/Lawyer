@@ -237,6 +237,7 @@ public class TalkingActivity extends BaseActivity {
         iv_photo_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isFinish = false;
                 PhotoPicker.builder()
                         .setPhotoCount(1)
                         .setShowCamera(true)
@@ -303,7 +304,7 @@ public class TalkingActivity extends BaseActivity {
         isUpdateInfo = true;
         mCheckMsgHandler.sendEmptyMessage(MSG_UPDATE_INFO);
     }
-
+    private boolean isFinish = true;
     @Override
     public void onPause() {
         super.onPause();
@@ -311,7 +312,12 @@ public class TalkingActivity extends BaseActivity {
         isUpdateInfo = false;
         mCheckMsgHandler.removeMessages(MSG_UPDATE_INFO);
         Constant.ChatId = "";
-        finish();
+
+        if (isFinish) {
+            finish();
+        }else {
+            isFinish = true;
+        }
     }
 
     @Override

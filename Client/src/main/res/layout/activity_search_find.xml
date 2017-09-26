@@ -54,7 +54,7 @@
             android:layout_toRightOf="@id/search_iv"
             android:background="@null"
             android:gravity="center_vertical"
-            android:hint="搜索问答内容"
+            android:hint="搜索优质解答"
             android:imeOptions="actionSearch"
             android:maxLength="15"
             android:singleLine="true"

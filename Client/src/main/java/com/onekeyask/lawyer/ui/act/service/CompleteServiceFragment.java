@@ -22,7 +22,6 @@ import com.onekeyask.lawyer.global.BaseFragment;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
 import com.onekeyask.lawyer.ui.act.consulting.TalkingActivity;
-import com.onekeyask.lawyer.utils.MyDecoration;
 import com.onekeyask.lawyer.utils.UserService;
 
 import java.util.ArrayList;
@@ -77,7 +76,6 @@ public class CompleteServiceFragment extends BaseFragment {
         rlv_now_ser = (RecyclerView) view.findViewById(R.id.rlv_now_ser);
         tv_spinner_type = (TextView) view.findViewById(R.id.tv_spinner_type);
         rlv_now_ser.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rlv_now_ser.addItemDecoration(new MyDecoration(getActivity(), MyDecoration.VERTICAL_LIST));
         adapter = new NowServerAdapter();
         contentView = LayoutInflater.from(getActivity()).inflate(R.layout.service_type, null);
         tv_1 = (TextView) contentView.findViewById(R.id.tv_type_1);

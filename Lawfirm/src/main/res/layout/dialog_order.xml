@@ -27,7 +27,7 @@
             android:layout_below="@id/dialog_tv_title"
             android:layout_margin="12dp"
             android:textSize="16sp"
-            android:text="您是否要确认回答客户：132*******7的问题，如果回答请点击继续，钱自动打到您的账户，如果不是请点击取消！"
+            android:text="您是否确认要回答客户问题"
             android:textColor="@color/blackModule" />
 
         <LinearLayout

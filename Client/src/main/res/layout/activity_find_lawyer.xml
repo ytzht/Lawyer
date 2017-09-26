@@ -37,7 +37,7 @@
             android:layout_toRightOf="@id/search_iv"
             android:background="@null"
             android:gravity="center_vertical"
-            android:hint="输入律师名、律所、擅长领域"
+            android:hint="搜索律师、律所、擅长领域"
             android:singleLine="true"
             android:textSize="14dp" />
 

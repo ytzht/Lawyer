@@ -43,7 +43,7 @@
                     android:background="@null"
                     android:enabled="true"
                     android:gravity="top"
-                    android:hint="请详细描述您的申请需求、证据、相应的数据，便于律师更准确的分析，法宝律师保证您的隐私。(问题描述不得少于10个字，最多输入200字，而且图片最多上传9张)"
+                    android:hint="请描述您的问题，便于律师准确解答，芝麻律师将保证您的隐私安全"
                     android:inputType="textMultiLine"
                     android:maxLength="200"
                     android:maxLines="10"

@@ -171,7 +171,7 @@ public class HomeInfoFragment extends BaseFragment {
                 }
                 break;
             case R.id.customer_server://客服
-                showAlert();
+//                showAlert();
                 break;
             case R.id.opinion://意见反馈
                 if (userService.isLogin()) {

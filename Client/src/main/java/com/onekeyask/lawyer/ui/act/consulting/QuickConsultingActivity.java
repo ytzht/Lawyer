@@ -61,7 +61,7 @@ public class QuickConsultingActivity extends BaseToolBarActivity {
             public void onNext(PointsInfo info) {
                 askPrice = info.getAskPrice();
                 points = info.getPoints();
-                tv_points.setText("年限两年以上的律师限20次对话消耗" + askPrice + "金币（现有" + points + "）");
+                tv_points.setText("消耗200积分(当前积分" + askPrice + ")");
             }
 
             @Override

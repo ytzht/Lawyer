@@ -139,7 +139,7 @@ public class TalkingActivity extends BaseActivity {
 
     private SHARE_MEDIA shareMedia;
     private String shareUrl = "http://www.baidu.com";
-    private String shareTitle = "";
+    private String shareTitle = "芝麻律师 问答分享";
     private String shareSummary = "";
     private String shareImg = "";
 
@@ -153,7 +153,7 @@ public class TalkingActivity extends BaseActivity {
                     public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
                         UMWeb web = new UMWeb(shareUrl);
                         web.setTitle(shareTitle);//标题
-                        web.setThumb(new UMImage(getBaseContext(), shareImg));  //缩略图
+                        web.setThumb(new UMImage(getBaseContext(), R.drawable.ic_launcher));  //缩略图
                         web.setDescription(shareSummary);//描述
                         shareMedia = share_media;
 
@@ -331,6 +331,7 @@ public class TalkingActivity extends BaseActivity {
     }
 
     private LinearLayout ll_eva, ll_com;
+    private boolean isFinish = true;
 
     private void initView() {
         contentViews = LayoutInflater.from(getBaseContext()).inflate(R.layout.talking_menu, null);
@@ -446,6 +447,7 @@ public class TalkingActivity extends BaseActivity {
         iv_photo_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isFinish = false;
                 PhotoPicker.builder()
                         .setPhotoCount(1)
                         .setShowCamera(true)
@@ -673,7 +675,12 @@ public class TalkingActivity extends BaseActivity {
         isUpdateInfo = false;
         mCheckMsgHandler.removeMessages(MSG_UPDATE_INFO);
         Constant.ChatId = "";
-        finish();
+
+        if (isFinish) {
+            finish();
+        }else {
+            isFinish = true;
+        }
     }
 
     private void initConversation(final String direction) {
@@ -688,6 +695,8 @@ public class TalkingActivity extends BaseActivity {
                     lawyerId = getList.getLawyerId();
                 }
 
+                if (getList.getConversationList().size()>0)
+                shareSummary = "问题："+getList.getConversationList().get(0).getContent();
 
                 rlv_talking.setVisibility(View.VISIBLE);
                 cid = String.valueOf(getList.getChatId());
@@ -1022,7 +1031,6 @@ public class TalkingActivity extends BaseActivity {
                         }
                     });
                     lawName = list.get(position).getName();
-                    shareTitle = lawName + "律师的咨询";
                     shareImg = list.get(position).getHeadURL();
                     lawyerId = list.get(position).getLawyerId() + "";
                 }

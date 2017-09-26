@@ -27,7 +27,6 @@ import com.onekeyask.lawfirm.http.ProgressSubscriber;
 import com.onekeyask.lawfirm.http.SubscriberOnNextListener;
 import com.onekeyask.lawfirm.ui.act.index.GraphicConsultActivity;
 import com.onekeyask.lawfirm.ui.act.index.PersonConsultActivity;
-import com.onekeyask.lawfirm.ui.act.index.PhoneConsultActivity;
 import com.onekeyask.lawfirm.ui.act.me.MyWalletActivity;
 import com.onekeyask.lawfirm.ui.act.user.IncomeDetailActivity;
 import com.onekeyask.lawfirm.ui.act.user.LoginActivity;
@@ -110,6 +109,12 @@ public class HomeIndexFragment extends BaseFragment {
         money_ll = (LinearLayout) view.findViewById(R.id.money_ll);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         search_et = (TextView) view.findViewById(R.id.search_et);
+        search_et.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showShort("该功能正在开发中");
+            }
+        });
         tv_detail = (LinearLayout) view.findViewById(R.id.tv_detail);
         tv_balance_index = (TextView) view.findViewById(R.id.tv_balance_index);
         tv_1 = (TextView) view.findViewById(R.id.tv_1);
@@ -274,7 +279,9 @@ public class HomeIndexFragment extends BaseFragment {
                             rl_project_three.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    startActivity(PhoneConsultActivity.class, "switch", homePage.getServiceList().get(finalI).isIsOn() + "");
+
+                                    showShort("该功能正在开发中");
+//                                    startActivity(PhoneConsultActivity.class, "switch", homePage.getServiceList().get(finalI).isIsOn() + "");
                                 }
                             });
                             break;

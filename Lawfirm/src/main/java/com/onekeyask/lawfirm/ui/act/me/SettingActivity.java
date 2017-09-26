@@ -78,8 +78,8 @@ public class SettingActivity extends BaseToolBarActivity {
             @Override
             public void onSuccess(Response<String> response) {
 
-                GetSwitch getSwitch = JSON.parseObject(response.body(), GetSwitch.class);
-                isOn = getSwitch.isIsOn();
+                GetSwitch getSwitch = (new Gson()).fromJson(response.body(), GetSwitch.class);
+                isOn = getSwitch.getData().isIsOn();
                 sbPhone.setChecked(isOn);
             }
         });
@@ -118,7 +118,7 @@ public class SettingActivity extends BaseToolBarActivity {
                 GlideCacheUtil.getInstance().clearImageAllCache(getBaseContext());
                 break;
             case R.id.statement:
-                startActivity(StatementActivity.class);
+//                startActivity(StatementActivity.class);
                 break;
             case R.id.about_us:
                 startActivity(AboutUsActivity.class);

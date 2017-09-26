@@ -49,7 +49,7 @@
                     android:src="@drawable/bottom_011" />
 
                 <TextView
-                    android:id="@+id/tv_1"
+                    android:id="@+id/tv_11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -103,7 +103,7 @@
                     android:src="@drawable/bottom_02" />
 
                 <TextView
-                    android:id="@+id/tv_2"
+                    android:id="@+id/tv_22"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -131,7 +131,7 @@
                     android:src="@drawable/bottom_03" />
 
                 <TextView
-                    android:id="@+id/tv_3"
+                    android:id="@+id/tv_33"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -158,7 +158,7 @@
                     android:src="@drawable/bottom_04" />
 
                 <TextView
-                    android:id="@+id/tv_4"
+                    android:id="@+id/tv_44"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"

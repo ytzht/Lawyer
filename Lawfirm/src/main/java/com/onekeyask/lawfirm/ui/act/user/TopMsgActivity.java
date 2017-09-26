@@ -1,6 +1,9 @@
 package com.onekeyask.lawfirm.ui.act.user;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,8 +18,9 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.MyMsg;
-import com.onekeyask.lawfirm.global.BaseToolBarActivity;
+import com.onekeyask.lawfirm.entity.ResultData;
 import com.onekeyask.lawfirm.global.Apis;
+import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.utils.MyDecoration;
 import com.onekeyask.lawfirm.utils.UserService;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -25,6 +29,12 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,7 +46,7 @@ import butterknife.ButterKnife;
 public class TopMsgActivity extends BaseToolBarActivity {
 
     @BindView(R.id.my_msg_list)
-    RecyclerView myMsgList;
+    SwipeMenuRecyclerView myMsgList;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
     private MyMsgAdapter adapter;
@@ -87,11 +97,37 @@ public class TopMsgActivity extends BaseToolBarActivity {
             }
         });
 
-        myMsgList = (RecyclerView) findViewById(R.id.my_msg_list);
+        myMsgList = (SwipeMenuRecyclerView) findViewById(R.id.my_msg_list);
         myMsgList.setLayoutManager(new LinearLayoutManager(this));
         myMsgList.addItemDecoration(new MyDecoration(this, MyDecoration.VERTICAL_LIST));
         adapter = new MyMsgAdapter();
         myMsgList.setAdapter(adapter);
+
+// 创建菜单：
+        SwipeMenuCreator mSwipeMenuCreator = new SwipeMenuCreator() {
+            @Override
+            public void onCreateMenu(SwipeMenu leftMenu, SwipeMenu rightMenu, int viewType) {
+                int width = getResources().getDimensionPixelSize(R.dimen.burro_size_70dp);
+
+                // 1. MATCH_PARENT 自适应高度，保持和Item一样高;
+                // 2. 指定具体的高，比如80;
+                // 3. WRAP_CONTENT，自身高度，不推荐;
+                int height = ViewGroup.LayoutParams.MATCH_PARENT;
+
+                SwipeMenuItem closeItem = new SwipeMenuItem(getBaseContext())
+                        .setBackground(R.drawable.selector_ext)
+                        .setText("删除")
+                        .setTextColor(ContextCompat.getColor(getBaseContext(), R.color.white))
+                        .setWidth(width)
+                        .setHeight(height);
+                rightMenu.addMenuItem(closeItem); // 添加菜单到右侧。
+
+            }
+        };
+        // 设置监听器。
+        myMsgList.setSwipeMenuCreator(mSwipeMenuCreator);
+        myMsgList.setSwipeMenuItemClickListener(mMenuItemClickListener);
+
         initData();
     }
 
@@ -179,4 +215,55 @@ public class TopMsgActivity extends BaseToolBarActivity {
             }
         }
     }
+
+
+
+    /**
+     * RecyclerView的Item中的Menu点击监听。
+     */
+    private SwipeMenuItemClickListener mMenuItemClickListener = new SwipeMenuItemClickListener() {
+        @Override
+        public void onItemClick(SwipeMenuBridge menuBridge) {
+            menuBridge.closeMenu();
+
+            int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
+            final int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
+            int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
+
+            if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
+
+//                showShort(list.getData().getCardList().get(adapterPosition).getId() + "");
+                new AlertDialog.Builder(TopMsgActivity.this)
+                        .setTitle("注意").setMessage("确定要删除此条消息吗？").setCancelable(true).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        OkGo.<String>get(Apis.MsgDelete).params("lawyerId", UserService.service(getBaseContext()).getLawyerId())
+                                .params("messageId", data.get(adapterPosition).getMessageId()).execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
+                                if (data.getCode() == 0) {
+                                    showShort("删除成功");
+                                    initData();
+                                } else {
+                                    showShort(data.getMsg());
+                                }
+                            }
+                        });
+                    }
+                }).show();
+
+
+//                Toast.makeText(getBaseContext(), "list第" + adapterPosition + "; 右侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
+            } else if (direction == SwipeMenuRecyclerView.LEFT_DIRECTION) {
+//                Toast.makeText(getBaseContext(), "list第" + adapterPosition + "; 左侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
 }

@@ -56,7 +56,7 @@
                 android:layout_toRightOf="@id/search_iv"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:hint="搜索相关法律内容"
+                android:hint="搜索律师、优质解答"
                 android:imeOptions="actionSearch"
                 android:maxLength="15"
                 android:singleLine="true"

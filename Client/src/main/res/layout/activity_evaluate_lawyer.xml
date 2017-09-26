@@ -226,6 +226,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/gray_un_four"
+            android:maxLength="50"
             android:enabled="true"
             android:gravity="top"
             android:hint="欢迎提出更多意见或建议"

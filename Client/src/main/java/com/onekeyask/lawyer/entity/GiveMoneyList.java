@@ -78,6 +78,16 @@ public class GiveMoneyList {
 
             private int userId;
             private String phoneNo;
+            private String headURL;
+
+            public String getHeadURL() {
+                return headURL;
+            }
+
+            public void setHeadURL(String headURL) {
+                this.headURL = headURL;
+            }
+
             private int type;
             private String money;
             private String summary;

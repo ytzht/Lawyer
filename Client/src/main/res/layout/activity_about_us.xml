@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#e8e8e8"
+    android:orientation="vertical"
     android:padding="10dp"
     tools:context="com.onekeyask.lawyer.ui.act.me.AboutUsActivity">
 
@@ -14,42 +14,42 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="北大法宝律师APP"
+        android:text="芝麻律师"
         android:textSize="18sp" />
 
     <TextView
         android:layout_width="match_parent"
-        android:lineSpacingExtra="8dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="    法宝律师APP致力于为律师创造业务同时为广大用户解决现实生活中的法律咨询问题，法宝律师APP提供多渠道咨询方式，人性化的交互界面，向用户描述“如何更快速便捷的向律师咨询”并“及时得到自己想要的咨询内容”。"
+        android:lineSpacingExtra="8dp"
+        android:text="    芝麻律师是北京一键信息咨询有限公司旗下的产品，在互联网飞速发展的时代，我们致力于连接广大法律需求者和专业的法律从业人员，使得法律能够更加高效便捷的为社会公众服务"
         android:textColor="@color/grey" />
 
     <TextView
         android:layout_width="match_parent"
-        android:lineSpacingExtra="8dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_weight="1"
-        android:text="    在信息泛滥的时代，我们力争高效为用户提供准确与有价值的信息。"
+        android:lineSpacingExtra="8dp"
         android:textColor="@color/grey" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="版权所有：北京北大英华科技有限公司 北京大学法制信息中心"
+        android:text="版权所有：北京一键信息咨询有限公司"
         android:textColor="@color/grey"
         android:textSize="12sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:layout_marginTop="6dp"
         android:gravity="center"
-        android:layout_marginBottom="20dp"
         android:text="京ICP证010230号"
         android:textColor="@color/grey"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:visibility="gone" />
 
 </LinearLayout>

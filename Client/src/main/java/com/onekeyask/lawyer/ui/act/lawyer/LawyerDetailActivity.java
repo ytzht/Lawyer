@@ -207,7 +207,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
             public void onClick(View v) {
                 if (UserService.service(getBaseContext()).isLogin()) {
                     popupWindow = getPopwindow(popupView);
-                }else {
+                } else {
                     startActivity(LoginActivity.class);
                 }
             }
@@ -352,21 +352,29 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
             data.getLawyer().getServiceList().get(0).setCheck(true);
             service_notes.setText(data.getLawyer().getServiceList().get(0).getNotes());
         }
-        shareUrl = Apis.ShareLawyerUrl+lawyerId;
+        shareUrl = Apis.ShareLawyerUrl + lawyerId;
         LawyerImg = data.getLawyer().getHeadURL();
-        if (data.getLawyer().getHeadURL().equals("")){
+        if (data.getLawyer().getHeadURL().equals("")) {
             Glide.with(this).load(data.getLawyer().getHeadURL())
                     .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(lawyerHeader);
-        }else {
+        } else {
             Picasso.with(this).load(data.getLawyer().getHeadURL())
                     .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(lawyerHeader);
 
         }
         lawyerName.setText(data.getLawyer().getName());
-        shareTitle = data.getLawyer().getName();
+        shareTitle = "推荐：" + data.getLawyer().getName() + " 律师";
         setToolbarText(data.getLawyer().getName());
         lawyerOffice.setText(data.getLawyer().getLawyerOfficeName());
-        shareSummary = data.getLawyer().getLawyerOfficeName();
+        String spe = "";
+        for (int i = 0; i < data.getLawyer().getSpecial().size(); i++) {
+            if (data.getLawyer().getSpecial().size() == (i + 1)) {
+                spe += data.getLawyer().getSpecial().get(i);
+            } else {
+                spe += data.getLawyer().getSpecial().get(i) + "、";
+            }
+        }
+        shareSummary = "擅长：" + spe;
         if (data.getLawyer().getTags().size() > 0) {
             tvTag1.setVisibility(View.VISIBLE);
             tvTag1.setText(data.getLawyer().getTags().get(0));
@@ -409,7 +417,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
             public void onClick(View v) {
                 if (UserService.service(getBaseContext()).isLogin()) {
                     toFavorite();
-                }else {
+                } else {
                     startActivity(LoginActivity.class);
                 }
             }
@@ -431,23 +439,23 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
 
                 if (UserService.service(getBaseContext()).isLogin()) {
                     if (type == 1) {
-                        if (data.getLawyer().getServiceList().get(0).isIsOn()){
+                        if (data.getLawyer().getServiceList().get(0).isIsOn()) {
                             startActivity(PersonLawyerActivity.class, "lawyerId", lawyerId + "");
-                        }else {
+                        } else {
                             showShort("律师未开通此服务。");
                         }
                     } else if (type == 2) {
-                        if (data.getLawyer().getServiceList().get(1).isIsOn()){
+                        if (data.getLawyer().getServiceList().get(1).isIsOn()) {
                             Intent intent = new Intent(LawyerDetailActivity.this, TxtPicAskActivity.class);
                             intent.putExtra("lawyerId", lawyerId);
                             startActivity(intent);
-                        }else {
+                        } else {
                             showShort("律师未开通此服务。");
                         }
                     } else {
                         showShort("律师未开通此服务。");
                     }
-                }else {
+                } else {
                     startActivity(LoginActivity.class);
                 }
 
@@ -620,11 +628,26 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         public void onBindViewHolder(ViewHolder holder, int position) {
 
             holder.comName.setText(comData.get(position).getPhoneNo());
-            holder.comContent.setText(comData.get(position).getContent());
+            if (comData.get(position).getContent().equals("")) {
+
+                switch (comData.get(position).getServiceScore()) {
+                    case 5:
+                        holder.comTxt.setText("很满意");
+                        break;
+                    case 3:
+                        holder.comTxt.setText("满意");
+                        break;
+                    case 1:
+                        holder.comTxt.setText("不满意");
+                        break;
+                }
+            } else {
+                holder.comTxt.setText(comData.get(position).getContent());
+            }
             holder.comTime.setText(comData.get(position).getCommentDate());
             holder.comType.setText(comData.get(position).getServiceName());
-            holder.comTxt.setText(comData.get(position).getNotes());
-
+//            holder.comTxt.setText(comData.get(position).getNotes());
+            Picasso.with(getBaseContext()).load(comData.get(position).getHeadURL()).into(holder.civ_money);
         }
 
         @Override
@@ -639,6 +662,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
             private TextView comType;
             private TextView comTxt;
             private TextView comContent;
+            private CircleImageView civ_money;
 
             public ViewHolder(View itemView) {
                 super(itemView);
@@ -647,6 +671,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
                 comType = (TextView) itemView.findViewById(R.id.com_type);
                 comTxt = (TextView) itemView.findViewById(R.id.com_txt);
                 comContent = (TextView) itemView.findViewById(R.id.com_content);
+                civ_money = (CircleImageView) itemView.findViewById(R.id.civ_money);
             }
         }
 
@@ -666,8 +691,12 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
             holder.comName.setText(moneyData.get(position).getPhoneNo());
             holder.comTime.setText(moneyData.get(position).getGiveTime());
             holder.comMoney.setText(moneyData.get(position).getMoney() + "元");
-            holder.comTxt.setText(moneyData.get(position).getSummary());
-
+            if (moneyData.get(position).getSummary().equals("")) {
+                holder.comTxt.setText("获赠心意" + moneyData.get(position).getMoney() + "元");
+            } else {
+                holder.comTxt.setText(moneyData.get(position).getSummary());
+            }
+            Picasso.with(getBaseContext()).load(moneyData.get(position).getHeadURL()).into(holder.civ_money);
         }
 
         @Override
@@ -681,6 +710,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
             private TextView comTime;
             private TextView comMoney;
             private TextView comTxt;
+            private CircleImageView civ_money;
 
             public ViewHolder(View itemView) {
                 super(itemView);
@@ -688,6 +718,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
                 comTime = (TextView) itemView.findViewById(R.id.com_time);
                 comMoney = (TextView) itemView.findViewById(R.id.com_money);
                 comTxt = (TextView) itemView.findViewById(R.id.com_txt);
+                civ_money = (CircleImageView) itemView.findViewById(R.id.civ_money);
             }
         }
 
@@ -733,11 +764,11 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
                         serviceTypeAdapter.notifyDataSetChanged();
                     }
                     service_notes.setText(data.getLawyer().getServiceList().get(position).getNotes());
-                    if (position == 0){
+                    if (position == 0) {
                         Glide.with(LawyerDetailActivity.this).load(R.drawable.commonly_tag1).into(iv_service);
-                    }else if (position == 1){
+                    } else if (position == 1) {
                         Glide.with(LawyerDetailActivity.this).load(R.drawable.commonly_tag2).into(iv_service);
-                    }else {
+                    } else {
                         Glide.with(LawyerDetailActivity.this).load(R.drawable.commonly_tag3).into(iv_service);
                     }
                 }
@@ -804,8 +835,6 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
 
                         }
                     }
-
-
 
 
                 }
@@ -882,7 +911,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
             public void onClick(View v) {
                 if (UserService.service(getBaseContext()).isLogin()) {
                     goShare();
-                }else {
+                } else {
                     startActivity(LoginActivity.class);
                 }
             }
@@ -977,11 +1006,11 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
     private void goShareSuccess() {
 
         String targetPlat;
-        if (shareMedia == SHARE_MEDIA.SINA){
+        if (shareMedia == SHARE_MEDIA.SINA) {
             targetPlat = "3";
-        }else if (shareMedia == SHARE_MEDIA.WEIXIN){
+        } else if (shareMedia == SHARE_MEDIA.WEIXIN) {
             targetPlat = "1";
-        }else {
+        } else {
             targetPlat = "2";
         }
         OkGo.<String>post(Apis.SaveShare).params("userId", UserService.service(getBaseContext()).getUserId())
@@ -993,7 +1022,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
                     @Override
                     public void onSuccess(Response<String> response) {
                         ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
-                        if (data.getCode() != 0){
+                        if (data.getCode() != 0) {
                             showShort(data.getMsg());
                         }
                     }
