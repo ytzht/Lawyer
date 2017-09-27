@@ -181,8 +181,8 @@ public class IdentityVerificationActivity extends BaseToolBarActivity {
             return;
         }
 
-        if (etphone.getText().toString().equals("") || etphone.getText().toString().length() != 11) {
-            showShort("请输入电话号码");
+        if (!etphone.getText().toString().equals("") & etphone.getText().toString().length() != 11) {
+            showShort("请输入正确的电话号码");
             return;
         }
 
@@ -196,11 +196,12 @@ public class IdentityVerificationActivity extends BaseToolBarActivity {
         intent.putExtra("lawyerOfficeName", etoffice.getText().toString());
         intent.putExtra("lawyerOfficeTel", etphone.getText().toString());
         intent.putExtra("city", city);
-        intent.putExtra("sex", sex);// TODO: 2017/9/21
+        intent.putExtra("sex", sex);
         intent.putExtra("district", district);
         intent.putExtra("lawyerName", etname.getText().toString());
         startActivity(intent);
 
+        finish();
 
     }
 

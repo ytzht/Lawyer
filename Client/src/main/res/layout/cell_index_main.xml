@@ -160,20 +160,11 @@
             android:layout_width="match_parent"
             android:layout_height="45dp">
 
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="7dp"
-
-                android:src="@drawable/answer" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="47dp"
+                android:layout_marginLeft="16dp"
                 android:text="@string/high_quality_solutions"
                 android:textColor="#444444"
                 android:textSize="16dp" />
@@ -184,15 +175,12 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:gravity="center"
-                android:padding="14dp"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:paddingLeft="10dp"
                 android:src="@drawable/arrow_r_g" />
 
         </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/divider_" />
 
 
 

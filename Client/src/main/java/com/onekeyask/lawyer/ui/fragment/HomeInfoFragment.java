@@ -114,20 +114,23 @@ public class HomeInfoFragment extends BaseFragment {
             initView();
             ll_score.setVisibility(View.VISIBLE);
 
-            SubscriberOnNextListener getResultOnNext = new SubscriberOnNextListener<PriceList>() {
-                @Override
-                public void onNext(PriceList list) {
-                    myMoney.setText("￥"+String.valueOf(list.getBalance()));
-                }
+            if (userService.isLogin()) {
+                SubscriberOnNextListener getResultOnNext = new SubscriberOnNextListener<PriceList>() {
+                    @Override
+                    public void onNext(PriceList list) {
+                        myMoney.setText("￥" + String.valueOf(list.getBalance()));
+                    }
 
-                @Override
-                public void onError(int code, String message) {
-                    myMoney.setText("");
-                }
-            };
+                    @Override
+                    public void onError(int code, String message) {
+                        myMoney.setText("");
+                    }
+                };
 
-            retrofitUtil.getPriceList(UserService.service(getActivity()).getUserId(), new ProgressSubscriber<PriceList>(getResultOnNext, getActivity(), false));
-
+                retrofitUtil.getPriceList(UserService.service(getActivity()).getUserId(), new ProgressSubscriber<PriceList>(getResultOnNext, getActivity(), false));
+            }else {
+                myMoney.setText("");
+            }
 
 
         } else {

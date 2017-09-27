@@ -125,6 +125,7 @@ public class EvaluateLawyerActivity extends BaseToolBarActivity {
                 tagList = commonTagList;
 
                 tagListBeen = tagList.getTagList();
+                if (tagListBeen.size()>0) tagListBeen.get(0).setSelect(true);
                 initTagData();
             }
 

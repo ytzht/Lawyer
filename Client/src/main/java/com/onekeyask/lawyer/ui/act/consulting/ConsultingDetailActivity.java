@@ -26,7 +26,9 @@ import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.global.L;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
+import com.onekeyask.lawyer.ui.act.user.LoginActivity;
 import com.onekeyask.lawyer.utils.HideUtil;
+import com.onekeyask.lawyer.utils.UserService;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -116,19 +118,23 @@ public class ConsultingDetailActivity extends BaseToolBarActivity {
         if (item.getItemId() == R.id.next_step) {
             Intent intent = new Intent(ConsultingDetailActivity.this, QuickConsultingActivity.class);
 
+            if (UserService.service(getBaseContext()).isLogin()) {
 
-            if (etConDesc.getText().toString().equals("")) {
-                showShort("请输入您想要咨询的问题");
+                if (etConDesc.getText().toString().equals("")) {
+                    showShort("请输入您想要咨询的问题");
 
-            } else if (etConDesc.getText().toString().length() < 10) {
+                } else if (etConDesc.getText().toString().length() < 10) {
 
-                showShort("最少输入十个字符");
-            } else {
-                intent.putExtra("content", etConDesc.getText().toString());
-                intent.putExtra("category", categoryId);
-                intent.putStringArrayListExtra("photos", photos);
+                    showShort("最少输入十个字符");
+                } else {
+                    intent.putExtra("content", etConDesc.getText().toString());
+                    intent.putExtra("category", categoryId);
+                    intent.putStringArrayListExtra("photos", photos);
 
-                startActivity(intent);
+                    startActivity(intent);
+                }
+            }else {
+                startActivity(LoginActivity.class);
             }
             return true;
         }

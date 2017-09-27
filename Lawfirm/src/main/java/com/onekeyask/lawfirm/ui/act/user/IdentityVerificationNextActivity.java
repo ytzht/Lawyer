@@ -147,6 +147,7 @@ public class IdentityVerificationNextActivity extends BaseToolBarActivity {
         map.clear();
         map.put("lawyerId", RequestBody.create(null, UserService.service(getBaseContext()).getLawyerId()+""));
         map.put("lawyerOfficeName", RequestBody.create(null, lawyerOfficeName));
+        if (!lawyerOfficeTel.equals(""))
         map.put("lawyerOfficeTel", RequestBody.create(null, lawyerOfficeTel));
         map.put("city", RequestBody.create(null, city));
         map.put("sex", RequestBody.create(null, sex));
@@ -162,6 +163,7 @@ public class IdentityVerificationNextActivity extends BaseToolBarActivity {
 
                 UserService.service(getBaseContext()).setOfficeName(lawyerOfficeName);
                 if (result.getCode() == 0){
+                    finish();
                     startActivity(GotoVerifyActivity.class);
                 }else if (result.getCode() == -101){
                     showShort("已经提交审核");

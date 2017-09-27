@@ -116,7 +116,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
     private int lawyerId;
     private LawyerDetail.DataBean data;
     private int index = 1;
-    private int size = 100;
+    private int size = 10;
     private boolean hasMore = true;
     private CommentListAdapter commentListAdapter;
     private GiveMoneyListAdapter giveMoneyListAdapter;
@@ -647,7 +647,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
             holder.comTime.setText(comData.get(position).getCommentDate());
             holder.comType.setText(comData.get(position).getServiceName());
 //            holder.comTxt.setText(comData.get(position).getNotes());
-            Picasso.with(getBaseContext()).load(comData.get(position).getHeadURL()).into(holder.civ_money);
+            Glide.with(getBaseContext()).load(comData.get(position).getHeadURL()).into(holder.civ_money);
         }
 
         @Override

@@ -115,7 +115,7 @@ public class CompleteServiceFragment extends BaseFragment {
         tv_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                type = 3;
+                type = 4;
                 index = 1;
                 initData();
                 popupWindow.dismiss();

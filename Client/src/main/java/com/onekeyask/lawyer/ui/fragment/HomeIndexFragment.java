@@ -106,7 +106,7 @@ public class HomeIndexFragment extends BaseFragment {
             public void onClick(View v) {
                 if (UserService.service(getActivity()).isLogin()) {
                     startActivity(TopMsgActivity.class);
-                }else {
+                } else {
                     startActivity(LoginActivity.class);
                 }
             }
@@ -311,6 +311,7 @@ public class HomeIndexFragment extends BaseFragment {
 
 
     }
+
     private class IndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
@@ -343,13 +344,13 @@ public class HomeIndexFragment extends BaseFragment {
                 ((IndexViewHolder) holder).rl_quick_consulting.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                            startActivity(ConsultingDetailActivity.class);
+                        startActivity(ConsultingDetailActivity.class);
                     }
                 });
                 ((IndexViewHolder) holder).rl_look_lawyer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                            startActivity(SearchLawActivity.class);
+                        startActivity(SearchLawActivity.class);
                     }
                 });
                 ((IndexViewHolder) holder).tv_more_solutions.setOnClickListener(new View.OnClickListener() {
@@ -379,18 +380,13 @@ public class HomeIndexFragment extends BaseFragment {
                     @Override
                     public void onClick(View v) {
 
-                        if (service.isLogin()) {
-                            Intent intent = new Intent(getActivity(), AskDetailActivity.class);
-                            intent.putExtra("cid", data.get(position - 1).getChatId());
-                            intent.putExtra("lawyerName", data.get(position - 1).getLawyerName());
-                            intent.putExtra("officeName", data.get(position - 1).getOfficeName());
-                            intent.putExtra("headUrl", data.get(position - 1).getHeadURL());
-                            intent.putExtra("sid", data.get(position - 1).getUserServiceId());
-                            startActivity(intent);
-                        }else {
-                            startActivity(LoginActivity.class);
-                        }
-
+                        Intent intent = new Intent(getActivity(), AskDetailActivity.class);
+                        intent.putExtra("cid", data.get(position - 1).getChatId());
+                        intent.putExtra("lawyerName", data.get(position - 1).getLawyerName());
+                        intent.putExtra("officeName", data.get(position - 1).getOfficeName());
+                        intent.putExtra("headUrl", data.get(position - 1).getHeadURL());
+                        intent.putExtra("sid", data.get(position - 1).getUserServiceId());
+                        startActivity(intent);
 
 
                     }

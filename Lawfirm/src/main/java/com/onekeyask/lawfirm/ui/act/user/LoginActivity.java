@@ -142,11 +142,10 @@ public class LoginActivity extends BaseToolBarActivity {
 
                                             break;
                                         case "3"://等待审核
-                                            showShort("等待审核");
+                                            startActivity(GotoVerifyActivity.class);
                                             finish();
                                             break;
                                         case "4"://审核不通过
-                                            showShort("审核不通过");
                                             startActivity(GotoVerifyActivity.class);
                                             finish();
                                             break;

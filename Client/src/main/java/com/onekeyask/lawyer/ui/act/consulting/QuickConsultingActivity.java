@@ -61,7 +61,7 @@ public class QuickConsultingActivity extends BaseToolBarActivity {
             public void onNext(PointsInfo info) {
                 askPrice = info.getAskPrice();
                 points = info.getPoints();
-                tv_points.setText("消耗200积分(当前积分" + askPrice + ")");
+                tv_points.setText("消耗" + askPrice + "积分(当前积分" + points + ")");
             }
 
             @Override

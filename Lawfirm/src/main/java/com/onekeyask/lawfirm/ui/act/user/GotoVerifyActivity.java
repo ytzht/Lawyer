@@ -1,6 +1,7 @@
 package com.onekeyask.lawfirm.ui.act.user;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,18 +16,22 @@ import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.GotoVerify;
 import com.onekeyask.lawfirm.entity.MsgDetail;
+import com.onekeyask.lawfirm.entity.ResultData;
+import com.onekeyask.lawfirm.global.Apis;
+import com.onekeyask.lawfirm.global.BaseEvent;
 import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.global.L;
-import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.utils.UserService;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class GotoVerifyActivity extends BaseToolBarActivity {
 
     private TextView tvunre;
     private LinearLayout llunpass;
-    private TextView tvre;
     private LinearLayout llpass;
     private LinearLayout ll_freeze;
+    private UserService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +39,11 @@ public class GotoVerifyActivity extends BaseToolBarActivity {
         setContentView(R.layout.activity_goto_verify);
         this.llpass = (LinearLayout) findViewById(R.id.ll_pass);
         this.ll_freeze = (LinearLayout) findViewById(R.id.ll_freeze);
-        this.tvre = (TextView) findViewById(R.id.tv_re);
         this.llunpass = (LinearLayout) findViewById(R.id.ll_un_pass);
         this.tvunre = (TextView) findViewById(R.id.tv_un_re);
         setToolbarText("身份验证");
+
+        service = UserService.service(getBaseContext());
 
         if (getIntent().hasExtra("id")){
             if (getIntent().getIntExtra("id", 0) != 0){
@@ -105,17 +111,11 @@ public class GotoVerifyActivity extends BaseToolBarActivity {
                     }
                 });
 
-
-        tvre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(IdentityVerificationActivity.class);
-            }
-        });
         tvunre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(IdentityVerificationActivity.class);
+                finish();
             }
         });
     }
@@ -131,16 +131,50 @@ public class GotoVerifyActivity extends BaseToolBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.next_change) {
-            //注册
-            startActivity(LoginActivity.class);
-            finish();
+            finishBack();
             return true;
         }
         if (item.getItemId() == android.R.id.home) {
-            finish();
+            finishBack();
             return true;
         }
 
         return false;
     }
+
+    private void finishBack() {
+
+        OkGo.<String>get(Apis.Logout)
+                .params("lawyerId", service.getLawyerId())
+                .params("deviceToken", service.getDeviceToken())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
+                        if (data.getCode() == 0) {
+                            service.setUserName("");
+                            service.setToken("-1");
+                            service.setHeadURL("");
+                            service.setLawyerId(0);
+                            finish();
+                            startActivity(LoginActivity.class);
+                            EventBus.getDefault().post(BaseEvent.event(BaseEvent.FINISH_MAIN));
+                        } else {
+                            showShort(data.getMsg());
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+
+            finishBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
 }

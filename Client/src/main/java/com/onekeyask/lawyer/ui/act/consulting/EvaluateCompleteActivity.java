@@ -121,6 +121,7 @@ public class EvaluateCompleteActivity extends BaseActivity {
 
         if (giveMoney) {
             toolbar_title.setText("评价律师");
+            tv_comp.setVisibility(View.VISIBLE);
             tvScoreComp.setText(Html.fromHtml("感谢您的评价，赠送给您 <font color='#f79f0a'>50</font> 积分"));
             tvHintComp.setHint("用户的好评就是对律师最大的鼓励，我们会做得更好");
             llGiveBtn.setVisibility(View.VISIBLE);
@@ -128,6 +129,7 @@ public class EvaluateCompleteActivity extends BaseActivity {
 
         } else {
             toolbar_title.setText("送心意");
+            tv_comp.setVisibility(View.GONE);
             tvScoreComp.setText(Html.fromHtml("感谢您的心意，赠送给您 <font color='#f79f0a'>"+getIntent().getStringExtra("score")+"</font> 积分"));
             btnComp.setVisibility(View.VISIBLE);
             llGiveBtn.setVisibility(View.GONE);

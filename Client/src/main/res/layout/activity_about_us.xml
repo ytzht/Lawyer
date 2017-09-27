@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:lineSpacingExtra="8dp"
-        android:text="    芝麻律师是北京一键信息咨询有限公司旗下的产品，在互联网飞速发展的时代，我们致力于连接广大法律需求者和专业的法律从业人员，使得法律能够更加高效便捷的为社会公众服务"
+        android:text="    芝麻律师是北京一键信息咨询有限公司旗下的产品，在互联网飞速发展的时代，我们致力于连接广大法律需求者和专业的法律从业人员，使得法律能够更加高效便捷的为社会公众服务。"
         android:textColor="@color/grey" />
 
     <TextView
