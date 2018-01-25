@@ -148,7 +148,8 @@ public class AskDetailActivity extends BaseActivity {
             }
         };
 
-        retrofitUtil.getFreeAskOrder(freeAskId, UserService.service(getBaseContext()).getLawyerId(), new ProgressSubscriber<FreeAskOrder>(listener, AskDetailActivity.this, true));
+        retrofitUtil.getFreeAskOrder(freeAskId, UserService.service(getBaseContext()).getLawyerId(),
+                new ProgressSubscriber<FreeAskOrder>(listener, AskDetailActivity.this, true));
 
     }
 
@@ -219,7 +220,8 @@ public class AskDetailActivity extends BaseActivity {
             }
         };
 
-        retrofitUtil.getAskDetail(freeAskId, UserService.service(getBaseContext()).getLawyerId(), new ProgressSubscriber<AskDetail>(listener, AskDetailActivity.this, false));
+        retrofitUtil.getAskDetail(freeAskId, UserService.service(getBaseContext()).getLawyerId(),
+                new ProgressSubscriber<AskDetail>(listener, AskDetailActivity.this, false));
 
     }
 

@@ -57,6 +57,7 @@ public interface Apis {
 
     String FreeAskOrder = Apis.Base + "l/freeask/order";
     String FoundFragList = Apis.Base + "l/freeask/list";
+    String getDiscoveryDetail = Apis.Base + "l/conversation/getDiscoveryDetail";//1.58 已完成问题对话详情
 
 
 }

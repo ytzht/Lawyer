@@ -7,7 +7,7 @@ import com.onekeyask.lawfirm.entity.ConversationChatList;
 import com.onekeyask.lawfirm.entity.ConversationGetList;
 import com.onekeyask.lawfirm.entity.FreeAskOrder;
 import com.onekeyask.lawfirm.entity.HomePage;
-import com.onekeyask.lawfirm.entity.ResolvedFound;
+import com.onekeyask.lawfirm.entity.FoundBean;
 import com.onekeyask.lawfirm.entity.ResultData;
 import com.onekeyask.lawfirm.entity.SendCon;
 import com.onekeyask.lawfirm.http.HttpResult;
@@ -66,11 +66,23 @@ public interface APIService {
     @POST("l/conversation/send")
     Observable<HttpResult<SendCon>> getSendPic(@PartMap Map<String, RequestBody> params);
 
-    //1.17 免费提问列表，未接单状态的
-    @GET("l/freeask/list")
-    Observable<HttpResult<ResolvedFound.DataBean>> getFoundFragList(@Query("lawyerId") long lawyerId,//律师ID
-                                                                    @Query("page") int page,//页数
-                                                                    @Query("size") int size);//行数
+    //1.55 已解决问题列表
+    @GET("l/freeask/oldlist")
+    Observable<HttpResult<FoundBean.DataBean>> getFoundOldFragList(@Query("lawyerId") long lawyerId,//律师ID
+                                                                @Query("page") int page,//页数
+                                                                @Query("size") int size);//行数
+
+    //1.56 最新问题列表
+    @GET("l/freeask/newlist")
+    Observable<HttpResult<FoundBean.DataBean>> getFoundNewFragList(@Query("lawyerId") long lawyerId,//律师ID
+                                                                @Query("page") int page,//页数
+                                                                @Query("size") int size);//行数
+
+    //1.57 热门问题列表
+    @GET("l/freeask/hotlist")
+    Observable<HttpResult<FoundBean.DataBean>> getFoundHotFragList(@Query("lawyerId") long lawyerId,//律师ID
+                                                                @Query("page") int page,//页数
+                                                                @Query("size") int size);//行数
 
     //1.18 免费提问详情
     @GET("l/freeask/detail")

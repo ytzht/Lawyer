@@ -119,15 +119,15 @@ public class TalkingConversationList {
              * lawyerId : 3
              */
 
-            private int conversationId;
-            private int from;
-            private int userId;
-            private String headURL;
-            private String name;
-            private String content;
-            private boolean isPicture;
-            private String time;
-            private int lawyerId;
+            private int conversationId;//
+            private int from;//
+            private int userId;//
+            private String headURL;//
+            private String name;//
+            private String content;//
+            private boolean isPicture;//
+            private String time;//
+            private int lawyerId;//
 
             public int getConversationId() {
                 return conversationId;

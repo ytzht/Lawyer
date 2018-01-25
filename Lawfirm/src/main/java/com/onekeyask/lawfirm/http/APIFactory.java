@@ -7,7 +7,7 @@ import com.onekeyask.lawfirm.entity.ConversationChatList;
 import com.onekeyask.lawfirm.entity.ConversationGetList;
 import com.onekeyask.lawfirm.entity.FreeAskOrder;
 import com.onekeyask.lawfirm.entity.HomePage;
-import com.onekeyask.lawfirm.entity.ResolvedFound;
+import com.onekeyask.lawfirm.entity.FoundBean;
 import com.onekeyask.lawfirm.entity.ResultData;
 import com.onekeyask.lawfirm.entity.SendCon;
 
@@ -51,9 +51,21 @@ public class APIFactory extends RetrofitHttpUtil{
         toSubscribe(observable, subscriber);
     }
 
-    public void getFreeaskOldlist(long lawyerId, int page, int size, Subscriber<ResolvedFound.DataBean> subscriber){
-        Observable<ResolvedFound.DataBean> observable = getService().getFoundFragList(lawyerId, page, size)
-                .map(new HttpResultFunc<ResolvedFound.DataBean>());
+    public void getFreeaskOldlist(long lawyerId, int page, int size, Subscriber<FoundBean.DataBean> subscriber){
+        Observable<FoundBean.DataBean> observable = getService().getFoundOldFragList(lawyerId, page, size)
+                .map(new HttpResultFunc<FoundBean.DataBean>());
+        toSubscribe(observable, subscriber);
+    }
+
+    public void getFreeaskNewlist(long lawyerId, int page, int size, Subscriber<FoundBean.DataBean> subscriber){
+        Observable<FoundBean.DataBean> observable = getService().getFoundNewFragList(lawyerId, page, size)
+                .map(new HttpResultFunc<FoundBean.DataBean>());
+        toSubscribe(observable, subscriber);
+    }
+
+    public void getFoundHotFragList(long lawyerId, int page, int size, Subscriber<FoundBean.DataBean> subscriber){
+        Observable<FoundBean.DataBean> observable = getService().getFoundHotFragList(lawyerId, page, size)
+                .map(new HttpResultFunc<FoundBean.DataBean>());
         toSubscribe(observable, subscriber);
     }
 

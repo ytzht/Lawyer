@@ -13,10 +13,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.onekeyask.lawfirm.R;
-import com.onekeyask.lawfirm.entity.ResolvedFound;
+import com.onekeyask.lawfirm.entity.FoundBean;
 import com.onekeyask.lawfirm.global.BaseFragment;
 import com.onekeyask.lawfirm.http.ProgressSubscriber;
 import com.onekeyask.lawfirm.http.SubscriberOnNextListener;
+import com.onekeyask.lawfirm.utils.AssetsUtils;
 import com.onekeyask.lawfirm.utils.EllipsizingTextView;
 import com.onekeyask.lawfirm.utils.UserService;
 
@@ -36,17 +37,17 @@ import in.srain.cube.views.ptr.PtrHandler;
 public class HotFoundFragment  extends BaseFragment {
 
     private View view;
-    private RecyclerView rlv_resolved;
-    private ResolvedAdapter adapter;
+    private RecyclerView rlv_hot;
+    private HotAdapter adapter;
     private PtrClassicFrameLayout ptrFrameLayout;
     private boolean hasMore = true;
     private int index = 1;
     private int size = 10;
-    private List<ResolvedFound.DataBean.FreeaskListBean> list = new ArrayList<>();
+    private List<FoundBean.DataBean.FreeaskListBean> list = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_resolved, container, false);
+        view = inflater.inflate(R.layout.fragment_found, container, false);
 
         initView(view);
 
@@ -57,15 +58,15 @@ public class HotFoundFragment  extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        index = 1;
-        initView(view);
+//        index = 1;
+//        initView(view);
     }
 
     private void initData() {
 
-        SubscriberOnNextListener getResultOnNextserver = new SubscriberOnNextListener<ResolvedFound.DataBean>() {
+        SubscriberOnNextListener getResultOnNextserver = new SubscriberOnNextListener<FoundBean.DataBean>() {
             @Override
-            public void onNext(ResolvedFound.DataBean dataBean) {
+            public void onNext(FoundBean.DataBean dataBean) {
                 ptrFrameLayout.refreshComplete();
 
                 hasMore = dataBean.isHasMore();
@@ -73,8 +74,8 @@ public class HotFoundFragment  extends BaseFragment {
                 if (index == 1) {
                     list.clear();
                     list.addAll(dataBean.getFreeaskList());
-                    adapter = new ResolvedAdapter();
-                    rlv_resolved.setAdapter(adapter);
+                    adapter = new HotAdapter();
+                    rlv_hot.setAdapter(adapter);
                 } else {
                     list.addAll(dataBean.getFreeaskList());
                     adapter.notifyDataSetChanged();
@@ -87,15 +88,15 @@ public class HotFoundFragment  extends BaseFragment {
             }
         };
 
-        retrofitUtil.getFreeaskOldlist(UserService.service(getActivity()).getLawyerId(), index, size, new ProgressSubscriber<ResolvedFound.DataBean>(getResultOnNextserver, getActivity(), false));
+        retrofitUtil.getFoundHotFragList(UserService.service(getActivity()).getLawyerId(), index, size, new ProgressSubscriber<FoundBean.DataBean>(getResultOnNextserver, getActivity(), false));
 
 
     }
 
     private void initView(View view) {
         ptrFrameLayout = (PtrClassicFrameLayout) view.findViewById(R.id.fragment_ptr_service);
-        rlv_resolved = (RecyclerView) view.findViewById(R.id.rlv_resolved);
-        rlv_resolved.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rlv_hot = (RecyclerView) view.findViewById(R.id.rlv_found);
+        rlv_hot.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         ptrFrameLayout.setDurationToCloseHeader(1500);
         ptrFrameLayout.setPtrHandler(new PtrHandler() {
@@ -119,7 +120,7 @@ public class HotFoundFragment  extends BaseFragment {
         ptrFrameLayout.setLastUpdateTimeRelateObject(this);
         initData();
 
-        rlv_resolved.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        rlv_hot.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -138,7 +139,7 @@ public class HotFoundFragment  extends BaseFragment {
 
     }
 
-    private class ResolvedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private class HotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
         @Override
@@ -155,63 +156,69 @@ public class HotFoundFragment  extends BaseFragment {
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getActivity()).inflate(viewType, parent, false);
             if (viewType == R.layout.cell_resolved) {
-                return new ResolvedAdapter.ViewHolder(view);
+                return new HotAdapter.ViewHolder(view);
             } else {
-                return new ResolvedAdapter.ViewHolderMore(view);
+                return new HotAdapter.ViewHolderMore(view);
             }
         }
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             if (position + 1 != getItemCount()) {
-                ((ResolvedAdapter.ViewHolder) holder).found_name.setText(list.get(position).getName());
+                ((HotAdapter.ViewHolder) holder).found_name.setText(list.get(position).getName());
 //                if (list.get(position).getLawyer().getLawyerId().equals("")){
 //                    ((ViewHolder) holder).tv_name_now.setTextColor(ContextCompat.getColor(getActivity(), R.color.now_service_no_name));
 //                }else {
 //                    ((ViewHolder) holder).tv_name_now.setTextColor(ContextCompat.getColor(getActivity(), R.color.now_service_name));
 //                }
-                ((ResolvedAdapter.ViewHolder) holder).found_price.setText("￥"+list.get(position).getMoney());
+                ((HotAdapter.ViewHolder) holder).found_price.setText("￥"+list.get(position).getMoney());
                 String state = "";
                 switch (list.get(position).getStatus()){
                     case 1:
                         state = "未回复";
+                        ((HotAdapter.ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(FoundDetailActivity.class, "fid", list.get(position).getFreeaskId()+"");
+                            }
+                        });
                         break;
                     case 2:
                         state = "已回复";
+                        ((HotAdapter.ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(FoundDetailActivity.class, "fid", list.get(position).getFreeaskId()+"", "state", "已被回复");
+                            }
+                        });
                         break;
                     case 3:
                         state = "已完成";
+                        ((HotAdapter.ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(DiscoveryDetailActivity.class, "fid", list.get(position).getFreeaskId()+"");
+                            }
+                        });
                         break;
                 }
-                ((ResolvedAdapter.ViewHolder) holder).found_state.setText(state);
-                ((ResolvedAdapter.ViewHolder) holder).found_content.setText(list.get(position).getContent());
+//                ((HotAdapter.ViewHolder) holder).found_state.setText(state);
+                ((HotAdapter.ViewHolder) holder).found_state.setVisibility(View.GONE);
+                ((HotAdapter.ViewHolder) holder).found_content.setText(list.get(position).getContent());
                 Glide.with(getActivity()).load(Uri.parse(list.get(position).getHeadURL()))
                         .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
                         .into(((ViewHolder) holder).civ_img);
-                ((ResolvedAdapter.ViewHolder) holder).found_tag.setText(list.get(position).getCategoryName());
-                ((ResolvedAdapter.ViewHolder) holder).found_time.setText(list.get(position).getCreateTime());
-                ((ResolvedAdapter.ViewHolder) holder).found_pv.setText(list.get(position).getReadCount()+"阅读");
+                ((HotAdapter.ViewHolder) holder).found_tag.setText(list.get(position).getCategoryName());
+                ((HotAdapter.ViewHolder) holder).found_time.setText(AssetsUtils.getGapTime(list.get(position).getCreateTime()));
+                ((HotAdapter.ViewHolder) holder).found_pv.setText(list.get(position).getReadCount()+"阅读");
 
-                ((ResolvedAdapter.ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-//                        if (list.get(position).getType().equals("3")){
-//                            startActivity(CallDetailActivity.class,
-//                                    "userServiceId", String.valueOf(list.get(position).getServiceId()),
-//                                    "oid", "0");
-//                        }else {
-//                            startActivity(TalkingActivity.class, "chatId", String.valueOf(list.get(position).getTargetId()));
-//                        }
-                    }
-                });
             } else {
                 if (hasMore) {
-                    ((ResolvedAdapter.ViewHolderMore) holder).progress_bar_more.setVisibility(View.VISIBLE);
-                    ((ResolvedAdapter.ViewHolderMore) holder).tv_progress_more.setText("正在加载...");
+                    ((HotAdapter.ViewHolderMore) holder).progress_bar_more.setVisibility(View.VISIBLE);
+                    ((HotAdapter.ViewHolderMore) holder).tv_progress_more.setText("正在加载...");
                 } else {
-                    ((ResolvedAdapter.ViewHolderMore) holder).progress_bar_more.setVisibility(View.GONE);
-                    ((ResolvedAdapter.ViewHolderMore) holder).tv_progress_more.setText("已加载全部");
+                    ((HotAdapter.ViewHolderMore) holder).progress_bar_more.setVisibility(View.GONE);
+                    ((HotAdapter.ViewHolderMore) holder).tv_progress_more.setText("已加载全部");
                 }
             }
         }

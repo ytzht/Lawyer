@@ -6,7 +6,7 @@ import java.util.List;
  * Created by zht on 2018/01/23 15:54
  */
 
-public class ResolvedFound {
+public class FoundBean {
 
 
     /**

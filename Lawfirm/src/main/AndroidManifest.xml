@@ -168,7 +168,13 @@
         <activity android:name=".ui.act.search.LawDetailActivity" />
         <activity android:name=".ui.act.user.SkillAreaActivity" />
         <activity android:name=".ui.act.user.OpenServiceActivity" />
-        <activity android:name=".ui.act.user.UploadImgActivity"></activity>
+        <activity android:name=".ui.act.user.UploadImgActivity" />
+        <activity android:name=".ui.act.found.FoundDetailActivity"
+            android:label=""
+            android:launchMode="singleTask"/>
+        <activity android:name=".ui.act.found.DiscoveryDetailActivity"
+            android:label=""
+            android:launchMode="singleTask" />
     </application>
 
 </manifest>

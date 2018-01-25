@@ -13,10 +13,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.onekeyask.lawfirm.R;
-import com.onekeyask.lawfirm.entity.ResolvedFound;
+import com.onekeyask.lawfirm.entity.FoundBean;
 import com.onekeyask.lawfirm.global.BaseFragment;
 import com.onekeyask.lawfirm.http.ProgressSubscriber;
 import com.onekeyask.lawfirm.http.SubscriberOnNextListener;
+import com.onekeyask.lawfirm.utils.AssetsUtils;
 import com.onekeyask.lawfirm.utils.EllipsizingTextView;
 import com.onekeyask.lawfirm.utils.UserService;
 
@@ -36,17 +37,17 @@ import in.srain.cube.views.ptr.PtrHandler;
 public class ResolvedFoundFragment extends BaseFragment {
 
     private View view;
-    private RecyclerView rlv_resolved;
+    private RecyclerView rlv_found;
     private ResolvedAdapter adapter;
     private PtrClassicFrameLayout ptrFrameLayout;
     private boolean hasMore = true;
     private int index = 1;
     private int size = 10;
-    private List<ResolvedFound.DataBean.FreeaskListBean> list = new ArrayList<>();
+    private List<FoundBean.DataBean.FreeaskListBean> list = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_resolved, container, false);
+        view = inflater.inflate(R.layout.fragment_found, container, false);
 
         initView(view);
 
@@ -57,15 +58,15 @@ public class ResolvedFoundFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        index = 1;
-        initView(view);
+//        index = 1;
+//        initView(view);
     }
 
     private void initData() {
 
-        SubscriberOnNextListener getResultOnNextserver = new SubscriberOnNextListener<ResolvedFound.DataBean>() {
+        SubscriberOnNextListener getResultOnNextserver = new SubscriberOnNextListener<FoundBean.DataBean>() {
             @Override
-            public void onNext(ResolvedFound.DataBean dataBean) {
+            public void onNext(FoundBean.DataBean dataBean) {
                 ptrFrameLayout.refreshComplete();
 
                 hasMore = dataBean.isHasMore();
@@ -74,7 +75,7 @@ public class ResolvedFoundFragment extends BaseFragment {
                     list.clear();
                     list.addAll(dataBean.getFreeaskList());
                     adapter = new ResolvedAdapter();
-                    rlv_resolved.setAdapter(adapter);
+                    rlv_found.setAdapter(adapter);
                 } else {
                     list.addAll(dataBean.getFreeaskList());
                     adapter.notifyDataSetChanged();
@@ -87,15 +88,15 @@ public class ResolvedFoundFragment extends BaseFragment {
             }
         };
 
-        retrofitUtil.getFreeaskOldlist(UserService.service(getActivity()).getLawyerId(), index, size, new ProgressSubscriber<ResolvedFound.DataBean>(getResultOnNextserver, getActivity(), false));
+        retrofitUtil.getFreeaskOldlist(UserService.service(getActivity()).getLawyerId(), index, size, new ProgressSubscriber<FoundBean.DataBean>(getResultOnNextserver, getActivity(), false));
 
 
     }
 
     private void initView(View view) {
         ptrFrameLayout = (PtrClassicFrameLayout) view.findViewById(R.id.fragment_ptr_service);
-        rlv_resolved = (RecyclerView) view.findViewById(R.id.rlv_resolved);
-        rlv_resolved.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rlv_found = (RecyclerView) view.findViewById(R.id.rlv_found);
+        rlv_found.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         ptrFrameLayout.setDurationToCloseHeader(1500);
         ptrFrameLayout.setPtrHandler(new PtrHandler() {
@@ -119,7 +120,7 @@ public class ResolvedFoundFragment extends BaseFragment {
         ptrFrameLayout.setLastUpdateTimeRelateObject(this);
         initData();
 
-        rlv_resolved.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        rlv_found.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -170,41 +171,49 @@ public class ResolvedFoundFragment extends BaseFragment {
 //                }else {
 //                    ((ViewHolder) holder).tv_name_now.setTextColor(ContextCompat.getColor(getActivity(), R.color.now_service_name));
 //                }
-                ((ResolvedAdapter.ViewHolder) holder).found_price.setText("￥"+list.get(position).getMoney());
+                ((ResolvedAdapter.ViewHolder) holder).found_price.setText("￥" + list.get(position).getMoney());
                 String state = "";
-                switch (list.get(position).getStatus()){
+                switch (list.get(position).getStatus()) {
                     case 1:
                         state = "未回复";
+                        ((ResolvedAdapter.ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(FoundDetailActivity.class, "fid", list.get(position).getFreeaskId()+"");
+                            }
+                        });
                         break;
                     case 2:
                         state = "已回复";
+                        ((ResolvedAdapter.ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(FoundDetailActivity.class, "fid", list.get(position).getFreeaskId()+"", "state", "已被回复");
+                            }
+                        });
                         break;
                     case 3:
                         state = "已完成";
+                        ((ResolvedAdapter.ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(DiscoveryDetailActivity.class, "fid", list.get(position).getFreeaskId()+"");
+                            }
+                        });
                         break;
                 }
-                ((ResolvedAdapter.ViewHolder) holder).found_state.setText(state);
+
+
+//                ((ResolvedAdapter.ViewHolder) holder).found_state.setText(state);
+                ((ResolvedAdapter.ViewHolder) holder).found_state.setVisibility(View.GONE);
                 ((ResolvedAdapter.ViewHolder) holder).found_content.setText(list.get(position).getContent());
                 Glide.with(getActivity()).load(Uri.parse(list.get(position).getHeadURL()))
                         .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
                         .into(((ViewHolder) holder).civ_img);
                 ((ResolvedAdapter.ViewHolder) holder).found_tag.setText(list.get(position).getCategoryName());
-                ((ResolvedAdapter.ViewHolder) holder).found_time.setText(list.get(position).getCreateTime());
-                ((ResolvedAdapter.ViewHolder) holder).found_pv.setText(list.get(position).getReadCount()+"阅读");
 
-                ((ResolvedAdapter.ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-//                        if (list.get(position).getType().equals("3")){
-//                            startActivity(CallDetailActivity.class,
-//                                    "userServiceId", String.valueOf(list.get(position).getServiceId()),
-//                                    "oid", "0");
-//                        }else {
-//                            startActivity(TalkingActivity.class, "chatId", String.valueOf(list.get(position).getTargetId()));
-//                        }
-                    }
-                });
+                ((ResolvedAdapter.ViewHolder) holder).found_time.setText(AssetsUtils.getGapTime(list.get(position).getCreateTime()));
+                ((ResolvedAdapter.ViewHolder) holder).found_pv.setText(list.get(position).getReadCount() + "阅读");
             } else {
                 if (hasMore) {
                     ((ResolvedAdapter.ViewHolderMore) holder).progress_bar_more.setVisibility(View.VISIBLE);
@@ -223,7 +232,7 @@ public class ResolvedFoundFragment extends BaseFragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            private TextView found_name, found_price, found_state, found_tag, found_time, price, found_pv;
+            private TextView found_name, found_price, found_state, found_tag, found_time, found_pv;
             private EllipsizingTextView found_content;
             private CircleImageView civ_img;
 
@@ -257,5 +266,5 @@ public class ResolvedFoundFragment extends BaseFragment {
 
     }
 
-    
+
 }

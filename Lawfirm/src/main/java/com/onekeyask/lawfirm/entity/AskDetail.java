@@ -36,17 +36,35 @@ public class AskDetail {
          * type : 1
          */
 
-        private int freeaskId;
-        private int userId;
-        private String name;
-        private String headURL;
-        private String content;
-        private String createTime;
-        private int status;
-        private int category;
-        private String categoryName;
-        private String type;
-        private List<String> picList;
+        private int freeaskId;//
+        private int userId;//
+        private String name;//
+        private String headURL;//
+        private String content;//
+        private String createTime;//
+        private int status;//
+        private int category;//
+        private String categoryName;//
+        private String type;//
+        private List<String> picList;//
+        private double money;
+        private int readCount;
+
+        public double getMoney() {
+            return money;
+        }
+
+        public void setMoney(double money) {
+            this.money = money;
+        }
+
+        public int getReadCount() {
+            return readCount;
+        }
+
+        public void setReadCount(int readCount) {
+            this.readCount = readCount;
+        }
 
         public int getFreeaskId() {
             return freeaskId;
