@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="service_type">
+        <item>全部</item>
+        <item>图文订单</item>
+        <item>免费提问</item>
+        <item>打赏咨询</item>
+    </string-array>
+</resources>

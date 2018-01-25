@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray"
+    tools:context="com.onekeyask.lawfirm.ui.act.index.PayConsultActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:textSize="16sp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:text="私人律师开关"
+                android:textColor="@color/blackTopic"
+                android:textSize="16sp" />
+
+            <com.kyleduo.switchbutton.SwitchButton
+                android:id="@+id/sb_phone"
+                style="@style/SwitchButtonStyle"
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                app:kswAnimationDuration="300"
+                app:kswBackDrawable="@drawable/ios_back_drawable"
+                app:kswThumbDrawable="@drawable/switch_circle"
+                app:kswTintColor="@color/switchButton" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:gravity="center_vertical"
+            android:hint="在服务期内以文字和图片的方式为客户提供咨询服务"
+            android:textColor="@color/blackSec"
+            android:textSize="14dp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_price1"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:id="@+id/price_cycle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="费用(周)"
+                android:textColor="@color/blackTopic"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/iv_arrow_1"
+                android:layout_width="16dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/arrow_r_g" />
+
+            <TextView
+                android:id="@+id/tv_price1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/iv_arrow_1"
+                android:textColor="@color/blackSec"
+                android:textSize="14dp"
+                tools:text="100元/周" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_price2"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:id="@+id/price_cycle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="费用(月)"
+                android:textColor="@color/blackTopic"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/iv_arrow_2"
+                android:layout_width="16dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/arrow_r_g" />
+
+            <TextView
+                android:id="@+id/tv_price2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/iv_arrow_2"
+                android:textColor="@color/blackSec"
+                android:textSize="14dp"
+                tools:text="1000元/月" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_price3"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:id="@+id/price_cycle3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="费用(年)"
+                android:textColor="@color/blackTopic"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/iv_arrow_3"
+                android:layout_width="16dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/arrow_r_g" />
+
+            <TextView
+                android:id="@+id/tv_price3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/iv_arrow_3"
+                android:textColor="@color/blackSec"
+                android:textSize="14dp"
+                tools:text="10000元/年" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

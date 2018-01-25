@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_intro"
+        android:layout_width="160dp"
+        android:textSize="12sp"
+        android:lineSpacingExtra="6dp"
+        android:padding="10dp"
+        android:background="@drawable/pop_bg"
+        android:text="该倒计时的时间，是您的有效服务时间，不是您拨打电话的通话时长。"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

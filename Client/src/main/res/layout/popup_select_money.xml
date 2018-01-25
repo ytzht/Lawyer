@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="28dp"
+        android:layout_marginRight="28dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="11dp"
+            android:textSize="12dp"
+            android:textColor="@color/blackTopic"
+            android:layout_marginTop="20dp"
+            android:text="手动输入金额" />
+
+
+        <EditText
+            android:id="@+id/et_money_popup"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:background="@drawable/gray_un_zero"
+            android:enabled="true"
+            android:gravity="center"
+            android:inputType="textMultiLine"
+            android:textSize="16dp"
+            android:textColor="#343434"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="20dp"
+            android:text="请选择金额" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_sel_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/tag_select"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="2.00元"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_sel_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/gray_un_four"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="4.00元"
+                android:textColor="@color/blackTopic" />
+
+            <TextView
+                android:id="@+id/tv_sel_6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/gray_un_four"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="6.00元"
+                android:textColor="@color/blackTopic" />
+
+            <TextView
+                android:id="@+id/tv_sel_8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/gray_un_four"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="8.00元"
+                android:textColor="@color/blackTopic" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_desc_popup"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_marginBottom="17dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/gray_un_four"
+            android:enabled="true"
+            android:gravity="top"
+            android:hint="说点感谢律师的话"
+            android:maxLines="6"
+            android:minLines="2"
+            android:maxLength="50"
+            android:padding="7dp"
+            android:textColor="@color/blackHint"
+            android:textSize="12dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="#dddddd" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="47dp">
+
+        <TextView
+            android:id="@+id/tv_cancel_popup"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#8e8e8e"
+            android:hint="取消"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/tv_yes_popup"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/baseColor"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e8e8e8"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.onekeyask.lawfirm.ui.act.me.AboutUsActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="芝麻律所"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:lineSpacingExtra="8dp"
+        android:text="    芝麻律所是北京一键信息咨询有限公司旗下的产品，在互联网飞速发展的时代，我们致力于连接广大法律需求者和专业的法律从业人员，使得法律能够更加高效便捷的为社会公众服务。"
+        android:textColor="@color/grey" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:lineSpacingExtra="8dp"
+        android:textColor="@color/grey" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="版权所有：北京一键信息咨询有限公司"
+        android:textColor="@color/grey"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:text="京ICP证010230号"
+        android:textColor="@color/grey"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+</LinearLayout>

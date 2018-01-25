@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:item="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_quick_consulting"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="?listChoiceBackgroundIndicator">
+
+            <ImageView
+                android:id="@+id/iv_quick_consulting"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="12dp"
+                android:src="@drawable/wechart" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/iv_quick_consulting"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/iv_quick_consulting"
+                android:text="@string/quick_consulting"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/iv_quick_consulting"
+                android:layout_marginBottom="0dp"
+                android:layout_toRightOf="@id/iv_quick_consulting"
+                android:maxLines="1"
+                android:text="快速提问获得专业律师解答"
+                android:textColor="#8f8f8f"
+                android:textSize="14dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_look_lawyer"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="?listChoiceBackgroundIndicator">
+
+            <ImageView
+                android:id="@+id/iv_look_lawyer"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="12dp"
+                android:src="@drawable/find_lawyer" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/iv_look_lawyer"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/iv_look_lawyer"
+                android:text="@string/look_lawyer"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/iv_look_lawyer"
+                android:layout_marginBottom="0dp"
+                android:layout_toRightOf="@id/iv_look_lawyer"
+                android:maxLines="1"
+                android:text="根据专长选择律师 精准咨询"
+                android:textColor="#8f8f8f"
+                android:textSize="14dp" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/special_rlv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </android.support.v7.widget.RecyclerView>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:visibility="gone"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="10dp"
+                android:paddingRight="2dp"
+                android:text="@string/little_knowledge_of_law"
+                android:textColor="@color/burro_primary_ext"
+                android:textSize="15dp"
+                android:textStyle="italic|bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/divider_" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="9dp"
+                android:gravity="center_vertical"
+                android:text="法定继承人有哪些？"
+                android:textColor="@color/blackTopic"
+                android:textSize="13dp" />
+        </LinearLayout>
+
+        <com.youth.banner.Banner
+            android:id="@+id/banner_index"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            app:image_scale_type="fit_xy"
+            app:indicator_drawable_selected="@drawable/banner_select"
+            app:indicator_drawable_unselected="@drawable/banner_unselect"
+            app:indicator_height="7dp"
+            app:indicator_width="7dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/viewDivider" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:text="@string/high_quality_solutions"
+                android:textColor="#444444"
+                android:textSize="16dp" />
+
+            <ImageView
+                android:id="@+id/tv_more_solutions"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:paddingLeft="10dp"
+                android:src="@drawable/arrow_r_g" />
+
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+</LinearLayout>
