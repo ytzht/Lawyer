@@ -29,6 +29,7 @@ public interface Apis {
     String IncomeAll = Apis.Base + "l/order/incomeAll";//1.26律师收入总额
     String IncomeDetail = Apis.Base + "l/order/incomeDetail";//1.27收入明细
     String BankCardAdd = Apis.Base + "l/wallet/bankCardAdd";//1.28添加银行卡
+    String PubBankByCard = Apis.Base + "pub/bankByCard";//1.28.1识别银行卡信息
     String BankCardList = Apis.Base + "l/wallet/bankCardList";//1.29 管理银行卡
     String DelBankCard = Apis.Base + "l/wallet/delBankCard";//1.30 银行卡删除
     String ApplyTX = Apis.Base + "l/wallet/applyTX";//1.31 提交提现申请
@@ -57,6 +58,7 @@ public interface Apis {
 
     String FreeAskOrder = Apis.Base + "l/freeask/order";
     String FoundFragList = Apis.Base + "l/freeask/list";
+    String FreeaskDetail = Apis.Base + "l/freeask/detail";
     String getDiscoveryDetail = Apis.Base + "l/conversation/getDiscoveryDetail";//1.58 已完成问题对话详情
 
 

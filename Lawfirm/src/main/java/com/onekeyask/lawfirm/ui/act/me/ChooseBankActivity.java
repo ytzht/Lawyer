@@ -173,7 +173,7 @@ public class ChooseBankActivity extends BaseToolBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.add_card) {
-            startActivity(AddCardActivity.class);
+            startActivity(AddNumberActivity.class);
             return true;
         }
         if (item.getItemId() == android.R.id.home) {

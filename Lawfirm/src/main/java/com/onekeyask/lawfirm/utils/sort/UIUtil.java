@@ -1,4 +1,4 @@
-package com.baiiu.filter.util;
+package com.onekeyask.lawfirm.utils.sort;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,12 +16,10 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 
 /**
- * author: baiiu
- * date: on 16/2/16 13:55
- * description:
+ * Created by zht on 2018/01/26 15:54
  */
-public class UIUtil {
 
+public class UIUtil {
     public static int dp(Context context, int dp) {
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 dp, context.getResources().getDisplayMetrics()) + 0.5F);

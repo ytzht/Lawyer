@@ -55,7 +55,7 @@ public class CardManageActivity extends BaseToolBarActivity {
         add_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(AddCardActivity.class);
+                startActivity(AddNumberActivity.class);
             }
         });
 

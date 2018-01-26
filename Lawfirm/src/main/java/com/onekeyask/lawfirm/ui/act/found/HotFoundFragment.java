@@ -188,7 +188,7 @@ public class HotFoundFragment  extends BaseFragment {
                         ((HotAdapter.ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                startActivity(FoundDetailActivity.class, "fid", list.get(position).getFreeaskId()+"", "state", "已被回复");
+                                startActivity(FoundDetailActivity.class, "fid", list.get(position).getFreeaskId()+"");
                             }
                         });
                         break;

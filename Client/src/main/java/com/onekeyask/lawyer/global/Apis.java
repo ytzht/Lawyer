@@ -40,6 +40,8 @@ public interface Apis {
 
     String SupportUserService = Apis.Base + "c/supportUserService";//1.28 用户点赞/取消点赞某发现
 
+    String PubBankByCard = Apis.Base + "pub/bankByCard";//1.28.1识别银行卡信息
+
     String LawyerList = Apis.Base + "c/lawyerList";//1.29 找律师查询接口
 
     String PointsHistory = Apis.Base + "c/my/pointsHistory";//1.30 我的积分明细

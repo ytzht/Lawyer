@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/viewDivider"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.onekeyask.lawfirm.ui.act.me.AddNumberActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="为保证您的资金安全，请绑定账户本人的银行卡"
+            android:textColor="#8a8a8a"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="卡号"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_with"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="16dp"
+            android:background="@null"
+            android:inputType="number"
+            android:maxLength="19"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/with_next"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/full_green_four"
+        android:gravity="center"
+        android:text="下一步"
+        android:alpha="0.5"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+</LinearLayout>

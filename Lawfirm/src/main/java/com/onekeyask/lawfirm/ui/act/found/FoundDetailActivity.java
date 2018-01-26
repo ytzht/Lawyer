@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -20,10 +21,9 @@ import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.AskDetail;
 import com.onekeyask.lawfirm.entity.FreeAskOrder;
+import com.onekeyask.lawfirm.entity.MyAskDetail;
 import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.global.BaseActivity;
-import com.onekeyask.lawfirm.http.ProgressSubscriber;
-import com.onekeyask.lawfirm.http.SubscriberOnNextListener;
 import com.onekeyask.lawfirm.ui.act.service.TalkingActivity;
 import com.onekeyask.lawfirm.utils.AssetsUtils;
 import com.onekeyask.lawfirm.utils.UserService;
@@ -109,128 +109,139 @@ public class FoundDetailActivity extends BaseActivity {
 
     private void initData() {
         fid = getIntent().getStringExtra("fid");
-
-
-        SubscriberOnNextListener listener = new SubscriberOnNextListener<AskDetail>() {
-            @Override
-            public void onNext(final AskDetail detail) {
-
-                Glide.with(FoundDetailActivity.this).load(detail.getFreeask().getHeadURL())
-                        .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
-                        .into(detailimg);
-                detailname.setText(detail.getFreeask().getName());
-                foundtag.setText(detail.getFreeask().getCategoryName());
-                foundprice.setText("￥" + detail.getFreeask().getMoney());
-                detailtime.setText(AssetsUtils.getGapTime(detail.getFreeask().getCreateTime()));
-                detailread.setText(detail.getFreeask().getReadCount() + "阅读");
-                detail_txt.setText(detail.getFreeask().getContent());
-
-                if (detail.getFreeask().getPicList().size() == 0){
-                    ll_pic.setVisibility(View.GONE);
-                }else {
-                    ll_pic.setVisibility(View.VISIBLE);
-                    if (detail.getFreeask().getPicList().size() <= 1) {
-                        pic_1.setVisibility(View.VISIBLE);
-                        Glide.with(FoundDetailActivity.this).load(detail.getFreeask().getPicList().get(0)).into(pic_1);
-                        pic_1.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                PhotoView p = (PhotoView) v;
-                                mInfo = p.getInfo();
-                                Picasso.with(FoundDetailActivity.this).load(detail.getFreeask().getPicList().get(0)).into(mPhotoView);
-                                mBg.startAnimation(in);
-                                mBg.setVisibility(View.VISIBLE);
-                                mParent.setVisibility(View.VISIBLE);
-                                mPhotoView.animaFrom(mInfo);
-                            }
-                        });
-                    }
-                    if (detail.getFreeask().getPicList().size() <= 2) {
-                        pic_2.setVisibility(View.VISIBLE);
-                        Glide.with(FoundDetailActivity.this).load(detail.getFreeask().getPicList().get(1)).into(pic_2);
-                        pic_2.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                PhotoView p = (PhotoView) v;
-                                mInfo = p.getInfo();
-                                Picasso.with(FoundDetailActivity.this).load(detail.getFreeask().getPicList().get(1)).into(mPhotoView);
-                                mBg.startAnimation(in);
-                                mBg.setVisibility(View.VISIBLE);
-                                mParent.setVisibility(View.VISIBLE);
-                                mPhotoView.animaFrom(mInfo);
-                            }
-                        });
-                    }
-                    if (detail.getFreeask().getPicList().size() <= 3) {
-                        pic_3.setVisibility(View.VISIBLE);
-                        Glide.with(FoundDetailActivity.this).load(detail.getFreeask().getPicList().get(2)).into(pic_3);
-                        pic_3.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                PhotoView p = (PhotoView) v;
-                                mInfo = p.getInfo();
-                                Picasso.with(FoundDetailActivity.this).load(detail.getFreeask().getPicList().get(2)).into(mPhotoView);
-                                mBg.startAnimation(in);
-                                mBg.setVisibility(View.VISIBLE);
-                                mParent.setVisibility(View.VISIBLE);
-                                mPhotoView.animaFrom(mInfo);
-                            }
-                        });
-                    }
-                }
-
-                wanttalk.setOnClickListener(new View.OnClickListener() {
+        OkGo.<String>get(Apis.FreeaskDetail)
+                .params("freeaskId", fid)
+                .params("lawyerId", UserService.service(getBaseContext()).getLawyerId())
+                .execute(new StringCallback() {
                     @Override
-                    public void onClick(View v) {
-                        View dialogView = LayoutInflater.from(FoundDetailActivity.this).inflate(R.layout.dialog_order, null);
+                    public void onSuccess(Response<String> response) {
+                        MyAskDetail detail = (new Gson()).fromJson(response.body(), MyAskDetail.class);
 
-                        alertDialog = new AlertDialog.Builder(FoundDetailActivity.this).create();
-                        alertDialog.setView(dialogView);
-                        alertDialog.setCancelable(true);
-                        alertDialog.show();
-
-                        TextView tv_msg = (TextView) dialogView.findViewById(R.id.alert_tv_msg);
-                        TextView cancel_tv = (TextView) dialogView.findViewById(R.id.dialog_cancel_tv);
-                        TextView next_tv = (TextView) dialogView.findViewById(R.id.dialog_next_tv);
-
-                        tv_msg.setText("您是否确认要回答客户问题");
-                        cancel_tv.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                if (alertDialog.isShowing()) alertDialog.dismiss();
-                            }
-                        });
-
-
-                        if (getIntent().hasExtra("state")){
-                            next_tv.setBackground(ContextCompat.getDrawable(FoundDetailActivity.this, R.drawable.talkover));
-                        } else {
-                            next_tv.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    if (alertDialog.isShowing()) alertDialog.dismiss();
-                                    grabSingle();
-
-                                }
-                            });
+                        if (detail.getCode() == 0) {
+                            initDetail(detail.getData());
+                        }else {
+                            showShort(detail.getMsg());
+                            finish();
                         }
 
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        Log.e("=====", "onError: "+response.body());
+                    }
                 });
-
-
-            }
-
-            @Override
-            public void onError(int code, String message) {
-//                showShort(message);
-            }
-        };
-
-        retrofitUtil.getAskDetail(fid, UserService.service(getBaseContext()).getLawyerId(),
-                new ProgressSubscriber<AskDetail>(listener, FoundDetailActivity.this, false));
-
     }
+
+    private void initDetail(final AskDetail detail) {
+        Glide.with(FoundDetailActivity.this).load(detail.getFreeask().getHeadURL())
+                .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
+                .into(detailimg);
+        detailname.setText(detail.getFreeask().getName());
+        foundtag.setText(detail.getFreeask().getCategoryName());
+        foundprice.setText("￥" + detail.getFreeask().getMoney());
+        detailtime.setText(AssetsUtils.getGapTime(detail.getFreeask().getCreateTime()));
+        detailread.setText(detail.getFreeask().getReadCount() + "阅读");
+        detail_txt.setText(detail.getFreeask().getContent());
+
+        if (detail.getFreeask().getPicList().size() == 0){
+            ll_pic.setVisibility(View.GONE);
+        }else {
+            ll_pic.setVisibility(View.VISIBLE);
+            if (detail.getFreeask().getPicList().size() >= 1) {
+                pic_1.setVisibility(View.VISIBLE);
+                Glide.with(FoundDetailActivity.this).load(detail.getFreeask().getPicList().get(0)).into(pic_1);
+                pic_1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        PhotoView p = (PhotoView) v;
+                        mInfo = p.getInfo();
+                        Picasso.with(FoundDetailActivity.this).load(detail.getFreeask().getPicList().get(0)).into(mPhotoView);
+                        mBg.startAnimation(in);
+                        mBg.setVisibility(View.VISIBLE);
+                        mParent.setVisibility(View.VISIBLE);
+                        mPhotoView.animaFrom(mInfo);
+                    }
+                });
+            }
+            if (detail.getFreeask().getPicList().size() >= 2) {
+                pic_2.setVisibility(View.VISIBLE);
+                Glide.with(FoundDetailActivity.this).load(detail.getFreeask().getPicList().get(1)).into(pic_2);
+                pic_2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        PhotoView p = (PhotoView) v;
+                        mInfo = p.getInfo();
+                        Picasso.with(FoundDetailActivity.this).load(detail.getFreeask().getPicList().get(1)).into(mPhotoView);
+                        mBg.startAnimation(in);
+                        mBg.setVisibility(View.VISIBLE);
+                        mParent.setVisibility(View.VISIBLE);
+                        mPhotoView.animaFrom(mInfo);
+                    }
+                });
+            }
+            if (detail.getFreeask().getPicList().size() >= 3) {
+                pic_3.setVisibility(View.VISIBLE);
+                Glide.with(FoundDetailActivity.this).load(detail.getFreeask().getPicList().get(2)).into(pic_3);
+                pic_3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        PhotoView p = (PhotoView) v;
+                        mInfo = p.getInfo();
+                        Picasso.with(FoundDetailActivity.this).load(detail.getFreeask().getPicList().get(2)).into(mPhotoView);
+                        mBg.startAnimation(in);
+                        mBg.setVisibility(View.VISIBLE);
+                        mParent.setVisibility(View.VISIBLE);
+                        mPhotoView.animaFrom(mInfo);
+                    }
+                });
+            }
+        }
+
+        if (detail.getFreeask().getStatus() == 2){//已回复
+            wanttalk.setBackground(ContextCompat.getDrawable(FoundDetailActivity.this, R.drawable.talkover));
+        }else {
+            wanttalk.setBackground(ContextCompat.getDrawable(FoundDetailActivity.this, R.drawable.wanttalk));
+            wanttalk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    View dialogView = LayoutInflater.from(FoundDetailActivity.this).inflate(R.layout.dialog_order, null);
+
+                    alertDialog = new AlertDialog.Builder(FoundDetailActivity.this).create();
+                    alertDialog.setView(dialogView);
+                    alertDialog.setCancelable(true);
+                    alertDialog.show();
+
+                    TextView tv_msg = (TextView) dialogView.findViewById(R.id.alert_tv_msg);
+                    TextView cancel_tv = (TextView) dialogView.findViewById(R.id.dialog_cancel_tv);
+                    TextView next_tv = (TextView) dialogView.findViewById(R.id.dialog_next_tv);
+
+                    tv_msg.setText("您是否确认要回答客户问题");
+                    cancel_tv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (alertDialog.isShowing()) alertDialog.dismiss();
+                        }
+                    });
+
+
+                    {
+                        next_tv.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (alertDialog.isShowing()) alertDialog.dismiss();
+                                grabSingle();
+
+                            }
+                        });
+                    }
+
+                }
+            });
+        }
+    }
+
     private Toolbar talk_toolbar;
     private void initView() {
         this.wanttalk = (TextView) findViewById(R.id.want_talk);

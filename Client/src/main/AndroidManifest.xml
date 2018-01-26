@@ -267,7 +267,10 @@
             android:launchMode="singleTask" />
         <activity android:name=".ui.act.me.AboutUsActivity" />
         <activity android:name=".ui.act.lawyer.PhoneAskActivity" />
-        <activity android:name=".ui.act.lawyer.CallDetailActivity"></activity>
+        <activity android:name=".ui.act.lawyer.CallDetailActivity" />
+        <activity android:name=".ui.act.me.AddNumberActivity" />
+        <activity android:name=".ui.act.me.BankCardTypeActivity" />
+        <activity android:name=".ui.act.me.VerificationBankActivity"></activity>
     </application>
 
 </manifest>

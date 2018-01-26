@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.MsgPoints;
 import com.onekeyask.lawfirm.ui.act.MainActivity;
+import com.onekeyask.lawfirm.ui.act.found.FoundDetailActivity;
 import com.onekeyask.lawfirm.ui.act.me.BillingDetailsActivity;
 import com.onekeyask.lawfirm.ui.act.service.CallDetailActivity;
 import com.onekeyask.lawfirm.ui.act.service.TalkingActivity;
@@ -184,6 +185,12 @@ public class MyPushIntentService extends UmengMessageService {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("id", msgPoints.getData().getTargetId());
                 intent.putExtra("oid", "0");
+                break;
+            case "NewFreeAskNotification":
+                isChat = false;
+                intent = new Intent(MyPushIntentService.this, FoundDetailActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("fid", msgPoints.getData().getTargetId());
                 break;
             default:
                 isChat = false;
