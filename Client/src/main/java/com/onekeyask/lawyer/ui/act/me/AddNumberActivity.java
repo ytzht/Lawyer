@@ -59,7 +59,7 @@ public class AddNumberActivity extends BaseToolBarActivity {
         with_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+//
 
                 OkGo.<String>get(Apis.PubBankByCard).params("cardNum", et_with.getText().toString()).execute(new StringCallback() {
                     @Override
