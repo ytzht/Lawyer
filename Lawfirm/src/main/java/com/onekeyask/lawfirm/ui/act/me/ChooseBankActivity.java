@@ -1,6 +1,5 @@
 package com.onekeyask.lawfirm.ui.act.me;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,10 +17,9 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
-import com.onekeyask.lawfirm.entity.ApplyTX;
 import com.onekeyask.lawfirm.entity.BankCardList;
-import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.global.Apis;
+import com.onekeyask.lawfirm.global.BaseToolBarActivity;
 import com.onekeyask.lawfirm.utils.UserService;
 
 import java.util.List;
@@ -77,32 +75,12 @@ public class ChooseBankActivity extends BaseToolBarActivity {
     public void onViewClicked() {
 
         if (list.getData().getCardList().size()>0) {
-            OkGo.<String>get(Apis.ApplyTX)
-                    .params("lawyerId", UserService.service(getBaseContext()).getLawyerId())
-                    .params("cardId", list.getData().getCardList().get(selectIndex).getId())
-                    .params("money", getIntent().getStringExtra("money"))
-                    .params("codeId", getIntent().getStringExtra("codeId"))
-                    .params("code", getIntent().getStringExtra("code"))
-                    .execute(new StringCallback() {
-                        @Override
-                        public void onSuccess(Response<String> response) {
-
-                            ApplyTX tx = (new Gson()).fromJson(response.body(), ApplyTX.class);
-                            if (tx.getCode() == 0) {
-                                Intent intent = new Intent(ChooseBankActivity.this, WithStateActivity.class);
-
-                                Bundle bundle = new Bundle();
-                                bundle.putSerializable("info", tx.getData().getProgressInfo());
-                                intent.putExtras(bundle);
-
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                showShort(tx.getMsg());
-                            }
-
-                        }
-                    });
+            startActivity(PwdAuthActivity.class,
+                    "money", getIntent().getStringExtra("money"),
+                    "userId", list.getData().getCardList().get(selectIndex).getUserId()+"",
+                    "phone", list.getData().getCardList().get(selectIndex).getCardtype()+"",
+                    "cardId", list.getData().getCardList().get(selectIndex).getId()+"");
+            finish();
         }else {
             showShort("请先添加一张银行卡");
         }

@@ -58,7 +58,7 @@ public class WithdrawalActivity extends BaseToolBarActivity {
             double ye = Double.valueOf(etWith.getText().toString());
             if (balance >= ye) {
                 if (ye >= 20) {
-                    startActivity(PwdAuthActivity.class, "money", ye + "");
+                    startActivity(ChooseBankActivity.class, "money", ye + "");
                 } else {
                     showShort("提现的金额不能少于20.00元");
                 }

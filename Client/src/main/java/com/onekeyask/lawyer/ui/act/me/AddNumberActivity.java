@@ -14,6 +14,7 @@ import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.BankByCard;
 import com.onekeyask.lawyer.global.Apis;
+import com.onekeyask.lawyer.global.BaseEvent;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 
 public class AddNumberActivity extends BaseToolBarActivity {
@@ -61,6 +62,9 @@ public class AddNumberActivity extends BaseToolBarActivity {
             public void onClick(View v) {
 //
 
+                if (et_with.getText().length() < 16){
+                    return;
+                }
                 OkGo.<String>get(Apis.PubBankByCard).params("cardNum", et_with.getText().toString()).execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -91,6 +95,13 @@ public class AddNumberActivity extends BaseToolBarActivity {
 
 
     }
+    @Override
+    public void onEventMainThread(BaseEvent event) {
+        super.onEventMainThread(event);
 
+        if (event.getCode() == BaseEvent.AddBankCard){
+            finish();
+        }
+    }
 
 }

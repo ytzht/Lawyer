@@ -1,5 +1,6 @@
 package com.onekeyask.lawfirm.ui.act.me;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
+import com.onekeyask.lawfirm.entity.ApplyTX;
 import com.onekeyask.lawfirm.entity.SMSCode;
 import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.global.BaseToolBarActivity;
@@ -97,9 +99,29 @@ public class PwdAuthActivity extends BaseToolBarActivity {
                     showShort("请输入正确验证码");
                     return;
                 }
+                OkGo.<String>get(Apis.ApplyTX)
+                        .params("lawyerId", UserService.service(getBaseContext()).getLawyerId())
+                        .params("cardId", getIntent().getStringExtra("cardId"))
+                        .params("money", getIntent().getStringExtra("money"))
+                        .params("codeId", codeId)
+                        .params("code", code)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                ApplyTX tx = (new Gson()).fromJson(response.body(), ApplyTX.class);
+                                if (tx.getCode() == 0) {
+                                    Intent intent = new Intent(PwdAuthActivity.this, WithStateActivity.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("info", tx.getData().getProgressInfo());
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    showShort(tx.getMsg());
+                                }
+                            }
+                        });
 
-                startActivity(ChooseBankActivity.class, "money", getIntent().getStringExtra("money"), "codeId", codeId+"", "code", code);
-                finish();
             }
         });
     }

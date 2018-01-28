@@ -9,8 +9,14 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
+import com.onekeyask.lawyer.entity.BankCardList;
 import com.onekeyask.lawyer.entity.PriceList;
+import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
@@ -91,32 +97,74 @@ public class MyWalletActivity extends BaseToolBarActivity {
                 startActivity(RechargeActivity.class);
                 break;
             case R.id.withdrawal://提现
-                View view1 = LayoutInflater.from(this).inflate(R.layout.custom_dialog_share, null, false);
-                alert = new AlertDialog.Builder(this).setView(view1).setCancelable(false).show();
-                TextView tvMsg = (TextView)view1.findViewById(R.id.tv_msg);
-                TextView cancel = (TextView)view1.findViewById(R.id.tv_cancel);
-                TextView next = (TextView)view1.findViewById(R.id.tv_share_con);
-                cancel.setVisibility(View.VISIBLE);
-                tvMsg.setText("提现预计需要十个工作日到帐，请问您是否继续？");
-                next.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(WithdrawalActivity.class);
-                        if (alert.isShowing()) alert.dismiss();
-                    }
-                });
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (alert.isShowing()) alert.dismiss();
-                    }
-                });
 
-
+                OkGo.<String>get(Apis.BankCardList)
+                        .params("userId", UserService.service(getBaseContext()).getUserId())
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                BankCardList list = (new Gson()).fromJson(response.body(), BankCardList.class);
+                                if (list.getCode() == 0) {
+                                    if (list.getData().getCardList().size() > 0){
+                                        hasCard();
+                                    }else {
+                                        hasBank();
+                                    }
+                                } else {
+                                    showShort(list.getMsg());
+                                }
+                            }
+                        });
                 break;
             case R.id.card_manage://银行卡管理
                 startActivity(CardManageActivity.class);
                 break;
         }
+    }
+
+    private void hasBank() {
+        View view1 = LayoutInflater.from(this).inflate(R.layout.custom_dialog_share, null, false);
+        alert = new AlertDialog.Builder(this).setView(view1).setCancelable(false).show();
+        TextView tvMsg = (TextView)view1.findViewById(R.id.tv_msg);
+        TextView cancel = (TextView)view1.findViewById(R.id.tv_cancel);
+        TextView next = (TextView)view1.findViewById(R.id.tv_share_con);
+        cancel.setVisibility(View.VISIBLE);
+        tvMsg.setText("您尚未绑定银行卡，请先去绑定银行卡，然后才可以提现。给您带来的不便敬请谅解");
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(CardManageActivity.class);
+                if (alert.isShowing()) alert.dismiss();
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (alert.isShowing()) alert.dismiss();
+            }
+        });
+    }
+
+    private void hasCard() {
+        View view1 = LayoutInflater.from(this).inflate(R.layout.custom_dialog_share, null, false);
+        alert = new AlertDialog.Builder(this).setView(view1).setCancelable(false).show();
+        TextView tvMsg = (TextView)view1.findViewById(R.id.tv_msg);
+        TextView cancel = (TextView)view1.findViewById(R.id.tv_cancel);
+        TextView next = (TextView)view1.findViewById(R.id.tv_share_con);
+        cancel.setVisibility(View.VISIBLE);
+        tvMsg.setText("提现预计需要十个工作日到帐，请问您是否继续？");
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(WithdrawalActivity.class);
+                if (alert.isShowing()) alert.dismiss();
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (alert.isShowing()) alert.dismiss();
+            }
+        });
     }
 }

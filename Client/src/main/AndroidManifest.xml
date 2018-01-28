@@ -270,7 +270,8 @@
         <activity android:name=".ui.act.lawyer.CallDetailActivity" />
         <activity android:name=".ui.act.me.AddNumberActivity" />
         <activity android:name=".ui.act.me.BankCardTypeActivity" />
-        <activity android:name=".ui.act.me.VerificationBankActivity"></activity>
+        <activity android:name=".ui.act.me.VerificationBankActivity" />
+        <activity android:name=".ui.act.me.VerificationSmsActivity"></activity>
     </application>
 
 </manifest>

@@ -13,6 +13,7 @@ import com.d.lib.xrv.adapter.CommonAdapter;
 import com.d.lib.xrv.adapter.CommonHolder;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.SortBean;
+import com.onekeyask.lawyer.global.BaseEvent;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.utils.sort.SideBar;
 import com.onekeyask.lawyer.utils.sort.SortUtil;
@@ -121,10 +122,20 @@ public class BankCardTypeActivity extends BaseToolBarActivity {
                             "type", cardtype,
                             "number", getIntent().getStringExtra("number")
                     );
+                    finish();
 
 
                 }
             });
+        }
+    }
+
+    @Override
+    public void onEventMainThread(BaseEvent event) {
+        super.onEventMainThread(event);
+
+        if (event.getCode() == BaseEvent.AddBankCard){
+            finish();
         }
     }
 }

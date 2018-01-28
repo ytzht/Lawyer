@@ -84,6 +84,7 @@
 
         <EditText
             android:id="@+id/et_name"
+            android:maxLength="4"
             android:background="@null"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -115,6 +116,8 @@
         <EditText
             android:id="@+id/et_id"
             android:background="@null"
+            android:inputType="number"
+            android:maxLength="18"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#343434"
@@ -138,7 +141,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="卡    号"
+            android:text="手机号"
             android:textColor="#6f6f6f"
             android:textSize="16sp" />
 
@@ -146,6 +149,8 @@
             android:id="@+id/et_phone"
             android:background="@null"
             android:hint="银行预留手机号"
+            android:inputType="phone"
+            android:maxLength="11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#343434"

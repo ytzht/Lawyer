@@ -1,6 +1,5 @@
 package com.onekeyask.lawyer.ui.act.me;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -12,33 +11,54 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
-import com.onekeyask.lawyer.entity.ApplyTX;
+import com.onekeyask.lawyer.entity.BaseResult;
 import com.onekeyask.lawyer.entity.SMSCode;
 import com.onekeyask.lawyer.global.Apis;
+import com.onekeyask.lawyer.global.BaseEvent;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.utils.UserService;
 
-public class PwdAuthActivity extends BaseToolBarActivity {
+import org.greenrobot.eventbus.EventBus;
 
+public class VerificationSmsActivity extends BaseToolBarActivity {
 
     private EditText etpwdauth;
     private TextView tvGetCode;
     private TextView pwdauthnext;
     private int codeId = 0;
 
+    private String cardno;
+    private String cardholder;
+    private String bankname;
+    private String idNumber;
+    private String checkPhoneNo;
+    private String cardtype;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pwd_auth);
+        setContentView(R.layout.activity_verification_sms);
+
+        setToolbarText("手机短信验证");
+
         this.pwdauthnext = (TextView) findViewById(R.id.pwd_auth_next);
         this.tvGetCode = (TextView) findViewById(R.id.tv_auth_code);
         this.etpwdauth = (EditText) findViewById(R.id.et_pwd_auth);
-        setToolbarText("手机验证码");
+
+        cardno = getIntent().getStringExtra("cardno");
+        cardholder = getIntent().getStringExtra("cardholder");
+        bankname = getIntent().getStringExtra("bankname");
+        idNumber = getIntent().getStringExtra("idNumber");
+        checkPhoneNo = getIntent().getStringExtra("checkPhoneNo");
+        cardtype = getIntent().getStringExtra("cardtype");
+
+
+
         initView();
         initClick();
 
     }
-
 
 
     private void initView() {
@@ -68,7 +88,7 @@ public class PwdAuthActivity extends BaseToolBarActivity {
         tvGetCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OkGo.<String>get(Apis.SMSCode).params("phoneNo", UserService.service(getBaseContext()).getPhone()).params("codeId", codeId).execute(new StringCallback() {
+                OkGo.<String>get(Apis.SMSCode).params("phoneNo", checkPhoneNo).params("codeId", codeId).execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         SMSCode data = (new Gson()).fromJson(response.body(), SMSCode.class);
@@ -100,28 +120,36 @@ public class PwdAuthActivity extends BaseToolBarActivity {
                     showShort("请输入正确验证码");
                     return;
                 }
-                OkGo.<String>get(Apis.ApplyTX)
-                        .params("userId", getIntent().getStringExtra("userId"))
-                        .params("cardId", getIntent().getStringExtra("cardId"))
-                        .params("money", getIntent().getStringExtra("money"))
+
+                //添加银行卡接口
+
+                OkGo.<String>post(Apis.BankCardAdd)
+                        .params("userId", UserService.service(getBaseContext()).getUserId())
+                        .params("cardno", cardno)
+                        .params("cardholder", cardholder)
+                        .params("bankname", bankname)
+                        .params("idNumber", idNumber)
+                        .params("checkPhoneNo", checkPhoneNo)
                         .params("codeId", codeId)
                         .params("code", code)
+                        .params("province", "")
+                        .params("cardtype", cardtype)
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
-                                ApplyTX tx = (new Gson()).fromJson(response.body(), ApplyTX.class);
-                                if (tx.getCode() == 0) {
-                                    Intent intent = new Intent(PwdAuthActivity.this, WithStateActivity.class);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putSerializable("info", tx.getData().getProgressInfo());
-                                    intent.putExtras(bundle);
-                                    startActivity(intent);
+                                BaseResult result = (new Gson()).fromJson(response.body(), BaseResult.class);
+                                if (result.getCode() == 0) {
+                                    showShort("添加成功");
+                                    EventBus.getDefault().post(BaseEvent.event(BaseEvent.AddBankCard));
                                     finish();
                                 } else {
-                                    showShort(tx.getMsg());
+                                    showShort(result.getMsg());
                                 }
                             }
                         });
+
+
+
             }
         });
     }
@@ -148,7 +176,5 @@ public class PwdAuthActivity extends BaseToolBarActivity {
             handler = null;
         }
     }
-
-
 
 }

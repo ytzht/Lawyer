@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/viewDivider"
     android:orientation="vertical"
-    tools:context="com.onekeyask.lawfirm.ui.act.me.PwdAuthActivity">
+    tools:context="com.onekeyask.lawfirm.ui.act.me.VerificationSmsActivity">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,6 +50,7 @@
 
     </LinearLayout>
 
+
     <TextView
         android:id="@+id/pwd_auth_next"
         android:layout_width="match_parent"
@@ -58,7 +60,7 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/full_green_four"
         android:gravity="center"
-        android:text="完成"
+        android:text="下一步"
         android:textColor="@color/white"
         android:textSize="18sp" />
 </LinearLayout>
