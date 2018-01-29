@@ -89,7 +89,7 @@ public class VerificationSmsActivity extends BaseToolBarActivity {
         tvGetCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OkGo.<String>get(Apis.SMSCode).params("phoneNo", checkPhoneNo).params("codeId", codeId).execute(new StringCallback() {
+                OkGo.<String>get(Apis.SMSCode).params("phoneNo", UserService.service(getBaseContext()).getPhone()).params("codeId", codeId).execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         SMSCode data = (new Gson()).fromJson(response.body(), SMSCode.class);

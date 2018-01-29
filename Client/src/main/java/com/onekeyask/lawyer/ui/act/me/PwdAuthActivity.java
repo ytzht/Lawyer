@@ -15,6 +15,7 @@ import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.ApplyTX;
 import com.onekeyask.lawyer.entity.SMSCode;
 import com.onekeyask.lawyer.global.Apis;
+import com.onekeyask.lawyer.global.BaseEvent;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
 import com.onekeyask.lawyer.utils.UserService;
 
@@ -149,6 +150,13 @@ public class PwdAuthActivity extends BaseToolBarActivity {
         }
     }
 
+    @Override
+    public void onEventMainThread(BaseEvent event) {
+        super.onEventMainThread(event);
 
+        if (event.getCode() == BaseEvent.TXState){
+            finish();
+        }
+    }
 
 }

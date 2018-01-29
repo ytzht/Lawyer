@@ -5,76 +5,103 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/viewDivider"
-    tools:context="com.onekeyask.lawyer.ui.act.me.WithdrawalActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.onekeyask.lawyer.ui.act.me.WithdrawalActivity">
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:textSize="16sp"
-            android:layout_height="wrap_content"
-            android:text="可提现的金额为"
-            android:padding="16dp"/>
-        <TextView
-            android:id="@+id/can_with"
-            android:layout_width="wrap_content"
-            android:textColor="@color/org"
-            tools:text="100.00元"
-            android:textSize="16sp"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-
-    <LinearLayout
+        android:layout_height="wrap_content"
         android:background="@color/white"
+        android:paddingTop="20dp"
+        android:text="提现金额"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textColor="#343434"
+        android:textSize="16sp" />
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center">
 
         <TextView
-            android:textSize="18sp"
-            android:layout_marginLeft="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="金额"/>
+            android:layout_marginLeft="16dp"
+            android:text="￥"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/et_with"
             android:layout_width="match_parent"
-            android:background="@null"
-            android:maxLength="6"
-            android:inputType="numberDecimal"
-            android:textSize="16sp"
-            android:hint="提现的金额不能少于5.00元"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="16dp"
-            android:layout_height="wrap_content" />
+            android:background="@null"
+            android:hint="提现的金额不能少于5.00元"
+            android:inputType="numberDecimal"
+            android:maxLength="6"
+            android:textSize="16sp" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@color/divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="16dp"
-        android:textSize="14sp"
-        android:textColor="@color/org"
-        android:text=""/>
+        android:background="@color/white"
+        android:paddingLeft="16dp"
+        android:paddingBottom="28dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前零钱余额"
+            android:textColor="@color/blackHint"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/can_with"
+            android:layout_width="wrap_content"
+            android:textColor="@color/blackHint"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            tools:text="100.00元" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/divider" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rlv_choose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+        </android.support.v7.widget.RecyclerView>
 
 
     <TextView
         android:id="@+id/with_next"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:text="下一步"
-        android:gravity="center"
-        android:background="@drawable/full_green_four"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="30dp"
-        />
+        android:background="@drawable/full_green_four"
+        android:gravity="center"
+        android:text="下一步"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
 </LinearLayout>

@@ -10,6 +10,7 @@ public class BaseEvent {
     public static final int GO_DISCOVER = 200;//首页点击更多去发现页面
     public static final int FINISH_TALKING = 400;//TalkingActivity finish();
     public static final int AddBankCard = 600;// finish();
+    public static final int TXState = 700;// finish();
 
 
     public static BaseEvent event(int code){

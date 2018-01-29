@@ -30,6 +30,7 @@ import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.global.BaseActivity;
 import com.onekeyask.lawfirm.global.BaseEvent;
 import com.onekeyask.lawfirm.global.DownLoadAPK;
+import com.onekeyask.lawfirm.ui.act.user.LoginActivity;
 import com.onekeyask.lawfirm.ui.fragment.HomeFoundFragment;
 import com.onekeyask.lawfirm.ui.fragment.HomeIndexFragment;
 import com.onekeyask.lawfirm.ui.fragment.HomeInfoFragment;
@@ -105,8 +106,14 @@ public class MainActivity extends BaseActivity {
                     }else {
                         tv_red.setVisibility(View.GONE);
                     }
-                }else {
-//                    showShort(red.getMsg());
+                }else if (red.getCode() == -100){
+                    UserService service = UserService.service(getBaseContext());
+                    service.setUserName("");
+                    service.setToken("-1");
+                    service.setHeadURL("");
+                    service.setLawyerId(0);
+                    startActivity(LoginActivity.class);
+                    finish();
                 }
             }
         });

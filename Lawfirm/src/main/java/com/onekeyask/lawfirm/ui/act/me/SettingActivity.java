@@ -154,9 +154,9 @@ public class SettingActivity extends BaseToolBarActivity {
                                             service.setToken("-1");
                                             service.setHeadURL("");
                                             service.setLawyerId(0);
-                                            finish();
                                             startActivity(LoginActivity.class);
                                             EventBus.getDefault().post(BaseEvent.event(BaseEvent.FINISH_MAIN));
+                                            finish();
                                         } else {
                                             showShort(data.getMsg());
                                         }

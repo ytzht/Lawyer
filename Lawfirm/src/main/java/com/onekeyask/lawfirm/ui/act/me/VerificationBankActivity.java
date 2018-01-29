@@ -1,6 +1,8 @@
 package com.onekeyask.lawfirm.ui.act.me;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -34,6 +36,36 @@ public class VerificationBankActivity extends BaseToolBarActivity {
 
         initView();
     }
+    TextWatcher watch = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            submitnext.setAlpha(0.5f);
+            //验证参数是否为空，若都不为空则传递参数到短信验证页面
+            if (etname.getText().length() < 2) {
+                return;
+            }
+
+            if (!CheckCardID.isIDCard(etid.getText().toString())){
+                return;
+            }
+
+            if (Forms.disValid(etphone.getText().toString(), Forms.PHONENUM)){
+                return;
+            }
+
+            submitnext.setAlpha(1);
+        }
+    };
 
     private void initView() {
         setToolbarText("验证银行卡");
@@ -48,7 +80,9 @@ public class VerificationBankActivity extends BaseToolBarActivity {
         banknametype.setText(bankname + cardtype);
         cardno = getIntent().getStringExtra("number");
         cardnumber.setText(cardno);
-
+        etid.addTextChangedListener(watch);
+        etname.addTextChangedListener(watch);
+        etphone.addTextChangedListener(watch);
 
         submitnext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,11 +91,13 @@ public class VerificationBankActivity extends BaseToolBarActivity {
                 //验证参数是否为空，若都不为空则传递参数到短信验证页面
                 if (etname.getText().length() < 2) {
                     showShort("请输入持卡人姓名");
+                    etname.requestFocus();
                     return;
                 }
 
                 if (!CheckCardID.isIDCard(etid.getText().toString())){
                     showShort("请输入证件号");
+                    etid.requestFocus();
                     return;
                 }
 

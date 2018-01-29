@@ -28,13 +28,14 @@ public class BankCardTypeActivity extends BaseToolBarActivity {
     private LinearLayout llytTin;
     private TextView tvTinLetter;
     private RecyclerView rvList;
-    private SideBar sideBar;
     private SortUtil sortUtil;
 
     @BindView(R.id.rb_save)
     RadioButton rbSave;
     @BindView(R.id.rb_trust)
     RadioButton rbTrust;
+    @BindView(R.id.sb_sidebar)
+    SideBar sideBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,6 @@ public class BankCardTypeActivity extends BaseToolBarActivity {
         llytTin = (LinearLayout) findViewById(R.id.llyt_tin);
         tvTinLetter = (TextView) findViewById(R.id.tv_tin_letter);
         rvList = (RecyclerView) findViewById(R.id.rv_list);
-        sideBar = (SideBar) findViewById(R.id.sb_sidebar);
         rbSave = (RadioButton) findViewById(R.id.rb_save);
         rbTrust = (RadioButton) findViewById(R.id.rb_trust);
 

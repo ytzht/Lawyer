@@ -12,7 +12,7 @@ public class BaseEvent {
     public static final int FINISH_TALKING = 400;//TalkingActivity finish();
     public static final int FINISH_Identity = 500;//TalkingActivity finish();
     public static final int AddBankCard = 600;// finish();
-
+    public static final int TXState = 700;// finish();
 
 
     public static BaseEvent event(int code){

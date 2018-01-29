@@ -118,6 +118,8 @@
             android:background="@null"
             android:inputType="number"
             android:maxLength="18"
+            android:digits="xX0123456789xX"
+            android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#343434"

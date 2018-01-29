@@ -124,7 +124,7 @@ public class MyWalletActivity extends BaseToolBarActivity {
         TextView cancel = (TextView)view1.findViewById(R.id.tv_cancel);
         TextView next = (TextView)view1.findViewById(R.id.tv_share_con);
         cancel.setVisibility(View.VISIBLE);
-        tvMsg.setText("您尚未绑定银行卡，请先去绑定银行卡，然后才可以提现。给您带来的不便敬请谅解");
+        tvMsg.setText("您还没有添加银行卡，请先添加提现的银行卡信息");
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

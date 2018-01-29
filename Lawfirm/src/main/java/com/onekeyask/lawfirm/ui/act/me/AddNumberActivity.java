@@ -48,7 +48,7 @@ public class AddNumberActivity extends BaseToolBarActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
-                if (s.toString().length() == 19){
+                if (s.toString().length() == 19 || s.toString().length() == 16){
                     with_next.setAlpha(1);
 
                 }else {
@@ -61,31 +61,31 @@ public class AddNumberActivity extends BaseToolBarActivity {
             @Override
             public void onClick(View v) {
 
-                if (et_with.getText().length() < 16){
-                    return;
+                if (et_with.getText().toString().length() == 19 || et_with.getText().toString().length() == 16){
+                    OkGo.<String>get(Apis.PubBankByCard).params("cardNum", et_with.getText().toString()).execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+
+                            BankByCard card = (new Gson()).fromJson(response.body(), BankByCard.class);
+                            if (card.getCode() == 0){
+
+                                //银行卡身份信息填写页
+                                startActivity(VerificationBankActivity.class,
+                                        "bank", card.getData().getBankname(),
+                                        "type", card.getData().getCardtype(),
+                                        "number", et_with.getText().toString());
+
+                            }else {
+                                //银行卡类别确认页（此页面的银行列表，参见”支付宝转账银行卡.txt”附件），
+                                // 银行卡信息确认后跳转至银行卡身份信息填写页
+                                startActivity(BankCardTypeActivity.class, "number", et_with.getText().toString());
+                            }
+
+                        }
+                    });
+
                 }
 
-                OkGo.<String>get(Apis.PubBankByCard).params("cardNum", et_with.getText().toString()).execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-
-                        BankByCard card = (new Gson()).fromJson(response.body(), BankByCard.class);
-                        if (card.getCode() == 0){
-
-                            //银行卡身份信息填写页
-                            startActivity(VerificationBankActivity.class,
-                                    "bank", card.getData().getBankname(),
-                                    "type", card.getData().getCardtype(),
-                                    "number", et_with.getText().toString());
-
-                        }else {
-                            //银行卡类别确认页（此页面的银行列表，参见”支付宝转账银行卡.txt”附件），
-                            // 银行卡信息确认后跳转至银行卡身份信息填写页
-                            startActivity(BankCardTypeActivity.class, "number", et_with.getText().toString());
-                        }
-
-                    }
-                });
             }
         });
     }

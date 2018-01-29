@@ -1,6 +1,9 @@
 package com.onekeyask.lawfirm.ui.act.me;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,8 +16,12 @@ import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.ProgressInfo;
 import com.onekeyask.lawfirm.entity.ProgressTX;
 import com.onekeyask.lawfirm.global.Apis;
+import com.onekeyask.lawfirm.global.BaseEvent;
 import com.onekeyask.lawfirm.global.BaseToolBarActivity;
+import com.onekeyask.lawfirm.ui.act.MainActivity;
 import com.onekeyask.lawfirm.utils.UserService;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -105,5 +112,30 @@ public class WithStateActivity extends BaseToolBarActivity {
 
         createtime1.setText(info.getCreateTime());
         createtime.setText(info.getCreateTime());
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            EventBus.getDefault().post(BaseEvent.event(BaseEvent.TXState));
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            startActivity(MainActivity.class);
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -110,8 +110,14 @@ public class MainActivity extends BaseActivity {
                     } else {
                         tv_red.setVisibility(View.GONE);
                     }
-                } else {
-//                    showShort(red.getMsg());
+                } else if (red.getCode() == -100){
+                    UserService service = UserService.service(getBaseContext());
+                    service.setUserName("");
+                    service.setToken("-1");
+                    service.setHeadURL("");
+                    service.setUserId(0);
+                    finish();
+                    startActivity(LoginActivity.class);
                 }
             }
         });

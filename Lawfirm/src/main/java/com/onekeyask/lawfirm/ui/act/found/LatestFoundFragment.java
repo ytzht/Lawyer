@@ -196,6 +196,12 @@ public class LatestFoundFragment extends BaseFragment {
                         break;
                     case 3:
                         state = "已完成";
+                        ((LatestAdapter.ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(DiscoveryDetailActivity.class, "fid", list.get(position).getFreeaskId()+"");
+                            }
+                        });
                         ((LatestAdapter.ViewHolder) holder).found_state.setTextColor(ContextCompat.getColor(getActivity(), R.color.gray));
                         break;
                 }

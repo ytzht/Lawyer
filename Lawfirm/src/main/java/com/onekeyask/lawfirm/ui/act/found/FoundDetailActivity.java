@@ -6,6 +6,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -64,7 +66,20 @@ public class FoundDetailActivity extends BaseActivity {
     }
     private AlertDialog alertDialog;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+
+        return false;
+    }
 
     private void initPhotoView() {
         in.setDuration(300);
@@ -201,8 +216,10 @@ public class FoundDetailActivity extends BaseActivity {
 
         if (detail.getFreeask().getStatus() == 2){//已回复
             wanttalk.setBackground(ContextCompat.getDrawable(FoundDetailActivity.this, R.drawable.talkover));
+            wanttalk.setText("已被回复");
         }else {
             wanttalk.setBackground(ContextCompat.getDrawable(FoundDetailActivity.this, R.drawable.wanttalk));
+            wanttalk.setText("我要回复");
             wanttalk.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

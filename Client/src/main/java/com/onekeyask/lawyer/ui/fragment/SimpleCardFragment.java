@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -27,7 +28,6 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -151,7 +151,10 @@ public class SimpleCardFragment extends BaseFragment {
             holder.dis_name.setText(data.get(position).getLawyerName());
             holder.dis_office.setText(data.get(position).getOfficeName());
             holder.dis_count.setText(String.valueOf(data.get(position).getSupportCount()));
-            Picasso.with(getActivity()).load(data.get(position).getHeadURL()).into(holder.dis_img);
+            Glide.with(getActivity()).load(data.get(position).getHeadURL())
+                    .placeholder(R.drawable.ic_member_avatar)
+                    .error(R.drawable.ic_member_avatar)
+                    .into(holder.dis_img);
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
