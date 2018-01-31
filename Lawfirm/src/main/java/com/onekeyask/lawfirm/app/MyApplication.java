@@ -78,7 +78,10 @@ public class MyApplication extends Application {
             public void onSuccess(String deviceToken) {
                 //注册成功会返回device token
                 L.d("deviceToken " + deviceToken);
-                UserService.service(getBaseContext()).setDeviceToken(deviceToken);
+                if(!UserService.service(getBaseContext()).getDeviceToken().equals(deviceToken)){
+                    UserService.service(getBaseContext()).setDeviceToken(deviceToken);
+                    UserService.service(getBaseContext()).setLawyerId(0);
+                }
             }
 
             @Override
