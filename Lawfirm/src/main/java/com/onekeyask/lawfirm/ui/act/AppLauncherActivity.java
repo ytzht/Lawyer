@@ -18,6 +18,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
+import com.onekeyask.lawfirm.entity.GetRed;
 import com.onekeyask.lawfirm.entity.GotoVerify;
 import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.global.BaseActivity;
@@ -105,57 +106,98 @@ public class AppLauncherActivity extends BaseActivity {
     }
 
     public void superFinish() {
-        if (UserService.service(getBaseContext()).getToken().equals("-1")){
+
+        if (UserService.service(getBaseContext()).getLawyerId() == 0) {
+            UserService service = UserService.service(getBaseContext());
+            service.setUserName("");
+            service.setToken("-1");
+            service.setHeadURL("");
+            service.setLawyerId(0);
             startActivity(LoginActivity.class);
             finishA();
-        }else {
+        } else {
 
-            OkGo.<String>get(Apis.GotoVerify).params("lawyerId", UserService.service(getBaseContext()).getLawyerId())
+            OkGo.<String>get(Apis.GetRed).params("userId", UserService.service(getBaseContext()).getLawyerId())
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
-                            GotoVerify verify = (new Gson()).fromJson(response.body(), GotoVerify.class);
-                            if (verify.getCode() == 0) {
-                                switch (verify.getData().getLawyer().getStatus()) {
-                                    case "0"://正常
-                                        if (UserService.service(getBaseContext()).getFirstHome() == 0){
-                                            startActivity(SkillAreaActivity.class);
-                                        }else {
-                                            startActivity(MainActivity.class);
-                                        }
-                                        break;
-                                    case "1"://冻结
-                                        startActivity(GotoVerifyActivity.class);
-                                        break;
-                                    case "2"://未提交审核
-//                                        UserService.service(getBaseContext()).setLawyerId(verify.getData().getLawyer().getLawyerId());
-                                        startActivity(LoginActivity.class);
 
-                                        break;
-                                    case "3"://等待审核
-                                        startActivity(GotoVerifyActivity.class);
-                                        break;
-                                    case "4"://审核不通过
-                                        startActivity(GotoVerifyActivity.class);
-                                        break;
-                                }
-                            } else {
+                            GetRed red = (new Gson()).fromJson(response.body(), GetRed.class);
+                            if (red.getCode() == 0) {
+                                gotoVerify();
+
+                            } else if (red.getCode() == -100) {
+                                UserService service = UserService.service(getBaseContext());
+                                service.setUserName("");
+                                service.setToken("-1");
+                                service.setHeadURL("");
+                                service.setLawyerId(0);
                                 startActivity(LoginActivity.class);
+                                finish();
                             }
-                            finishA();
                         }
 
                         @Override
                         public void onError(Response<String> response) {
                             super.onError(response);
-                            finishA();
+                            UserService service = UserService.service(getBaseContext());
+                            service.setUserName("");
+                            service.setToken("-1");
+                            service.setHeadURL("");
+                            service.setLawyerId(0);
                             startActivity(LoginActivity.class);
+                            finish();
                         }
                     });
 
 
-
         }
+
+    }
+
+    private void gotoVerify() {
+        OkGo.<String>get(Apis.GotoVerify).params("lawyerId", UserService.service(getBaseContext()).getLawyerId())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        GotoVerify verify = (new Gson()).fromJson(response.body(), GotoVerify.class);
+                        if (verify.getCode() == 0) {
+                            switch (verify.getData().getLawyer().getStatus()) {
+                                case "0"://正常
+                                    if (UserService.service(getBaseContext()).getFirstHome() == 0) {
+                                        startActivity(SkillAreaActivity.class);
+                                    } else {
+                                        startActivity(MainActivity.class);
+                                    }
+                                    break;
+                                case "1"://冻结
+                                    startActivity(GotoVerifyActivity.class);
+                                    break;
+                                case "2"://未提交审核
+//                                        UserService.service(getBaseContext()).setLawyerId(verify.getData().getLawyer().getLawyerId());
+                                    startActivity(LoginActivity.class);
+
+                                    break;
+                                case "3"://等待审核
+                                    startActivity(GotoVerifyActivity.class);
+                                    break;
+                                case "4"://审核不通过
+                                    startActivity(GotoVerifyActivity.class);
+                                    break;
+                            }
+                        } else {
+                            startActivity(LoginActivity.class);
+                        }
+                        finishA();
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        finishA();
+                        startActivity(LoginActivity.class);
+                    }
+                });
 
     }
 

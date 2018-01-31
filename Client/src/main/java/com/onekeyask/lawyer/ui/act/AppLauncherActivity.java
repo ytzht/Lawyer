@@ -13,8 +13,15 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
+import com.onekeyask.lawyer.entity.GetRed;
+import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseActivity;
+import com.onekeyask.lawyer.utils.UserService;
 
 public class AppLauncherActivity extends BaseActivity {
 
@@ -94,13 +101,58 @@ public class AppLauncherActivity extends BaseActivity {
     }
 
     public void superFinish() {
-        startActivity(MainActivity.class);
-        super.finish();
+        if (UserService.service(getBaseContext()).getUserId() == 0) {
+            UserService service = UserService.service(getBaseContext());
+            service.setUserName("");
+            service.setToken("-1");
+            service.setHeadURL("");
+            service.setUserId(0);
+            startActivity(MainActivity.class);
+            finishA();
+        } else {
+            OkGo.<String>get(Apis.GetRed)
+                    .params("userId", UserService.service(getBaseContext()).getUserId())
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+
+                            GetRed red = (new Gson()).fromJson(response.body(), GetRed.class);
+                            if (red.getCode() == 0) {
+                                startActivity(MainActivity.class);
+                                finishA();
+
+                            } else if (red.getCode() == -100) {
+                                UserService service = UserService.service(getBaseContext());
+                                service.setUserName("");
+                                service.setToken("-1");
+                                service.setHeadURL("");
+                                service.setUserId(0);
+                                startActivity(MainActivity.class);
+                                finishA();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Response<String> response) {
+                            super.onError(response);
+                            UserService service = UserService.service(getBaseContext());
+                            service.setUserName("");
+                            service.setToken("-1");
+                            service.setHeadURL("");
+                            service.setUserId(0);
+                            startActivity(MainActivity.class);
+                            finishA();
+                        }
+                    });
+
+        }
+
+
     }
 
 
-    @Override
-    public void finish() {
+    public void finishA() {
+        super.finish();
     }
 
 
