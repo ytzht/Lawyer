@@ -46,7 +46,7 @@ public class HomeFoundFragment extends BaseFragment {
         resolvedFoundFragment = new ResolvedFoundFragment();
         latestFoundFragment = new LatestFoundFragment();
         hotFoundFragment = new HotFoundFragment();
-
+        viewPager.setCurrentItem(1);
 
     }
 

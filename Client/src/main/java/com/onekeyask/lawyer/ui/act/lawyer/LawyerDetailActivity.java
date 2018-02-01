@@ -799,74 +799,73 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
                     type = data.getLawyer().getServiceList().get(position).getServiceType();
 
 
-                    if (UserService.service(getBaseContext()).isLogin()) {
-                        if (type == 1) {
-                            //私人
+                    if (type == 1) {
+                        //私人
 
-                            List<LawyerDetail.DataBean.LawyerBean.ServiceListBean.PriceListBean> priceList =
-                                    data.getLawyer().getServiceList().get(2).getPriceList();
-                            if (!data.getLawyer().getServiceList().get(2).isIsOn() || data.getLawyer().getServiceList().get(2).isIsOn() && !priceList.get(0).isIsOpen() && !priceList.get(1).isIsOpen() && !priceList.get(2).isIsOpen()) {
-                                //都为false
-                                consulting.setText("服务未开通");//仨都false才成立
-                                consulting.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.gray_divider));
-                            } else {
-                                double priceMin = 0;
-                                String cycleMin = null;
-                                for (int i = 0; i < priceList.size(); i++) {
-                                    if (priceList.get(i).isIsOpen()) {
+                        List<LawyerDetail.DataBean.LawyerBean.ServiceListBean.PriceListBean> priceList =
+                                data.getLawyer().getServiceList().get(2).getPriceList();
+                        if (!data.getLawyer().getServiceList().get(2).isIsOn() || data.getLawyer().getServiceList().get(2).isIsOn() && !priceList.get(0).isIsOpen() && !priceList.get(1).isIsOpen() && !priceList.get(2).isIsOpen()) {
+                            //都为false
+                            consulting.setText("服务未开通");//仨都false才成立
+                            consulting.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.gray_divider));
+                        } else {
+                            double priceMin = 0;
+                            String cycleMin = null;
+                            for (int i = 0; i < priceList.size(); i++) {
+                                if (priceList.get(i).isIsOpen()) {
 
-                                        if (priceMin == 0) {
+                                    if (priceMin == 0) {
+                                        priceMin = priceList.get(i).getPrice();
+                                        cycleMin = priceList.get(i).getCycle();
+                                    } else {
+                                        if (priceMin > priceList.get(i).getPrice()) {
                                             priceMin = priceList.get(i).getPrice();
                                             cycleMin = priceList.get(i).getCycle();
-                                        } else {
-                                            if (priceMin > priceList.get(i).getPrice()){
-                                                priceMin = priceList.get(i).getPrice();
-                                                cycleMin = priceList.get(i).getCycle();
-                                            }
                                         }
                                     }
                                 }
-
-
-                                consulting.setText(data.getLawyer().getServiceList().get(position).getServiceName()
-                                        + priceMin
-                                        + "元/"
-                                        + cycleMin);
-                                consulting.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.baseColor));
                             }
 
 
-                        } else if (type == 2) {
-                            List<LawyerDetail.DataBean.LawyerBean.ServiceListBean.PriceListBean> priceList =
-                                    data.getLawyer().getServiceList().get(0).getPriceList();
-                            //图文
-                            if (priceList.get(0).isIsOpen() && data.getLawyer().getServiceList().get(0).isIsOn()) {
-                                consulting.setText(data.getLawyer().getServiceList().get(position).getServiceName()
-                                        + data.getLawyer().getServiceList().get(position).getPriceList().get(0).getPrice()
-                                        + "元/"
-                                        + data.getLawyer().getServiceList().get(position).getPriceList().get(0).getCycle());
-                                consulting.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.baseColor));
-                            } else {
-                                consulting.setText("服务未开通");
-                                consulting.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.gray_divider));
-                            }
+                            consulting.setText(data.getLawyer().getServiceList().get(position).getServiceName()
+                                    + priceMin
+                                    + "元/"
+                                    + cycleMin);
+                            consulting.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.baseColor));
+                        }
 
+
+                    } else if (type == 2) {
+                        List<LawyerDetail.DataBean.LawyerBean.ServiceListBean.PriceListBean> priceList =
+                                data.getLawyer().getServiceList().get(0).getPriceList();
+                        //图文
+                        if (priceList.get(0).isIsOpen() && data.getLawyer().getServiceList().get(0).isIsOn()) {
+                            consulting.setText(data.getLawyer().getServiceList().get(position).getServiceName()
+                                    + data.getLawyer().getServiceList().get(position).getPriceList().get(0).getPrice()
+                                    + "元/"
+                                    + data.getLawyer().getServiceList().get(position).getPriceList().get(0).getCycle());
+                            consulting.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.baseColor));
                         } else {
-                            List<LawyerDetail.DataBean.LawyerBean.ServiceListBean.PriceListBean> priceList =
-                                    data.getLawyer().getServiceList().get(1).getPriceList();
-                            //电话
-                            if (priceList.get(0).isIsOpen() && data.getLawyer().getServiceList().get(1).isIsOn()) {
-                                consulting.setText(data.getLawyer().getServiceList().get(position).getServiceName()
-                                        + data.getLawyer().getServiceList().get(position).getPriceList().get(0).getPrice()
-                                        + "元/"
-                                        + data.getLawyer().getServiceList().get(position).getPriceList().get(0).getCycle());
-                                consulting.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.baseColor));
-                            } else {
-                                consulting.setText("服务未开通");
-                                consulting.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.gray_divider));
-                            }
+                            consulting.setText("服务未开通");
+                            consulting.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.gray_divider));
+                        }
+
+                    } else {
+                        List<LawyerDetail.DataBean.LawyerBean.ServiceListBean.PriceListBean> priceList =
+                                data.getLawyer().getServiceList().get(1).getPriceList();
+                        //电话
+                        if (priceList.get(0).isIsOpen() && data.getLawyer().getServiceList().get(1).isIsOn()) {
+                            consulting.setText(data.getLawyer().getServiceList().get(position).getServiceName()
+                                    + data.getLawyer().getServiceList().get(position).getPriceList().get(0).getPrice()
+                                    + "元/"
+                                    + data.getLawyer().getServiceList().get(position).getPriceList().get(0).getCycle());
+                            consulting.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.baseColor));
+                        } else {
+                            consulting.setText("服务未开通");
+                            consulting.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.gray_divider));
                         }
                     }
+
                     if (!data.getLawyer().getServiceList().get(position).isCheck()) {
                         for (int i = 0; i < data.getLawyer().getServiceList().size(); i++) {
                             data.getLawyer().getServiceList().get(i).setCheck(false);

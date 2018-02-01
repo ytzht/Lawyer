@@ -57,19 +57,20 @@ public class CompleteServiceFragment extends BaseFragment {
         view = inflater.inflate(R.layout.fragment_server_com, container, false);
 
         initView(view);
-
+        initData();
+        tv_spinner_type.setText(tv_1.getText());
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        type = 0;
-        index = 1;
-        initView(view);
-        initData();
-        tv_spinner_type.setText(tv_1.getText());
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        type = 0;
+//        index = 1;
+//        initView(view);
+//        initData();
+//        tv_spinner_type.setText(tv_1.getText());
+//    }
 
 
     private void initView(View view) {

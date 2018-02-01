@@ -54,12 +54,12 @@ public class NowServerFragment extends BaseFragment {
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        index = 1;
-        initView(view);
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        index = 1;
+//        initView(view);
+//    }
 
 
     private void initView(View view) {

@@ -81,7 +81,8 @@ public class HomeIndexFragment extends BaseFragment {
         view = inflater.inflate(R.layout.home_index_fragment, container, false);
 
         initView(view);
-
+        index = 1;
+        initData();
         return view;
     }
 
@@ -140,12 +141,12 @@ public class HomeIndexFragment extends BaseFragment {
     }
 
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        index = 1;
-        initData();
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        index = 1;
+//        initData();
+//    }
 
     private void initRed() {
         OkGo.<String>get(Apis.GetRed).params("userId", UserService.service(getActivity()).getUserId()).execute(new StringCallback() {
