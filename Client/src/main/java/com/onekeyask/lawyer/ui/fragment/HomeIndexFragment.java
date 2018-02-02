@@ -401,7 +401,9 @@ public class HomeIndexFragment extends BaseFragment {
                 ((ViewHolder) holder).tv_name.setText(data.get(position - 1).getUserPhoneNo());
                 ((ViewHolder) holder).dis_office.setText(data.get(position - 1).getOfficeName());
                 ((ViewHolder) holder).dis_count.setText(String.valueOf(data.get(position - 1).getSupportCount()));
-                Glide.with(getActivity()).load(data.get(position - 1).getHeadURL()).into(((ViewHolder) holder).dis_img);
+                Glide.with(getActivity()).load(data.get(position - 1).getHeadURL())
+                        .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
+                        .into(((ViewHolder) holder).dis_img);
                 ((ViewHolder) holder).dis_praise.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.praise_g));
 
                 ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {

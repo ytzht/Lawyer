@@ -94,7 +94,7 @@ public class AskDetailActivity extends BaseActivity {
     private TalkingContentAdapter adapter;
     private int lawyerId = 2;
 
-    @OnClick({R.id.ll_share, R.id.ll_praise, R.id.ll_consult, R.id.ll_lawyer})
+    @OnClick({R.id.ll_share, R.id.ll_praise, R.id.ll_consult,})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_share:
@@ -134,11 +134,7 @@ public class AskDetailActivity extends BaseActivity {
                 intent.putExtra("lawyerId", lawyerId);
                 startActivity(intent);
                 break;
-            case R.id.ll_lawyer:
-                Intent intent1 = new Intent(AskDetailActivity.this, LawyerDetailActivity.class);
-                intent1.putExtra("lawyerId", lawyerId);
-                startActivity(intent1);
-                break;
+
         }
     }
 
@@ -285,6 +281,15 @@ public class AskDetailActivity extends BaseActivity {
                             beanList.addAll(listBeen);
 
                             adapter.notifyDataSetChanged();
+
+                            llLawyer.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent1 = new Intent(AskDetailActivity.this, LawyerDetailActivity.class);
+                                    intent1.putExtra("lawyerId", lawyerId);
+                                    startActivity(intent1);
+                                }
+                            });
                         } else {
                             showShort(conversationList.getMsg());
                         }
@@ -305,7 +310,8 @@ public class AskDetailActivity extends BaseActivity {
 
                             lawOffice.setText(detail.getData().getLawyer().getLawyerOfficeName());
 
-                            Glide.with(getBaseContext()).load(detail.getData().getLawyer().getHeadURL()).into(lawIv);
+                            Glide.with(getBaseContext()).load(detail.getData().getLawyer().getHeadURL())
+                                    .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar).into(lawIv);
                             shareImg = detail.getData().getLawyer().getHeadURL();
 
                         } else {

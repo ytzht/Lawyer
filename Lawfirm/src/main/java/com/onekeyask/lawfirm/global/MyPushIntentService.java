@@ -95,6 +95,7 @@ public class MyPushIntentService extends UmengMessageService {
     }
 
     private boolean isChat = false;
+    private boolean isShow = true;
 
     private void sendNotific(UMessage msg) {
 
@@ -104,6 +105,7 @@ public class MyPushIntentService extends UmengMessageService {
         switch (msgPoints.getActivity()) {
             case "ChatInfoNotification":
                 isChat = true;
+                isShow = true;
                 //跳转到聊天详情    “chatId”:聊天Id
                 intent = new Intent(MyPushIntentService.this, TalkingActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -113,6 +115,7 @@ public class MyPushIntentService extends UmengMessageService {
                 break;
             case "UserServiceInfoNotification":
                 isChat = true;
+                isShow = true;
                 //跳转到聊天详情    “chatId”:聊天Id
                 intent = new Intent(MyPushIntentService.this, TalkingActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -122,6 +125,7 @@ public class MyPushIntentService extends UmengMessageService {
                 break;
             case "UserServiceEndNotification":
                 isChat = true;
+                isShow = true;
                 //跳转到聊天详情 律所端的聊天结束带 评价页面的页面    “chatId”:聊天Id
                 intent = new Intent(MyPushIntentService.this, TalkingActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -148,6 +152,7 @@ public class MyPushIntentService extends UmengMessageService {
 //                break;
             case "VerifyNotification":
                 isChat = false;
+                isShow = true;
                 //“messageId”:””
                 //参数值为对应的消息中心的Id,
                 //点击跳转到积分明细，且同时请求1.50接口
@@ -158,6 +163,7 @@ public class MyPushIntentService extends UmengMessageService {
                 break;
             case "BalanceIncreaseNotification":
                 isChat = false;
+                isShow = true;
                 //律师的余额发生增加的通知，点击进入收入明细
                 intent = new Intent(MyPushIntentService.this, IncomeDetailActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -165,6 +171,7 @@ public class MyPushIntentService extends UmengMessageService {
                 break;
             case "BalanceDecreaseNotification":
                 isChat = false;
+                isShow = true;
                 //律师的余额发生减少的通知，点击进入提现明细
                 intent = new Intent(MyPushIntentService.this, BillingDetailsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -172,6 +179,7 @@ public class MyPushIntentService extends UmengMessageService {
                 break;
             case "Call_UserServiceInfoNotification":
                 isChat = false;
+                isShow = true;
                 //电话咨询开通通知
                 intent = new Intent(MyPushIntentService.this, CallDetailActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -180,6 +188,7 @@ public class MyPushIntentService extends UmengMessageService {
                 break;
             case "Call_UserServiceEndNotification":
                 isChat = false;
+                isShow = true;
                 //电话咨询结束通知
                 intent = new Intent(MyPushIntentService.this, CallDetailActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -188,12 +197,14 @@ public class MyPushIntentService extends UmengMessageService {
                 break;
             case "NewFreeAskNotification":
                 isChat = false;
+                isShow = true;
                 intent = new Intent(MyPushIntentService.this, FoundDetailActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("fid", msgPoints.getData().getTargetId());
                 break;
             default:
                 isChat = false;
+                isShow = false;
                 intent = new Intent(MyPushIntentService.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -213,9 +224,11 @@ public class MyPushIntentService extends UmengMessageService {
                 .build();
         if (isChat) {
             if (Constant.ChatId.equals("") || !Constant.ChatId.equals(msgPoints.getData().getChatId()+"")) {
+                if (isShow)
                 nm.notify(msgPoints.getData().getChatId(), notify);
             }
         } else {
+            if (isShow)
             nm.notify(NOTIFICATION_ID, notify);
         }
 
