@@ -10,6 +10,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
+import com.onekeyask.lawyer.app.MyApplication;
 import com.onekeyask.lawyer.entity.ResultData;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseToolBarActivity;
@@ -91,6 +92,7 @@ public class ResetPasswordActivity extends BaseToolBarActivity {
                     service.setUserId(0);
                     service.setUserName("");
                     service.setToken("-1");
+                    MyApplication.initOkGo(MyApplication.instance());
                     finish();
                 }else {
                     showShort(data.getMsg());

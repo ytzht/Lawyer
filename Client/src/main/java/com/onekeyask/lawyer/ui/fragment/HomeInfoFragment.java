@@ -92,7 +92,7 @@ public class HomeInfoFragment extends BaseFragment {
 
                 @Override
                 public void onError(int code, String message) {
-                    showShort(message);
+//                    showShort(message);
                 }
             };
             retrofitUtil.getPointsInfo(UserService.service(getActivity()).getUserId(), new ProgressSubscriber<PointsInfo>(getResultOnNext, getActivity(), false));

@@ -130,7 +130,7 @@ public class SimpleCardFragment extends BaseFragment {
                                 adapter.notifyDataSetChanged();
                             }
                         } else {
-                            showShort(discoveries.getMsg());
+//                            showShort(discoveries.getMsg());
                         }
                     }
                 });

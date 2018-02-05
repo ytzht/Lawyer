@@ -239,7 +239,7 @@ public class CompleteServiceFragment extends BaseFragment {
 
             @Override
             public void onError(int code, String message) {
-                showShort(message);
+//                showShort(message);
             }
         };
 

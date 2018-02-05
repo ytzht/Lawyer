@@ -192,10 +192,11 @@ public class HomeIndexFragment extends BaseFragment {
                                 adapter.notifyDataSetChanged();
                             }
                         } else {
-                            showShort(discoveries.getMsg());
+//                            showShort(discoveries.getMsg());
                         }
                     }
                 });
+        if (UserService.service(getActivity()).getUserId() != 0)
         initRed();
 
     }
@@ -320,7 +321,7 @@ public class HomeIndexFragment extends BaseFragment {
 
             @Override
             public void onError(int code, String message) {
-                showShort(message);
+//                showShort(message);
                 image_url.clear();
                 banner.setImages(banner_img).start();
             }

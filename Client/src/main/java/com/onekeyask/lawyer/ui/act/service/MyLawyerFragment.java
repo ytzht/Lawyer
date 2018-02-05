@@ -124,7 +124,7 @@ public class MyLawyerFragment extends BaseFragment {
                                 adapter.notifyDataSetChanged();
                             }
                         } else {
-                            showShort(myLawyer.getMsg());
+//                            showShort(myLawyer.getMsg());
                         }
                     }
                 });

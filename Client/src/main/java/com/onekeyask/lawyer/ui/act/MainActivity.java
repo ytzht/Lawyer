@@ -92,6 +92,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (UserService.service(getBaseContext()).getUserId() != 0)
         OkGo.<String>get(Apis.GetRed).params("userId", UserService.service(getBaseContext()).getUserId()).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {

@@ -16,7 +16,7 @@ import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.app.MyApplication;
 import com.onekeyask.lawfirm.entity.Login;
 import com.onekeyask.lawfirm.global.Apis;
-import com.onekeyask.lawfirm.global.BaseToolBarActivity;
+import com.onekeyask.lawfirm.global.BaseActivity;
 import com.onekeyask.lawfirm.ui.act.MainActivity;
 import com.onekeyask.lawfirm.utils.Forms;
 import com.onekeyask.lawfirm.utils.UserService;
@@ -27,7 +27,7 @@ import butterknife.OnClick;
 
 
 
-public class LoginActivity extends BaseToolBarActivity {
+public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.et_phone)
     EditText etPhone;
@@ -43,7 +43,7 @@ public class LoginActivity extends BaseToolBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        setToolbarText("登录");
+//        setToolbarText("登录");
     }
 
 

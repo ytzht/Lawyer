@@ -18,6 +18,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
+import com.onekeyask.lawyer.app.MyApplication;
 import com.onekeyask.lawyer.entity.GetRed;
 import com.onekeyask.lawyer.global.Apis;
 import com.onekeyask.lawyer.global.BaseActivity;
@@ -107,6 +108,7 @@ public class AppLauncherActivity extends BaseActivity {
             service.setToken("-1");
             service.setHeadURL("");
             service.setUserId(0);
+            MyApplication.initOkGo(MyApplication.instance());
             startActivity(MainActivity.class);
             finishA();
         } else {
@@ -127,6 +129,7 @@ public class AppLauncherActivity extends BaseActivity {
                                 service.setToken("-1");
                                 service.setHeadURL("");
                                 service.setUserId(0);
+                                MyApplication.initOkGo(MyApplication.instance());
                                 startActivity(MainActivity.class);
                                 finishA();
                             }
@@ -140,6 +143,7 @@ public class AppLauncherActivity extends BaseActivity {
                             service.setToken("-1");
                             service.setHeadURL("");
                             service.setUserId(0);
+                            MyApplication.initOkGo(MyApplication.instance());
                             startActivity(MainActivity.class);
                             finishA();
                         }

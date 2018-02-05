@@ -127,7 +127,7 @@ public class NowServerFragment extends BaseFragment {
 
             @Override
             public void onError(int code, String message) {
-                showShort(message);
+//                showShort(message);
             }
         };
 

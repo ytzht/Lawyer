@@ -15,6 +15,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawyer.R;
+import com.onekeyask.lawyer.app.MyApplication;
 import com.onekeyask.lawyer.entity.GetSwitch;
 import com.onekeyask.lawyer.entity.ResultData;
 import com.onekeyask.lawyer.global.Apis;
@@ -155,6 +156,7 @@ public class SettingActivity extends BaseToolBarActivity {
                                             service.setToken("-1");
                                             service.setHeadURL("");
                                             service.setUserId(0);
+                                            MyApplication.initOkGo(MyApplication.instance());
                                             finish();
                                         } else {
                                             showShort(data.getMsg());
