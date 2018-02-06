@@ -86,6 +86,7 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".ui.act.user.LoginActivity"
+            android:label=""
             android:launchMode="singleTask" />
         <activity
             android:name=".ui.act.user.RegisterActivity"

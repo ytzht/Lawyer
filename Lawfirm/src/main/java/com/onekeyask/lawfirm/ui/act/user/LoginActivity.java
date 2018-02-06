@@ -1,6 +1,7 @@
 package com.onekeyask.lawfirm.ui.act.user;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +38,7 @@ public class LoginActivity extends BaseActivity {
     TextView login;
     @BindView(R.id.miss_pwd)
     TextView missPwd;
+    private Toolbar talk_toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 //        setToolbarText("登录");
+        talk_toolbar = (Toolbar) findViewById(R.id.talk_toolbar);
+        setSupportActionBar(talk_toolbar);
     }
 
 
