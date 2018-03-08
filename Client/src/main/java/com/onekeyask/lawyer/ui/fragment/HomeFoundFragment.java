@@ -84,7 +84,7 @@ public class HomeFoundFragment extends BaseFragment implements OnTabSelectListen
         ViewPager vp = (ViewPager) view.findViewById(R.id.discover_vp);
         mAdapter = new MyPagerAdapter(getChildFragmentManager());
         vp.setAdapter(mAdapter);
-
+        vp.setOffscreenPageLimit(beanList.size() - 1);
         SlidingTabLayout tl_discover = (SlidingTabLayout) view.findViewById(R.id.tl_discover);
         tl_discover.setViewPager(vp);
         tl_discover.setOnTabSelectListener(this);

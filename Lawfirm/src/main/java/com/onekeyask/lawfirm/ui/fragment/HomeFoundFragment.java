@@ -41,6 +41,7 @@ public class HomeFoundFragment extends BaseFragment {
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
         pagerAdapter = new HomeFoundAdapter(getChildFragmentManager());
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setOffscreenPageLimit(2);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
         resolvedFoundFragment = new ResolvedFoundFragment();

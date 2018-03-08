@@ -13,6 +13,7 @@ public class BaseEvent {
     public static final int FINISH_Identity = 500;//TalkingActivity finish();
     public static final int AddBankCard = 600;// finish();
     public static final int TXState = 700;// finish();
+    public static final int NOTIFICATION_MSG = 800;// 有推送消息
 
 
     public static BaseEvent event(int code){

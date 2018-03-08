@@ -80,7 +80,7 @@ public class HomeIndexFragment extends BaseFragment {
     }
 
     private void initRed() {
-        OkGo.<String>get(Apis.GetRed).params("userId", UserService.service(getActivity()).getLawyerId()).execute(new StringCallback() {
+        OkGo.<String>get(Apis.GetRed).params("lawyerId", UserService.service(getActivity()).getLawyerId()).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
 

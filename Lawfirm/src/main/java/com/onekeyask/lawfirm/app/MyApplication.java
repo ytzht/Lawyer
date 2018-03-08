@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.Utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
@@ -60,6 +61,8 @@ public class MyApplication extends Application {
         initOkGo(this);
 
         Utils.init(this);
+
+        CrashUtils.init();
     }
 
     private static MyApplication instance;

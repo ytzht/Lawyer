@@ -117,7 +117,7 @@ public class AppLauncherActivity extends BaseActivity {
             finishA();
         } else {
 
-            OkGo.<String>get(Apis.GetRed).params("userId", UserService.service(getBaseContext()).getLawyerId())
+            OkGo.<String>get(Apis.GetRed).params("lawyerId", UserService.service(getBaseContext()).getLawyerId())
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {

@@ -20,6 +20,7 @@ import com.umeng.message.common.UmLog;
 import com.umeng.message.entity.UMessage;
 
 import org.android.agoo.common.AgooConstants;
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 /**
@@ -181,7 +182,7 @@ public class MyPushIntentService extends UmengMessageService {
                 break;
         }
         pi = PendingIntent.getActivity(MyPushIntentService.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
+        EventBus.getDefault().post(BaseEvent.event(BaseEvent.NOTIFICATION_MSG));
         Notification notify = new Notification.Builder(this)
                 .setAutoCancel(true)
                 .setTicker(msg.ticker)

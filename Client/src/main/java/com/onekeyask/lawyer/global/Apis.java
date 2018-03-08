@@ -6,9 +6,9 @@ package com.onekeyask.lawyer.global;
 
 public interface Apis {
 
-    String Base = "https://api.zhimalawyer.com/mylawyer/";
+//    String Base = "https://api.zhimalawyer.com/mylawyer/";
 //    String Base = "http://139.198.13.26/mylawyer/";
-//    String Base = "http://139.198.11.78:8080/mylawyer/";
+    String Base = "http://139.198.11.78:8080/mylawyer/";
 
 
 //        String ShareLawyerUrl = "http://139.198.13.26/lawyer.html?id=";

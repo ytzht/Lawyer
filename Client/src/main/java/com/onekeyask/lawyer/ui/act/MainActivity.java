@@ -54,6 +54,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         tv_red = (TextView) findViewById(R.id.tv_red);
         initBottom();
+        getRed();
         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
 //        UpdateInfo();
     }
@@ -89,29 +90,27 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void getRed() {
         if (UserService.service(getBaseContext()).getUserId() != 0)
-        OkGo.<String>get(Apis.GetRed).params("userId", UserService.service(getBaseContext()).getUserId()).execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
+            OkGo.<String>get(Apis.GetRed).params("userId", UserService.service(getBaseContext()).getUserId()).execute(new StringCallback() {
+                @Override
+                public void onSuccess(Response<String> response) {
 
-                GetRed red = (new Gson()).fromJson(response.body(), GetRed.class);
-                if (red.getCode() == 0) {
+                    GetRed red = (new Gson()).fromJson(response.body(), GetRed.class);
+                    if (red.getCode() == 0) {
 
-                    if (red.getData().getMessageIds().size() != 0) {
-                        //消息中心的右上角小红点显示
-                    } else {
+                        if (red.getData().getMessageIds().size() != 0) {
+                            //消息中心的右上角小红点显示
+                        } else {
 
+                        }
+
+                        if ((red.getData().getChatIds().size() + red.getData().getUserServiceInfoIds().size()) != 0) {
+                            tv_red.setVisibility(View.VISIBLE);
+                        } else {
+                            tv_red.setVisibility(View.GONE);
+                        }
                     }
-
-                    if ((red.getData().getChatIds().size() + red.getData().getUserServiceInfoIds().size()) != 0) {
-                        tv_red.setVisibility(View.VISIBLE);
-                    } else {
-                        tv_red.setVisibility(View.GONE);
-                    }
-                }
 //                else if (red.getCode() == -100){
 //                    UserService service = UserService.service(getBaseContext());
 //                    service.setUserName("");
@@ -121,8 +120,8 @@ public class MainActivity extends BaseActivity {
 //                    finish();
 //                    startActivity(LoginActivity.class);
 //                }
-            }
-        });
+                }
+            });
     }
 
     public void InatallDialog(final String SDPATH) {
@@ -188,6 +187,8 @@ public class MainActivity extends BaseActivity {
             } else {
                 goTag();
             }
+        } else if (event.getCode() == BaseEvent.NOTIFICATION_MSG) {
+            getRed();
         }
     }
 

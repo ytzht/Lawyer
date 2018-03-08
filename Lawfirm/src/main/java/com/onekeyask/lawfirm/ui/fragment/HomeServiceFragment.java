@@ -39,6 +39,7 @@ public class HomeServiceFragment extends Fragment {
 
         HomeServiceAdapter pagerAdapter = new HomeServiceAdapter(getChildFragmentManager());
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setOffscreenPageLimit(2);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
     }

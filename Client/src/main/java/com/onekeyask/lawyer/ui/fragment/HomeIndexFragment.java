@@ -173,7 +173,7 @@ public class HomeIndexFragment extends BaseFragment {
     private void initData() {
         OkGo.<String>get(Apis.Discovery)
                 .params("userId", UserService.service(getActivity()).getUserId())
-                .params("sort", "1")
+                .params("sort", "0")
                 .params("page", index)
                 .params("size", size)
                 .execute(new StringCallback() {

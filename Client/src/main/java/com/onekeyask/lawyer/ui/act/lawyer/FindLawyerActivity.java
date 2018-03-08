@@ -289,7 +289,7 @@ public class FindLawyerActivity extends BaseToolBarActivity implements OnFilterD
                 holder.law_tag2.setVisibility(View.GONE);
                 holder.law_tag3.setVisibility(View.GONE);
             }
-            holder.find_num.setText(lawyerList.get(position).getFavoriteNum() + "人购买");
+            holder.find_num.setText("已完成"+lawyerList.get(position).getServiceCount() + "次服务");
             holder.find_name.setText(lawyerList.get(position).getName());
 //            if (lawyerList.get(position).getTelPrice() > lawyerList.get(position).getTextPrice()) {
             holder.find_price.setText("￥"+lawyerList.get(position).getTextPrice() + "元起");

@@ -53,6 +53,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         tv_red = (TextView) findViewById(R.id.tv_red);
         initBottom();
+        getRed();
         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
 //        UpdateInfo();
     }
@@ -87,10 +88,10 @@ public class MainActivity extends BaseActivity {
             e.printStackTrace();
         }
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        OkGo.<String>get(Apis.GetRed).params("userId", UserService.service(getBaseContext()).getLawyerId()).execute(new StringCallback() {
+
+
+    private void getRed() {
+        OkGo.<String>get(Apis.GetRed).params("lawyerId", UserService.service(getBaseContext()).getLawyerId()).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
 
@@ -101,7 +102,7 @@ public class MainActivity extends BaseActivity {
                         //消息中心的右上角小红点显示
                     }
 
-                    if ((red.getData().getChatIds().size() + red.getData().getUserServiceInfoIds().size()) != 0){
+                    if ((red.getData().getChatIds().size()) != 0){
                         tv_red.setVisibility(View.VISIBLE);
                     }else {
                         tv_red.setVisibility(View.GONE);
@@ -169,6 +170,8 @@ public class MainActivity extends BaseActivity {
             goTag();
         } else if (event.getCode() == BaseEvent.FINISH_MAIN){
             finish();
+        } else if (event.getCode() == BaseEvent.NOTIFICATION_MSG){
+            getRed();
         }
     }
 
