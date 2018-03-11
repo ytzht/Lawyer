@@ -96,18 +96,19 @@ public class MainActivity extends BaseActivity {
             public void onSuccess(Response<String> response) {
 
                 GetRed red = (new Gson()).fromJson(response.body(), GetRed.class);
-                if (red.getCode() == 0){
+                BaseEvent.getRed = red;
+                if (red.getCode() == 0) {
 
-                    if (red.getData().getMessageIds().size() != 0){
+                    if (red.getData().getMessageIds().size() != 0) {
                         //消息中心的右上角小红点显示
                     }
 
-                    if ((red.getData().getChatIds().size()) != 0){
+                    if ((red.getData().getChatIds().size()) != 0) {
                         tv_red.setVisibility(View.VISIBLE);
-                    }else {
+                    } else {
                         tv_red.setVisibility(View.GONE);
                     }
-                }else if (red.getCode() == -100){
+                } else if (red.getCode() == -100) {
                     UserService service = UserService.service(getBaseContext());
                     service.setUserName("");
                     service.setToken("-1");
@@ -119,6 +120,32 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setRed();
+    }
+
+    private void setRed() {
+        if (BaseEvent.getRed != null)
+            if (BaseEvent.getRed.getCode() == 0) {
+
+                if (BaseEvent.getRed.getData().getMessageIds().size() != 0) {
+                    //消息中心的右上角小红点显示
+                } else {
+
+                }
+
+                if ((BaseEvent.getRed.getData().getChatIds().size() == 0)) {
+                    tv_red.setVisibility(View.GONE);
+                } else {
+                    tv_red.setVisibility(View.VISIBLE);
+                }
+            }
+
+    }
+
 
     public void InatallDialog(final String SDPATH) {
         new AlertDialog.Builder(this).setTitle("新版本提醒")//对话框标题
@@ -165,13 +192,20 @@ public class MainActivity extends BaseActivity {
     public void onEventMainThread(BaseEvent event) {
         super.onEventMainThread(event);
 
-        if (event.getCode() == BaseEvent.GO_SERVICE){
+        if (event.getCode() == BaseEvent.GO_SERVICE) {
             index = 1;
             goTag();
-        } else if (event.getCode() == BaseEvent.FINISH_MAIN){
+        } else if (event.getCode() == BaseEvent.FINISH_MAIN) {
             finish();
-        } else if (event.getCode() == BaseEvent.NOTIFICATION_MSG){
-            getRed();
+        } else if (event.getCode() == BaseEvent.NOTIFICATION_MSG) {
+            OkGo.<String>get(Apis.GetRed).params("lawyerId", UserService.service(getBaseContext()).getLawyerId()).execute(new StringCallback() {
+                @Override
+                public void onSuccess(Response<String> response) {
+                    GetRed red = (new Gson()).fromJson(response.body(), GetRed.class);
+                    BaseEvent.getRed.getData().getChatIds().addAll(red.getData().getChatIds());
+                    setRed();
+                }
+            });
         }
     }
 
@@ -294,7 +328,6 @@ public class MainActivity extends BaseActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
 
 
 }

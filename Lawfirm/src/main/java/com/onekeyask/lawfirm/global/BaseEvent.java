@@ -1,5 +1,7 @@
 package com.onekeyask.lawfirm.global;
 
+import com.onekeyask.lawfirm.entity.GetRed;
+
 /**
  * Created by zht on 2017/04/07 9:51
  */
@@ -14,7 +16,7 @@ public class BaseEvent {
     public static final int AddBankCard = 600;// finish();
     public static final int TXState = 700;// finish();
     public static final int NOTIFICATION_MSG = 800;// 有推送消息
-
+    public static GetRed getRed;
 
     public static BaseEvent event(int code){
         return new BaseEvent(code);

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.onekeyask.lawyer.R;
 import com.onekeyask.lawyer.entity.ChatList;
+import com.onekeyask.lawyer.global.BaseEvent;
 import com.onekeyask.lawyer.global.BaseFragment;
 import com.onekeyask.lawyer.http.ProgressSubscriber;
 import com.onekeyask.lawyer.http.SubscriberOnNextListener;
@@ -74,13 +75,13 @@ public class NowServerFragment extends BaseFragment {
                 super.onScrollStateChanged(recyclerView, newState);
 
 //                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    if (((LinearLayoutManager) (recyclerView.getLayoutManager())).findLastVisibleItemPosition()
-                            == recyclerView.getLayoutManager().getItemCount() - 1) {
-                        if (hasMore) {
-                            index += 1;
-                            initData();
-                        }
+                if (((LinearLayoutManager) (recyclerView.getLayoutManager())).findLastVisibleItemPosition()
+                        == recyclerView.getLayoutManager().getItemCount() - 1) {
+                    if (hasMore) {
+                        index += 1;
+                        initData();
                     }
+                }
 //                }
             }
         });
@@ -136,7 +137,7 @@ public class NowServerFragment extends BaseFragment {
     }
 
 
-    private class NowServerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    private class NowServerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @Override
         public int getItemViewType(int position) {
@@ -162,22 +163,22 @@ public class NowServerFragment extends BaseFragment {
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             if (position + 1 != getItemCount()) {
                 ((ViewHolder) holder).tv_content_now.setText(listBeen.get(position).getServiceContent());
-                if (listBeen.get(position).getLawyer().getLawyerId().equals("")){
+                if (listBeen.get(position).getLawyer().getLawyerId().equals("")) {
                     ((ViewHolder) holder).tv_name_now.setTextColor(ContextCompat.getColor(getActivity(), R.color.now_service_no_name));
-                }else {
+                } else {
                     ((ViewHolder) holder).tv_name_now.setTextColor(ContextCompat.getColor(getActivity(), R.color.now_service_name));
                 }
 
-                if (listBeen.get(position).getLawyer().getLawyerId().equals("")){
+                if (listBeen.get(position).getLawyer().getLawyerId().equals("")) {
                     ((ViewHolder) holder).lawyer_txt.setVisibility(View.GONE);
-                }else {
+                } else {
                     ((ViewHolder) holder).lawyer_txt.setVisibility(View.VISIBLE);
                 }
 
                 ((ViewHolder) holder).tv_name_now.setText(listBeen.get(position).getLawyer().getName());
-                if (listBeen.get(position).getLawyer().getLawfirm().equals("")){
+                if (listBeen.get(position).getLawyer().getLawfirm().equals("")) {
                     ((ViewHolder) holder).tv_office.setVisibility(View.GONE);
-                }else {
+                } else {
                     ((ViewHolder) holder).tv_office.setVisibility(View.VISIBLE);
                     ((ViewHolder) holder).tv_office.setText(listBeen.get(position).getLawyer().getLawfirm());
                 }
@@ -203,19 +204,44 @@ public class NowServerFragment extends BaseFragment {
                         .into(((ViewHolder) holder).civ_avatar_now);
                 ((ViewHolder) holder).status.setText(listBeen.get(position).getStatus());
                 if (((ViewHolder) holder).status.getText().equals("律师未回复") ||
-                        ((ViewHolder) holder).status.getText().equals("已回复")){
+                        ((ViewHolder) holder).status.getText().equals("已回复")) {
                     ((ViewHolder) holder).status.setTextColor(ContextCompat.getColor(getActivity(), R.color.blackHint));
-                }else {
+                } else {
                     ((ViewHolder) holder).status.setTextColor(ContextCompat.getColor(getActivity(), R.color.baseOrange));
                 }
                 ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (listBeen.get(position).getType().equals("3")){
+                        if (listBeen.get(position).getType().equals("3")) {
+
+                            if (BaseEvent.getRed != null){
+                                if (BaseEvent.getRed.getCode() == 0){
+                                    for (int i = 0; i < BaseEvent.getRed.getData().getUserServiceInfoIds().size(); i++) {
+                                        if (BaseEvent.getRed.getData().getUserServiceInfoIds().get(i) ==
+                                                Integer.parseInt(listBeen.get(position).getServiceId())){
+                                            BaseEvent.getRed.getData().getUserServiceInfoIds().remove(i);
+                                        }
+                                    }
+                                }
+                            }
+
                             startActivity(CallDetailActivity.class,
                                     "userServiceId", String.valueOf(listBeen.get(position).getServiceId()),
                                     "oid", "0");
-                        }else {
+
+
+                        } else {
+                            if (BaseEvent.getRed != null){
+                                if (BaseEvent.getRed.getCode() == 0){
+                                    for (int i = 0; i < BaseEvent.getRed.getData().getChatIds().size(); i++) {
+                                        if (BaseEvent.getRed.getData().getChatIds().get(i) ==
+                                                Integer.parseInt(listBeen.get(position).getTargetId())){
+                                            BaseEvent.getRed.getData().getChatIds().remove(i);
+                                        }
+                                    }
+                                }
+                            }
+
                             startActivity(TalkingActivity.class,
                                     "lawyerId", listBeen.get(position).getLawyer().getLawyerId(),
                                     "fid", "0",
@@ -224,7 +250,7 @@ public class NowServerFragment extends BaseFragment {
                         }
                     }
                 });
-            }else {
+            } else {
                 if (hasMore) {
                     ((ViewHolderMore) holder).progress_bar_more.setVisibility(View.VISIBLE);
                     ((ViewHolderMore) holder).tv_progress_more.setText("正在加载...");
@@ -240,10 +266,11 @@ public class NowServerFragment extends BaseFragment {
             return listBeen.size() + 1;
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder{
+        class ViewHolder extends RecyclerView.ViewHolder {
 
             private TextView tv_content_now, tv_tag_now, tv_time_now, tv_name_now, status, tv_office, lawyer_txt;
             private CircleImageView civ_avatar_now;
+
             private ViewHolder(View itemView) {
                 super(itemView);
                 lawyer_txt = (TextView) itemView.findViewById(R.id.lawyer_txt);

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.ConversationChatList;
+import com.onekeyask.lawfirm.global.BaseEvent;
 import com.onekeyask.lawfirm.global.BaseFragment;
 import com.onekeyask.lawfirm.global.L;
 import com.onekeyask.lawfirm.http.ProgressSubscriber;
@@ -207,10 +208,34 @@ public class NowServerFragment extends BaseFragment {
                     public void onClick(View view) {
 
                         if (list.get(position).getType().equals("3")){
+
+                            if (BaseEvent.getRed != null){
+                                if (BaseEvent.getRed.getCode() == 0){
+                                    for (int i = 0; i < BaseEvent.getRed.getData().getUserServiceInfoIds().size(); i++) {
+                                        if (BaseEvent.getRed.getData().getUserServiceInfoIds().get(i) ==
+                                                Integer.parseInt(list.get(position).getServiceId())){
+                                            BaseEvent.getRed.getData().getUserServiceInfoIds().remove(i);
+                                        }
+                                    }
+                                }
+                            }
+
                             startActivity(CallDetailActivity.class,
                                     "userServiceId", String.valueOf(list.get(position).getServiceId()),
                                     "oid", "0");
                         }else {
+
+                            if (BaseEvent.getRed != null){
+                                if (BaseEvent.getRed.getCode() == 0){
+                                    for (int i = 0; i < BaseEvent.getRed.getData().getChatIds().size(); i++) {
+                                        if (BaseEvent.getRed.getData().getChatIds().get(i) ==
+                                                Integer.parseInt(list.get(position).getTargetId())){
+                                            BaseEvent.getRed.getData().getChatIds().remove(i);
+                                        }
+                                    }
+                                }
+                            }
+
                             startActivity(TalkingActivity.class, "chatId", String.valueOf(list.get(position).getTargetId()));
                         }
                     }

@@ -97,6 +97,7 @@ public class MainActivity extends BaseActivity {
                 public void onSuccess(Response<String> response) {
 
                     GetRed red = (new Gson()).fromJson(response.body(), GetRed.class);
+                    BaseEvent.getRed = red;
                     if (red.getCode() == 0) {
 
                         if (red.getData().getMessageIds().size() != 0) {
@@ -122,6 +123,31 @@ public class MainActivity extends BaseActivity {
 //                }
                 }
             });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setRed();
+    }
+
+    private void setRed() {
+        if (BaseEvent.getRed != null)
+            if (BaseEvent.getRed.getCode() == 0) {
+
+                if (BaseEvent.getRed.getData().getMessageIds().size() != 0) {
+                    //消息中心的右上角小红点显示
+                } else {
+
+                }
+
+                if ((BaseEvent.getRed.getData().getChatIds().size()+BaseEvent.getRed.getData().getUserServiceInfoIds().size()>0)) {
+                    tv_red.setVisibility(View.VISIBLE);
+                } else {
+                    tv_red.setVisibility(View.GONE);
+                }
+            }
     }
 
     public void InatallDialog(final String SDPATH) {
@@ -188,7 +214,16 @@ public class MainActivity extends BaseActivity {
                 goTag();
             }
         } else if (event.getCode() == BaseEvent.NOTIFICATION_MSG) {
-            getRed();
+            if (UserService.service(getBaseContext()).getUserId() != 0)
+                OkGo.<String>get(Apis.GetRed).params("userId", UserService.service(getBaseContext()).getUserId()).execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        GetRed red = (new Gson()).fromJson(response.body(), GetRed.class);
+                        BaseEvent.getRed.getData().getUserServiceInfoIds().addAll(red.getData().getUserServiceInfoIds());
+                        BaseEvent.getRed.getData().getChatIds().addAll(red.getData().getChatIds());
+                        setRed();
+                    }
+                });
         }
     }
 
