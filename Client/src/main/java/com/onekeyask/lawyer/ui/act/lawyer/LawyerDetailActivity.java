@@ -671,7 +671,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
         public void onBindViewHolder(ViewHolder holder, int position) {
 
             holder.comName.setText(comData.get(position).getPhoneNo());
-            if (TextUtils.isEmpty(comData.get(position).getContent())) {
+            if (TextUtils.isEmpty(comData.get(position).getNotes())) {
 
                 switch (comData.get(position).getServiceScore()) {
                     case 5:
@@ -685,7 +685,7 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
                         break;
                 }
             } else {
-                holder.comTxt.setText(comData.get(position).getContent());
+                holder.comTxt.setText(comData.get(position).getNotes());
             }
             holder.comTime.setText(comData.get(position).getCommentDate());
             holder.comType.setText(comData.get(position).getServiceName());

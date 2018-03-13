@@ -10,8 +10,8 @@ android {
         applicationId "com.onekeyask.lawfirm"
         minSdkVersion 16
         targetSdkVersion 21
-        versionCode 4
-        versionName "1.2.1"
+        versionCode 5
+        versionName "1.2.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -40,7 +40,10 @@ android {
             keyPassword "123456"
         }
     }
-
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
     buildTypes {
         release {
             minifyEnabled false
