@@ -690,7 +690,9 @@ public class LawyerDetailActivity extends BaseToolBarActivity {
             holder.comTime.setText(comData.get(position).getCommentDate());
             holder.comType.setText(comData.get(position).getServiceName());
 //            holder.comTxt.setText(comData.get(position).getNotes());
-            Glide.with(getBaseContext()).load(comData.get(position).getHeadURL()).into(holder.civ_money);
+            Glide.with(getBaseContext()).load(comData.get(position).getHeadURL())
+                    .placeholder(R.drawable.ic_member_avatar).error(R.drawable.ic_member_avatar)
+                    .into(holder.civ_money);
         }
 
         @Override

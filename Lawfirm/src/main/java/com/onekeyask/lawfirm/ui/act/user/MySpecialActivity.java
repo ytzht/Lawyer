@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -48,6 +49,42 @@ public class MySpecialActivity extends BaseToolBarActivity {
         dialog.setCancelable(false);
 
         initData();
+
+        TextView textView = (TextView) findViewById(R.id.config_special);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StringBuilder specialIds = new StringBuilder();
+                for (int i = 0; i < beanList.size(); i++) {
+                    if (beanList.get(i).isIsSelected()) {
+                        if (specialIds.toString().equals("")) {
+                            specialIds.append(beanList.get(i).getSpecialId());
+                        } else {
+                            specialIds.append(",").append(beanList.get(i).getSpecialId());
+                        }
+                    }
+                }
+
+                if (specialIds.toString().isEmpty()) {
+                    Toast.makeText(getBaseContext(), "至少选择一项", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (!dialog.isShowing()) dialog.show();
+                    OkGo.<String>get(Apis.BatchSaveSpecialService).params("lawyerId", UserService.service(getBaseContext()).getLawyerId())
+                            .params("specialIds", specialIds.toString()).execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            if (dialog.isShowing()) dialog.dismiss();
+                            ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
+                            if (data.getCode() == 0) {
+                                showShort("保存成功");
+                            }else {
+                                showShort(data.getMsg());
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
 
 
@@ -97,23 +134,41 @@ public class MySpecialActivity extends BaseToolBarActivity {
             holder.tv_tag_text.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!dialog.isShowing()) dialog.show();
-                    OkGo.<String>post(Apis.SaveSpecialService)
-                            .params("lawyerId", UserService.service(getBaseContext()).getLawyerId())
-                            .params("specialId", beanList.get(position).getSpecialId())
-                            .params("isSelected", !beanList.get(position).isIsSelected())
-                            .execute(new StringCallback() {
-                                @Override
-                                public void onSuccess(Response<String> response) {
-                                    initData();
-                                    if (dialog.isShowing()) dialog.dismiss();
+                    int j = 0;
+                    for (int i = 0; i < beanList.size(); i++) {
+                        if (beanList.get(i).isIsSelected()) {
+                            j += 1;
+                        }
+                    }
 
-                                    ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
-                                    if (data.getCode() != 0) {
-                                        showShort(data.getMsg());
-                                    }
-                                }
-                            });
+                    if (!beanList.get(position).isIsSelected()) {
+                        if (j > 4) {
+                            showShort("最多选择五项");
+                        } else {
+                            beanList.get(position).setIsSelected(!beanList.get(position).isIsSelected());
+                            notifyDataSetChanged();
+                        }
+                    }else {
+                        beanList.get(position).setIsSelected(!beanList.get(position).isIsSelected());
+                        notifyDataSetChanged();
+                    }
+//                    if (!dialog.isShowing()) dialog.show();
+//                    OkGo.<String>post(Apis.SaveSpecialService)
+//                            .params("lawyerId", UserService.service(getBaseContext()).getLawyerId())
+//                            .params("specialId", beanList.get(position).getSpecialId())
+//                            .params("isSelected", !beanList.get(position).isIsSelected())
+//                            .execute(new StringCallback() {
+//                                @Override
+//                                public void onSuccess(Response<String> response) {
+//                                    initData();
+//                                    if (dialog.isShowing()) dialog.dismiss();
+//
+//                                    ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
+//                                    if (data.getCode() != 0) {
+//                                        showShort(data.getMsg());
+//                                    }
+//                                }
+//                            });
 
 
 //                    if (beanList.get(position).isIsSelected()) {

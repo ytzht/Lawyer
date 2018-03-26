@@ -48,28 +48,59 @@ public class SkillAreaActivity extends BaseActivity {
         next_step_one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OkGo.<String>get(Apis.GetSpecialInfoList)
-                        .params("lawyerId", service.getLawyerId())
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
-                                GetSpecialInfoList list = (new Gson()).fromJson(response.body(), GetSpecialInfoList.class);
-                                if (list.getCode() == 0){
-                                    for (int i = 0; i < list.getData().getSpecialList().size(); i++) {
-                                        if (list.getData().getSpecialList().get(i).isIsSelected()){
-                                            startActivity(OpenServiceActivity.class);
-                                            finish();
-                                            return;
-                                        }
-                                    }
-                                    Toast.makeText(SkillAreaActivity.this, "只有选择了擅长项才可点击下一步", Toast.LENGTH_SHORT).show();
-                                    return;
-                                    
-                                }
+//                OkGo.<String>get(Apis.GetSpecialInfoList)
+//                        .params("lawyerId", service.getLawyerId())
+//                        .execute(new StringCallback() {
+//                            @Override
+//                            public void onSuccess(Response<String> response) {
+//                                GetSpecialInfoList list = (new Gson()).fromJson(response.body(), GetSpecialInfoList.class);
+//                                if (list.getCode() == 0){
+//                                    for (int i = 0; i < list.getData().getSpecialList().size(); i++) {
+//                                        if (list.getData().getSpecialList().get(i).isIsSelected()){
+//                                            startActivity(OpenServiceActivity.class);
+//                                            finish();
+//                                            return;
+//                                        }
+//                                    }
+//                                    Toast.makeText(SkillAreaActivity.this, "只有选择了擅长项才可点击下一步", Toast.LENGTH_SHORT).show();
+//                                    return;
+//
+//                                }
+//
+//
+//                            }
+//                        });
 
+                StringBuilder specialIds = new StringBuilder();
+                for (int i = 0; i < beanList.size(); i++) {
+                    if (beanList.get(i).isIsSelected()) {
+                        if (specialIds.toString().equals("")) {
+                            specialIds.append(beanList.get(i).getSpecialId());
+                        } else {
+                            specialIds.append(",").append(beanList.get(i).getSpecialId());
+                        }
+                    }
+                }
 
+                if (specialIds.toString().isEmpty()) {
+                    Toast.makeText(SkillAreaActivity.this, "只有选择了擅长项才可点击下一步", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (!dialog.isShowing()) dialog.show();
+                    OkGo.<String>get(Apis.BatchSaveSpecialService).params("lawyerId", service.getLawyerId())
+                            .params("specialIds", specialIds.toString()).execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            if (dialog.isShowing()) dialog.dismiss();
+                            ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
+                            if (data.getCode() == 0) {
+                                startActivity(OpenServiceActivity.class);
+                                finish();
+                            } else {
+                                showShort(data.getMsg());
                             }
-                        });
+                        }
+                    });
+                }
             }
         });
         initData();
@@ -85,7 +116,7 @@ public class SkillAreaActivity extends BaseActivity {
                     @Override
                     public void onSuccess(Response<String> response) {
                         GetSpecialInfoList list = (new Gson()).fromJson(response.body(), GetSpecialInfoList.class);
-                        if (list.getCode() == 0){
+                        if (list.getCode() == 0) {
                             beanList = list.getData().getSpecialList();
                             tagAdapter = new ConTagAdapter();
                             rlvcan.setAdapter(tagAdapter);
@@ -99,6 +130,7 @@ public class SkillAreaActivity extends BaseActivity {
     private ProgressDialog dialog;
 
     private List<GetSpecialInfoList.DataBean.SpecialListBean> beanList = new ArrayList<>();
+
     private class ConTagAdapter extends RecyclerView.Adapter<ConTagAdapter.ViewHolder> {
 
         @Override
@@ -122,25 +154,41 @@ public class SkillAreaActivity extends BaseActivity {
             holder.tv_tag_text.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!dialog.isShowing()) dialog.show();
-                    OkGo.<String>post(Apis.SaveSpecialService)
-                            .params("lawyerId", lawyerId)
-                            .params("specialId", beanList.get(position).getSpecialId())
-                            .params("isSelected", !beanList.get(position).isIsSelected())
-                            .execute(new StringCallback() {
-                                @Override
-                                public void onSuccess(Response<String> response) {
-                                    initData();
-                                    if (dialog.isShowing()) dialog.dismiss();
+//                    if (!dialog.isShowing()) dialog.show();
+//                    OkGo.<String>post(Apis.SaveSpecialService)
+//                            .params("lawyerId", lawyerId)
+//                            .params("specialId", beanList.get(position).getSpecialId())
+//                            .params("isSelected", !beanList.get(position).isIsSelected())
+//                            .execute(new StringCallback() {
+//                                @Override
+//                                public void onSuccess(Response<String> response) {
+//                                    initData();
+//                                    if (dialog.isShowing()) dialog.dismiss();
+//
+//                                    ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
+//                                    if(data.getCode() != 0){
+//                                        showShort(data.getMsg());
+//                                    }
+//                                }
+//                            });
 
-                                    ResultData data = (new Gson()).fromJson(response.body(), ResultData.class);
-                                    if(data.getCode() != 0){
-                                        showShort(data.getMsg());
-                                    }
-                                }
-                            });
-
-
+                    int j = 0;
+                    for (int i = 0; i < beanList.size(); i++) {
+                        if (beanList.get(i).isIsSelected()) {
+                            j += 1;
+                        }
+                    }
+                    if (!beanList.get(position).isIsSelected()) {
+                        if (j > 4) {
+                            showShort("最多选择五项");
+                        } else {
+                            beanList.get(position).setIsSelected(!beanList.get(position).isIsSelected());
+                            tagAdapter.notifyDataSetChanged();
+                        }
+                    }else {
+                        beanList.get(position).setIsSelected(!beanList.get(position).isIsSelected());
+                        tagAdapter.notifyDataSetChanged();
+                    }
 //                    if (beanList.get(position).isIsSelected()) {
 //                        beanList.get(position).setIsSelected(false);
 //                        tagAdapter.notifyDataSetChanged();

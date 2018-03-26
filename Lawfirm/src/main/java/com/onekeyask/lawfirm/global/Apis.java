@@ -5,9 +5,9 @@ package com.onekeyask.lawfirm.global;
  */
 
 public interface Apis {
-        String Base = "https://api.zhimalawyer.com/mylawyer/";
+//        String Base = "https://api.zhimalawyer.com/mylawyer/";
 //    String Base = "http://139.198.13.26/mylawyer/";
-//    String Base = "http://139.198.11.78:8080/mylawyer/";
+    String Base = "http://139.198.11.78:8080/mylawyer/";
 
 
     String SMSCode = Apis.Base + "l/SMSCode";//1.1获取手机验证码(注册)
@@ -39,7 +39,8 @@ public interface Apis {
     String ChangePwd = Apis.Base + "l/changePwd";//1.36修改密码
     String SaveIntroduce = Apis.Base + "l/saveIntroduce";//1.37 保存律师介绍
     String GetSpecialInfoList = Apis.Base + "l/service/getSpecialInfoList";//1.38专长类型获取
-    String SaveSpecialService = Apis.Base + "l/service/saveSpecialService";//1.39专长类别设置
+//    String SaveSpecialService = Apis.Base + "l/service/saveSpecialService";//1.39专长类别设置
+    String BatchSaveSpecialService = Apis.Base + "l/service/batchSaveSpecialService";//1.39.1专长类别批量设置
     String Checkupdate = Apis.Base + "pub/c/checkupdate";//1.41系统检查更新
     String GetRed = Apis.Base + "l/getRed";//1.42 小红点
     String getPersonalInfo = Apis.Base + "l/getPersonalInfo";//1.43 获取律师个人信息

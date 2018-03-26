@@ -137,7 +137,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:paddingBottom="3dp"
-                    android:text="发现"
+                    android:text="问答"
                     android:textSize="12sp" />
             </RelativeLayout>
 

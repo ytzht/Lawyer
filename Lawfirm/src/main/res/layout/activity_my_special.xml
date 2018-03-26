@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.onekeyask.lawfirm.ui.act.user.MySpecialActivity">
+    tools:context="com.onekeyask.lawfirm.ui.act.user.MySpecialActivity"
+    android:orientation="vertical">
 
 
 
@@ -16,5 +17,21 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/config_special"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/full_green_four"
+        android:gravity="center"
+        android:layout_margin="20dp"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
 </LinearLayout>
