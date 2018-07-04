@@ -30,6 +30,7 @@ import com.onekeyask.lawfirm.ui.act.index.PersonConsultActivity;
 import com.onekeyask.lawfirm.ui.act.index.PhoneConsultActivity;
 import com.onekeyask.lawfirm.ui.act.me.MyWalletActivity;
 import com.onekeyask.lawfirm.ui.act.search.SearchContentActivity;
+import com.onekeyask.lawfirm.ui.act.search.SearchLawActivity;
 import com.onekeyask.lawfirm.ui.act.user.IncomeDetailActivity;
 import com.onekeyask.lawfirm.ui.act.user.LoginActivity;
 import com.onekeyask.lawfirm.ui.act.user.TopMsgActivity;
@@ -259,6 +260,7 @@ public class HomeIndexFragment extends BaseFragment {
                         public void OnBannerClick(int position) {
                             L.d(position + "");
 //                            showShort(homePage.getAdList().get(position).getContent());
+                            startActivity(SearchLawActivity.class, "content", "");
                         }
                     });
 

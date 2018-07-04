@@ -106,6 +106,7 @@ public class UploadImgActivity extends BaseActivity {
                             HeaderPic pic = (new Gson()).fromJson(response.body(), HeaderPic.class);
                             if (pic.getCode() == 0) {
                                 service.setHeadURL(pic.getData().getHeadUrl());
+                                UserService.service(getBaseContext()).setFirstHome(1);
                                 startActivity(MainActivity.class);
                                 finish();
                             } else {

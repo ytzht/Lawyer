@@ -160,11 +160,12 @@
             android:launchMode="singleTask"
             android:theme="@style/PopupTheme" />
         <activity android:name=".ui.act.user.MySpecialActivity" />
-        <activity
+        <activit
             android:name=".ui.act.user.MyInfoSubmitActivity"
             android:theme="@style/PopupTheme" />
         <activity android:name=".ui.act.service.CallDetailActivity" />
-        <activity android:name=".ui.act.search.SearchContentActivity" />
+        <activity android:name=".ui.act.search.SearchContentActivity"
+            android:launchMode="singleTask"  />
         <activity android:name=".ui.act.search.SearchLawActivity" />
         <activity android:name=".ui.act.search.LawDetailActivity" />
         <activity android:name=".ui.act.user.SkillAreaActivity" />

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,7 +21,8 @@ import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
 import com.onekeyask.lawfirm.entity.SearchLaw;
 import com.onekeyask.lawfirm.global.Apis;
-import com.onekeyask.lawfirm.global.BaseToolBarActivity;
+import com.onekeyask.lawfirm.global.BaseActivity;
+import com.onekeyask.lawfirm.ui.act.MainActivity;
 import com.onekeyask.lawfirm.utils.UserService;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -34,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SearchLawActivity extends BaseToolBarActivity {
+public class SearchLawActivity extends BaseActivity {
 
 
     private DropDownMenu mDropDownMenu;
@@ -66,7 +68,7 @@ public class SearchLawActivity extends BaseToolBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_law);
-        setToolbarText(getIntent().getStringExtra("content"));
+//        setToolbarText(getIntent().getStringExtra("content"));
 
         initView();
         hud = KProgressHUD.create(SearchLawActivity.this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -120,8 +122,26 @@ public class SearchLawActivity extends BaseToolBarActivity {
 
     }
 
+    private ImageView back_iv, search_main;
+    private TextView search_et;
     private void initView() {
 
+        back_iv = (ImageView) findViewById(R.id.back_iv);
+        search_et = (TextView) findViewById(R.id.search_et);
+        search_main = (ImageView) findViewById(R.id.search_main);
+        search_et.setText(getIntent().getStringExtra("content"));
+        back_iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(MainActivity.class);
+            }
+        });
+        search_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(SearchContentActivity.class);
+            }
+        });
         mDropDownMenu = (DropDownMenu) findViewById(R.id.dropDownMenu);
 
         final ListView departmentView = new ListView(this);

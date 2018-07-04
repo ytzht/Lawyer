@@ -136,6 +136,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:background="@color/white"
+        android:visibility="gone"
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
@@ -163,7 +164,7 @@
         android:id="@+id/opinion"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         android:gravity="center_vertical"
         android:paddingLeft="16dp"

@@ -10,8 +10,8 @@ android {
         applicationId "com.onekeyask.lawfirm"
         minSdkVersion 16
         targetSdkVersion 21
-        versionCode 5
-        versionName "1.2.3"
+        versionCode 6
+        versionName "1.2.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -57,10 +57,10 @@ android {
         }
     }
 
-    dexOptions {
-        incremental true
-        javaMaxHeapSize "4g"
-    }
+//    dexOptions {
+//        incremental true
+//        javaMaxHeapSize "4g"
+//    }
 }
 
 dependencies {

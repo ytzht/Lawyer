@@ -1,5 +1,6 @@
 package com.onekeyask.lawfirm.ui.act.user;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -116,6 +117,7 @@ public class MyIntroduceActivity extends BaseToolBarActivity {
 
 
     //跳出选项框
+    @SuppressLint("WrongConstant")
     public PopupWindow getPopwindow(View view) {
         PopupWindow popupWindow = new PopupWindow(view,
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);

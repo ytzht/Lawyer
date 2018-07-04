@@ -37,11 +37,11 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/tag_select"
+                android:background="@drawable/gray_un_four"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="2.00元"
-                android:textColor="@color/white" />
+                android:text="5.00元"
+                android:textColor="@color/blackModule" />
 
             <TextView
                 android:id="@+id/tv_sel_4"
@@ -50,11 +50,11 @@
                 android:layout_marginLeft="4dp"
                 android:layout_marginRight="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/gray_un_four"
+                android:background="@drawable/tag_select"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="4.00元"
-                android:textColor="@color/blackModule" />
+                android:text="10.00元"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/tv_sel_6"
@@ -66,7 +66,7 @@
                 android:background="@drawable/gray_un_four"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="6.00元"
+                android:text="15.00元"
                 android:textColor="@color/blackModule" />
 
             <TextView
@@ -79,7 +79,7 @@
                 android:background="@drawable/gray_un_four"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="更多>>"
+                android:text="20.00元"
                 android:textColor="@color/blackModule" />
 
         </LinearLayout>

@@ -10,6 +10,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -25,6 +26,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.onekeyask.lawfirm.R;
+import com.onekeyask.lawfirm.entity.CheckUpDate;
 import com.onekeyask.lawfirm.entity.GetRed;
 import com.onekeyask.lawfirm.global.Apis;
 import com.onekeyask.lawfirm.global.BaseActivity;
@@ -36,6 +38,8 @@ import com.onekeyask.lawfirm.ui.fragment.HomeIndexFragment;
 import com.onekeyask.lawfirm.ui.fragment.HomeInfoFragment;
 import com.onekeyask.lawfirm.ui.fragment.HomeServiceFragment;
 import com.onekeyask.lawfirm.utils.UserService;
+
+import java.io.File;
 
 
 public class MainActivity extends BaseActivity {
@@ -55,7 +59,7 @@ public class MainActivity extends BaseActivity {
         initBottom();
         getRed();
         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-//        UpdateInfo();
+        UpdateInfo();
     }
 
     private void UpdateInfo() {
@@ -63,25 +67,35 @@ public class MainActivity extends BaseActivity {
         isWifi = NetworkInfo.State.CONNECTED == ((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
         try {
             // getPackageName()是你当前类的包名，0代表是获取版本信息
-            PackageInfo packInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            final PackageInfo packInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
 
             OkGo.<String>get(Apis.Checkupdate).params("app_id", packInfo.versionName)
                     .params("plat", "Android").execute(new StringCallback() {
                 @Override
                 public void onSuccess(com.lzy.okgo.model.Response<String> response) {
-//                    if (isWifi) {
-//                        //wifi下自动下载最新版本，检测目录下是否已经下载好
-//                        String SDPATH = Environment.getExternalStorageDirectory().getPath() + "/lawyer/lawyer" + vName + ".apk";
-//                        if (new File(SDPATH).exists()) {
-//                            //安装SDPATH的文件
-//                            InatallDialog(SDPATH);
-//                        } else {
-//                            showShort("正在后台下载，请稍后...");
-//                            DownLoadAPK.downloadAPK(downloadManager, downloadUrl, "芝麻律师" + vName, "");
-//                        }
-//                    } else {
-//                        myDialog(downloadManager, downloadUrl, vName);
-//                    }
+                    CheckUpDate date = (new Gson()).fromJson(response.body(), CheckUpDate.class);
+                    if (date.getCode() == 0) {
+                        if (date.getData() == null){
+                            return;
+                        }
+                        String vName = date.getData().getVersion();
+                        if (!vName.equals(packInfo.versionName)) {
+                            String downloadUrl = date.getData().getUpdateUrl();
+                            if (isWifi) {
+                                //wifi下自动下载最新版本，检测目录下是否已经下载好
+                                String SDPATH = Environment.getExternalStorageDirectory().getPath() + "/lawyer/芝麻律所" + vName + ".apk";
+                                if (new File(SDPATH).exists()) {
+                                    //安装SDPATH的文件
+                                    InatallDialog(SDPATH);
+                                } else {
+                                    showShort("正在后台下载，请稍后...");
+                                    DownLoadAPK.downloadAPK(downloadManager, downloadUrl, "芝麻律所" + vName, "");
+                                }
+                            } else {
+                                myDialog(downloadManager, downloadUrl, vName);
+                            }
+                        }
+                    }
                 }
             });
         } catch (PackageManager.NameNotFoundException e) {
@@ -148,13 +162,13 @@ public class MainActivity extends BaseActivity {
 
 
     public void InatallDialog(final String SDPATH) {
-        new AlertDialog.Builder(this).setTitle("新版本提醒")//对话框标题
+        new AlertDialog.Builder(this).setTitle("版本更新")//对话框标题
                 .setMessage("已下载完成最新版本，是否现在安装？")//对话框提示正文
-                .setIcon(R.mipmap.ic_launcher)//对话框标题上的图片
+//                .setIcon(R.mipmap.ic_launcher)//对话框标题上的图片
                 .setNegativeButton("暂不升级", new DialogInterface.OnClickListener() {
                     @Override//取消按钮
                     public void onClick(DialogInterface dialog, int which) {
-                        showShort("请尽快更新");
+//                        showShort("请尽快更新");
                     }
                 }).setPositiveButton("立即安装", new DialogInterface.OnClickListener() {
             @Override//确定按钮
@@ -170,13 +184,13 @@ public class MainActivity extends BaseActivity {
     }
 
     public void myDialog(final DownloadManager downloadManager, final String url, final String vName) {
-        new AlertDialog.Builder(this).setTitle("益善通新版本提醒")//对话框标题
-                .setMessage("本期做了一些优化体验，BUG修复，快来试试吧？")//对话框提示正文
-                .setIcon(R.mipmap.ic_launcher)//对话框标题上的图片
+        new AlertDialog.Builder(this).setTitle("版本更新")//对话框标题
+                .setMessage("检测到当前应用有新版本发布")//对话框提示正文
+//                .setIcon(R.mipmap.ic_launcher)//对话框标题上的图片
                 .setNegativeButton("暂不升级", new DialogInterface.OnClickListener() {
                     @Override//取消按钮
                     public void onClick(DialogInterface dialog, int which) {
-                        showShort("请尽快更新");
+//                        showShort("请尽快更新");
                     }
                 }).setPositiveButton("立即升级", new DialogInterface.OnClickListener() {
             @Override//确定按钮

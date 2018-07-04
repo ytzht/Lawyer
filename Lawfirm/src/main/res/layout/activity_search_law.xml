@@ -1,11 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="@dimen/actionBarSize"
+        android:background="@color/burro_primary_ext">
+
+        <ImageView
+            android:id="@+id/back_iv"
+            android:src="@drawable/arrow_l_w"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_width="@dimen/burro_size_30dp"
+            android:layout_height="@dimen/burro_size_30dp" />
+
+
+        <ImageView
+            android:id="@+id/search_main"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="65dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/index_search_bg" />
+
+        <ImageView
+            android:id="@+id/search_iv"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="85dp"
+            android:src="@drawable/search" />
+
+        <TextView
+            android:id="@+id/search_et"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="22dp"
+            android:layout_toRightOf="@id/search_iv"
+            android:background="@null"
+            android:cursorVisible="false"
+            android:gravity="center_vertical"
+            android:hint="搜索法律法规"
+            android:singleLine="true"
+            android:textSize="14dp" />
+    </RelativeLayout>
+
+
 
     <com.yyydjk.library.DropDownMenu
         android:id="@+id/dropDownMenu"
@@ -23,4 +74,4 @@
         app:ddunderlineColor="@color/gray" />
 
 
-</RelativeLayout>
+</LinearLayout>

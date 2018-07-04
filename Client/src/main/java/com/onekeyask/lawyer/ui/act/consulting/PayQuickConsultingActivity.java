@@ -78,7 +78,7 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
     @BindView(R.id.tv_sel_8)
     TextView tvSel8;
 
-    private double selectMoney = 200;
+    private double selectMoney = 1000;
     private int payType = 1;
     private MDEditDialog dialog;
     private ArrayList<String> photos;
@@ -204,7 +204,7 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
 
                 break;
             case R.id.tv_sel_8:
-
+                sel8();
                 dialog = new MDEditDialog.Builder(this)
                         .setTitleVisible(false)
                         .setHintText("请输入答谢金额")
@@ -245,7 +245,7 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
                         .setMinHeight(0.1f)
                         .setWidth(0.8f)
                         .build();
-                dialog.show();
+//                dialog.show();
 
 
                 break;
@@ -441,7 +441,8 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
 
 
     private void sel8() {
-        tvSel8.setText(String.valueOf(selectMoney / 100 + "元"));
+        selectMoney = 2000;
+//        tvSel8.setText(String.valueOf(selectMoney / 100 + "元"));
         tvSel8.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.tag_select));
         tvSel4.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
         tvSel6.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
@@ -453,8 +454,8 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
     }
 
     private void sel6() {
-        selectMoney = 600;
-        tvSel8.setText("更多>>");
+        selectMoney = 1500;
+//        tvSel8.setText("更多>>");
         tvSel6.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.tag_select));
         tvSel4.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
         tvSel2.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
@@ -466,8 +467,8 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
     }
 
     private void sel4() {
-        selectMoney = 400;
-        tvSel8.setText("更多>>");
+        selectMoney = 1000;
+//        tvSel8.setText("更多>>");
         tvSel4.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.tag_select));
         tvSel2.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
         tvSel6.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
@@ -479,8 +480,8 @@ public class PayQuickConsultingActivity extends BaseToolBarActivity {
     }
 
     private void sel2() {
-        selectMoney = 200;
-        tvSel8.setText("更多>>");
+        selectMoney = 500;
+//        tvSel8.setText("更多>>");
         tvSel2.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.tag_select));
         tvSel4.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
         tvSel6.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.gray_un_four));
